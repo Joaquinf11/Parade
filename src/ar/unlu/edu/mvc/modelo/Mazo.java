@@ -1,6 +1,7 @@
 package ar.unlu.edu.mvc.modelo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Mazo extends Mesa{
@@ -16,4 +17,7 @@ public class Mazo extends Mesa{
         }
     }
 
+    public void mezclar(){
+        Collections.shuffle(this.cartas);
+    }
 }

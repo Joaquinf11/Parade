@@ -14,11 +14,11 @@ public class Jugador {
         this.area= new AreaDeJuego();
     }
 
-    public void agregarCartaEnMano(Carta carta){
+    public void agarrarCarta(Carta carta){
         this.cartasEnMano.add(carta);
     }
 
-    public void quitarCartaEnMano(Carta carta){
+    public void tirarCarta(Carta carta){
         this.cartasEnMano.remove(carta);
     }
 }

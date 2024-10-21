@@ -12,10 +12,6 @@ public class AreaDeJuego  extends  Mesa{
     }
 
 
-    @Override
-    public void agregarCarta(Carta carta){
-        super.agregarCarta(carta);
-        this.cantidadDeCartas++;
-    }
+
 
 }
