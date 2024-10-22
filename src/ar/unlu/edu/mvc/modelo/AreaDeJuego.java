@@ -1,9 +1,6 @@
 package ar.unlu.edu.mvc.modelo;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AreaDeJuego {
 
@@ -18,6 +15,14 @@ public class AreaDeJuego {
         Color color = carta.getColor();
         cartas.putIfAbsent(color, new ArrayList<>());  // Crea la lista si no existe
         cartas.get(color).add(carta);
+    }
+
+    public int getCantidadDeCartasPorColor(Color color){
+        return this.cartas.get(color).size();
+    }
+
+    public Collection<List<Carta>> getTodasLasCartas(){
+        return this.cartas.values();
     }
 
     public boolean tiene6colores(){

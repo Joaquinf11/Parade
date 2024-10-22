@@ -1,6 +1,7 @@
 package ar.unlu.edu.mvc.modelo;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -59,5 +60,29 @@ public class Juego {
             }
         }
     }
+
+    public void evaluarAreaDeJuego(){
+    // no contempla el caso de que dos jugadores tengan la misma cantidad de cartas y los dos tengan que eliminar sus cartas del area de juego
+        Jugador jugador_anterior= this.jugadores.getFirst();
+        for (Color color : Color.values()){
+            for (Jugador jugador : this.jugadores){
+                if (jugador.getArea().getCantidadDeCartasPorColor(color) > jugador_anterior.getArea().getCantidadDeCartasPorColor(color)){
+                    jugador_anterior= jugador;
+                }
+            }
+            int puntos = jugador_anterior.getArea().getCantidadDeCartasPorColor(color);
+            jugador_anterior.sumarPuntos(puntos);
+            jugador_anterior.getArea().eliminarCartas(color);
+
+        }
+    }
+
+    public void calcularPuntos(){
+        for (Jugador jugador : this.jugadores){
+            Collection<Carta> cartasAreaDeJuego= jugador.getArea().getCartas();
+        }
+    }
+
+
 }
 
