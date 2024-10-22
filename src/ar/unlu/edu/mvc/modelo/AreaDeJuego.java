@@ -7,19 +7,24 @@ import java.util.Map;
 
 public class AreaDeJuego {
 
-    private Map<Color,List<Carta>> cartasPorColor ;
+    private Map<Color,List<Carta>> cartas ;
 
 
     public AreaDeJuego(){
-        this.cartasPorColor= new HashMap<>();
+        this.cartas= new HashMap<>();
     }
 
     public void agregarCarta(Carta carta){
         Color color = carta.getColor();
-        cartasPorColor.putIfAbsent(color, new ArrayList<>());  // Crea la lista si no existe
-        cartasPorColor.get(color).add(carta);
+        cartas.putIfAbsent(color, new ArrayList<>());  // Crea la lista si no existe
+        cartas.get(color).add(carta);
     }
 
+    public boolean tiene6colores(){
+        return this.cartas.size() == 6;
+    }
 
-
+    public void eliminarCartas(Color color){
+        this.cartas.remove(color);
+    }
 }

@@ -7,11 +7,13 @@ public class Jugador {
     private String nombre;
     private List<Carta> cartasEnMano;
     private AreaDeJuego area;
+    private int puntos;
 
     public Jugador(String nombre){
         this.nombre=nombre;
         this.cartasEnMano= new ArrayList<>();
         this.area= new AreaDeJuego();
+        this.puntos=0;
     }
 
     public void agarrarCarta(Carta carta){
