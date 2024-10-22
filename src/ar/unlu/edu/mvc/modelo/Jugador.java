@@ -18,7 +18,17 @@ public class Jugador {
         this.cartasEnMano.add(carta);
     }
 
-    public void tirarCarta(Carta carta){
+    public void quitarCarta(Carta carta){
         this.cartasEnMano.remove(carta);
+    }
+
+    public Carta elegirCarta(int indice){
+        Carta carta= this.cartasEnMano.get(indice);
+        quitarCarta(carta);
+        return carta;
+    }
+
+    public void agregarCartaAlAreaDeJuego(Carta carta){
+        this.area.agregarCarta(carta);
     }
 }

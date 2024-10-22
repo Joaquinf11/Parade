@@ -2,9 +2,9 @@ package ar.unlu.edu.mvc.modelo;
 
 public class Carta {
     private int valor;
-    private Colores color;
+    private Color color;
 
-    public Carta(int valor, Colores color) {
+    public Carta(int valor, Color color) {
         this.valor = valor;
         this.color = color;
     }
@@ -13,7 +13,7 @@ public class Carta {
         return this.valor;
     }
 
-    public Colores getColor() {
+    public Color getColor() {
         return this.color;
     }
 }
