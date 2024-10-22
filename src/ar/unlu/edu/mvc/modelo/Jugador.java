@@ -20,6 +20,10 @@ public class Jugador {
         return this.area;
     }
 
+    public int getPuntos(){
+        return this.puntos;
+    }
+
     public void agarrarCarta(Carta carta){
         this.cartasEnMano.add(carta);
     }
@@ -38,7 +42,7 @@ public class Jugador {
         this.area.agregarCarta(carta);
     }
 
-    public void sumarPuntos(int sumar){
-        this.puntos -= sumar;
+    public void sumarPuntos(){
+        this.puntos -= this.area.sumarValorDeCartas();
     }
 }

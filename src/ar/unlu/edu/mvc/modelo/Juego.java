@@ -1,7 +1,6 @@
 package ar.unlu.edu.mvc.modelo;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -70,18 +69,31 @@ public class Juego {
                     jugador_anterior= jugador;
                 }
             }
-            int puntos = jugador_anterior.getArea().getCantidadDeCartasPorColor(color);
-            jugador_anterior.sumarPuntos(puntos);
-            jugador_anterior.getArea().eliminarCartas(color);
+
+            jugador_anterior.getArea().ponerCartasBocaAbajo(color);
 
         }
     }
 
     public void calcularPuntos(){
         for (Jugador jugador : this.jugadores){
-            Collection<Carta> cartasAreaDeJuego= jugador.getArea().getCartas();
+            jugador.sumarPuntos();
         }
     }
+
+    public Jugador definirGanador(){
+        Jugador jugador_anterior= this.jugadores.getFirst();
+        for (Jugador jugador : this.jugadores){
+            if (jugador.getPuntos() < jugador_anterior.getPuntos()){
+                jugador_anterior = jugador;
+            }
+        }
+        return jugador_anterior;
+        // falta considerar el caso en que empaten en puntos, si pasa eso gana el que tiene menos cartas en el area de juego (BOCA ARRIBA Y BOCA ABAJO)
+
+    }
+
+    
 
 
 }
