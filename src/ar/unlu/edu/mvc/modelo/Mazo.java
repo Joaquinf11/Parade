@@ -31,4 +31,8 @@ public class Mazo {
     public Stack<Carta> getCartas() {
         return this.cartas;
     }
+
+    public boolean tieneCartas(){
+        return !this.cartas.isEmpty();
+    }
 }

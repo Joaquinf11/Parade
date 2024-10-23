@@ -3,9 +3,7 @@ package ar.unlu.edu.mvc.modelo;
 import ar.unlu.edu.mvc.observer.Observado;
 import ar.unlu.edu.mvc.observer.Observador;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Juego implements Observado {
     private List<Jugador> jugadores;
@@ -51,15 +49,44 @@ public class Juego implements Observado {
         }
     }
 
+    public void manejarTurnos(){
+        Queue<Jugador> jugadores= new LinkedList<>();
+        jugadores.addAll(this.jugadores);
+
+
+        while (!esFinDelJuego()){
+            Jugador jugador=jugadores.remove();
+            this.jugarTurno(jugador);
+            jugadores.add(jugador);
+        }
+        //jugar 1 ronda mas, seguro lo podes mejorar, tenes que chequear que se haga bien
+        int contador=jugadores.size();
+        while (esFinDelJuego() && contador != 0){
+            Jugador jugador=jugadores.remove();
+            this.jugarTurno(jugador);
+            jugadores.add(jugador);
+            contador--;
+        }
+
+        if (esFinDelJuego()){
+            calcularPuntos();
+        }
+
+    }
+
+
+
     public void jugarTurno(Jugador jugador){
         Carta carta= jugador.elegirCarta(1); // aca tendria que poner el indice que elige el jugador ver como hacer
+
+        boolean agrego= false; //falta ver en caso de que el jugador pueda agregar cartas a su area de juego, que pasa con la carta que tiro va al carnaval o al area?
+
 
         if (!this.carnaval.analizarCarnaval(carta)){
             this.carnaval.agregarCarta(carta);
             jugador.agarrarCarta(this.mazo.sacarCarta());
         }
         else {
-            boolean agrego= false;
             List<Carta> salvadas = this.carnaval.salvarCartas(carta.getValor());
             for (Carta cartaCarnaval : this.carnaval.getCartas()){
                 if (Objects.equals(cartaCarnaval.getColor(),carta.getColor())){
@@ -93,6 +120,18 @@ public class Juego implements Observado {
         }
     }
 
+    public boolean esFinDelJuego(){
+        return  hayJugadorCon6colores() || !this.mazo.tieneCartas();
+    }
+
+    public boolean hayJugadorCon6colores(){
+        for(Jugador jugador : jugadores){
+            if (jugador.getArea().tiene6colores()){
+                return true;
+            }
+        }
+        return false;
+    }
     public void calcularPuntos(){
         for (Jugador jugador : this.jugadores){
             jugador.sumarPuntos();
@@ -110,6 +149,7 @@ public class Juego implements Observado {
         // falta considerar el caso en que empaten en puntos, si pasa eso gana el que tiene menos cartas en el area de juego (BOCA ARRIBA Y BOCA ABAJO)
 
     }
+
 
     public List<IJugador> listarJugadores(){
         List<IJugador> jugadores = new ArrayList<>();
