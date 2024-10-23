@@ -1,5 +1,6 @@
 package ar.unlu.edu.mvc.modelo;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -27,7 +28,8 @@ public class Carnaval {
 
     public List<Carta> salvarCartas(int valor) {
         List<Carta> temporal= new ArrayList<>();
-        for (int i = this.cartas.size() - 1; i >=0 && valor != 0 ; i--){
+        int cantidad=this.cartas.size();
+        for (int i = cantidad - 1; i >=0 && valor != 0 ; i--){
             temporal.add(this.cartas.removeLast());
             valor--;
         }
@@ -38,4 +40,17 @@ public class Carnaval {
         return carta.getValor() < this.cartas.size();
     }
 
+
+    //////////////////////////////////
+    //FUNCIONES PARA TEST
+    //////////////////////////////////
+
+    public void mostrarCarnaval(){
+        System.out.println("----------");
+        System.out.println("CARNAVAL");
+        for (Carta carta : this.cartas){
+            System.out.println("[ " + carta.getColor() + ", " + carta.getValor() + " ] ;");
+        }
+        System.out.println("----------");
+    }
 }

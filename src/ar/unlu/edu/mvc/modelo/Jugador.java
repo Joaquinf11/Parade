@@ -56,4 +56,15 @@ public class Jugador implements IJugador{
     public List<Carta> getCartas() {
         return this.cartasEnMano;
     }
+
+    //////////////////////////////////
+    //FUNCIONES PARA TEST
+    //////////////////////////////////
+
+    public void mostrarCartasEnMano(){
+        for (Carta carta : this.cartasEnMano){
+            System.out.print("[ " + carta.getColor() + ", " + carta.getValor() + " ] ;");
+        }
+        System.out.println();
+    }
 }

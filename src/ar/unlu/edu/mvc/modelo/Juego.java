@@ -49,21 +49,21 @@ public class Juego implements Observado {
         }
     }
 
-    public void manejarTurnos(){
+    public void manejarTurnos(int indice){//el indice no va como parametro pero lo puse ahora para testear nomas
         Queue<Jugador> jugadores= new LinkedList<>();
         jugadores.addAll(this.jugadores);
 
 
         while (!esFinDelJuego()){
             Jugador jugador=jugadores.remove();
-            this.jugarTurno(jugador);
+            this.jugarTurno(jugador,indice);
             jugadores.add(jugador);
         }
         //jugar 1 ronda mas, seguro lo podes mejorar, tenes que chequear que se haga bien
         int contador=jugadores.size();
         while (esFinDelJuego() && contador != 0){
             Jugador jugador=jugadores.remove();
-            this.jugarTurno(jugador);
+            this.jugarTurno(jugador,indice);
             jugadores.add(jugador);
             contador--;
         }
@@ -76,8 +76,8 @@ public class Juego implements Observado {
 
 
 
-    public void jugarTurno(Jugador jugador){
-        Carta carta= jugador.elegirCarta(1); // aca tendria que poner el indice que elige el jugador ver como hacer
+    public void jugarTurno(Jugador jugador,int indice){ //el indice no se si va como parametro pero lo puse ahora para testear nomas
+        Carta carta= jugador.elegirCarta(indice); // aca tendria que poner el indice que elige el jugador ver como hacer
 
         boolean agrego= false; //falta ver en caso de que el jugador pueda agregar cartas a su area de juego, que pasa con la carta que tiro va al carnaval o al area?
 
@@ -92,16 +92,22 @@ public class Juego implements Observado {
                 if (Objects.equals(cartaCarnaval.getColor(),carta.getColor())){
                     jugador.agregarCartaAlAreaDeJuego(cartaCarnaval);
                     this.carnaval.sacarCarta(cartaCarnaval);
+                    agrego=true;
                 }
                 else if (carta.getValor() <= cartaCarnaval.getValor()){
                     jugador.agregarCartaAlAreaDeJuego(carta);
                     this.carnaval.sacarCarta(cartaCarnaval);
+                    agrego=true;
                 }
             }
             //vuelvo a agregar las salvadas al carnaval
             for (Carta salvada : salvadas){
                 this.carnaval.agregarCarta(salvada);
             }
+            if (!agrego){
+                this.carnaval.agregarCarta(carta);
+            }
+
         }
     }
 
@@ -171,6 +177,15 @@ public class Juego implements Observado {
         }
     }
 
+    //////////////////////////////////
+    //FUNCIONES PARA TEST
+    //////////////////////////////////
 
+    public void mostrarCartasEnManoPorJugador(){
+        for (Jugador jugador : this.jugadores){
+            System.out.println(jugador.getNombre());
+            jugador.mostrarCartasEnMano();
+        }
+    }
 }
 
