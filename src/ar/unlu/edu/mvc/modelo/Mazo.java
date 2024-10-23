@@ -1,6 +1,7 @@
 package ar.unlu.edu.mvc.modelo;
 
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Stack;
 
@@ -8,7 +9,7 @@ public class Mazo {
     private Stack<Carta> cartas;
 
     public Mazo (){
-        super();
+        this.cartas= new Stack<>();
         for (Color color : Color.values()){
             for (int i = 0; i <= 10 ; i++ ){
                 Carta carta= new Carta(i,color);
@@ -25,5 +26,9 @@ public class Mazo {
         this.cartas.pop();
         return carta;
         // Exception para pila vacia?
+    }
+
+    public Stack<Carta> getCartas() {
+        return this.cartas;
     }
 }

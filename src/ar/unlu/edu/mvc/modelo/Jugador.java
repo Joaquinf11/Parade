@@ -1,9 +1,10 @@
 package ar.unlu.edu.mvc.modelo;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-public class Jugador {
+public class Jugador implements IJugador{
     private String nombre;
     private List<Carta> cartasEnMano;
     private AreaDeJuego area;
@@ -14,6 +15,11 @@ public class Jugador {
         this.cartasEnMano= new ArrayList<>();
         this.area= new AreaDeJuego();
         this.puntos=0;
+    }
+
+    @Override
+    public String getNombre(){
+        return this.nombre;
     }
 
     public AreaDeJuego getArea(){
@@ -44,5 +50,10 @@ public class Jugador {
 
     public void sumarPuntos(){
         this.puntos -= this.area.sumarValorDeCartas();
+    }
+
+
+    public List<Carta> getCartas() {
+        return this.cartasEnMano;
     }
 }

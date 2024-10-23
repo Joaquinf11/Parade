@@ -1,24 +1,42 @@
 package ar.unlu.edu.mvc.modelo;
 
+import ar.unlu.edu.mvc.observer.Observado;
+import ar.unlu.edu.mvc.observer.Observador;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Juego {
+public class Juego implements Observado {
     private List<Jugador> jugadores;
     private Carnaval carnaval;
     private Mazo mazo;
+
+    private List<Observador> observadores;
 
     public Juego (){
         this.jugadores= new ArrayList<>();
         this.carnaval= new Carnaval();
         this.mazo= new Mazo();
+        this.observadores = new ArrayList<>();
     }
 
-    public void agregarJugador (Jugador jugador){
-        this.jugadores.add(jugador);
+    public void agregarJugador (String nombre){
+        this.jugadores.add( new Jugador(nombre));
+        this.notificar(Evento.JUGADOR_AGREGADO);
     }
 
+    public Carnaval getCarnaval() {
+        return this.carnaval;
+    }
+
+    public List<Jugador> getJugadores() {
+        return this.jugadores;
+    }
+
+    public Mazo getMazo() {
+        return this.mazo;
+    }
 
     //testear
     public void repartirCartas(){
@@ -93,7 +111,25 @@ public class Juego {
 
     }
 
-    
+    public List<IJugador> listarJugadores(){
+        List<IJugador> jugadores = new ArrayList<>();
+        jugadores.addAll(this.jugadores);
+        return jugadores;
+    }
+
+    @Override
+    public void agregarObservador(Observador observador) {
+        if(!this.observadores.contains(observador)){
+            this.observadores.add(observador);
+        }
+    }
+
+    @Override
+    public void notificar(Evento evento) {
+        for (Observador observador: this.observadores){
+            observador.notificar(evento);
+        }
+    }
 
 
 }
