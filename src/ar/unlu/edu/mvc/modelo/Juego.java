@@ -3,7 +3,12 @@ package ar.unlu.edu.mvc.modelo;
 import ar.unlu.edu.mvc.observer.Observado;
 import ar.unlu.edu.mvc.observer.Observador;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Iterator;
+import java.util.Objects;
 
 public class Juego implements Observado {
     private List<Jugador> jugadores;
@@ -70,6 +75,7 @@ public class Juego implements Observado {
         }
 
         if (esFinDelJuego()){
+            //faltaria hacer descartar dos cartas de la mano a cada jugador cuando termina el ultimo turno
             calcularPuntos();
         }
 
@@ -110,20 +116,6 @@ public class Juego implements Observado {
         }
     }
 
-    public void evaluarAreaDeJuego(){
-    // no contempla el caso de que dos jugadores tengan la misma cantidad de cartas y los dos tengan que eliminar sus cartas del area de juego
-        Jugador jugador_anterior= this.jugadores.getFirst();
-        for (Color color : Color.values()){
-            for (Jugador jugador : this.jugadores){
-                if (jugador.getArea().getCantidadDeCartasPorColor(color) > jugador_anterior.getArea().getCantidadDeCartasPorColor(color)){
-                    jugador_anterior= jugador;
-                }
-            }
-
-            jugador_anterior.getArea().ponerCartasBocaAbajo(color);
-
-        }
-    }
 
     public boolean esFinDelJuego(){
         return  hayJugadorCon6colores() || !this.mazo.tieneCartas();
@@ -137,22 +129,64 @@ public class Juego implements Observado {
         }
         return false;
     }
+
     public void calcularPuntos(){
+        evaluarAreaDeJuego();
         for (Jugador jugador : this.jugadores){
             jugador.sumarPuntos();
         }
     }
 
+    // a re contra re mil chequear esta funcion
+    public void evaluarAreaDeJuego(){
+        Jugador jugador_anterior= this.jugadores.getFirst();
+        List<Jugador> jugadoresConMasCartas= new ArrayList<>();
+        for (Color color : Color.values()){
+            for (Jugador jugador : this.jugadores){
+                if (jugador.getArea().getCantidadDeCartasPorColor(color) > jugador_anterior.getArea().getCantidadDeCartasPorColor(color)){
+                    jugador_anterior= jugador;
+                    jugadoresConMasCartas.clear();
+                    jugadoresConMasCartas.add(jugador);
+                }
+                else if (jugador.getArea().getCantidadDeCartasPorColor(color) == jugador_anterior.getArea().getCantidadDeCartasPorColor(color)){
+                    jugadoresConMasCartas.add(jugador);
+                }
+            }
+            for (Jugador jugador : jugadoresConMasCartas){
+                jugador.getArea().ponerCartasBocaAbajo(color);
+            }
+
+        }
+    }
+
+
     public Jugador definirGanador(){
+        List<Jugador> jugadoresConMenosPuntos= new ArrayList<>();
         Jugador jugador_anterior= this.jugadores.getFirst();
         for (Jugador jugador : this.jugadores){
             if (jugador.getPuntos() < jugador_anterior.getPuntos()){
                 jugador_anterior = jugador;
+                jugadoresConMenosPuntos.clear();
+                jugadoresConMenosPuntos.add(jugador_anterior);
+            }
+            else if( jugador.getPuntos() == jugador_anterior.getPuntos()){
+                jugadoresConMenosPuntos.add(jugador);
             }
         }
-        return jugador_anterior;
-        // falta considerar el caso en que empaten en puntos, si pasa eso gana el que tiene menos cartas en el area de juego (BOCA ARRIBA Y BOCA ABAJO)
+        if (jugadoresConMenosPuntos.size() == 1){
+            return jugador_anterior;
+        }
+        else{
+            jugador_anterior= jugadoresConMenosPuntos.removeFirst();
+            for (Jugador jugador : jugadoresConMenosPuntos){
+                if (jugador.getCantidadCartasEnArea() < jugador_anterior.getCantidadCartasEnArea()){
+                    jugador_anterior = jugador;
+                }
+            }
+        }
 
+        return jugador_anterior;
+        // falta considerar el caso en que sea un empate TOTAL
     }
 
 
