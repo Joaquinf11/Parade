@@ -49,6 +49,7 @@ public class Juego implements Observado {
         }
     }
 
+    //falta testear esto
     public void manejarTurnos(int indice){//el indice no va como parametro pero lo puse ahora para testear nomas
         Queue<Jugador> jugadores= new LinkedList<>();
         jugadores.addAll(this.jugadores);
@@ -79,35 +80,33 @@ public class Juego implements Observado {
     public void jugarTurno(Jugador jugador,int indice){ //el indice no se si va como parametro pero lo puse ahora para testear nomas
         Carta carta= jugador.elegirCarta(indice); // aca tendria que poner el indice que elige el jugador ver como hacer
 
-        boolean agrego= false; //falta ver en caso de que el jugador pueda agregar cartas a su area de juego, que pasa con la carta que tiro va al carnaval o al area?
-
-
         if (!this.carnaval.analizarCarnaval(carta)){
             this.carnaval.agregarCarta(carta);
-            jugador.agarrarCarta(this.mazo.sacarCarta());
+
         }
         else {
             List<Carta> salvadas = this.carnaval.salvarCartas(carta.getValor());
-            for (Carta cartaCarnaval : this.carnaval.getCartas()){
+            Iterator<Carta> iter= this.carnaval.getCartas().iterator();
+            while(iter.hasNext()){
+                Carta cartaCarnaval = iter.next();
                 if (Objects.equals(cartaCarnaval.getColor(),carta.getColor())){
                     jugador.agregarCartaAlAreaDeJuego(cartaCarnaval);
-                    this.carnaval.sacarCarta(cartaCarnaval);
-                    agrego=true;
+                    iter.remove();
                 }
                 else if (carta.getValor() <= cartaCarnaval.getValor()){
-                    jugador.agregarCartaAlAreaDeJuego(carta);
-                    this.carnaval.sacarCarta(cartaCarnaval);
-                    agrego=true;
+                    jugador.agregarCartaAlAreaDeJuego(cartaCarnaval);
+                    iter.remove();
                 }
             }
             //vuelvo a agregar las salvadas al carnaval
             for (Carta salvada : salvadas){
                 this.carnaval.agregarCarta(salvada);
             }
-            if (!agrego){
-                this.carnaval.agregarCarta(carta);
-            }
-
+            this.carnaval.agregarCarta(carta);
+        }
+        int cantidad=jugador.getCantidadCartasEnMano();
+        for (int i=cantidad ; i <= 5 ; i++ ){
+            jugador.agarrarCarta(this.mazo.sacarCarta());
         }
     }
 

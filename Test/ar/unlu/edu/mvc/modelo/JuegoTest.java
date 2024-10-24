@@ -43,8 +43,15 @@ class JuegoTest {
 
         }
 
+        juego.getCarnaval().agregarCarta(new Carta(0,Color.VERDE));
+        juego.getCarnaval().agregarCarta(new Carta(0,Color.AMARILLO));
+        juego.getCarnaval().agregarCarta(new Carta (5,Color.AZUL));
+        juego.getCarnaval().agregarCarta(new Carta(8,Color.NEGRO));
+        juego.getCarnaval().agregarCarta(new Carta(0,Color.ROJO));
+        juego.getCarnaval().agregarCarta(new Carta(6,Color.VIOLETA));
 
-//        juego.getCarnaval().mostrarCarnaval();
+
+        juego.getCarnaval().mostrarCarnaval();
         juego.mostrarCartasEnManoPorJugador();
 
     }
@@ -67,7 +74,22 @@ class JuegoTest {
 //
     @Test
     public void probandoJugarTurno(){
-
+        for (Jugador jugador : juego.getJugadores()){
+            if (Objects.equals(jugador.getNombre(),"Joaquin")){
+                juego.jugarTurno(jugador,3);
+                juego.getCarnaval().mostrarCarnaval();
+                System.out.println("Joaquin");
+                jugador.mostrarAreaDeJuego();
+                jugador.mostrarCartasEnMano();
+            }
+            if (Objects.equals(jugador.getNombre(),"Elias")){
+                juego.jugarTurno(jugador,0);
+                juego.getCarnaval().mostrarCarnaval();
+                System.out.println("Elias");
+                jugador.mostrarAreaDeJuego();
+                jugador.mostrarCartasEnMano();
+            }
+        }
 
 
     }

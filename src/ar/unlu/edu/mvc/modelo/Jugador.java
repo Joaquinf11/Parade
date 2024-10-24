@@ -22,6 +22,9 @@ public class Jugador implements IJugador{
         return this.nombre;
     }
 
+    public int getCantidadCartasEnMano() {
+        return this.cartasEnMano.size();
+    }
     public AreaDeJuego getArea(){
         return this.area;
     }
@@ -33,6 +36,7 @@ public class Jugador implements IJugador{
     public void agarrarCarta(Carta carta){
         this.cartasEnMano.add(carta);
     }
+
 
     public void quitarCarta(Carta carta){
         this.cartasEnMano.remove(carta);
@@ -62,9 +66,28 @@ public class Jugador implements IJugador{
     //////////////////////////////////
 
     public void mostrarCartasEnMano(){
+        System.out.println(" CARTAS EN MANO DE " + this.getNombre());
         for (Carta carta : this.cartasEnMano){
             System.out.print("[ " + carta.getColor() + ", " + carta.getValor() + " ] ;");
         }
         System.out.println();
     }
+
+    public void mostrarAreaDeJuego() {
+
+        System.out.println("AREA DE JUEGO");
+        Collection<List<Carta>> cartas=this.area.getTodasLasCartas();
+        if(cartas.isEmpty()){
+            System.out.println("VACIA");
+        }
+        else {
+            for (List<Carta> cartasArea : cartas) {
+                for (Carta carta : cartasArea) {
+                    System.out.print("[ " + carta.getColor() + ", " + carta.getValor() + " ] ;");
+                }
+            }
+        }
+
+    }
+
 }
