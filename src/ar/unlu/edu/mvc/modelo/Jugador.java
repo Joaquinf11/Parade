@@ -22,9 +22,14 @@ public class Jugador implements IJugador{
         return this.nombre;
     }
 
+    public int getCantidadCartasEnArea(){
+        return this.area.getCantidadDeCartasTotales();
+    }
+
     public int getCantidadCartasEnMano() {
         return this.cartasEnMano.size();
     }
+
     public AreaDeJuego getArea(){
         return this.area;
     }
@@ -53,6 +58,7 @@ public class Jugador implements IJugador{
     }
 
     public void sumarPuntos(){
+        this.puntos -= this.area.getCantidadCartasBocaAbajo();
         this.puntos -= this.area.sumarValorDeCartas();
     }
 
@@ -87,7 +93,11 @@ public class Jugador implements IJugador{
                 }
             }
         }
+        System.out.println();
 
     }
 
+    public void mostrarPuntos() {
+        System.out.println(this.puntos);
+    }
 }
