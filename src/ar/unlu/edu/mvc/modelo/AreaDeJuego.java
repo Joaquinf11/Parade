@@ -24,10 +24,30 @@ public class AreaDeJuego {
     }
 
     public int getCantidadDeCartasPorColor(Color color){
-        return this.cartas.get(color).size();
+        List<Carta> cartas=this.cartas.get(color);
+
+        if (cartas == null){
+            return 0;
+        }
+        return cartas.size();
+    }
+
+    public int getCantidadDeCartasTotales(){
+        return getCantidadCartasBocaAbajo() + getCantidadCartasBocaArriba();
+    }
+
+    public int getCantidadCartasBocaArriba(){
+        int totalCartas = 0;
+
+        for (Map.Entry<Color, List<Carta>> entry : this.cartas.entrySet()) {
+            List<Carta> cartas = entry.getValue();
+            totalCartas += cartas.size(); // Sumar la cantidad de cartas en cada lista
+        }
+        return totalCartas;
     }
 
     public int getCantidadCartasBocaAbajo(){
+
         return this.cartasBocaAbajo.size();
     }
 
@@ -44,6 +64,7 @@ public class AreaDeJuego {
         this.cartas.remove(color);
     }
 
+    //chequear si funca esto
     public int sumarValorDeCartas(){
         int total = 0;
 
