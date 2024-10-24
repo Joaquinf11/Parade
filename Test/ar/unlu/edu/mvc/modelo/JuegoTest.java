@@ -72,26 +72,46 @@ class JuegoTest {
 ////        juego.mostrarCartasEnManoPorJugador();
 //    }
 //
+//    @Test
+//    public void probandoJugarTurno(){
+//        for (Jugador jugador : juego.getJugadores()){
+//            if (Objects.equals(jugador.getNombre(),"Joaquin")){
+//                juego.jugarTurno(jugador,3);
+//                juego.getCarnaval().mostrarCarnaval();
+//                System.out.println("Joaquin");
+//                jugador.mostrarAreaDeJuego();
+//                jugador.mostrarCartasEnMano();
+//            }
+//            if (Objects.equals(jugador.getNombre(),"Elias")){
+//                juego.jugarTurno(jugador,0);
+//                juego.getCarnaval().mostrarCarnaval();
+//                System.out.println("Elias");
+//                jugador.mostrarAreaDeJuego();
+//                jugador.mostrarCartasEnMano();
+//            }
+//            if (Objects.equals(jugador.getNombre(),"Nicolas")){
+//                juego.jugarTurno(jugador,0);
+//                juego.getCarnaval().mostrarCarnaval();
+//                System.out.println("Nicolas");
+//                jugador.mostrarAreaDeJuego();
+//                jugador.mostrarCartasEnMano();
+//            }
+//
+//        }
+//    }
+
     @Test
-    public void probandoJugarTurno(){
+    public void probandoDefinirGanador(){
+        juego.calcularPuntos();
         for (Jugador jugador : juego.getJugadores()){
-            if (Objects.equals(jugador.getNombre(),"Joaquin")){
-                juego.jugarTurno(jugador,3);
-                juego.getCarnaval().mostrarCarnaval();
-                System.out.println("Joaquin");
-                jugador.mostrarAreaDeJuego();
-                jugador.mostrarCartasEnMano();
-            }
-            if (Objects.equals(jugador.getNombre(),"Elias")){
-                juego.jugarTurno(jugador,0);
-                juego.getCarnaval().mostrarCarnaval();
-                System.out.println("Elias");
-                jugador.mostrarAreaDeJuego();
-                jugador.mostrarCartasEnMano();
-            }
+            System.out.print("PUNTOS DE " + jugador.getNombre() + " ");
+            jugador.mostrarPuntos();
         }
-
-
+        Jugador ganador = juego.definirGanador();
+        System.out.println("GANADOR: " + ganador.getNombre());
     }
+
+
+
 
 }
