@@ -76,6 +76,10 @@ public class Juego implements Observado {
 
         if (esFinDelJuego()){
             //faltaria hacer descartar dos cartas de la mano a cada jugador cuando termina el ultimo turno
+//            for (Jugador jugador : this.jugadores){
+//                jugador.quitarCarta(jugador.elegirCarta(indice));
+//                jugador.quitarCarta(jugador.elegirCarta(indice));
+//            }
             calcularPuntos();
         }
 
@@ -137,13 +141,13 @@ public class Juego implements Observado {
         }
     }
 
-    // a re contra re mil chequear esta funcion
+
     public void evaluarAreaDeJuego(){
         Jugador jugador_anterior= this.jugadores.getFirst();
         List<Jugador> jugadoresConMasCartas= new ArrayList<>();
         for (Color color : Color.values()){
             for (Jugador jugador : this.jugadores){
-                if (jugador.getArea().getCantidadDeCartasPorColor(color) != 0) {
+                if (jugador.getArea().getCantidadDeCartasPorColor(color) != 0 && !jugador_anterior.equals(jugador)) {
                     if (jugador.getArea().getCantidadDeCartasPorColor(color) > jugador_anterior.getArea().getCantidadDeCartasPorColor(color)) {
                         jugador_anterior = jugador;
                         jugadoresConMasCartas.clear();
