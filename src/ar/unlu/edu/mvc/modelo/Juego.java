@@ -143,13 +143,14 @@ public class Juego implements Observado {
         List<Jugador> jugadoresConMasCartas= new ArrayList<>();
         for (Color color : Color.values()){
             for (Jugador jugador : this.jugadores){
-                if (jugador.getArea().getCantidadDeCartasPorColor(color) > jugador_anterior.getArea().getCantidadDeCartasPorColor(color)){
-                    jugador_anterior= jugador;
-                    jugadoresConMasCartas.clear();
-                    jugadoresConMasCartas.add(jugador);
-                }
-                else if (jugador.getArea().getCantidadDeCartasPorColor(color) == jugador_anterior.getArea().getCantidadDeCartasPorColor(color)){
-                    jugadoresConMasCartas.add(jugador);
+                if (jugador.getArea().getCantidadDeCartasPorColor(color) != 0) {
+                    if (jugador.getArea().getCantidadDeCartasPorColor(color) > jugador_anterior.getArea().getCantidadDeCartasPorColor(color)) {
+                        jugador_anterior = jugador;
+                        jugadoresConMasCartas.clear();
+                        jugadoresConMasCartas.add(jugador);
+                    } else if (jugador.getArea().getCantidadDeCartasPorColor(color) == jugador_anterior.getArea().getCantidadDeCartasPorColor(color)) {
+                        jugadoresConMasCartas.add(jugador);
+                    }
                 }
             }
             for (Jugador jugador : jugadoresConMasCartas){
