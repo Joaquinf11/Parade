@@ -60,8 +60,10 @@ public class AreaDeJuego {
     }
 
     public void ponerCartasBocaAbajo(Color color){
-        this.cartasBocaAbajo.addAll(this.cartas.get(color));
-        this.cartas.remove(color);
+        if (this.cartas.containsKey(color)) {
+            this.cartasBocaAbajo.addAll(this.cartas.get(color));
+            this.cartas.remove(color);
+        }
     }
 
     //chequear si funca esto
