@@ -39,7 +39,8 @@ public class Controlador implements Observador {
                     break;
                 case 1:
                     this.vista.ingresarJugadores();
-
+                default:
+                    System.out.println("Ingrese una opcion validad");
             }
             opcion= vista.mostrarMenuInicial();
         }
