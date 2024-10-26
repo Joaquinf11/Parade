@@ -13,9 +13,6 @@ public class AreaDeJuego {
         this.cartasBocaAbajo= new ArrayList<>();
     }
 
-    public Collection<List<Carta>> getCartas(){
-        return this.cartas.values();
-    }
 
     public void agregarCarta(Carta carta){
         Color color = carta.getColor();
@@ -24,12 +21,16 @@ public class AreaDeJuego {
     }
 
     public int getCantidadDeCartasPorColor(Color color){
-        List<Carta> cartas=this.cartas.get(color);
-
-        if (cartas == null){
+        if (this.cartas.containsKey(color)) {
+            List<Carta> cartas = this.cartas.get(color);
+            if (cartas == null) {
+                return 0;
+            }
+            return cartas.size();
+        }
+        else {
             return 0;
         }
-        return cartas.size();
     }
 
     public int getCantidadDeCartasTotales(){
@@ -51,9 +52,6 @@ public class AreaDeJuego {
         return this.cartasBocaAbajo.size();
     }
 
-    public Collection<List<Carta>> getTodasLasCartas(){
-        return this.cartas.values();
-    }
 
     public boolean tiene6colores(){
         return this.cartas.size() == 6;
@@ -66,7 +64,6 @@ public class AreaDeJuego {
         }
     }
 
-    //chequear si funca esto
     public int sumarValorDeCartas(){
         int total = 0;
 
@@ -79,5 +76,47 @@ public class AreaDeJuego {
         }
 
         return total;  // Devuelve la suma de todas las cartas
+    }
+
+
+    //////////////////////////////////
+    //FUNCIONES PARA TEST
+    //////////////////////////////////
+    public Collection<List<Carta>> getCartas(){
+        return this.cartas.values();
+    }
+
+    public Collection<List<Carta>> getTodasLasCartas(){
+        return this.cartas.values();
+    }
+
+    public Carta buscarCarta(Color color, int valor){
+        if (this.cartas.containsKey(color)){
+            List<Carta> cartas= this.cartas.get(color);
+            for (Carta carta : cartas) {
+                if (carta.getColor().equals(color) && carta.getValor() == valor){
+                    return carta;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void sacarCarta(Color color, int valor){
+        Carta carta =buscarCarta(color,valor);
+
+        List<Carta> cartas=this.cartas.get(color);
+        if (cartas.size() == 1){
+            this.cartas.remove(color);
+        }
+        else {
+            Iterator<Carta> iter = cartas.iterator();
+            while (iter.hasNext()) {
+                Carta cartaArea = iter.next();
+                if (cartaArea.equals(carta)) {
+                    iter.remove();
+                }
+            }
+        }
     }
 }
