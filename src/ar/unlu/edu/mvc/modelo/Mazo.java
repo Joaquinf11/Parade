@@ -22,9 +22,10 @@ public class Mazo {
 
 
     public Carta sacarCarta(){
-        Carta carta= this.cartas.peek();
-        this.cartas.pop();
-        return carta;
+        if (!this.cartas.isEmpty()) {
+            return this.cartas.pop();
+        }
+        return null;
         // Exception para pila vacia?
     }
 
