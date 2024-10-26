@@ -61,13 +61,15 @@ public class Juego implements Observado {
 
 
         while (!esFinDelJuego()){
+            // la vista tendria que mostrar el jugador que le toca y el carnaval, area de juego y sus cartas en mano
             Jugador jugador=jugadores.remove();
             this.jugarTurno(jugador,indice);
             jugadores.add(jugador);
         }
         //jugar 1 ronda mas, seguro lo podes mejorar, tenes que chequear que se haga bien
         int contador=jugadores.size();
-        while (esFinDelJuego() && contador != 0){
+        while (esFinDelJuego() && contador != 0){ // aca podrias no usar el contador y poner la condicion de la cola vacia (no tendrias que volver a agregar al jugador)
+            // la vista tendria que mostrar el jugador que le toca y el carnaval, area de juego y sus cartas en mano
             Jugador jugador=jugadores.remove();
             this.jugarTurno(jugador,indice);
             jugadores.add(jugador);
@@ -76,11 +78,13 @@ public class Juego implements Observado {
 
         if (esFinDelJuego()){
             //faltaria hacer descartar dos cartas de la mano a cada jugador cuando termina el ultimo turno
+            // la vista tendira que mostrar el jugador que le toca descartar, su area de juego y llas cartas que tiene en mano
 //            for (Jugador jugador : this.jugadores){
 //                jugador.quitarCarta(jugador.elegirCarta(indice));
 //                jugador.quitarCarta(jugador.elegirCarta(indice));
 //            }
             calcularPuntos();
+            definirGanador();
         }
 
     }
