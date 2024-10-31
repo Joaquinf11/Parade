@@ -44,4 +44,12 @@ class AreaDeJuegoTest {
         assertEquals(-11,puntos);
     }
 
+    @Test
+    public void porbandoEnCartaEqualsColor(){
+        Carta carta1= new Carta(1,Color.ROJO);
+        Carta carta2= new Carta(10,Color.ROJO);
+        boolean resultado= carta1.equalsColor(carta2);
+        assertTrue(resultado);
+    }
+
 }
