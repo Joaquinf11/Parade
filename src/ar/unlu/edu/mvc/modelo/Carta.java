@@ -16,4 +16,9 @@ public class Carta {
     public Color getColor() {
         return this.color;
     }
+
+    public boolean equalsColor(Carta carta){
+        return carta.getColor() == this.color;
+    }
+
 }
