@@ -1,9 +1,9 @@
 package ar.unlu.edu.mvc.modelo;
 
-import java.sql.SQLOutput;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
 
 public class Carnaval {
     private List<Carta> cartas;
