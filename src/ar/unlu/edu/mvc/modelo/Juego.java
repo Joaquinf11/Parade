@@ -103,7 +103,7 @@ public class Juego implements Observado {
             Iterator<Carta> iter= this.carnaval.getCartas().iterator();
             while(iter.hasNext()){
                 Carta cartaCarnaval = iter.next();
-                if (Objects.equals(cartaCarnaval.getColor(),carta.getColor())){
+                if (carta.equalsColor(cartaCarnaval)){
                     jugador.agregarCartaAlAreaDeJuego(cartaCarnaval);
                     iter.remove();
                 }
