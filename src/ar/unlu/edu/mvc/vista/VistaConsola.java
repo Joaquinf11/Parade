@@ -1,8 +1,10 @@
 package ar.unlu.edu.mvc.vista;
 
 import ar.unlu.edu.mvc.controlador.Controlador;
+import ar.unlu.edu.mvc.modelo.Carta;
 import ar.unlu.edu.mvc.modelo.IJugador;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
 
@@ -45,7 +47,34 @@ public class VistaConsola {
             System.out.print(jugador.getNombre() + ", ");
         }
         System.out.println();
-
-
     }
+
+    public void mostrarCartasEnMano(List<Carta> cartas){
+        System.out.println(" CARTAS EN MANO");
+        for (Carta carta : cartas){
+        System.out.print("[ " + carta.getColor() + ", " + carta.getValor() + " ] ;");
+        }
+        System.out.println();
+    }
+
+    public void mostrarCartasCarnaval(List<Carta> cartas){
+        System.out.println(" CARNAVAL");
+        for (Carta carta : cartas){
+            System.out.print("[ " + carta.getColor() + ", " + carta.getValor() + " ] ;");
+        }
+        System.out.println();
+    }
+
+    public void mostrarAreadeJuego(List<Carta> cartas){
+        System.out.println(" AREA DE JUEGO");
+        for (Carta carta : cartas){
+            System.out.print("[ " + carta.getColor() + ", " + carta.getValor() + " ] ;");
+        }
+        System.out.println();
+    }
+
+    public int pedirCarta(){
+        return 1;
+    }
+
 }
