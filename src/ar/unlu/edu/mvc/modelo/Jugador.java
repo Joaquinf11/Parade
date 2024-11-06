@@ -58,8 +58,8 @@ public class Jugador implements IJugador{
     }
 
     public void sumarPuntos(){
-        this.puntos -= this.area.getCantidadCartasBocaAbajo();
-        this.puntos -= this.area.sumarValorDeCartas();
+       this.puntos=this.area.calcularPuntos();
+        
     }
 
 

@@ -78,6 +78,9 @@ public class AreaDeJuego {
         return total;  // Devuelve la suma de todas las cartas
     }
 
+    public int calcularPuntos(){
+        return  this.getCantidadCartasBocaArriba() + sumarValorDeCartas();
+    }
 
     //////////////////////////////////
     //FUNCIONES PARA TEST
