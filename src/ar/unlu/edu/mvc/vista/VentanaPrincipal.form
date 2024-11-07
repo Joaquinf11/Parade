@@ -22,7 +22,7 @@
       <grid id="440e2" binding="panelCentro" layout-manager="GridBagLayout">
         <constraints border-constraint="Center"/>
         <properties>
-          <foreground color="-3713341"/>
+          <background color="-3713341"/>
         </properties>
         <border type="none"/>
         <children>
@@ -32,6 +32,8 @@
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
+              <background color="-3713341"/>
+              <enabled value="false"/>
               <text value="Comenzar partida"/>
             </properties>
           </component>
