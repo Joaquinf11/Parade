@@ -1,5 +1,6 @@
 package ar.unlu.edu.mvc.modelo;
 
+import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.interfaces.IJugador;
 import ar.unlu.edu.mvc.interfaces.Observado;
 import ar.unlu.edu.mvc.interfaces.Observador;
@@ -10,11 +11,11 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Iterator;
 
-public class Juego implements Observado {
+public class Juego implements Observado, IJuego {
     private List<Jugador> jugadores;
     private Carnaval carnaval;
     private Mazo mazo;
-
+    private Jugador jugadorTurno;
     private List<Observador> observadores;
 
     public Juego (){
@@ -23,7 +24,9 @@ public class Juego implements Observado {
         this.mazo= new Mazo();
         this.observadores = new ArrayList<>();
     }
-
+     public void setJugadorTurno(Jugador jugador){
+        this.jugadorTurno=jugador;
+     }
     public void agregarJugador (String nombre){
         this.jugadores.add( new Jugador(nombre));
         this.notificar(Evento.JUGADOR_AGREGADO);
@@ -205,6 +208,11 @@ public class Juego implements Observado {
         return jugadores;
     }
 
+    @Override
+    public IJugador getJugadorTurno(){
+        return this.jugadorTurno;
+    }
+    
     @Override
     public void agregarObservador(Observador observador) {
         if(!this.observadores.contains(observador)){
