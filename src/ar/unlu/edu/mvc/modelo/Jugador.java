@@ -1,10 +1,12 @@
 package ar.unlu.edu.mvc.modelo;
 
+import ar.unlu.edu.mvc.interfaces.IJugador;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class Jugador implements IJugador{
+public class Jugador implements IJugador {
     private String nombre;
     private List<Carta> cartasEnMano;
     private AreaDeJuego area;
@@ -59,7 +61,7 @@ public class Jugador implements IJugador{
 
     public void sumarPuntos(){
        this.puntos=this.area.calcularPuntos();
-        
+
     }
 
 

@@ -1,4 +1,4 @@
-package ar.unlu.edu.mvc.modelo;
+package ar.unlu.edu.mvc.interfaces;
 
 public interface IJugador {
 

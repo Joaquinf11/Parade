@@ -1,14 +1,14 @@
 package ar.unlu.edu.mvc.modelo;
 
-import ar.unlu.edu.mvc.observer.Observado;
-import ar.unlu.edu.mvc.observer.Observador;
+import ar.unlu.edu.mvc.interfaces.IJugador;
+import ar.unlu.edu.mvc.interfaces.Observado;
+import ar.unlu.edu.mvc.interfaces.Observador;
 
 import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Iterator;
-import java.util.Objects;
 
 public class Juego implements Observado {
     private List<Jugador> jugadores;

@@ -1,4 +1,4 @@
-package ar.unlu.edu.mvc.observer;
+package ar.unlu.edu.mvc.interfaces;
 
 import ar.unlu.edu.mvc.modelo.Evento;
 

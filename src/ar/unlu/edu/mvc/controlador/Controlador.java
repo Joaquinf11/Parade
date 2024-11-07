@@ -1,8 +1,8 @@
 package ar.unlu.edu.mvc.controlador;
 
-import ar.unlu.edu.mvc.modelo.IJugador;
+import ar.unlu.edu.mvc.interfaces.IJugador;
 import ar.unlu.edu.mvc.modelo.Juego;
-import ar.unlu.edu.mvc.observer.Observador;
+import ar.unlu.edu.mvc.interfaces.Observador;
 import ar.unlu.edu.mvc.vista.VistaConsola;
 import ar.unlu.edu.mvc.modelo.Evento;
 

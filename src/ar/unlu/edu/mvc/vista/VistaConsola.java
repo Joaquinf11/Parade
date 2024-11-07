@@ -2,9 +2,8 @@ package ar.unlu.edu.mvc.vista;
 
 import ar.unlu.edu.mvc.controlador.Controlador;
 import ar.unlu.edu.mvc.modelo.Carta;
-import ar.unlu.edu.mvc.modelo.IJugador;
+import ar.unlu.edu.mvc.interfaces.IJugador;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
 
