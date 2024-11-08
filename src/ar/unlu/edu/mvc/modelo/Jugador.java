@@ -49,6 +49,13 @@ public class Jugador implements IJugador {
         this.cartasEnMano.remove(carta);
     }
 
+    public void quitarCarta(int[] index){
+        for (int j : index) {
+            this.cartasEnMano.remove(j);
+        }
+
+    }
+
     public Carta elegirCarta(int indice){
         Carta carta= this.cartasEnMano.get(indice);
         quitarCarta(carta);
