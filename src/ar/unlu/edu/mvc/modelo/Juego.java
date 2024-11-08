@@ -12,14 +12,14 @@ import java.util.Queue;
 import java.util.Iterator;
 
 public class Juego implements Observado, IJuego {
-    private List<Jugador> jugadores;
+    private Queue<Jugador> jugadores;
     private Carnaval carnaval;
     private Mazo mazo;
     private Jugador jugadorTurno;
     private List<Observador> observadores;
 
     public Juego (){
-        this.jugadores= new ArrayList<>();
+        this.jugadores= new LinkedList<>();
         this.carnaval= new Carnaval();
         this.mazo= new Mazo();
         this.observadores = new ArrayList<>();
@@ -27,6 +27,8 @@ public class Juego implements Observado, IJuego {
      public void setJugadorTurno(Jugador jugador){
         this.jugadorTurno=jugador;
      }
+
+     @Override
     public void agregarJugador (String nombre){
         this.jugadores.add( new Jugador(nombre));
         this.notificar(Evento.JUGADOR_AGREGADO);
@@ -36,9 +38,6 @@ public class Juego implements Observado, IJuego {
         return this.carnaval;
     }
 
-    public List<Jugador> getJugadores() {
-        return this.jugadores;
-    }
 
     public Mazo getMazo() {
         return this.mazo;
@@ -57,10 +56,23 @@ public class Juego implements Observado, IJuego {
         }
     }
 
+    @Override
+    public void empezarJuego(){
+        this.repartirCartas();
+        this.cambiarTurno();
+    }
+
+    public void cambiarTurno(){
+        this.setJugadorTurno(this.jugadores.remove());
+        this.notificar(Evento.CAMBIO_TURNO);
+    }
+
+
+
+
+
     //falta testear esto
     public void manejarTurnos(int indice){//el indice no va como parametro pero lo puse ahora para testear nomas
-        Queue<Jugador> jugadores= new LinkedList<>();
-        jugadores.addAll(this.jugadores);
 
 
         while (!esFinDelJuego()){
@@ -92,7 +104,40 @@ public class Juego implements Observado, IJuego {
 
     }
 
+    @Override
+    public void jugarCarta(int cartaElegida, int[] cartaElegidasCarnaval){
+        Carta carta= this.jugadorTurno.elegirCarta(cartaElegida);
+        this.analizarCartasCarnaval(carta,cartaElegidasCarnaval);
+    }
 
+    public void analizarCartasCarnaval(Carta carta, int [] cartasElegidas){
+        if (!this.carnaval.analizarCarnaval(carta)){
+            this.notificar(Evento.MAL_ELEGIDO_CARNAVAL);
+            this.carnaval.agregarCarta(carta);
+            this.notificar(Evento.CARTA_AGREGADA_CARNAVAL);
+
+        }
+        else {
+            List<Carta> salvadas = this.carnaval.salvarCartas(carta.getValor());
+            Iterator<Carta> iter= this.carnaval.getCartas().iterator();
+            while(iter.hasNext()){
+                Carta cartaCarnaval = iter.next();
+                if (carta.equalsColor(cartaCarnaval)){
+                    jugadorTurno.agregarCartaAlAreaDeJuego(cartaCarnaval);
+                    iter.remove();
+                }
+                else if (carta.getValor() <= cartaCarnaval.getValor()){
+                    jugadorTurno.agregarCartaAlAreaDeJuego(cartaCarnaval);
+                    iter.remove();
+                }
+            }
+            //vuelvo a agregar las salvadas al carnaval
+            for (Carta salvada : salvadas){
+                this.carnaval.agregarCarta(salvada);
+            }
+            this.carnaval.agregarCarta(carta);
+        }
+    }
 
     public void jugarTurno(Jugador jugador,int indice){ //el indice no se si va como parametro pero lo puse ahora para testear nomas
         Carta carta= jugador.elegirCarta(indice); // aca tendria que poner el indice que elige el jugador ver como hacer
@@ -150,7 +195,7 @@ public class Juego implements Observado, IJuego {
 
 
     public void evaluarAreaDeJuego(){
-        Jugador jugador_anterior= this.jugadores.getFirst();
+        Jugador jugador_anterior= this.jugadores.remove();
         List<Jugador> jugadoresConMasCartas= new ArrayList<>();
         for (Color color : Color.values()){
             for (Jugador jugador : this.jugadores){
@@ -174,7 +219,7 @@ public class Juego implements Observado, IJuego {
 
     public Jugador definirGanador(){
         List<Jugador> jugadoresConMenosPuntos= new ArrayList<>();
-        Jugador jugador_anterior= this.jugadores.getFirst();
+        Jugador jugador_anterior= this.jugadores.remove();
         for (Jugador jugador : this.jugadores){
             if (jugador.getPuntos() < jugador_anterior.getPuntos()){
                 jugador_anterior = jugador;
@@ -208,11 +253,13 @@ public class Juego implements Observado, IJuego {
         return jugadores;
     }
 
+
+
     @Override
     public IJugador getJugadorTurno(){
         return this.jugadorTurno;
     }
-    
+
     @Override
     public void agregarObservador(Observador observador) {
         if(!this.observadores.contains(observador)){
@@ -223,7 +270,7 @@ public class Juego implements Observado, IJuego {
     @Override
     public void notificar(Evento evento) {
         for (Observador observador: this.observadores){
-            observador.notificar(evento);
+            observador.actualizar(evento);
         }
     }
 
@@ -236,6 +283,9 @@ public class Juego implements Observado, IJuego {
             System.out.println(jugador.getNombre());
             jugador.mostrarCartasEnMano();
         }
+    }
+    public Queue<Jugador> getJugadores() {
+        return this.jugadores;
     }
 }
 
