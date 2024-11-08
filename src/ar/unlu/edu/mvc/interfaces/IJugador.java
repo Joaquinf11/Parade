@@ -4,6 +4,5 @@ public interface IJugador {
 
     String getNombre();
 
-
-
+    boolean equalsNombre(IJugador jugador);
 }
