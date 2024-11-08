@@ -112,13 +112,15 @@ public class Juego implements Observado, IJuego {
 
     public void analizarCartasCarnaval(Carta carta, int [] cartasElegidas){
         if (!this.carnaval.analizarCarnaval(carta)){
-            this.notificar(Evento.MAL_ELEGIDO_CARNAVAL);
+            this.notificar(Evento.NO_SE_PUEDE_AGARRAR); // deberia ser un exception o asi esta bien?
             this.carnaval.agregarCarta(carta);
             this.notificar(Evento.CARTA_AGREGADA_CARNAVAL);
+            this.finDeTurno();
 
         }
         else {
             List<Carta> salvadas = this.carnaval.salvarCartas(carta.getValor());
+
             Iterator<Carta> iter= this.carnaval.getCartas().iterator();
             while(iter.hasNext()){
                 Carta cartaCarnaval = iter.next();
@@ -172,6 +174,13 @@ public class Juego implements Observado, IJuego {
         }
     }
 
+    public void finDeTurno(){
+        this.notificar(Evento.FIN_TURNO);
+        int cantidad=this.jugadorTurno.getCantidadCartasEnMano();
+        for (int i=cantidad ; i <= 5 ; i++ ){
+            this.jugadorTurno.agarrarCarta(this.mazo.sacarCarta());
+        }
+    }
 
     public boolean esFinDelJuego(){
         return  hayJugadorCon6colores() || !this.mazo.tieneCartas();
