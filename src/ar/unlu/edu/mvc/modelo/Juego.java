@@ -67,41 +67,15 @@ public class Juego implements Observado, IJuego {
         this.notificar(Evento.CAMBIO_TURNO);
     }
 
-
-
-
-
     //falta testear esto
-    public void manejarTurnos(int indice){//el indice no va como parametro pero lo puse ahora para testear nomas
-
-
-        while (!esFinDelJuego()){
-            // la vista tendria que mostrar el jugador que le toca y el carnaval, area de juego y sus cartas en mano
-            Jugador jugador=jugadores.remove();
-            this.jugarTurno(jugador,indice);
-            jugadores.add(jugador);
+    public void jugar(){
+         if(!esFinDelJuego()){
+            this.cambiarTurno();
         }
-        //jugar 1 ronda mas, seguro lo podes mejorar, tenes que chequear que se haga bien
-        int contador=jugadores.size();
-        while (esFinDelJuego() && contador != 0){ // aca podrias no usar el contador y poner la condicion de la cola vacia (no tendrias que volver a agregar al jugador)
-            // la vista tendria que mostrar el jugador que le toca y el carnaval, area de juego y sus cartas en mano
-            Jugador jugador=jugadores.remove();
-            this.jugarTurno(jugador,indice);
-            jugadores.add(jugador);
-            contador--;
-        }
-
-        if (esFinDelJuego()){
-            //faltaria hacer descartar dos cartas de la mano a cada jugador cuando termina el ultimo turno
-            // la vista tendira que mostrar el jugador que le toca descartar, su area de juego y llas cartas que tiene en mano
-//            for (Jugador jugador : this.jugadores){
-//                jugador.quitarCarta(jugador.elegirCarta(indice));
-//                jugador.quitarCarta(jugador.elegirCarta(indice));
-//            }
-            calcularPuntos();
-            definirGanador();
-        }
-
+         else{
+             this.notificar(Evento.ULTIMA_RONDA);
+             this.ultimaRonda();
+         }
     }
 
     @Override
@@ -119,29 +93,183 @@ public class Juego implements Observado, IJuego {
 
         }
         else {
-            List<Carta> salvadas = this.carnaval.salvarCartas(carta.getValor());
+            if (!this.carnaval.analizarCartasSalvadasCarnaval(carta.getValor(),cartasElegidas)){
 
-            Iterator<Carta> iter= this.carnaval.getCartas().iterator();
-            while(iter.hasNext()){
-                Carta cartaCarnaval = iter.next();
-                if (carta.equalsColor(cartaCarnaval)){
-                    jugadorTurno.agregarCartaAlAreaDeJuego(cartaCarnaval);
-                    iter.remove();
-                }
-                else if (carta.getValor() <= cartaCarnaval.getValor()){
-                    jugadorTurno.agregarCartaAlAreaDeJuego(cartaCarnaval);
-                    iter.remove();
+                this.notificar(Evento.ELIGIO_CARTA_SALVADA);
+                // ver como hacer para elegir de nuevo.
+            }
+            else{
+                List <Carta> cartasCarnaval= this.carnaval.getCartas(cartasElegidas);
+                Iterator<Carta> iter = cartasCarnaval.iterator();
+                    while (iter.hasNext()) {
+                        Carta cartaCarnaval = iter.next();
+
+                        if (carta.equalsColor(cartaCarnaval) ||carta.getValor() <= cartaCarnaval.getValor()) {
+                            jugadorTurno.agregarCartaAlAreaDeJuego(cartaCarnaval);
+                            iter.remove();
+
+                        } else {
+                            this.notificar(Evento.CARTA_MAL_ELEGIDA_CARNAVAL);
+                            this.carnaval.agregarCarta(cartaCarnaval);
+                        }
+                    }
                 }
             }
-            //vuelvo a agregar las salvadas al carnaval
-            for (Carta salvada : salvadas){
-                this.carnaval.agregarCarta(salvada);
+
+        }
+
+
+    public void finDeTurno(){
+        this.notificar(Evento.FIN_TURNO);
+        int cantidad=this.jugadorTurno.getCantidadCartasEnMano();
+        for (int i=cantidad ; i <= 5 ; i++ ){
+            this.jugadorTurno.agarrarCarta(this.mazo.sacarCarta());
+        }
+        this.jugadores.add(this.jugadorTurno);
+    }
+
+    public void ultimaRonda(){
+        int contador = this.jugadores.size();
+        while (contador != 0){
+            this.cambiarTurno();
+            contador--;
+        }
+        this.notificar(Evento.RONDA_DESCARTE);
+
+    }
+    public boolean esFinDelJuego(){
+        return  hayJugadorCon6colores() || !this.mazo.tieneCartas();
+    }
+
+    public boolean hayJugadorCon6colores(){
+        for(Jugador jugador : jugadores){
+            if (jugador.getArea().tiene6colores()){
+                return true;
             }
-            this.carnaval.agregarCarta(carta);
+        }
+        return false;
+    }
+
+    public void rondaDescarte(){
+        int contador = this.jugadores.size();
+        while (contador != 0){
+            setJugadorTurno(this.jugadores.remove());
+            this.notificar(Evento.DESCARTAR_DOS_CARTAS);
+            contador--;
+        }
+        this.notificar(Evento.FIN_JUEGO);
+    }
+    public void descartarDosCartas(int[] cartasElegidas){
+        //deberia considerar el caso en que el jugador elija mas de dos cartas o menos como manejar ese error
+        this.jugadorTurno.quitarCarta(cartasElegidas);
+
+    }
+    public void calcularPuntos(){
+        evaluarAreaDeJuego();
+        for (Jugador jugador : this.jugadores){
+            jugador.sumarPuntos();
+        }
+    }
+    public IJugador finJuego(){
+        this.calcularPuntos();
+        return this.definirGanador();
+    }
+
+    public void evaluarAreaDeJuego(){
+        Jugador jugador_anterior= this.jugadores.remove();
+        List<Jugador> jugadoresConMasCartas= new ArrayList<>();
+        for (Color color : Color.values()){
+            for (Jugador jugador : this.jugadores){
+                if (jugador.getArea().getCantidadDeCartasPorColor(color) != 0 && !jugador_anterior.equals(jugador)) {
+                    if (jugador.getArea().getCantidadDeCartasPorColor(color) > jugador_anterior.getArea().getCantidadDeCartasPorColor(color)) {
+                        jugador_anterior = jugador;
+                        jugadoresConMasCartas.clear();
+                        jugadoresConMasCartas.add(jugador);
+                    } else if (jugador.getArea().getCantidadDeCartasPorColor(color) == jugador_anterior.getArea().getCantidadDeCartasPorColor(color)) {
+                        jugadoresConMasCartas.add(jugador);
+                    }
+                }
+            }
+            for (Jugador jugador : jugadoresConMasCartas){
+                jugador.getArea().ponerCartasBocaAbajo(color);
+            }
+
         }
     }
 
-    public void jugarTurno(Jugador jugador,int indice){ //el indice no se si va como parametro pero lo puse ahora para testear nomas
+    public Jugador definirGanador(){
+        List<Jugador> jugadoresConMenosPuntos= new ArrayList<>();
+        Jugador jugador_anterior= this.jugadores.remove();
+        for (Jugador jugador : this.jugadores){
+            if (jugador.getPuntos() < jugador_anterior.getPuntos()){
+                jugador_anterior = jugador;
+                jugadoresConMenosPuntos.clear();
+                jugadoresConMenosPuntos.add(jugador_anterior);
+            }
+            else if( jugador.getPuntos() == jugador_anterior.getPuntos()){
+                jugadoresConMenosPuntos.add(jugador);
+            }
+        }
+        if (jugadoresConMenosPuntos.size() == 1){
+            return jugador_anterior;
+        }
+        else{
+            jugador_anterior= jugadoresConMenosPuntos.removeFirst();
+            for (Jugador jugador : jugadoresConMenosPuntos){
+                if (jugador.getCantidadCartasEnArea() < jugador_anterior.getCantidadCartasEnArea()){
+                    jugador_anterior = jugador;
+                }
+            }
+        }
+
+        return jugador_anterior;
+        // falta considerar el caso en que sea un empate TOTAL
+    }
+
+    public List<IJugador> listarJugadores(){
+        List<IJugador> jugadores = new ArrayList<>();
+        jugadores.addAll(this.jugadores);
+        return jugadores;
+    }
+
+    @Override
+    public IJugador getJugadorTurno(){
+        return this.jugadorTurno;
+    }
+
+    @Override
+    public void agregarObservador(Observador observador) {
+        if(!this.observadores.contains(observador)){
+            this.observadores.add(observador);
+        }
+    }
+
+    @Override
+    public void notificar(Evento evento) {
+        for (Observador observador: this.observadores){
+            observador.actualizar(evento);
+        }
+    }
+
+
+
+//////////////////////////////////
+    //FUNCIONES PARA TEST
+    //////////////////////////////////
+
+
+    public void mostrarCartasEnManoPorJugador(){
+        for (Jugador jugador : this.jugadores){
+            System.out.println(jugador.getNombre());
+            jugador.mostrarCartasEnMano();
+        }
+    }
+
+    public Queue<Jugador> getJugadores() {
+        return this.jugadores;
+    }
+
+    public void jugarTurnoViejo(Jugador jugador,int indice){ //el indice no se si va como parametro pero lo puse ahora para testear nomas
         Carta carta= jugador.elegirCarta(indice); // aca tendria que poner el indice que elige el jugador ver como hacer
 
         if (!this.carnaval.analizarCarnaval(carta)){
@@ -173,128 +301,6 @@ public class Juego implements Observado, IJuego {
             jugador.agarrarCarta(this.mazo.sacarCarta());
         }
     }
-
-    public void finDeTurno(){
-        this.notificar(Evento.FIN_TURNO);
-        int cantidad=this.jugadorTurno.getCantidadCartasEnMano();
-        for (int i=cantidad ; i <= 5 ; i++ ){
-            this.jugadorTurno.agarrarCarta(this.mazo.sacarCarta());
-        }
-    }
-
-    public boolean esFinDelJuego(){
-        return  hayJugadorCon6colores() || !this.mazo.tieneCartas();
-    }
-
-    public boolean hayJugadorCon6colores(){
-        for(Jugador jugador : jugadores){
-            if (jugador.getArea().tiene6colores()){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void calcularPuntos(){
-        evaluarAreaDeJuego();
-        for (Jugador jugador : this.jugadores){
-            jugador.sumarPuntos();
-        }
-    }
-
-
-    public void evaluarAreaDeJuego(){
-        Jugador jugador_anterior= this.jugadores.remove();
-        List<Jugador> jugadoresConMasCartas= new ArrayList<>();
-        for (Color color : Color.values()){
-            for (Jugador jugador : this.jugadores){
-                if (jugador.getArea().getCantidadDeCartasPorColor(color) != 0 && !jugador_anterior.equals(jugador)) {
-                    if (jugador.getArea().getCantidadDeCartasPorColor(color) > jugador_anterior.getArea().getCantidadDeCartasPorColor(color)) {
-                        jugador_anterior = jugador;
-                        jugadoresConMasCartas.clear();
-                        jugadoresConMasCartas.add(jugador);
-                    } else if (jugador.getArea().getCantidadDeCartasPorColor(color) == jugador_anterior.getArea().getCantidadDeCartasPorColor(color)) {
-                        jugadoresConMasCartas.add(jugador);
-                    }
-                }
-            }
-            for (Jugador jugador : jugadoresConMasCartas){
-                jugador.getArea().ponerCartasBocaAbajo(color);
-            }
-
-        }
-    }
-
-
-    public Jugador definirGanador(){
-        List<Jugador> jugadoresConMenosPuntos= new ArrayList<>();
-        Jugador jugador_anterior= this.jugadores.remove();
-        for (Jugador jugador : this.jugadores){
-            if (jugador.getPuntos() < jugador_anterior.getPuntos()){
-                jugador_anterior = jugador;
-                jugadoresConMenosPuntos.clear();
-                jugadoresConMenosPuntos.add(jugador_anterior);
-            }
-            else if( jugador.getPuntos() == jugador_anterior.getPuntos()){
-                jugadoresConMenosPuntos.add(jugador);
-            }
-        }
-        if (jugadoresConMenosPuntos.size() == 1){
-            return jugador_anterior;
-        }
-        else{
-            jugador_anterior= jugadoresConMenosPuntos.removeFirst();
-            for (Jugador jugador : jugadoresConMenosPuntos){
-                if (jugador.getCantidadCartasEnArea() < jugador_anterior.getCantidadCartasEnArea()){
-                    jugador_anterior = jugador;
-                }
-            }
-        }
-
-        return jugador_anterior;
-        // falta considerar el caso en que sea un empate TOTAL
-    }
-
-
-    public List<IJugador> listarJugadores(){
-        List<IJugador> jugadores = new ArrayList<>();
-        jugadores.addAll(this.jugadores);
-        return jugadores;
-    }
-
-
-
-    @Override
-    public IJugador getJugadorTurno(){
-        return this.jugadorTurno;
-    }
-
-    @Override
-    public void agregarObservador(Observador observador) {
-        if(!this.observadores.contains(observador)){
-            this.observadores.add(observador);
-        }
-    }
-
-    @Override
-    public void notificar(Evento evento) {
-        for (Observador observador: this.observadores){
-            observador.actualizar(evento);
-        }
-    }
-
-    //////////////////////////////////
-    //FUNCIONES PARA TEST
-    //////////////////////////////////
-
-    public void mostrarCartasEnManoPorJugador(){
-        for (Jugador jugador : this.jugadores){
-            System.out.println(jugador.getNombre());
-            jugador.mostrarCartasEnMano();
-        }
-    }
-    public Queue<Jugador> getJugadores() {
-        return this.jugadores;
-    }
 }
+
 
