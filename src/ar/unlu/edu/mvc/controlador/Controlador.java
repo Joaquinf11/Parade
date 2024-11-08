@@ -2,10 +2,8 @@ package ar.unlu.edu.mvc.controlador;
 
 import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.interfaces.IJugador;
-import ar.unlu.edu.mvc.modelo.Juego;
 import ar.unlu.edu.mvc.interfaces.Observador;
 import ar.unlu.edu.mvc.vista.IVista;
-import ar.unlu.edu.mvc.vista.VistaConsola;
 import ar.unlu.edu.mvc.modelo.Evento;
 
 import java.util.List;
@@ -30,7 +28,7 @@ public class Controlador implements Observador {
                 break;
             case CAMBIO_TURNO:
                 IJugador jugadorTurno= this.juego.getJugadorTurno();
-                if (jugadorTurno.equalsNombre(this.jugador)){
+                if (isTurno(jugadorTurno)){
                     int cartaBajada= this.vista.pedirCarta();
                     //la vista tendria que mostrar la carta elegida al lado del carnaval
                     int[] cartasElegidasCarnaval=this.vista.elegirCartasCarnaval();
@@ -39,8 +37,8 @@ public class Controlador implements Observador {
                 else{
                     //exception?
                 }
-            case MAL_ELEGIDO_CARNAVAL:
-                this.vista.mostra
+            case NO_SE_PUEDE_AGARRAR:
+
         }
     }
 
@@ -56,6 +54,7 @@ public class Controlador implements Observador {
                     this.vista.ingresarJugadores();
                 case 2:
                     this.juego.empezarJuego();
+                    break;
                 default:
                     System.out.println("Ingrese una opcion validad");
             }
@@ -65,5 +64,9 @@ public class Controlador implements Observador {
 
     public void agregarJugador(String nombre){
         this.juego.agregarJugador(nombre);
+    }
+
+    public boolean isTurno(IJugador jugador){
+        return this.jugador.equalsNombre(jugador);
     }
 }
