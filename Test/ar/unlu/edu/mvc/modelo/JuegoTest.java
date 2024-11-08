@@ -94,44 +94,32 @@ class JuegoTest {
 ////        carnaval.mostrarCarnaval();
 ////        juego.mostrarCartasEnManoPorJugador();
 //    }
+//    @Test
+//    public void probandoJugarTurno(){
+//        for (Jugador jugador : juego.getJugadores()){
+//            if (Objects.equals(jugador.getNombre(),"Joaquin")){
+//                juego.jugarTurno(jugador,3);
+//                juego.getCarnaval().mostrarCarnaval();
+//                System.out.println("Joaquin");
+//                jugador.mostrarAreaDeJuego();
+//                jugador.mostrarCartasEnMano();
+//            }
+//            if (Objects.equals(jugador.getNombre(),"Elias")){
+//                juego.jugarTurno(jugador,0);
+//                juego.getCarnaval().mostrarCarnaval();
+//                System.out.println("Elias");
+//                jugador.mostrarAreaDeJuego();
+//                jugador.mostrarCartasEnMano();
+//            }
+//            if (Objects.equals(jugador.getNombre(),"Nicolas")){
+//                juego.jugarTurno(jugador,0);
+//                juego.getCarnaval().mostrarCarnaval();
+//                System.out.println("Nicolas");
+//                jugador.mostrarAreaDeJuego();
+//                jugador.mostrarCartasEnMano();
+//            }
 //
-    @Test
-    public void probandoJugarTurno(){
-        for (Jugador jugador : juego.getJugadores()){
-            if (Objects.equals(jugador.getNombre(),"Joaquin")){
-                juego.jugarTurno(jugador,3);
-                juego.getCarnaval().mostrarCarnaval();
-                System.out.println("Joaquin");
-                jugador.mostrarAreaDeJuego();
-                jugador.mostrarCartasEnMano();
-            }
-            if (Objects.equals(jugador.getNombre(),"Elias")){
-                juego.jugarTurno(jugador,0);
-                juego.getCarnaval().mostrarCarnaval();
-                System.out.println("Elias");
-                jugador.mostrarAreaDeJuego();
-                jugador.mostrarCartasEnMano();
-            }
-            if (Objects.equals(jugador.getNombre(),"Nicolas")){
-                juego.jugarTurno(jugador,0);
-                juego.getCarnaval().mostrarCarnaval();
-                System.out.println("Nicolas");
-                jugador.mostrarAreaDeJuego();
-                jugador.mostrarCartasEnMano();
-            }
-
-        }
-        juego.calcularPuntos();
-        for (Jugador jugador : juego.getJugadores()){
-            System.out.print("PUNTOS DE " + jugador.getNombre() + " ");
-            jugador.mostrarPuntos();
-        }
-        Jugador ganador = juego.definirGanador();
-        System.out.println("GANADOR: " + ganador.getNombre());
-    }
-//        @Test
-//        public void probandoDefinirGanador(){
-//        probandoJugarTurno();
+//        }
 //        juego.calcularPuntos();
 //        for (Jugador jugador : juego.getJugadores()){
 //            System.out.print("PUNTOS DE " + jugador.getNombre() + " ");
@@ -139,9 +127,21 @@ class JuegoTest {
 //        }
 //        Jugador ganador = juego.definirGanador();
 //        System.out.println("GANADOR: " + ganador.getNombre());
-//          }
-
-
-
+//    }
+////        @Test
+////        public void probandoDefinirGanador(){
+////        probandoJugarTurno();
+////        juego.calcularPuntos();
+////        for (Jugador jugador : juego.getJugadores()){
+////            System.out.print("PUNTOS DE " + jugador.getNombre() + " ");
+////            jugador.mostrarPuntos();
+////        }
+////        Jugador ganador = juego.definirGanador();
+////        System.out.println("GANADOR: " + ganador.getNombre());
+////          }
+//
+//
+//
 
 }
+//
