@@ -73,7 +73,10 @@ public class VistaConsola {
     }
 
     public int pedirCarta(){
-        return 1;
+        //tendria que mostrar carnaval area de juego de jugador y cartas en mano para que elija y me devuelva
+        this.scanner.nextLine();
+        System.out.println("Elegir carta: ");
+        return this.scanner.nextInt();
     }
 
 }
