@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ar.unlu.edu.mvc.vista.VentanaJuego">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ar.unlu.edu.mvc.vista.vistagrafica.VentanaJuego">
   <grid id="27dc6" binding="panelJuego" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
       <xy x="20" y="20" width="630" height="400"/>
@@ -11,7 +11,9 @@
     <children>
       <grid id="243fa" binding="panelCartasEnMano" layout-manager="FlowLayout" hgap="40" vgap="40" flow-align="1">
         <constraints border-constraint="South"/>
-        <properties/>
+        <properties>
+          <background color="-3713341"/>
+        </properties>
         <border type="none"/>
         <children>
           <component id="1b48f" class="javax.swing.JButton" binding="carta0">
@@ -57,6 +59,35 @@
           <text value="PARADE"/>
         </properties>
       </component>
+      <grid id="1c50" binding="panelMesa" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="Center"/>
+        <properties>
+          <background color="-3713341"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="cce69" binding="panelCarnaval" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints border-constraint="North"/>
+            <properties>
+              <background color="-3713341"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <vspacer id="8a39f">
+                <constraints/>
+              </vspacer>
+            </children>
+          </grid>
+          <grid id="ca040" binding="panelAreaDeJuego" layout-manager="GridBagLayout">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <background color="-3713341"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
+        </children>
+      </grid>
     </children>
   </grid>
 </form>

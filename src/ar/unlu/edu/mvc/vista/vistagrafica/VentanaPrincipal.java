@@ -1,4 +1,4 @@
-package ar.unlu.edu.mvc.vista;
+package ar.unlu.edu.mvc.vista.vistagrafica;
 
 import javax.swing.*;
 
@@ -10,7 +10,5 @@ public class VentanaPrincipal {
     private JButton comenzarPartidaButton;
     private JButton button3;
 
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-    }
+
 }
