@@ -69,6 +69,12 @@ public class Jugador implements IJugador {
         return this.cartasEnMano;
     }
 
+    @Override
+    public boolean equalsNombre(IJugador jugador){
+        return this.getNombre().equals(jugador.getNombre());
+
+    }
+
     //////////////////////////////////
     //FUNCIONES PARA TEST
     //////////////////////////////////
