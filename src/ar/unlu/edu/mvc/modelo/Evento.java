@@ -6,8 +6,10 @@ public enum Evento {
     FIN_TURNO,
     CARTA_AGREGADA_CARNAVAL,
     ULTIMA_RONDA,
-    FIN_JUEGO,
     DESCARTAR_DOS_CARTAS,
+    RONDA_DESCARTE,
+    FIN_JUEGO,
+
 
 
     //probables exceptions
