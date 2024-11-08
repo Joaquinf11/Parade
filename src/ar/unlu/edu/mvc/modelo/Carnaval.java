@@ -16,6 +16,13 @@ public class Carnaval {
         return this.cartas;
     }
 
+    public List<Carta> getCartas(int[] indices){
+        List<Carta> cartas = new ArrayList<>();
+        for (int index : indices) {
+            cartas.add(this.cartas.remove(index));
+        }
+        return cartas;
+    }
 
     public void agregarCarta(Carta carta){
         this.cartas.add(carta);
@@ -25,12 +32,13 @@ public class Carnaval {
         this.cartas.remove(carta);
     }
 
-
+    // volver a chequear si funciona
     public List<Carta> salvarCartas(int valor) {
         List<Carta> temporal= new ArrayList<>();
         int cantidad=this.cartas.size();
         for (int i = cantidad - 1; i >=0 && valor != 0 ; i--){
-            temporal.add(this.cartas.removeLast());
+            Carta cartaTemporal= this.cartas.get(i);
+            temporal.add(new Carta(cartaTemporal.getValor(),cartaTemporal.getColor()));
             valor--;
         }
         return temporal;
@@ -40,7 +48,15 @@ public class Carnaval {
         return carta.getValor() < this.cartas.size();
     }
 
-
+    public boolean analizarCartasSalvadasCarnaval(int valorCarta,int[] cartasElegidas){
+        List<Carta> salvadas = this.salvarCartas(valorCarta);
+        for (int i = 0; i < cartasElegidas.length; i++) {
+            if (salvadas.contains(this.cartas.get(cartasElegidas[i]))){
+                return false;
+            }
+        }
+        return true;
+    }
     //////////////////////////////////
     //FUNCIONES PARA TEST
     //////////////////////////////////
