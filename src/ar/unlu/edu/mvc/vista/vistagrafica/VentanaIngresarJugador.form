@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ar.unlu.edu.mvc.vista.vistagrafica.VentanaIngresarJugador">
+  <grid id="27dc6" binding="panelPrincipal" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="1099" height="400"/>
+    </constraints>
+    <properties>
+      <background color="-3713341"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="58dd0" class="javax.swing.JLabel" binding="lTitulo">
+        <constraints border-constraint="North"/>
+        <properties>
+          <font name="Ravie" size="72" style="1"/>
+          <foreground color="-3548923"/>
+          <horizontalAlignment value="0"/>
+          <text value="PARADE"/>
+        </properties>
+      </component>
+      <grid id="1c670" binding="panelCentro" layout-manager="GridBagLayout">
+        <constraints border-constraint="Center"/>
+        <properties>
+          <background color="-3713341"/>
+          <enabled value="false"/>
+          <font name="Ravie" size="18"/>
+          <foreground color="-3548923"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="c9258" class="javax.swing.JButton" binding="aceptarButton">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag top="1" left="200" bottom="0" right="200" weightx="0.0" weighty="0.0" ipadx="23"/>
+            </constraints>
+            <properties>
+              <background color="-3548923"/>
+              <enabled value="true"/>
+              <font name="Ravie" size="26"/>
+              <foreground color="-3713341"/>
+              <horizontalTextPosition value="0"/>
+              <text value="Aceptar"/>
+              <verticalAlignment value="0"/>
+            </properties>
+          </component>
+          <component id="8999d" class="javax.swing.JTextField" binding="nombre">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <background color="-3548923"/>
+              <dropMode value="INSERT"/>
+              <font name="Ravie" size="18"/>
+              <foreground color="-3713341"/>
+              <horizontalAlignment value="0"/>
+              <text value="Ingrese el nombre"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
