@@ -7,16 +7,16 @@ import ar.unlu.edu.mvc.controlador.Controlador;
 
 
 public interface IVista {
-    void mostrarJugadores (List<IJugador> jugadores);
+   // void mostrarJugadores (List<IJugador> jugadores);
 
-    void registrarControlador(Controlador controlador);
+    void setControlador(Controlador controlador);
 
-    int pedirCarta();
+   // int pedirCarta();
 
-    int [] elegirCartasCarnaval();
+   // int [] elegirCartasCarnaval();
 
-
-    int mostrarMenuInicial();
-
-    void ingresarJugadores();
+    void iniciarVentana();
+    void mostrarMenuInicial();
+    void  mostrarMensajeJugadorAgregado();
+    // void ingresarJugadores();
 }
