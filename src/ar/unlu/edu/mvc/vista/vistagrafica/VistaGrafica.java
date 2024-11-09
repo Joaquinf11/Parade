@@ -33,19 +33,25 @@ public class VistaGrafica extends  JFrame implements IVista {
     public void iniciarVentana(){
         VentanaMenuInicial ventanaMenuInicial= new VentanaMenuInicial(this.controlador,this);
         VentanaIngresarJugador ventanaIngresarJugador= new VentanaIngresarJugador(this.controlador,this);
+        VentanaJuego ventanaJuego= new VentanaJuego(this.controlador,this);
         paneles.add(ventanaMenuInicial.panelPrincipal,"Menu Inicial");
         paneles.add(ventanaIngresarJugador.panelIngresarJugador,"Ingresar Jugador");
+        paneles.add(ventanaJuego.panelVentanaJuego,"Ventana Juego");
 
         add(paneles);
         setVisible(true);
     }
 
-    public  void mostrarMenuInicial(){
+    public void mostrarMenuInicial(){
         cardLayout.show(paneles,"Menu Inicial");
     }
 
     protected void mostrarIngresarJugador(){
         cardLayout.show(paneles,"Ingresar Jugador");
+    }
+
+    public void mostrarVentanaJuego(){
+        cardLayout.show(paneles,"Ventana Juego");
     }
 
 
