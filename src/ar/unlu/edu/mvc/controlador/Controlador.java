@@ -14,7 +14,7 @@ public class Controlador implements Observador {
     private IJuego juego;
 
     public Controlador(IJuego juego, IVista vista) {
-        vista.registrarControlador(this);
+        vista.setControlador(this);
         this.vista = vista;
         this.juego = juego;
     }
@@ -23,44 +23,29 @@ public class Controlador implements Observador {
     public void actualizar(Evento evento) {
         switch (evento){
             case JUGADOR_AGREGADO:
-                List<IJugador> jugadores= juego.listarJugadores();
-                this.vista.mostrarJugadores(jugadores);
+                this.vista.mostrarMensajeJugadorAgregado();
                 break;
-            case CAMBIO_TURNO:
-                IJugador jugadorTurno= this.juego.getJugadorTurno();
-                if (isTurno(jugadorTurno)){
-                    int cartaBajada= this.vista.pedirCarta();
-                    //la vista tendria que mostrar la carta elegida al lado del carnaval
-                    int[] cartasElegidasCarnaval=this.vista.elegirCartasCarnaval();
-                    this.juego.jugarCarta(cartaBajada,cartasElegidasCarnaval);
-                }
-                else{
-                    //exception?
-                }
-            case NO_SE_PUEDE_AGARRAR:
+//            case CAMBIO_TURNO:
+//                IJugador jugadorTurno= this.juego.getJugadorTurno();
+//                if (isTurno(jugadorTurno)){
+//                    int cartaBajada= this.vista.pedirCarta();
+//                    //la vista tendria que mostrar la carta elegida al lado del carnaval
+//                    int[] cartasElegidasCarnaval=this.vista.elegirCartasCarnaval();
+//                    this.juego.jugarCarta(cartaBajada,cartasElegidasCarnaval);
+//                }
+//                else{
+//                    //exception?
+//                }
+//            case NO_SE_PUEDE_AGARRAR:
 
         }
     }
 
     public void iniciar() {
-        int opcion= vista.mostrarMenuInicial();
-
-        while (opcion != 0) {
-
-            switch (opcion) {
-                case 0:
-                    break;
-                case 1:
-                    this.vista.ingresarJugadores();
-                case 2:
-                    this.juego.empezarJuego();
-                    break;
-                default:
-                    System.out.println("Ingrese una opcion validad");
-            }
-            opcion= vista.mostrarMenuInicial();
-        }
+        vista.iniciarVentana();
+        vista.mostrarMenuInicial();
     }
+
 
     public void agregarJugador(String nombre){
         this.juego.agregarJugador(nombre);
@@ -68,5 +53,9 @@ public class Controlador implements Observador {
 
     public boolean isTurno(IJugador jugador){
         return this.jugador.equalsNombre(jugador);
+    }
+
+    public void empezarPartida(){
+        this.juego.empezarJuego();
     }
 }
