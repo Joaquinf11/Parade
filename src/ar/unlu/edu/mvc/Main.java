@@ -2,14 +2,24 @@ package ar.unlu.edu.mvc;
 
 import ar.unlu.edu.mvc.controlador.Controlador;
 import ar.unlu.edu.mvc.modelo.Juego;
-import ar.unlu.edu.mvc.vista.VistaConsola;
-import ar.unlu.edu.mvc.vista.vistagrafica.VentanaPrincipal;
+import ar.unlu.edu.mvc.vista.IVista;
+import ar.unlu.edu.mvc.vista.vistagrafica.VentanaMenuInicial;
+import ar.unlu.edu.mvc.vista.vistagrafica.VistaGrafica;
 
 public class Main {
 
+
     public static void main(String[] args){
-        VentanaPrincipal ventana= new VentanaPrincipal();
+        Juego juego = new Juego();
+        IVista vista= new VistaGrafica();
+       Controlador controlador= new Controlador(juego,vista);
+
+       juego.agregarObservador(controlador);
+       controlador.iniciar();
     }
+
+
+
 //    private Juego juego;
 //    private VistaConsola vistaConsola;
 //     private Controlador controlador;
