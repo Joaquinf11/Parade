@@ -9,6 +9,7 @@ public enum Evento {
     DESCARTAR_DOS_CARTAS,
     RONDA_DESCARTE,
     FIN_JUEGO,
+    CARTA_AGREGADA_MANO,
 
 
 
