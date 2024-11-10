@@ -71,7 +71,7 @@ public class AreaDeJuego {
         for (Map.Entry<Color, List<Carta>> entry : this.cartas.entrySet()) {
             // Segundo for-each: recorre la lista de cartas de un color específico
             for (Carta carta : entry.getValue()) {
-                total -= carta.getValor();  // Suma el valor de cada carta al total
+                total += carta.getValor();  // Suma el valor de cada carta al total
             }
         }
 
