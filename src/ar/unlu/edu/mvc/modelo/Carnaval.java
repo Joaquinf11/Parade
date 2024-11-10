@@ -17,22 +17,40 @@ public class Carnaval {
     }
 
     public List<Carta> getCartas(int[] indices){
-        List<Carta> cartas = new ArrayList<>();
-        for (int index : indices) {
-            cartas.add(this.cartas.remove(index));
+        List<Carta> resultado = new ArrayList<>();
+        List<Carta> eliminar= new ArrayList<>();
+        for (int index : indices){
+            resultado.add(this.cartas.get(index));
+            eliminar.add(this.cartas.get(index));
         }
-        return cartas;
+        eliminarCartas(eliminar);
+
+        return resultado;
     }
 
     public void agregarCarta(Carta carta){
         this.cartas.add(carta);
     }
 
+    public void agregarCarta(int indice,Carta carta){
+        if (indice > this.cartas.size()){
+            this.cartas.add(carta);
+        }
+        else {
+            this.cartas.add(indice, carta);
+        }
+    }
+
     public void sacarCarta(Carta carta){
         this.cartas.remove(carta);
     }
 
-    // volver a chequear si funciona
+    public void eliminarCartas( List<Carta>cartas){
+        for (Carta carta : cartas){
+            this.cartas.remove(carta);
+        }
+    }
+
     public List<Carta> salvarCartas(int valor) {
         List<Carta> temporal= new ArrayList<>();
         int cantidad=this.cartas.size();
@@ -44,18 +62,18 @@ public class Carnaval {
         return temporal;
     }
 
-    public boolean analizarCarnaval(Carta carta){
+    public boolean puedeAgarrarCarnaval(Carta carta){
         return carta.getValor() < this.cartas.size();
     }
 
-    public boolean analizarCartasSalvadasCarnaval(int valorCarta,int[] cartasElegidas){
+    public boolean agarroCartasSalvadasCarnaval(int valorCarta, int[] cartasElegidas){
         List<Carta> salvadas = this.salvarCartas(valorCarta);
         for (int i = 0; i < cartasElegidas.length; i++) {
             if (salvadas.contains(this.cartas.get(cartasElegidas[i]))){
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
     //////////////////////////////////
     //FUNCIONES PARA TEST
