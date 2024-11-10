@@ -21,4 +21,9 @@ public class Carta {
         return carta.getColor() == this.color;
     }
 
+    @Override
+    public boolean equals(Object o){
+        Carta carta = (Carta) o;
+        return this.getColor().equals(carta.getColor()) && this.getValor() == carta.getValor();
+    }
 }
