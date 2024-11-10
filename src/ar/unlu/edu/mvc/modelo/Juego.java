@@ -59,7 +59,7 @@ public class Juego implements Observado, IJuego {
     @Override
     public void empezarJuego(){
         this.repartirCartas();
-        this.cambiarTurno();
+        this.jugar();
     }
 
     public void cambiarTurno(){
@@ -85,46 +85,38 @@ public class Juego implements Observado, IJuego {
     }
 
     public void analizarCartasCarnaval(Carta carta, int [] cartasElegidas){
-        if (!this.carnaval.analizarCarnaval(carta)){
+        if (!this.carnaval.puedeAgarrarCarnaval(carta)){
             this.notificar(Evento.NO_SE_PUEDE_AGARRAR); // deberia ser un exception o asi esta bien?
-            this.carnaval.agregarCarta(carta);
-            this.notificar(Evento.CARTA_AGREGADA_CARNAVAL);
-            this.finDeTurno();
-
+        }
+        else if (this.carnaval.agarroCartasSalvadasCarnaval(carta.getValor(),cartasElegidas)){
+                this.notificar(Evento.ELIGIO_CARTA_SALVADA);
+                //como castigo pierde el turno?
         }
         else {
-            if (!this.carnaval.analizarCartasSalvadasCarnaval(carta.getValor(),cartasElegidas)){
+            List<Carta> cartasCarnaval = this.carnaval.getCartas(cartasElegidas);
+            int contador=0;
+            for (Carta cartaCarnaval : cartasCarnaval) {
+                if (carta.equalsColor(cartaCarnaval) || cartaCarnaval.getValor() <= carta.getValor()) {
+                    jugadorTurno.agregarCartaAlAreaDeJuego(cartaCarnaval);
 
-                this.notificar(Evento.ELIGIO_CARTA_SALVADA);
-                // ver como hacer para elegir de nuevo.
-            }
-            else{
-                List <Carta> cartasCarnaval= this.carnaval.getCartas(cartasElegidas);
-                Iterator<Carta> iter = cartasCarnaval.iterator();
-                    while (iter.hasNext()) {
-                        Carta cartaCarnaval = iter.next();
-
-                        if (carta.equalsColor(cartaCarnaval) ||carta.getValor() <= cartaCarnaval.getValor()) {
-                            jugadorTurno.agregarCartaAlAreaDeJuego(cartaCarnaval);
-                            iter.remove();
-
-                        } else {
-                            this.notificar(Evento.CARTA_MAL_ELEGIDA_CARNAVAL);
-                            this.carnaval.agregarCarta(cartaCarnaval);
-                        }
-                    }
+                } else {
+                    this.notificar(Evento.CARTA_MAL_ELEGIDA_CARNAVAL);
+                    this.carnaval.agregarCarta(cartasElegidas[contador],cartaCarnaval);
                 }
+                contador++;
             }
-
         }
-
+        this.carnaval.agregarCarta(carta);
+        this.finDeTurno();
+    }
 
     public void finDeTurno(){
         this.notificar(Evento.FIN_TURNO);
         int cantidad=this.jugadorTurno.getCantidadCartasEnMano();
-        for (int i=cantidad ; i <= 5 ; i++ ){
+        for (int i=cantidad ; i < 5 ; i++ ){
             this.jugadorTurno.agarrarCarta(this.mazo.sacarCarta());
         }
+        this.notificar(Evento.CARTA_AGREGADA_MANO);
         this.jugadores.add(this.jugadorTurno);
     }
 
@@ -272,7 +264,7 @@ public class Juego implements Observado, IJuego {
     public void jugarTurnoViejo(Jugador jugador,int indice){ //el indice no se si va como parametro pero lo puse ahora para testear nomas
         Carta carta= jugador.elegirCarta(indice); // aca tendria que poner el indice que elige el jugador ver como hacer
 
-        if (!this.carnaval.analizarCarnaval(carta)){
+        if (!this.carnaval.puedeAgarrarCarnaval(carta)){
             this.carnaval.agregarCarta(carta);
 
         }

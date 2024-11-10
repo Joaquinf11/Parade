@@ -128,20 +128,20 @@ class JuegoTest {
 //        Jugador ganador = juego.definirGanador();
 //        System.out.println("GANADOR: " + ganador.getNombre());
 //    }
-////        @Test
-////        public void probandoDefinirGanador(){
-////        probandoJugarTurno();
-////        juego.calcularPuntos();
-////        for (Jugador jugador : juego.getJugadores()){
-////            System.out.print("PUNTOS DE " + jugador.getNombre() + " ");
-////            jugador.mostrarPuntos();
-////        }
-////        Jugador ganador = juego.definirGanador();
-////        System.out.println("GANADOR: " + ganador.getNombre());
-////          }
-//
-//
-//
+//        @Test
+//        public void probandoDefinirGanador(){
+//        probandoJugarTurno();
+//        juego.calcularPuntos();
+//        for (Jugador jugador : juego.getJugadores()){
+//            System.out.print("PUNTOS DE " + jugador.getNombre() + " ");
+//            jugador.mostrarPuntos();
+//        }
+//        Jugador ganador = juego.definirGanador();
+//        System.out.println("GANADOR: " + ganador.getNombre());
+//          }
+
+
+
 
 }
-//
+
