@@ -79,7 +79,7 @@ public class AreaDeJuego {
     }
 
     public int calcularPuntos(){
-        return  this.getCantidadCartasBocaArriba() + sumarValorDeCartas();
+        return  this.getCantidadCartasBocaAbajo() + sumarValorDeCartas();
     }
 
     //////////////////////////////////
