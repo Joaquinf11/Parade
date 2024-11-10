@@ -1,6 +1,7 @@
 package ar.unlu.edu.mvc.modelo;
 
 public enum Evento {
+    JUEGO_COMENZADO,
     JUGADOR_AGREGADO,
     CAMBIO_TURNO,
     FIN_TURNO,
