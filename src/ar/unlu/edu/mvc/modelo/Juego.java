@@ -43,7 +43,7 @@ public class Juego implements Observado, IJuego {
         return this.mazo;
     }
 
-    //testear
+
     public void repartirCartas(){
         for (int i = 1 ; i <= 6 ; i++){
             this.carnaval.agregarCarta(this.mazo.sacarCarta());
@@ -59,24 +59,20 @@ public class Juego implements Observado, IJuego {
     @Override
     public void empezarJuego(){
         this.repartirCartas();
-        this.jugar();
+        this.notificar(Evento.JUEGO_COMENZADO);
+        this.cambiarTurno();
     }
 
     public void cambiarTurno(){
-        this.setJugadorTurno(this.jugadores.remove());
-        this.notificar(Evento.CAMBIO_TURNO);
+        if(!esFinDelJuego()){
+            this.setJugadorTurno(this.jugadores.remove());
+            this.notificar(Evento.CAMBIO_TURNO);
+        }
+        else{
+            this.notificar(Evento.ULTIMA_RONDA);
+        }
     }
 
-    //falta testear esto
-    public void jugar(){
-         if(!esFinDelJuego()){
-            this.cambiarTurno();
-        }
-         else{
-             this.notificar(Evento.ULTIMA_RONDA);
-             this.ultimaRonda();
-         }
-    }
 
     @Override
     public void jugarCarta(int cartaElegida, int[] cartaElegidasCarnaval){
@@ -120,15 +116,6 @@ public class Juego implements Observado, IJuego {
         this.jugadores.add(this.jugadorTurno);
     }
 
-    public void ultimaRonda(){
-        int contador = this.jugadores.size();
-        while (contador != 0){
-            this.cambiarTurno();
-            contador--;
-        }
-        this.notificar(Evento.RONDA_DESCARTE);
-
-    }
     public boolean esFinDelJuego(){
         return  hayJugadorCon6colores() || !this.mazo.tieneCartas();
     }
@@ -168,9 +155,10 @@ public class Juego implements Observado, IJuego {
     }
 
     public void evaluarAreaDeJuego(){
-        Jugador jugador_anterior= this.jugadores.remove();
+        Jugador jugador_anterior= this.jugadores.peek();
         List<Jugador> jugadoresConMasCartas= new ArrayList<>();
         for (Color color : Color.values()){
+            jugadoresConMasCartas.clear();
             for (Jugador jugador : this.jugadores){
                 if (jugador.getArea().getCantidadDeCartasPorColor(color) != 0 && !jugador_anterior.equals(jugador)) {
                     if (jugador.getArea().getCantidadDeCartasPorColor(color) > jugador_anterior.getArea().getCantidadDeCartasPorColor(color)) {
@@ -178,6 +166,9 @@ public class Juego implements Observado, IJuego {
                         jugadoresConMasCartas.clear();
                         jugadoresConMasCartas.add(jugador);
                     } else if (jugador.getArea().getCantidadDeCartasPorColor(color) == jugador_anterior.getArea().getCantidadDeCartasPorColor(color)) {
+                        if (!jugadoresConMasCartas.contains(jugador_anterior)){
+                            jugadoresConMasCartas.add(jugador_anterior);
+                        }
                         jugadoresConMasCartas.add(jugador);
                     }
                 }
@@ -191,7 +182,7 @@ public class Juego implements Observado, IJuego {
 
     public Jugador definirGanador(){
         List<Jugador> jugadoresConMenosPuntos= new ArrayList<>();
-        Jugador jugador_anterior= this.jugadores.remove();
+        Jugador jugador_anterior= this.jugadores.peek();
         for (Jugador jugador : this.jugadores){
             if (jugador.getPuntos() < jugador_anterior.getPuntos()){
                 jugador_anterior = jugador;
@@ -202,10 +193,7 @@ public class Juego implements Observado, IJuego {
                 jugadoresConMenosPuntos.add(jugador);
             }
         }
-        if (jugadoresConMenosPuntos.size() == 1){
-            return jugador_anterior;
-        }
-        else{
+        if (jugadoresConMenosPuntos.size() > 1){
             jugador_anterior= jugadoresConMenosPuntos.removeFirst();
             for (Jugador jugador : jugadoresConMenosPuntos){
                 if (jugador.getCantidadCartasEnArea() < jugador_anterior.getCantidadCartasEnArea()){
