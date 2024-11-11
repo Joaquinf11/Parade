@@ -3,14 +3,14 @@ package ar.unlu.edu.mvc.controlador;
 import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.interfaces.IJugador;
 import ar.unlu.edu.mvc.interfaces.Observador;
-import ar.unlu.edu.mvc.vista.IVista;
+import ar.unlu.edu.mvc.interfaces.IVista;
 import ar.unlu.edu.mvc.modelo.Evento;
 
 import java.util.List;
 
 public class Controlador implements Observador {
     private IVista vista;
-    private IJugador jugador;
+    private String jugador;
     private IJuego juego;
 
     public Controlador(IJuego juego, IVista vista) {
@@ -28,7 +28,11 @@ public class Controlador implements Observador {
             case JUEGO_COMENZADO:
                 this.vista.iniciarVentanaJuego();
                 break;
-//            case CAMBIO_TURNO:
+            case CAMBIO_TURNO:
+             //   this.vista.actualizarMesa(); fijate despues como vas a hacer esto
+                this.vista.mostrarMensajeCambioTurno();
+                break;
+
 //                IJugador jugadorTurno= this.juego.getJugadorTurno();
 //                if (isTurno(jugadorTurno)){
 //                    int cartaBajada= this.vista.pedirCarta();
@@ -51,11 +55,12 @@ public class Controlador implements Observador {
 
 
     public void agregarJugador(String nombre){
+        this.jugador= nombre;
         this.juego.agregarJugador(nombre);
     }
 
     public boolean isTurno(IJugador jugador){
-        return this.jugador.equalsNombre(jugador);
+        return this.jugador.equals(jugador.getNombre());
     }
 
     public void empezarPartida(){
@@ -67,12 +72,18 @@ public class Controlador implements Observador {
     }
 
     public List<String> listarCartasEnMano(){
-        return  this.juego.listarCartasEnMano();
+        return  this.juego.listarCartasEnMano(this.jugador);
     }
 
     public boolean sePuedeComenzar(){
         return this.juego.sePuedeComenzar();
     }
 
+    public int getCantidadJugadores(){
+        return this.juego.getCantidadJugadores();
+    }
 
+    public String getNombreJugadorTurno(){
+        return this.juego.getJugadorTurno().getNombre();
+    }
 }

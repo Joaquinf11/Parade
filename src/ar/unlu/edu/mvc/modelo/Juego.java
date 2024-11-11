@@ -28,6 +28,14 @@ public class Juego implements Observado, IJuego {
         this.jugadorTurno=jugador;
      }
 
+     public Jugador buscarJugador(String nombre){
+        for (Jugador jugador : this.jugadores){
+            if (jugador.getNombre().equals(nombre)){
+                return jugador;
+            }
+        }
+        return null;
+     }
      @Override
     public void agregarJugador (String nombre){
         this.jugadores.add( new Jugador(nombre));
@@ -36,11 +44,6 @@ public class Juego implements Observado, IJuego {
 
     public Carnaval getCarnaval() {
         return this.carnaval;
-    }
-
-
-    public Mazo getMazo() {
-        return this.mazo;
     }
 
 
@@ -213,6 +216,11 @@ public class Juego implements Observado, IJuego {
     }
 
     @Override
+    public int getCantidadJugadores(){
+        return this.jugadores.size();
+    }
+
+    @Override
     public List<IJugador> listarJugadores(){
         List<IJugador> jugadores = new ArrayList<>();
         jugadores.addAll(this.jugadores);
@@ -234,9 +242,10 @@ public class Juego implements Observado, IJuego {
     }
 
     @Override
-    public List<String> listarCartasEnMano(){
+    public List<String> listarCartasEnMano(String nombre){
+        Jugador jugador = this.buscarJugador(nombre);
         List<String> resultado= new ArrayList<>();
-        for (Carta carta : this.jugadorTurno.getCartas()){
+        for (Carta carta : jugador.getCartas()){
             resultado.add(carta.toString());
         }
         return resultado;

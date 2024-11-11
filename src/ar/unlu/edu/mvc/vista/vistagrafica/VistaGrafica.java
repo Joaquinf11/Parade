@@ -1,9 +1,8 @@
 package ar.unlu.edu.mvc.vista.vistagrafica;
 
 import ar.unlu.edu.mvc.controlador.Controlador;
-import ar.unlu.edu.mvc.vista.IVista;
+import ar.unlu.edu.mvc.interfaces.IVista;
 
-import javax.smartcardio.Card;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,9 +11,8 @@ import java.awt.event.ActionListener;
 public class VistaGrafica extends  JFrame implements IVista {
 
     Controlador controlador;
-    JFrame frame;
-    private static CardLayout cardLayout;
-    private static JPanel paneles;
+    private  CardLayout cardLayout;
+    private  JPanel paneles;
 
     private VentanaJuego ventanaJuego;
 
@@ -101,5 +99,37 @@ public class VistaGrafica extends  JFrame implements IVista {
         ventanaJuego.iniciarVentanaJuego();
         mostrarVentanaJuego();
 
+    }
+    @Override
+     public void mostrarMensajeCambioTurno(){
+        String nombre= this.controlador.getNombreJugadorTurno();
+        JFrame frame= new JFrame();
+
+        JPanel panel= new JPanel();
+        panel.setLayout(new GridBagLayout());
+
+        JLabel mensaje= new JLabel("Es el turno de " + nombre);
+        mensaje.setFont(new Font("Ravie",Font.ITALIC,20));
+        mensaje.setForeground(new Color(201,217,5));
+
+
+        panel.add(mensaje);
+        panel.setVisible(true);
+        panel.setBackground(new Color(199,86,195));
+
+        frame.setContentPane(panel);
+        frame.setSize(400,200);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
+        // Crear un Timer que cerrará la ventana después de 5 segundos (5000 ms)
+        Timer timer = new Timer(5000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose(); // Cierra la ventana
+            }
+        });
+        timer.setRepeats(false); // Asegurarse de que solo se ejecute una vez
+        timer.start();
     }
 }

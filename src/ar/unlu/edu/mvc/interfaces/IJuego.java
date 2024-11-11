@@ -13,6 +13,7 @@ public interface IJuego {
     void jugarCarta(int indice, int[] cartasElegidasCarnaval);
 
     List<String> listarCartasCarnaval();
-    List<String> listarCartasEnMano();
+    List<String> listarCartasEnMano(String nombre);
     boolean sePuedeComenzar();
+    int getCantidadJugadores();
 }

@@ -1,8 +1,5 @@
-package ar.unlu.edu.mvc.vista;
+package ar.unlu.edu.mvc.interfaces;
 
-import ar.unlu.edu.mvc.interfaces.IJugador;
-
-import java.util.List;
 import ar.unlu.edu.mvc.controlador.Controlador;
 
 
@@ -21,4 +18,6 @@ public interface IVista {
     void mostrarVentanaJuego();
     // void ingresarJugadores();
     void iniciarVentanaJuego();
+
+    void mostrarMensajeCambioTurno();
 }

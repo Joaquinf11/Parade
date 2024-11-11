@@ -97,6 +97,7 @@
                 <constraints/>
                 <properties>
                   <actionCommand value="Button"/>
+                  <enabled value="false"/>
                   <opaque value="false"/>
                   <text value="carta0"/>
                 </properties>
@@ -105,6 +106,7 @@
                 <constraints/>
                 <properties>
                   <actionCommand value="Button"/>
+                  <enabled value="false"/>
                   <label value="carta1"/>
                   <opaque value="false"/>
                   <text value="carta1"/>
@@ -113,6 +115,7 @@
               <component id="20d8" class="javax.swing.JButton" binding="carta2J2">
                 <constraints/>
                 <properties>
+                  <enabled value="false"/>
                   <label value="carta2"/>
                   <opaque value="false"/>
                   <text value="carta2"/>
@@ -121,6 +124,7 @@
               <component id="f9025" class="javax.swing.JButton" binding="carta3J2">
                 <constraints/>
                 <properties>
+                  <enabled value="false"/>
                   <label value="carta3"/>
                   <opaque value="false"/>
                   <text value="carta3"/>
@@ -129,6 +133,7 @@
               <component id="f5d95" class="javax.swing.JButton" binding="carta4J2">
                 <constraints/>
                 <properties>
+                  <enabled value="false"/>
                   <label value="carta4"/>
                   <opaque value="false"/>
                   <text value="carta4"/>
@@ -147,6 +152,7 @@
                 <constraints/>
                 <properties>
                   <actionCommand value="Button"/>
+                  <enabled value="false"/>
                   <label value="color0"/>
                   <text value="color0"/>
                 </properties>
@@ -155,6 +161,7 @@
                 <constraints/>
                 <properties>
                   <actionCommand value="Button"/>
+                  <enabled value="false"/>
                   <label value="color1"/>
                   <text value="color1"/>
                 </properties>
@@ -162,6 +169,7 @@
               <component id="c6e2d" class="javax.swing.JButton" binding="color2J2">
                 <constraints/>
                 <properties>
+                  <enabled value="false"/>
                   <label value="color2"/>
                   <text value="color2"/>
                 </properties>
@@ -169,6 +177,7 @@
               <component id="78813" class="javax.swing.JButton" binding="color3J2">
                 <constraints/>
                 <properties>
+                  <enabled value="false"/>
                   <label value="color3"/>
                   <text value="color3"/>
                 </properties>
@@ -176,6 +185,7 @@
               <component id="5ecf9" class="javax.swing.JButton" binding="color4J2">
                 <constraints/>
                 <properties>
+                  <enabled value="false"/>
                   <label value="color4"/>
                   <text value="color4"/>
                 </properties>
@@ -183,6 +193,7 @@
               <component id="12c26" class="javax.swing.JButton" binding="color5J2">
                 <constraints/>
                 <properties>
+                  <enabled value="false"/>
                   <label value="color5"/>
                   <text value="color5"/>
                 </properties>
@@ -212,6 +223,7 @@
                 </constraints>
                 <properties>
                   <actionCommand value="Button"/>
+                  <enabled value="false"/>
                   <opaque value="false"/>
                   <text value="carta0"/>
                 </properties>
@@ -223,6 +235,7 @@
                 </constraints>
                 <properties>
                   <actionCommand value="Button"/>
+                  <enabled value="false"/>
                   <label value="carta1"/>
                   <opaque value="false"/>
                   <text value="carta1"/>
@@ -234,6 +247,7 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
+                  <enabled value="false"/>
                   <label value="carta2"/>
                   <opaque value="false"/>
                   <text value="carta2"/>
@@ -245,6 +259,7 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
+                  <enabled value="false"/>
                   <label value="carta3"/>
                   <opaque value="false"/>
                   <text value="carta3"/>
@@ -256,6 +271,7 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
+                  <enabled value="false"/>
                   <label value="carta4"/>
                   <opaque value="false"/>
                   <text value="carta4"/>
@@ -277,6 +293,7 @@
                 </constraints>
                 <properties>
                   <actionCommand value="Button"/>
+                  <enabled value="false"/>
                   <label value="color0"/>
                   <text value="color0"/>
                 </properties>
@@ -288,6 +305,7 @@
                 </constraints>
                 <properties>
                   <actionCommand value="Button"/>
+                  <enabled value="false"/>
                   <label value="color1"/>
                   <text value="color1"/>
                 </properties>
@@ -298,6 +316,7 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
+                  <enabled value="false"/>
                   <label value="color2"/>
                   <text value="color2"/>
                 </properties>
@@ -308,6 +327,7 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
+                  <enabled value="false"/>
                   <label value="color3"/>
                   <text value="color3"/>
                 </properties>
@@ -318,6 +338,7 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
+                  <enabled value="false"/>
                   <label value="color4"/>
                   <text value="color4"/>
                 </properties>
@@ -328,6 +349,7 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
+                  <enabled value="false"/>
                   <label value="color5"/>
                   <text value="color5"/>
                 </properties>
@@ -357,6 +379,7 @@
                 </constraints>
                 <properties>
                   <actionCommand value="Button"/>
+                  <enabled value="false"/>
                   <label value="color0"/>
                   <text value="color0"/>
                 </properties>
@@ -368,6 +391,7 @@
                 </constraints>
                 <properties>
                   <actionCommand value="Button"/>
+                  <enabled value="false"/>
                   <label value="color1"/>
                   <text value="color1"/>
                 </properties>
@@ -378,6 +402,7 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
+                  <enabled value="false"/>
                   <label value="color2"/>
                   <text value="color2"/>
                 </properties>
@@ -388,6 +413,7 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
+                  <enabled value="false"/>
                   <label value="color3"/>
                   <text value="color3"/>
                 </properties>
@@ -398,6 +424,7 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
+                  <enabled value="false"/>
                   <label value="color4"/>
                   <text value="color4"/>
                 </properties>
@@ -408,6 +435,7 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
+                  <enabled value="false"/>
                   <label value="color5"/>
                   <text value="color5"/>
                 </properties>
@@ -428,6 +456,7 @@
                 </constraints>
                 <properties>
                   <actionCommand value="Button"/>
+                  <enabled value="false"/>
                   <opaque value="false"/>
                   <text value="carta0"/>
                 </properties>
@@ -439,6 +468,7 @@
                 </constraints>
                 <properties>
                   <actionCommand value="Button"/>
+                  <enabled value="false"/>
                   <label value="carta1"/>
                   <opaque value="false"/>
                   <text value="carta1"/>
@@ -450,6 +480,7 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
+                  <enabled value="false"/>
                   <label value="carta2"/>
                   <opaque value="false"/>
                   <text value="carta2"/>
@@ -461,6 +492,7 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
+                  <enabled value="false"/>
                   <label value="carta3"/>
                   <opaque value="false"/>
                   <text value="carta3"/>
@@ -472,6 +504,7 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
+                  <enabled value="false"/>
                   <label value="carta4"/>
                   <opaque value="false"/>
                   <text value="carta4"/>

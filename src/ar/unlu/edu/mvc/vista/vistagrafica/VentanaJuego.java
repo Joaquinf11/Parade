@@ -88,6 +88,16 @@ public class VentanaJuego {
         panelArea3.setVisible(false);
         panelArea4.setVisible(false);
 
+        int cantidadJugadores= this.controlador.getCantidadJugadores();
+
+        if (cantidadJugadores == 2){
+            panelJugador3.setVisible(false);
+            panelJugador4.setVisible(false);
+        }
+        else if (cantidadJugadores == 3){
+            panelJugador4.setVisible(false);
+        }
+
         List<String> cartasCarnaval= this.controlador.listarCartasCarnaval();
         JButton[] buttons= new JButton[6];
 
