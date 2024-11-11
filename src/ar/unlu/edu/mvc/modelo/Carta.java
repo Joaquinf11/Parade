@@ -26,4 +26,9 @@ public class Carta {
         Carta carta = (Carta) o;
         return this.getColor().equals(carta.getColor()) && this.getValor() == carta.getValor();
     }
+
+    @Override
+    public String toString(){
+        return  this.getColor().toString() + "," + this.getValor();
+    }
 }
