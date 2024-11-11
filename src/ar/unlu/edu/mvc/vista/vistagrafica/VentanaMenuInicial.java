@@ -36,11 +36,47 @@ public class VentanaMenuInicial {
         empezarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controlador.empezarPartida();
-            }
+                if (controlador.sePuedeComenzar()) {
+                    controlador.empezarPartida();
+                }
+                else {
+                    mostrarMensajeCargarMasJugadores();
+                }
+                }
         });
     }
 
+    private void mostrarMensajeCargarMasJugadores(){
+        JFrame frame= new JFrame();
+
+        JPanel panel= new JPanel();
+        panel.setLayout(new GridBagLayout());
+
+        JLabel mensaje= new JLabel("Se deben cargar mas Jugadores");
+        mensaje.setFont(new Font("Ravie",Font.ITALIC,20));
+        mensaje.setForeground(new Color(201,217,5));
+
+
+        panel.add(mensaje);
+        panel.setVisible(true);
+        panel.setBackground(new Color(199,86,195));
+
+        frame.setContentPane(panel);
+
+        frame.setSize(600,200);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
+        // Crear un Timer que cerrará la ventana después de 5 segundos (5000 ms)
+        Timer timer = new Timer(5000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose(); // Cierra la ventana
+            }
+        });
+        timer.setRepeats(false); // Asegurarse de que solo se ejecute una vez
+        timer.start();
+    }
 
 
 

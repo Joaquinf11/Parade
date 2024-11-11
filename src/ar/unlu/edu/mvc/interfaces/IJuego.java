@@ -14,4 +14,5 @@ public interface IJuego {
 
     List<String> listarCartasCarnaval();
     List<String> listarCartasEnMano();
+    boolean sePuedeComenzar();
 }

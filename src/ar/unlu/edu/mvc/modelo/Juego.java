@@ -208,6 +208,11 @@ public class Juego implements Observado, IJuego {
     }
 
     @Override
+    public boolean sePuedeComenzar(){
+        return this.jugadores.size() > 1;
+    }
+
+    @Override
     public List<IJugador> listarJugadores(){
         List<IJugador> jugadores = new ArrayList<>();
         jugadores.addAll(this.jugadores);

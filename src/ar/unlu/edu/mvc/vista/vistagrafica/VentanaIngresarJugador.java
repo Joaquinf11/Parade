@@ -3,6 +3,7 @@ package ar.unlu.edu.mvc.vista.vistagrafica;
 import ar.unlu.edu.mvc.controlador.Controlador;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class VentanaIngresarJugador {
@@ -24,7 +25,12 @@ public class VentanaIngresarJugador {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                controlador.agregarJugador(nombre.getText());
+                if(nombre.getText().isEmpty()){
+                    mostrarMensajeNombreInvalido();
+                }
+                else{
+                    controlador.agregarJugador(nombre.getText());
+                }
                 vistaGrafica.mostrarMenuInicial();
             }
         });
@@ -33,11 +39,48 @@ public class VentanaIngresarJugador {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER){
-                    controlador.agregarJugador(nombre.getText());
+                    if(nombre.getText().isEmpty()){
+                        mostrarMensajeNombreInvalido();
+                    }
+                    else{
+                        controlador.agregarJugador(nombre.getText());
+                    }
                     vistaGrafica.mostrarMenuInicial();
                 }
             }
         });
+    }
+
+   private void mostrarMensajeNombreInvalido(){
+        JFrame frame= new JFrame();
+
+        JPanel panel= new JPanel();
+        panel.setLayout(new GridBagLayout());
+
+        JLabel mensaje= new JLabel("El nombre ingresado es invalido");
+        mensaje.setFont(new Font("Ravie",Font.ITALIC,20));
+        mensaje.setForeground(new Color(201,217,5));
+
+
+        panel.add(mensaje);
+        panel.setVisible(true);
+        panel.setBackground(new Color(199,86,195));
+
+        frame.setContentPane(panel);
+
+        frame.setSize(600,200);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
+        // Crear un Timer que cerrará la ventana después de 5 segundos (5000 ms)
+        Timer timer = new Timer(5000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose(); // Cierra la ventana
+            }
+        });
+        timer.setRepeats(false); // Asegurarse de que solo se ejecute una vez
+        timer.start();
     }
 
 }

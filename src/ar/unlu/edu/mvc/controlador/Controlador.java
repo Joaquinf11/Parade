@@ -70,5 +70,9 @@ public class Controlador implements Observador {
         return  this.juego.listarCartasEnMano();
     }
 
+    public boolean sePuedeComenzar(){
+        return this.juego.sePuedeComenzar();
+    }
+
 
 }
