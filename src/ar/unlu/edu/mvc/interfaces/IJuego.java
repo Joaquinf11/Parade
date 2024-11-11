@@ -11,4 +11,7 @@ public interface IJuego {
     void empezarJuego();
 
     void jugarCarta(int indice, int[] cartasElegidasCarnaval);
+
+    List<String> listarCartasCarnaval();
+    List<String> listarCartasEnMano();
 }
