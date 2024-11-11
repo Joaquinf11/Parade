@@ -3,6 +3,7 @@ package ar.unlu.edu.mvc.vista.vistagrafica;
 import ar.unlu.edu.mvc.controlador.Controlador;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VentanaJuego {
@@ -69,6 +70,10 @@ public class VentanaJuego {
     private JButton carta3C;
     private JButton carta4C;
     private JButton carta5C;
+    private List<JButton> cartasCarnaval;
+    private List<JButton> cartasEnMano;
+
+
 
     public VentanaJuego(Controlador controlador,VistaGrafica grafica){
         this.controlador= controlador;
@@ -80,6 +85,8 @@ public class VentanaJuego {
         carta3C.setVisible(false);
         carta4C.setVisible(false);
         carta5C.setVisible(false);
+        this.cartasCarnaval= new ArrayList<>();
+        this.cartasEnMano= new ArrayList<>();
     }
 
     public void iniciarVentanaJuego(){
@@ -98,19 +105,19 @@ public class VentanaJuego {
             panelJugador4.setVisible(false);
         }
 
-        List<String> cartasCarnaval= this.controlador.listarCartasCarnaval();
-        JButton[] buttons= new JButton[6];
+        List<String> cartasCarnavalS= this.controlador.listarCartasCarnaval();
 
-        for (int i = 0; i < buttons.length && i < cartasCarnaval.size(); i++) {
-            buttons[i]= new JButton(cartasCarnaval.get(i));
-            panelCarnaval.add(buttons[i]);
+        for (int i = 0;  i < cartasCarnavalS.size(); i++) {
+            cartasCarnaval.add(new JButton(cartasCarnavalS.get(i)));
+            panelCarnaval.add(cartasCarnaval.get(i));
         }
 
-        List<String> cartasEnMano= this.controlador.listarCartasEnMano();
-        buttons= new JButton[5];
-        for (int i = 0; i < buttons.length && i < cartasEnMano.size(); i++) {
-            buttons[i]= new JButton(cartasEnMano.get(i));
-            panelCartasMano1.add(buttons[i]);
+
+        List<String> cartasEnManoS= this.controlador.listarCartasEnMano();
+
+        for (int i = 0; i < cartasEnManoS.size(); i++) {
+            cartasEnMano.add(new JButton(cartasEnManoS.get(i)));
+            panelCartasMano1.add(cartasEnMano.get(i));
         }
 
     }
