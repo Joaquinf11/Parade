@@ -58,6 +58,7 @@ public class Juego implements Observado, IJuego {
 
     @Override
     public void empezarJuego(){
+        this.setJugadorTurno(jugadores.peek());
         this.repartirCartas();
         this.notificar(Evento.JUEGO_COMENZADO);
         this.cambiarTurno();
@@ -206,6 +207,7 @@ public class Juego implements Observado, IJuego {
         // falta considerar el caso en que sea un empate TOTAL
     }
 
+    @Override
     public List<IJugador> listarJugadores(){
         List<IJugador> jugadores = new ArrayList<>();
         jugadores.addAll(this.jugadores);
@@ -215,6 +217,24 @@ public class Juego implements Observado, IJuego {
     @Override
     public IJugador getJugadorTurno(){
         return this.jugadorTurno;
+    }
+
+    @Override
+    public List<String> listarCartasCarnaval(){
+        List<String> resultado= new ArrayList<>();
+        for (Carta carta : this.carnaval.getCartas()){
+            resultado.add(carta.toString());
+        }
+        return resultado;
+    }
+
+    @Override
+    public List<String> listarCartasEnMano(){
+        List<String> resultado= new ArrayList<>();
+        for (Carta carta : this.jugadorTurno.getCartas()){
+            resultado.add(carta.toString());
+        }
+        return resultado;
     }
 
     @Override
@@ -249,38 +269,6 @@ public class Juego implements Observado, IJuego {
         return this.jugadores;
     }
 
-    public void jugarTurnoViejo(Jugador jugador,int indice){ //el indice no se si va como parametro pero lo puse ahora para testear nomas
-        Carta carta= jugador.elegirCarta(indice); // aca tendria que poner el indice que elige el jugador ver como hacer
-
-        if (!this.carnaval.puedeAgarrarCarnaval(carta)){
-            this.carnaval.agregarCarta(carta);
-
-        }
-        else {
-            List<Carta> salvadas = this.carnaval.salvarCartas(carta.getValor());
-            Iterator<Carta> iter= this.carnaval.getCartas().iterator();
-            while(iter.hasNext()){
-                Carta cartaCarnaval = iter.next();
-                if (carta.equalsColor(cartaCarnaval)){
-                    jugador.agregarCartaAlAreaDeJuego(cartaCarnaval);
-                    iter.remove();
-                }
-                else if (carta.getValor() <= cartaCarnaval.getValor()){
-                    jugador.agregarCartaAlAreaDeJuego(cartaCarnaval);
-                    iter.remove();
-                }
-            }
-            //vuelvo a agregar las salvadas al carnaval
-            for (Carta salvada : salvadas){
-                this.carnaval.agregarCarta(salvada);
-            }
-            this.carnaval.agregarCarta(carta);
-        }
-        int cantidad=jugador.getCantidadCartasEnMano();
-        for (int i=cantidad ; i <= 5 ; i++ ){
-            jugador.agarrarCarta(this.mazo.sacarCarta());
-        }
-    }
 }
 
 
