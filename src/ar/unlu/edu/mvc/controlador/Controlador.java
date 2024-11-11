@@ -25,6 +25,9 @@ public class Controlador implements Observador {
             case JUGADOR_AGREGADO:
                 this.vista.mostrarMensajeJugadorAgregado();
                 break;
+            case JUEGO_COMENZADO:
+                this.vista.iniciarVentanaJuego();
+                break;
 //            case CAMBIO_TURNO:
 //                IJugador jugadorTurno= this.juego.getJugadorTurno();
 //                if (isTurno(jugadorTurno)){
@@ -58,4 +61,14 @@ public class Controlador implements Observador {
     public void empezarPartida(){
         this.juego.empezarJuego();
     }
+
+    public List<String> listarCartasCarnaval(){
+        return  this.juego.listarCartasCarnaval();
+    }
+
+    public List<String> listarCartasEnMano(){
+        return  this.juego.listarCartasEnMano();
+    }
+
+
 }
