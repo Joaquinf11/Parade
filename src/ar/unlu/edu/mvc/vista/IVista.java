@@ -18,5 +18,7 @@ public interface IVista {
     void iniciarVentana();
     void mostrarMenuInicial();
     void  mostrarMensajeJugadorAgregado();
+    void mostrarVentanaJuego();
     // void ingresarJugadores();
+    void iniciarVentanaJuego();
 }
