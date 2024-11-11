@@ -2,46 +2,556 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ar.unlu.edu.mvc.vista.vistagrafica.VentanaJuego">
   <grid id="27dc6" binding="panelVentanaJuego" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="20" width="1062" height="400"/>
     </constraints>
     <properties>
       <background color="-3713341"/>
     </properties>
     <border type="none"/>
     <children>
-      <grid id="34829" binding="panelJugador1" layout-manager="GridBagLayout">
+      <grid id="34829" binding="panelJugador1" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints border-constraint="South"/>
-        <properties/>
-        <border type="none"/>
-        <children/>
-      </grid>
-      <grid id="72ad5" binding="panelJugador2" layout-manager="GridBagLayout">
-        <constraints border-constraint="East"/>
-        <properties/>
-        <border type="none"/>
-        <children/>
-      </grid>
-      <grid id="76e46" binding="panelJugador3" layout-manager="GridBagLayout">
-        <constraints border-constraint="North"/>
-        <properties/>
-        <border type="none"/>
-        <children/>
-      </grid>
-      <grid id="d1102" binding="panelJugador4" layout-manager="GridBagLayout">
-        <constraints border-constraint="West"/>
-        <properties/>
-        <border type="none"/>
-        <children/>
-      </grid>
-      <grid id="4892e" binding="panelCarnaval" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
-        <constraints border-constraint="Center"/>
         <properties>
-          <enabled value="false"/>
           <opaque value="false"/>
-          <visible value="true"/>
         </properties>
         <border type="none"/>
-        <children/>
+        <children>
+          <grid id="56ed8" binding="panelCartasMano1" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints border-constraint="South"/>
+            <properties>
+              <opaque value="false"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
+          <grid id="9b66f" binding="panelArea1" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <opaque value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="11ac9" class="javax.swing.JButton" binding="color0">
+                <constraints/>
+                <properties>
+                  <actionCommand value="Button"/>
+                  <label value="color0"/>
+                  <text value="color0"/>
+                </properties>
+              </component>
+              <component id="66ece" class="javax.swing.JButton" binding="color1">
+                <constraints/>
+                <properties>
+                  <actionCommand value="Button"/>
+                  <label value="color1"/>
+                  <text value="color1"/>
+                </properties>
+              </component>
+              <component id="e7d62" class="javax.swing.JButton" binding="color2">
+                <constraints/>
+                <properties>
+                  <label value="color2"/>
+                  <text value="color2"/>
+                </properties>
+              </component>
+              <component id="ee048" class="javax.swing.JButton" binding="color3">
+                <constraints/>
+                <properties>
+                  <label value="color3"/>
+                  <text value="color3"/>
+                </properties>
+              </component>
+              <component id="ab874" class="javax.swing.JButton" binding="color4">
+                <constraints/>
+                <properties>
+                  <label value="color4"/>
+                  <text value="color4"/>
+                </properties>
+              </component>
+              <component id="82d16" class="javax.swing.JButton" binding="color5">
+                <constraints/>
+                <properties>
+                  <label value="color5"/>
+                  <text value="color5"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="72ad5" binding="panelJugador2" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="North"/>
+        <properties>
+          <opaque value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="b10c0" binding="panelCartasMano2" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints border-constraint="North"/>
+            <properties>
+              <opaque value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="76144" class="javax.swing.JButton" binding="carta0J2">
+                <constraints/>
+                <properties>
+                  <actionCommand value="Button"/>
+                  <opaque value="false"/>
+                  <text value="carta0"/>
+                </properties>
+              </component>
+              <component id="d717c" class="javax.swing.JButton" binding="carta1J2">
+                <constraints/>
+                <properties>
+                  <actionCommand value="Button"/>
+                  <label value="carta1"/>
+                  <opaque value="false"/>
+                  <text value="carta1"/>
+                </properties>
+              </component>
+              <component id="20d8" class="javax.swing.JButton" binding="carta2J2">
+                <constraints/>
+                <properties>
+                  <label value="carta2"/>
+                  <opaque value="false"/>
+                  <text value="carta2"/>
+                </properties>
+              </component>
+              <component id="f9025" class="javax.swing.JButton" binding="carta3J2">
+                <constraints/>
+                <properties>
+                  <label value="carta3"/>
+                  <opaque value="false"/>
+                  <text value="carta3"/>
+                </properties>
+              </component>
+              <component id="f5d95" class="javax.swing.JButton" binding="carta4J2">
+                <constraints/>
+                <properties>
+                  <label value="carta4"/>
+                  <opaque value="false"/>
+                  <text value="carta4"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="926ba" binding="panelArea2" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints border-constraint="South"/>
+            <properties>
+              <opaque value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="4714b" class="javax.swing.JButton" binding="color0J2">
+                <constraints/>
+                <properties>
+                  <actionCommand value="Button"/>
+                  <label value="color0"/>
+                  <text value="color0"/>
+                </properties>
+              </component>
+              <component id="ebb05" class="javax.swing.JButton" binding="color1J2">
+                <constraints/>
+                <properties>
+                  <actionCommand value="Button"/>
+                  <label value="color1"/>
+                  <text value="color1"/>
+                </properties>
+              </component>
+              <component id="c6e2d" class="javax.swing.JButton" binding="color2J2">
+                <constraints/>
+                <properties>
+                  <label value="color2"/>
+                  <text value="color2"/>
+                </properties>
+              </component>
+              <component id="78813" class="javax.swing.JButton" binding="color3J2">
+                <constraints/>
+                <properties>
+                  <label value="color3"/>
+                  <text value="color3"/>
+                </properties>
+              </component>
+              <component id="5ecf9" class="javax.swing.JButton" binding="color4J2">
+                <constraints/>
+                <properties>
+                  <label value="color4"/>
+                  <text value="color4"/>
+                </properties>
+              </component>
+              <component id="12c26" class="javax.swing.JButton" binding="color5J2">
+                <constraints/>
+                <properties>
+                  <label value="color5"/>
+                  <text value="color5"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="76e46" binding="panelJugador3" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="East"/>
+        <properties>
+          <opaque value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="53b6b" binding="panelCartasMano3" layout-manager="GridBagLayout">
+            <constraints border-constraint="East"/>
+            <properties>
+              <opaque value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="61c92" class="javax.swing.JButton" binding="carta0J3">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <actionCommand value="Button"/>
+                  <opaque value="false"/>
+                  <text value="carta0"/>
+                </properties>
+              </component>
+              <component id="bf5ed" class="javax.swing.JButton" binding="carta1J3">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <actionCommand value="Button"/>
+                  <label value="carta1"/>
+                  <opaque value="false"/>
+                  <text value="carta1"/>
+                </properties>
+              </component>
+              <component id="7bfb7" class="javax.swing.JButton" binding="carta2J3">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <label value="carta2"/>
+                  <opaque value="false"/>
+                  <text value="carta2"/>
+                </properties>
+              </component>
+              <component id="7c012" class="javax.swing.JButton" binding="carta3J3">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <label value="carta3"/>
+                  <opaque value="false"/>
+                  <text value="carta3"/>
+                </properties>
+              </component>
+              <component id="14408" class="javax.swing.JButton" binding="carta4J3">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <label value="carta4"/>
+                  <opaque value="false"/>
+                  <text value="carta4"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="c5fb7" binding="panelArea3" layout-manager="GridBagLayout">
+            <constraints border-constraint="West"/>
+            <properties>
+              <opaque value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="68823" class="javax.swing.JButton" binding="color0J3">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <actionCommand value="Button"/>
+                  <label value="color0"/>
+                  <text value="color0"/>
+                </properties>
+              </component>
+              <component id="5a67a" class="javax.swing.JButton" binding="color1J3">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <actionCommand value="Button"/>
+                  <label value="color1"/>
+                  <text value="color1"/>
+                </properties>
+              </component>
+              <component id="587ff" class="javax.swing.JButton" binding="color2J3">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <label value="color2"/>
+                  <text value="color2"/>
+                </properties>
+              </component>
+              <component id="82886" class="javax.swing.JButton" binding="color3J3">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <label value="color3"/>
+                  <text value="color3"/>
+                </properties>
+              </component>
+              <component id="f6c66" class="javax.swing.JButton" binding="color4J3">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <label value="color4"/>
+                  <text value="color4"/>
+                </properties>
+              </component>
+              <component id="fa390" class="javax.swing.JButton" binding="color5J3">
+                <constraints>
+                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <label value="color5"/>
+                  <text value="color5"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="d1102" binding="panelJugador4" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="West"/>
+        <properties>
+          <opaque value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="29512" binding="panelArea4" layout-manager="GridBagLayout">
+            <constraints border-constraint="East"/>
+            <properties>
+              <opaque value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="ce212" class="javax.swing.JButton" binding="color0J4">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <actionCommand value="Button"/>
+                  <label value="color0"/>
+                  <text value="color0"/>
+                </properties>
+              </component>
+              <component id="c5ffc" class="javax.swing.JButton" binding="color1J4">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <actionCommand value="Button"/>
+                  <label value="color1"/>
+                  <text value="color1"/>
+                </properties>
+              </component>
+              <component id="ddcd9" class="javax.swing.JButton" binding="color2J4">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <label value="color2"/>
+                  <text value="color2"/>
+                </properties>
+              </component>
+              <component id="a6868" class="javax.swing.JButton" binding="color3J4">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <label value="color3"/>
+                  <text value="color3"/>
+                </properties>
+              </component>
+              <component id="895b6" class="javax.swing.JButton" binding="color4J4">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <label value="color4"/>
+                  <text value="color4"/>
+                </properties>
+              </component>
+              <component id="a1e3d" class="javax.swing.JButton" binding="color5J4">
+                <constraints>
+                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <label value="color5"/>
+                  <text value="color5"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="aa28b" binding="panelCartasMano4" layout-manager="GridBagLayout">
+            <constraints border-constraint="West"/>
+            <properties>
+              <opaque value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="d215f" class="javax.swing.JButton" binding="carta0J4">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <actionCommand value="Button"/>
+                  <opaque value="false"/>
+                  <text value="carta0"/>
+                </properties>
+              </component>
+              <component id="12314" class="javax.swing.JButton" binding="carta1J4">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <actionCommand value="Button"/>
+                  <label value="carta1"/>
+                  <opaque value="false"/>
+                  <text value="carta1"/>
+                </properties>
+              </component>
+              <component id="8b646" class="javax.swing.JButton" binding="carta2J4">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <label value="carta2"/>
+                  <opaque value="false"/>
+                  <text value="carta2"/>
+                </properties>
+              </component>
+              <component id="ff33f" class="javax.swing.JButton" binding="carta3J4">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <label value="carta3"/>
+                  <opaque value="false"/>
+                  <text value="carta3"/>
+                </properties>
+              </component>
+              <component id="57039" class="javax.swing.JButton" binding="carta4J4">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <label value="carta4"/>
+                  <opaque value="false"/>
+                  <text value="carta4"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="45d4e" binding="panelCentro" layout-manager="GridBagLayout">
+        <constraints border-constraint="Center"/>
+        <properties>
+          <opaque value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="4892e" binding="panelCarnaval" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <enabled value="false"/>
+              <focusable value="true"/>
+              <opaque value="false"/>
+              <visible value="true"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="fddff" class="javax.swing.JButton" binding="carta0C">
+                <constraints/>
+                <properties>
+                  <actionCommand value="Button"/>
+                  <label value="carta1"/>
+                  <opaque value="false"/>
+                  <text value="carta1"/>
+                </properties>
+              </component>
+              <component id="fff5" class="javax.swing.JButton" binding="carta1C">
+                <constraints/>
+                <properties>
+                  <actionCommand value="Button"/>
+                  <label value="carta0"/>
+                  <opaque value="false"/>
+                  <text value="carta0"/>
+                </properties>
+              </component>
+              <component id="ff38c" class="javax.swing.JButton" binding="carta2C">
+                <constraints/>
+                <properties>
+                  <label value="carta2"/>
+                  <opaque value="false"/>
+                  <text value="carta2"/>
+                </properties>
+              </component>
+              <component id="f868a" class="javax.swing.JButton" binding="carta3C">
+                <constraints/>
+                <properties>
+                  <label value="carta3"/>
+                  <opaque value="false"/>
+                  <text value="carta3"/>
+                </properties>
+              </component>
+              <component id="428e9" class="javax.swing.JButton" binding="carta4C">
+                <constraints/>
+                <properties>
+                  <label value="carta4"/>
+                  <opaque value="false"/>
+                  <text value="carta4"/>
+                </properties>
+              </component>
+              <component id="1258" class="javax.swing.JButton" binding="carta5C">
+                <constraints/>
+                <properties>
+                  <text value="Button"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
       </grid>
     </children>
   </grid>
