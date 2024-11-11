@@ -36,8 +36,7 @@ public class VentanaMenuInicial {
         empezarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                //vistaGrafica.mostrarVentanaJuego();
+                controlador.empezarPartida();
             }
         });
     }
