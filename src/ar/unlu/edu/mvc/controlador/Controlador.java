@@ -23,8 +23,10 @@ public class Controlador implements Observador {
     public void actualizar(Evento evento) {
         switch (evento){
             case JUGADOR_AGREGADO:
-                this.vista.mostrarMensajeJugadorAgregado();
-                break;
+                if (isTurno()) {
+                    this.vista.mostrarMensajeJugadorAgregado();
+                }
+                 break;
             case JUEGO_COMENZADO:
                 this.vista.iniciarVentanaJuego();
                 break;
@@ -59,8 +61,8 @@ public class Controlador implements Observador {
         this.juego.agregarJugador(nombre);
     }
 
-    public boolean isTurno(IJugador jugador){
-        return this.jugador.equals(jugador.getNombre());
+    public boolean isTurno(){
+        return this.juego.getJugadorTurno().getNombre().equals(this.jugador);
     }
 
     public void empezarPartida(){

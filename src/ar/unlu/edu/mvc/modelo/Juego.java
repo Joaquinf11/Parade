@@ -38,7 +38,9 @@ public class Juego implements Observado, IJuego {
      }
      @Override
     public void agregarJugador (String nombre){
-        this.jugadores.add( new Jugador(nombre));
+        Jugador jugador= new Jugador(nombre);
+        this.setJugadorTurno(jugador);
+        this.jugadores.add( jugador);
         this.notificar(Evento.JUGADOR_AGREGADO);
     }
 
