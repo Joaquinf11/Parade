@@ -132,4 +132,9 @@ public class VistaGrafica extends  JFrame implements IVista {
         timer.setRepeats(false); // Asegurarse de que solo se ejecute una vez
         timer.start();
     }
+
+    @Override
+    public void activarCartas(){
+        this.ventanaJuego.activarBotones();
+    }
 }

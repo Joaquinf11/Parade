@@ -108,18 +108,31 @@ public class VentanaJuego {
         List<String> cartasCarnavalS= this.controlador.listarCartasCarnaval();
 
         for (int i = 0;  i < cartasCarnavalS.size(); i++) {
-            cartasCarnaval.add(new JButton(cartasCarnavalS.get(i)));
-            panelCarnaval.add(cartasCarnaval.get(i));
+            JButton button= new JButton(cartasCarnavalS.get(i));
+            button.setEnabled(false);
+            this.cartasCarnaval.add(button);
+            this.panelCarnaval.add(button);
         }
 
 
         List<String> cartasEnManoS= this.controlador.listarCartasEnMano();
 
         for (int i = 0; i < cartasEnManoS.size(); i++) {
-            cartasEnMano.add(new JButton(cartasEnManoS.get(i)));
-            panelCartasMano1.add(cartasEnMano.get(i));
+            JButton button= new JButton(cartasEnManoS.get(i));
+            button.setEnabled(false);
+            this.cartasEnMano.add(button);
+            this.panelCartasMano1.add(button);
         }
 
+    }
+
+    public void activarBotones(){
+        for (JButton button : this.cartasCarnaval){
+            button.setEnabled(true);
+        }
+        for (JButton button : this.cartasEnMano){
+            button.setEnabled(true);
+        }
     }
 
 }

@@ -33,6 +33,9 @@ public class Controlador implements Observador {
             case CAMBIO_TURNO:
              //   this.vista.actualizarMesa(); fijate despues como vas a hacer esto
                 this.vista.mostrarMensajeCambioTurno();
+                if (isTurno()){
+                    this.vista.activarCartas();
+                }
                 break;
 
 //                IJugador jugadorTurno= this.juego.getJugadorTurno();
