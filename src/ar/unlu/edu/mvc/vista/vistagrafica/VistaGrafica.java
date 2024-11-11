@@ -16,6 +16,8 @@ public class VistaGrafica extends  JFrame implements IVista {
     private static CardLayout cardLayout;
     private static JPanel paneles;
 
+    private VentanaJuego ventanaJuego;
+
     public VistaGrafica(){
 
 
@@ -34,6 +36,7 @@ public class VistaGrafica extends  JFrame implements IVista {
         VentanaMenuInicial ventanaMenuInicial= new VentanaMenuInicial(this.controlador,this);
         VentanaIngresarJugador ventanaIngresarJugador= new VentanaIngresarJugador(this.controlador,this);
         VentanaJuego ventanaJuego= new VentanaJuego(this.controlador,this);
+        this.ventanaJuego= ventanaJuego;
         paneles.add(ventanaMenuInicial.panelPrincipal,"Menu Inicial");
         paneles.add(ventanaIngresarJugador.panelIngresarJugador,"Ingresar Jugador");
         paneles.add(ventanaJuego.panelVentanaJuego,"Ventana Juego");
@@ -46,7 +49,7 @@ public class VistaGrafica extends  JFrame implements IVista {
         cardLayout.show(paneles,"Menu Inicial");
     }
 
-    protected void mostrarIngresarJugador(){
+    public void mostrarIngresarJugador(){
         cardLayout.show(paneles,"Ingresar Jugador");
     }
 
@@ -91,5 +94,12 @@ public class VistaGrafica extends  JFrame implements IVista {
         });
         timer.setRepeats(false); // Asegurarse de que solo se ejecute una vez
         timer.start();
+    }
+
+    @Override
+    public void iniciarVentanaJuego(){
+        ventanaJuego.iniciarVentanaJuego();
+        mostrarVentanaJuego();
+
     }
 }
