@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Iterator;
 
 public class Juego implements Observado, IJuego {
     private Queue<Jugador> jugadores;
@@ -17,12 +16,20 @@ public class Juego implements Observado, IJuego {
     private Mazo mazo;
     private Jugador jugadorTurno;
     private List<Observador> observadores;
+    private boolean ultimaRonda;
+    private int contadorUltimaRonda;
+    private boolean rondaDescarte;
+    private int contadorRondaDescarte;
 
     public Juego (){
         this.jugadores= new LinkedList<>();
         this.carnaval= new Carnaval();
         this.mazo= new Mazo();
         this.observadores = new ArrayList<>();
+        this.ultimaRonda=false;
+        this.rondaDescarte=false;
+        this.contadorRondaDescarte=0;
+        this.contadorUltimaRonda=0;
     }
      public void setJugadorTurno(Jugador jugador){
         this.jugadorTurno=jugador;
@@ -75,7 +82,29 @@ public class Juego implements Observado, IJuego {
             this.notificar(Evento.CAMBIO_TURNO);
         }
         else{
-            this.notificar(Evento.ULTIMA_RONDA);
+            if (!this.ultimaRonda){
+                this.contadorUltimaRonda = this.jugadores.size();
+                this.ultimaRonda=true;
+                this.notificar(Evento.ULTIMA_RONDA);}
+            else if(this.contadorUltimaRonda != 0){
+                this.setJugadorTurno(this.jugadores.remove());
+                this.contadorUltimaRonda--;
+                this.notificar(Evento.CAMBIO_TURNO);
+            }
+            else if(!this.rondaDescarte) {
+                this.contadorRondaDescarte = this.jugadores.size();
+                this.rondaDescarte = true;
+                this.notificar(Evento.RONDA_DESCARTE);
+            }
+            else if(this.contadorRondaDescarte !=0 ){
+                    this.contadorRondaDescarte--;
+                    this.setJugadorTurno(this.jugadores.remove());
+                    this.notificar(Evento.DESCARTAR_DOS_CARTAS);
+            }
+            else {
+                finJuego();
+            }
+
         }
     }
 
@@ -135,19 +164,10 @@ public class Juego implements Observado, IJuego {
         return false;
     }
 
-    public void rondaDescarte(){
-        int contador = this.jugadores.size();
-        while (contador != 0){
-            setJugadorTurno(this.jugadores.remove());
-            this.notificar(Evento.DESCARTAR_DOS_CARTAS);
-            contador--;
-        }
-        this.notificar(Evento.FIN_JUEGO);
-    }
-    public void descartarDosCartas(int[] cartasElegidas){
-        //deberia considerar el caso en que el jugador elija mas de dos cartas o menos como manejar ese error
-        this.jugadorTurno.quitarCarta(cartasElegidas);
 
+    public void descartarCarta(int cartaElegida){
+        //deberia considerar el caso en que el jugador elija mas de dos cartas o menos como manejar ese error
+        this.jugadorTurno.quitarCarta(cartaElegida);
     }
     public void calcularPuntos(){
         evaluarAreaDeJuego();
@@ -156,6 +176,7 @@ public class Juego implements Observado, IJuego {
         }
     }
     public IJugador finJuego(){
+        this.notificar(Evento.FIN_JUEGO);
         this.calcularPuntos();
         return this.definirGanador();
     }
