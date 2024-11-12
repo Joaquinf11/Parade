@@ -128,16 +128,18 @@ public class VentanaJuego {
             button.setEnabled(false);
             button.putClientProperty("indice",i);
             button.addActionListener(new ActionListener() {
+                public static int indice;
+
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (cartaEnManoSeleccionada){
                         desactivarCartasEnMano();
                     }
                     else {
-                        int indice = (int) button.getClientProperty("indice");
-                        System.out.println(" CARTA ELEGIDA " + button.getText());
+                         indice = (int) button.getClientProperty("indice");
                         button.setForeground(Color.RED);
                         cartaEnManoSeleccionada=true;
+
                     }
                 }
             });
@@ -161,4 +163,6 @@ public class VentanaJuego {
             button.setEnabled(false);
         }
     }
+
+
 }
