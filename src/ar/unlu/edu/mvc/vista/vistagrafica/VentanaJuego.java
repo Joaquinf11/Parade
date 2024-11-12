@@ -3,6 +3,9 @@ package ar.unlu.edu.mvc.vista.vistagrafica;
 import ar.unlu.edu.mvc.controlador.Controlador;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,8 +73,10 @@ public class VentanaJuego {
     private JButton carta3C;
     private JButton carta4C;
     private JButton carta5C;
+    private JLabel nombreJugador3;
     private List<JButton> cartasCarnaval;
     private List<JButton> cartasEnMano;
+    private boolean cartaEnManoSeleccionada;
 
 
 
@@ -87,6 +92,7 @@ public class VentanaJuego {
         carta5C.setVisible(false);
         this.cartasCarnaval= new ArrayList<>();
         this.cartasEnMano= new ArrayList<>();
+        this.cartaEnManoSeleccionada= false;
     }
 
     public void iniciarVentanaJuego(){
@@ -120,6 +126,21 @@ public class VentanaJuego {
         for (int i = 0; i < cartasEnManoS.size(); i++) {
             JButton button= new JButton(cartasEnManoS.get(i));
             button.setEnabled(false);
+            button.putClientProperty("indice",i);
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (cartaEnManoSeleccionada){
+                        desactivarCartasEnMano();
+                    }
+                    else {
+                        int indice = (int) button.getClientProperty("indice");
+                        System.out.println(" CARTA ELEGIDA " + button.getText());
+                        button.setForeground(Color.RED);
+                        cartaEnManoSeleccionada=true;
+                    }
+                }
+            });
             this.cartasEnMano.add(button);
             this.panelCartasMano1.add(button);
         }
@@ -135,4 +156,9 @@ public class VentanaJuego {
         }
     }
 
+    public void desactivarCartasEnMano(){
+        for (JButton button : this.cartasEnMano){
+            button.setEnabled(false);
+        }
+    }
 }
