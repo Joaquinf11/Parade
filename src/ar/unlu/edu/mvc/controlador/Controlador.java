@@ -9,9 +9,9 @@ import ar.unlu.edu.mvc.modelo.Evento;
 import java.util.List;
 
 public class Controlador implements Observador {
-    private IVista vista;
+    private final IVista vista;
     private String jugador;
-    private IJuego juego;
+    private final IJuego juego;
 
     public Controlador(IJuego juego, IVista vista) {
         vista.setControlador(this);
@@ -37,18 +37,6 @@ public class Controlador implements Observador {
                     this.vista.activarCartas();
                 }
                 break;
-
-//                IJugador jugadorTurno= this.juego.getJugadorTurno();
-//                if (isTurno(jugadorTurno)){
-//                    int cartaBajada= this.vista.pedirCarta();
-//                    //la vista tendria que mostrar la carta elegida al lado del carnaval
-//                    int[] cartasElegidasCarnaval=this.vista.elegirCartasCarnaval();
-//                    this.juego.jugarCarta(cartaBajada,cartasElegidasCarnaval);
-//                }
-//                else{
-//                    //exception?
-//                }
-//            case NO_SE_PUEDE_AGARRAR:
 
         }
     }
