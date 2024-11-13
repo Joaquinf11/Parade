@@ -68,32 +68,38 @@ public class VentanaJuego {
     private JButton carta2J4;
     private JButton carta3J4;
     private JButton carta4J4;
-    private JButton carta0C;
-    private JButton carta1C;
-    private JButton carta2C;
-    private JButton carta3C;
-    private JButton carta4C;
-    private JButton carta5C;
+
+    private JPanel panelBotones;
+    private JButton jugarCartasButton;
+    private JButton button2;
+    private JButton button3;
     private JLabel nombreJugador3;
     private List<CartaButton> cartasCarnaval;
     private List<CartaButton> cartasEnMano;
     private boolean cartaEnManoSeleccionada;
+
+    private int [] cartasElegidasCarnaval;
+    private int cartaElegidaMano;
 
 
 
     public VentanaJuego(Controlador controlador,VistaGrafica grafica){
         this.controlador= controlador;
         this.vista= grafica;
-        //esto creo que despues lo podes sacar directamente
-        carta0C.setVisible(false);
-        carta1C.setVisible(false);
-        carta2C.setVisible(false);
-        carta3C.setVisible(false);
-        carta4C.setVisible(false);
-        carta5C.setVisible(false);
         this.cartasCarnaval= new ArrayList<>();
         this.cartasEnMano= new ArrayList<>();
         this.cartaEnManoSeleccionada= false;
+        this.cartasElegidasCarnaval= new int[1];
+
+        jugarCartasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.jugarCarta(cartaElegidaMano,cartasElegidasCarnaval);
+                cartasElegidasCarnaval= new int[1];
+
+            }
+        });
+        jugarCartasButton.setEnabled(false);
     }
 
     public void iniciarVentanaJuego(){
@@ -117,6 +123,25 @@ public class VentanaJuego {
         for (int i = 0;  i < cartasCarnavalS.size(); i++) {
             CartaButton button= new CartaButton("imagenes/cartas/" + cartasCarnavalS.get(i) + ".png","carnaval");
             button.setEnabled(false);
+            button.putClientProperty("indice",i);
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (cartasElegidasCarnaval.length == 1){
+                        cartasElegidasCarnaval[0] = (int) button.getClientProperty("indice");
+                    }
+                    else {
+                        int [] auxiliar = new int[cartasElegidasCarnaval.length + 1];
+                        for (int j = 0; j < cartasElegidasCarnaval.length; j++) {
+                            auxiliar[j]= cartasElegidasCarnaval[j];
+                        }
+                        auxiliar [ auxiliar.length - 1]= (int) button.getClientProperty("indice");
+                        cartasElegidasCarnaval = auxiliar;
+                    }
+
+                }
+            });
+
             this.cartasCarnaval.add(button);
             this.panelCarnaval.add(button);
         }
@@ -130,17 +155,16 @@ public class VentanaJuego {
             button.setEnabled(false);
             button.putClientProperty("indice",i);
             button.addActionListener(new ActionListener() {
-                public static int indice;
-
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (cartaEnManoSeleccionada){
                         desactivarCartasEnMano();
                     }
                     else {
-                         indice = (int) button.getClientProperty("indice");
+                         cartaElegidaMano = (int) button.getClientProperty("indice");
                         button.setForeground(Color.RED);
                         cartaEnManoSeleccionada=true;
+
 
                     }
                 }
@@ -152,6 +176,7 @@ public class VentanaJuego {
     }
 
     public void activarBotones(){
+        jugarCartasButton.setEnabled(true);
         for (JButton button : this.cartasCarnaval){
             button.setEnabled(true);
         }
@@ -167,4 +192,10 @@ public class VentanaJuego {
     }
 
 
+
+    public void desactivarCartasCarnaval(){
+        for (JButton button : this.cartasCarnaval){
+            button.setEnabled(false);
+        }
+    }
 }

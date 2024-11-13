@@ -15,7 +15,6 @@ public class CartaButton extends JButton {
 
 
     ImageIcon imageIcon;
-    String tipo;
 
 
     public CartaButton(String path, String tipo){

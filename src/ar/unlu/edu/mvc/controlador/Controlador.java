@@ -81,4 +81,8 @@ public class Controlador implements Observador {
     public String getNombreJugadorTurno(){
         return this.juego.getJugadorTurno().getNombre();
     }
+
+    public void jugarCarta(int cartaMano,int[] cartasCarnaval ){
+        this.juego.jugarCarta(cartaMano,cartasCarnaval);
+    }
 }

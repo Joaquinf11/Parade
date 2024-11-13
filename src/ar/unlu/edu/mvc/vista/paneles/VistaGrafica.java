@@ -157,4 +157,6 @@ public class VistaGrafica extends  JFrame implements IVista {
     public void activarCartas(){
         this.ventanaJuego.activarBotones();
     }
+
+
 }

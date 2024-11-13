@@ -22,4 +22,5 @@ public interface IVista {
     void mostrarMensajeCambioTurno();
     void mostrarMensaje(String texto);
     void activarCartas();
+
 }
