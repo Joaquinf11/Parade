@@ -1,10 +1,13 @@
 package ar.unlu.edu.mvc.vista.botones;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 public class CartaButton extends JButton {
     private final int WIDTH_CARNAVAL= 110;
@@ -20,10 +23,17 @@ public class CartaButton extends JButton {
     private  final int WIDTH_DORSO_HORIZONTAL=85;
     private final int  HEIGHT_DORSO_HORIZONTAL=60;
 
+
+    private  final int WIDTH_NUMERO_HORIZONTAL=85;
+    private final int  HEIGHT_NUMERO_HORIZONTAL=60;
+
+    private final int WIDTH_NUMERO_VERTICAL=200;
+    private final int HEIGHT_NUMERO_VERTICAL=56;
+
     ImageIcon imageIcon;
 
 
-    public CartaButton(String path, String tipo){
+    public CartaButton(String path, String tipo) throws IOException {
         this.imageIcon= new ImageIcon(path);
 
         if (tipo.equals("carnaval")) {
@@ -44,6 +54,28 @@ public class CartaButton extends JButton {
             imageIcon.setImage(imageIcon.getImage().getScaledInstance(WIDTH_DORSO_HORIZONTAL, HEIGHT_DORSO_HORIZONTAL, Image.SCALE_DEFAULT));
             setIcon(imageIcon);
             this.setSize(WIDTH_DORSO_HORIZONTAL, HEIGHT_DORSO_HORIZONTAL);
+        }
+        else if(tipo.equals("numero horizonal")){
+            // Cargar la imagen completa desde el archivo
+            BufferedImage originalImage = ImageIO.read(new File(path));
+
+            // Recortar la imagen a la región deseada
+            BufferedImage croppedImage = originalImage.getSubimage(0, 0, WIDTH_NUMERO_HORIZONTAL,HEIGHT_NUMERO_HORIZONTAL);
+
+            // Escalar la imagen recortada al tamaño del botón (opcional)
+            Image scaledImage = croppedImage.getScaledInstance(WIDTH_NUMERO_HORIZONTAL,HEIGHT_NUMERO_HORIZONTAL, Image.SCALE_SMOOTH);
+            this.setIcon(new ImageIcon(scaledImage));
+        }
+        else if(tipo.equals("numero vertical")){
+            // Cargar la imagen completa desde el archivo
+            BufferedImage originalImage = ImageIO.read(new File(path));
+
+            // Recortar la imagen a la región deseada
+            BufferedImage croppedImage = originalImage.getSubimage(0, 0, WIDTH_NUMERO_VERTICAL,HEIGHT_NUMERO_VERTICAL);
+
+            // Escalar la imagen recortada al tamaño del botón (opcional)
+            Image scaledImage = croppedImage.getScaledInstance(WIDTH_NUMERO_VERTICAL,HEIGHT_NUMERO_VERTICAL, Image.SCALE_SMOOTH);
+            this.setIcon(new ImageIcon(scaledImage));
         }
         this.setBorderPainted(false);
         this.setContentAreaFilled(false);

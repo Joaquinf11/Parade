@@ -33,7 +33,6 @@ public class Controlador implements Observador {
                 break;
             case CAMBIO_TURNO:
              //   this.vista.actualizarMesa(); fijate despues como vas a hacer esto
-             //   this.vista.mostrarMensaje("Es el turno de " + getNombreJugadorTurno());
                this.vista.mostrarMensaje("Es el turno de " + getNombreJugadorTurno());
                 if (isTurno()){
                     this.vista.activarCartas();

@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,7 +98,7 @@ public class VentanaJuego {
         jugarCartasButton.setEnabled(false);
     }
 
-    public void iniciarVentanaJuego(){
+    public void iniciarVentanaJuego() throws IOException {
         panelArea1.setVisible(false);
         panelArea2.setVisible(false);
         panelArea3.setVisible(false);
