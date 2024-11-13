@@ -60,8 +60,6 @@ public class Juego implements Observado, IJuego {
         this.notificar(Evento.JUGADOR_AGREGADO);
     }
 
-
-
     public void repartirCartas(){
         for (int i = 1 ; i <= 6 ; i++){
             this.carnaval.agregarCarta(this.mazo.sacarCarta());
@@ -102,64 +100,10 @@ public class Juego implements Observado, IJuego {
         this.jugadores.add(this.jugadorTurno);
     }
 
-
-
     @Override
-    public void jugarCarta(int cartaElegida, int[] cartaElegidasCarnaval){
-        this.ronda.jugarCarta(cartaElegida,cartaElegidasCarnaval);
+    public void jugarCarta(int cartaElegida, int[] cartaElegidasCarnaval) {
+        this.ronda.jugarCarta(cartaElegida, cartaElegidasCarnaval);
     }
-
-
-    //esto se va antes fijate las notificaciones
-    public void analizarCartasCarnaval(Carta carta, int [] cartasElegidas){
-        if (!this.carnaval.puedeAgarrarCarnaval(carta)){
-            this.notificar(Evento.NO_SE_PUEDE_AGARRAR); // deberia ser un exception o asi esta bien?
-        }
-        else if (this.carnaval.agarroCartasSalvadasCarnaval(carta.getValor(),cartasElegidas)){
-                this.notificar(Evento.ELIGIO_CARTA_SALVADA);
-                //como castigo pierde el turno?
-        }
-        else {
-            List<Carta> cartasCarnaval = this.carnaval.getCartas(cartasElegidas);
-            int contador=0;
-            for (Carta cartaCarnaval : cartasCarnaval) {
-                if (carta.equalsColor(cartaCarnaval) || cartaCarnaval.getValor() <= carta.getValor()) {
-                    jugadorTurno.agregarCartaAlAreaDeJuego(cartaCarnaval);
-
-                } else {
-                    this.notificar(Evento.CARTA_MAL_ELEGIDA_CARNAVAL);
-                    this.carnaval.agregarCarta(cartasElegidas[contador],cartaCarnaval);
-                }
-                contador++;
-            }
-        }
-        this.carnaval.agregarCarta(carta);
-        this.finDeTurno();
-    }
-
-    public void finDeTurno(){
-        this.notificar(Evento.FIN_TURNO);
-        int cantidad=this.jugadorTurno.getCantidadCartasEnMano();
-        for (int i=cantidad ; i < 5 ; i++ ){
-            this.jugadorTurno.agarrarCarta(this.mazo.sacarCarta());
-        }
-        this.notificar(Evento.CARTA_AGREGADA_MANO);
-        this.jugadores.add(this.jugadorTurno);
-    }
-
-    public boolean esFinDelJuego(){
-        return  hayJugadorCon6colores() || !this.mazo.tieneCartas();
-    }
-
-    public boolean hayJugadorCon6colores(){
-        for(Jugador jugador : jugadores){
-            if (jugador.getArea().tiene6colores()){
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     public void calcularPuntos(){
         evaluarAreaDeJuego();

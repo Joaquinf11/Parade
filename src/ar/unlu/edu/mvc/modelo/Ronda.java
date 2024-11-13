@@ -26,10 +26,10 @@ public class Ronda {
 
     public void analizarCartasCarnaval(Carta carta, int [] cartasElegidas){
         if (!this.carnaval.puedeAgarrarCarnaval(carta)){
-
+            this.juego.notificar(Evento.NO_SE_PUEDE_AGARRAR); // debe ser un exception
         }
         else if (this.carnaval.agarroCartasSalvadasCarnaval(carta.getValor(),cartasElegidas)){
-            //como castigo pierde el turno?
+            this.juego.notificar(Evento.ELIGIO_CARTA_SALVADA);// debe ser un exception
         }
         else {
             List<Carta> cartasCarnaval = this.carnaval.getCartas(cartasElegidas);
@@ -39,6 +39,7 @@ public class Ronda {
                     jugadorTurno.agregarCartaAlAreaDeJuego(cartaCarnaval);
 
                 } else {
+                    this.juego.notificar(Evento.CARTA_MAL_ELEGIDA_CARNAVAL); // aca no se si es un exception porque en realidad el carnaval se modifica
                     this.carnaval.agregarCarta(cartasElegidas[contador],cartaCarnaval);
                 }
                 contador++;
