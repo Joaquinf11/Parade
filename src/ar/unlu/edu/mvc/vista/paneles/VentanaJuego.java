@@ -30,11 +30,6 @@ public class VentanaJuego {
     private JPanel panelArea1;
     private JPanel panelCartasMano2;
     private JPanel panelArea2;
-    private JButton carta0J2;
-    private JButton carta1J2;
-    private JButton carta2J2;
-    private JButton carta3J2;
-    private JButton carta4J2;
     private JPanel panelCartasMano3;
     private JPanel panelArea3;
     private JPanel panelArea4;
@@ -113,9 +108,36 @@ public class VentanaJuego {
         if (cantidadJugadores == 2){
             panelJugador3.setVisible(false);
             panelJugador4.setVisible(false);
+            for (int i = 0; i < 5; i++) {
+                JButton cartaDorso= new CartaButton("imagenes/Carta,dorso.jpg","dorso vertical");
+                panelCartasMano2.add(cartaDorso);
+            }
+
         }
         else if (cantidadJugadores == 3){
             panelJugador4.setVisible(false);
+            for (int i = 0; i < 5; i++) {
+                JButton cartaDorso= new CartaButton("imagenes/Carta,dorso.jpg","dorso vertical");
+                panelCartasMano2.add(cartaDorso);
+            }
+            for (int i = 0; i < 5; i++) {
+                JButton cartaDorso= new CartaButton("imagenes/Carta,dorso.jpg","dorso horizontal");
+                panelCartasMano3.add(cartaDorso);
+            }
+        }
+        else{
+            for (int i = 0; i < 5; i++) {
+                JButton cartaDorso= new CartaButton("imagenes/Carta,dorso.jpg","dorso vertical");
+                panelCartasMano2.add(cartaDorso);
+            }
+            for (int i = 0; i < 5; i++) {
+                JButton cartaDorso= new CartaButton("imagenes/Carta,dorso.jpg","dorso horizontal");
+                panelCartasMano3.add(cartaDorso);
+            }
+            for (int i = 0; i < 5; i++) {
+                JButton cartaDorso= new CartaButton("imagenes/Carta,dorso.jpg","dorso horizontal");
+                panelCartasMano4.add(cartaDorso);
+            }
         }
 
         List<String> cartasCarnavalS= this.controlador.listarCartasCarnaval();

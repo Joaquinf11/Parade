@@ -137,54 +137,7 @@
               <opaque value="false"/>
             </properties>
             <border type="none"/>
-            <children>
-              <component id="76144" class="javax.swing.JButton" binding="carta0J2">
-                <constraints/>
-                <properties>
-                  <actionCommand value="Button"/>
-                  <enabled value="false"/>
-                  <opaque value="false"/>
-                  <text value="carta0"/>
-                </properties>
-              </component>
-              <component id="d717c" class="javax.swing.JButton" binding="carta1J2">
-                <constraints/>
-                <properties>
-                  <actionCommand value="Button"/>
-                  <enabled value="false"/>
-                  <label value="carta1"/>
-                  <opaque value="false"/>
-                  <text value="carta1"/>
-                </properties>
-              </component>
-              <component id="20d8" class="javax.swing.JButton" binding="carta2J2">
-                <constraints/>
-                <properties>
-                  <enabled value="false"/>
-                  <label value="carta2"/>
-                  <opaque value="false"/>
-                  <text value="carta2"/>
-                </properties>
-              </component>
-              <component id="f9025" class="javax.swing.JButton" binding="carta3J2">
-                <constraints/>
-                <properties>
-                  <enabled value="false"/>
-                  <label value="carta3"/>
-                  <opaque value="false"/>
-                  <text value="carta3"/>
-                </properties>
-              </component>
-              <component id="f5d95" class="javax.swing.JButton" binding="carta4J2">
-                <constraints/>
-                <properties>
-                  <enabled value="false"/>
-                  <label value="carta4"/>
-                  <opaque value="false"/>
-                  <text value="carta4"/>
-                </properties>
-              </component>
-            </children>
+            <children/>
           </grid>
           <grid id="926ba" binding="panelArea2" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
             <constraints border-constraint="South"/>
