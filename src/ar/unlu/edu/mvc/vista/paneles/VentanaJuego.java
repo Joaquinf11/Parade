@@ -1,6 +1,7 @@
-package ar.unlu.edu.mvc.vista.vistagrafica;
+package ar.unlu.edu.mvc.vista.paneles;
 
 import ar.unlu.edu.mvc.controlador.Controlador;
+import ar.unlu.edu.mvc.vista.botones.CartaButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -74,8 +75,8 @@ public class VentanaJuego {
     private JButton carta4C;
     private JButton carta5C;
     private JLabel nombreJugador3;
-    private List<JButton> cartasCarnaval;
-    private List<JButton> cartasEnMano;
+    private List<CartaButton> cartasCarnaval;
+    private List<CartaButton> cartasEnMano;
     private boolean cartaEnManoSeleccionada;
 
 
@@ -114,7 +115,7 @@ public class VentanaJuego {
         List<String> cartasCarnavalS= this.controlador.listarCartasCarnaval();
 
         for (int i = 0;  i < cartasCarnavalS.size(); i++) {
-            JButton button= new JButton(cartasCarnavalS.get(i));
+            CartaButton button= new CartaButton("imagenes/cartas/" + cartasCarnavalS.get(i) + ".png","carnaval");
             button.setEnabled(false);
             this.cartasCarnaval.add(button);
             this.panelCarnaval.add(button);
@@ -124,7 +125,8 @@ public class VentanaJuego {
         List<String> cartasEnManoS= this.controlador.listarCartasEnMano();
 
         for (int i = 0; i < cartasEnManoS.size(); i++) {
-            JButton button= new JButton(cartasEnManoS.get(i));
+
+            CartaButton button= new CartaButton("imagenes/cartas/" + cartasEnManoS.get(i) + ".png","mano");
             button.setEnabled(false);
             button.putClientProperty("indice",i);
             button.addActionListener(new ActionListener() {

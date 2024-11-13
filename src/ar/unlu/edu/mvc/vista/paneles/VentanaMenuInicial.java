@@ -1,4 +1,4 @@
-package ar.unlu.edu.mvc.vista.vistagrafica;
+package ar.unlu.edu.mvc.vista.paneles;
 
 import ar.unlu.edu.mvc.controlador.Controlador;
 

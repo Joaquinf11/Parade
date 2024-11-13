@@ -3,7 +3,7 @@ package ar.unlu.edu.mvc;
 import ar.unlu.edu.mvc.controlador.Controlador;
 import ar.unlu.edu.mvc.modelo.Juego;
 import ar.unlu.edu.mvc.interfaces.IVista;
-import ar.unlu.edu.mvc.vista.vistagrafica.VistaGrafica;
+import ar.unlu.edu.mvc.vista.paneles.VistaGrafica;
 
 public class Main {
 

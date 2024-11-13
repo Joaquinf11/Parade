@@ -1,4 +1,4 @@
-package ar.unlu.edu.mvc.vista.vistagrafica;
+package ar.unlu.edu.mvc.vista.paneles;
 
 import ar.unlu.edu.mvc.controlador.Controlador;
 import ar.unlu.edu.mvc.interfaces.IVista;
@@ -13,7 +13,7 @@ public class VistaGrafica extends  JFrame implements IVista {
     Controlador controlador;
     private  CardLayout cardLayout;
     private  JPanel paneles;
-    private  PanelMensaje panelMensaje;
+    private PanelMensaje panelMensaje;
     private VentanaJuego ventanaJuego;
 
     public VistaGrafica(){
