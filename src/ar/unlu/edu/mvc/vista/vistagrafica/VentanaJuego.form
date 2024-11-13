@@ -379,7 +379,9 @@
                 </constraints>
                 <properties>
                   <actionCommand value="Button"/>
+                  <borderPainted value="false"/>
                   <enabled value="false"/>
+                  <focusPainted value="true"/>
                   <label value="color0"/>
                   <text value="color0"/>
                 </properties>

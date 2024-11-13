@@ -20,6 +20,6 @@ public interface IVista {
     void iniciarVentanaJuego();
 
     void mostrarMensajeCambioTurno();
-
+    void mostrarMensaje(String texto);
     void activarCartas();
 }

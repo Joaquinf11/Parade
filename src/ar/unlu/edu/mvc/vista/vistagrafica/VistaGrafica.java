@@ -13,11 +13,10 @@ public class VistaGrafica extends  JFrame implements IVista {
     Controlador controlador;
     private  CardLayout cardLayout;
     private  JPanel paneles;
-
+    private  PanelMensaje panelMensaje;
     private VentanaJuego ventanaJuego;
 
     public VistaGrafica(){
-
 
         setTitle("PARADE");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,7 +24,6 @@ public class VistaGrafica extends  JFrame implements IVista {
 
         cardLayout= new CardLayout();
         paneles= new JPanel(cardLayout);
-
 
     }
 
@@ -35,10 +33,13 @@ public class VistaGrafica extends  JFrame implements IVista {
         VentanaIngresarJugador ventanaIngresarJugador= new VentanaIngresarJugador(this.controlador,this);
         VentanaJuego ventanaJuego= new VentanaJuego(this.controlador,this);
         this.ventanaJuego= ventanaJuego;
+
         paneles.add(ventanaMenuInicial.panelPrincipal,"Menu Inicial");
         paneles.add(ventanaIngresarJugador.panelIngresarJugador,"Ingresar Jugador");
         paneles.add(ventanaJuego.panelVentanaJuego,"Ventana Juego");
 
+        panelMensaje= new PanelMensaje();
+        paneles.add(panelMensaje,"Mensaje");
         add(paneles);
         setVisible(true);
     }
@@ -100,6 +101,25 @@ public class VistaGrafica extends  JFrame implements IVista {
         mostrarVentanaJuego();
 
     }
+
+    @Override
+    public void mostrarMensaje(String texto){
+
+        panelMensaje.setMensaje(texto);
+        cardLayout.show(paneles,"Mensaje");
+
+        // Crear un Timer que cerrará la ventana después de segundos
+        Timer timer = new Timer(5000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                cardLayout.last(paneles); // Cierra la ventana
+            }
+        });
+        timer.setRepeats(false); // Asegurarse de que solo se ejecute una vez
+        timer.start();
+    }
+
     @Override
      public void mostrarMensajeCambioTurno(){
         String nombre= this.controlador.getNombreJugadorTurno();
