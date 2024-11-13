@@ -17,9 +17,8 @@ public class Juego implements Observado, IJuego {
     private Jugador jugadorTurno;
     private List<Observador> observadores;
     private boolean ultimaRonda;
-    private int contadorUltimaRonda;
+    private  Ronda ronda;
     private boolean rondaDescarte;
-    private int contadorRondaDescarte;
 
     public Juego (){
         this.jugadores= new LinkedList<>();
@@ -28,13 +27,22 @@ public class Juego implements Observado, IJuego {
         this.observadores = new ArrayList<>();
         this.ultimaRonda=false;
         this.rondaDescarte=false;
-        this.contadorRondaDescarte=0;
-        this.contadorUltimaRonda=0;
+
     }
      public void setJugadorTurno(Jugador jugador){
         this.jugadorTurno=jugador;
      }
+    public void setUltimaRonda(boolean b){
+        this.notificar(Evento.ULTIMA_RONDA);
+        this.ultimaRonda=b;
+    }
 
+    public void setRondaDescarte(boolean b){
+        this.notificar(Evento.RONDA_DESCARTE);
+        this.rondaDescarte=b;
+    }
+
+     //fijate si al final lo vas a usar
      public Jugador buscarJugador(String nombre){
         for (Jugador jugador : this.jugadores){
             if (jugador.getNombre().equals(nombre)){
@@ -43,6 +51,7 @@ public class Juego implements Observado, IJuego {
         }
         return null;
      }
+
      @Override
     public void agregarJugador (String nombre){
         Jugador jugador= new Jugador(nombre);
@@ -51,9 +60,6 @@ public class Juego implements Observado, IJuego {
         this.notificar(Evento.JUGADOR_AGREGADO);
     }
 
-    public Carnaval getCarnaval() {
-        return this.carnaval;
-    }
 
 
     public void repartirCartas(){
@@ -70,51 +76,41 @@ public class Juego implements Observado, IJuego {
 
     @Override
     public void empezarJuego(){
-        this.setJugadorTurno(jugadores.peek());
         this.repartirCartas();
         this.notificar(Evento.JUEGO_COMENZADO);
         this.cambiarTurno();
     }
 
     public void cambiarTurno(){
-        if(!esFinDelJuego()){
-            this.setJugadorTurno(this.jugadores.remove());
-            this.notificar(Evento.CAMBIO_TURNO);
-        }
-        else{
-            if (!this.ultimaRonda){
-                this.contadorUltimaRonda = this.jugadores.size();
-                this.ultimaRonda=true;
-                this.notificar(Evento.ULTIMA_RONDA);}
-            else if(this.contadorUltimaRonda != 0){
-                this.setJugadorTurno(this.jugadores.remove());
-                this.contadorUltimaRonda--;
-                this.notificar(Evento.CAMBIO_TURNO);
-            }
-            else if(!this.rondaDescarte) {
-                this.contadorRondaDescarte = this.jugadores.size();
-                this.rondaDescarte = true;
-                this.notificar(Evento.RONDA_DESCARTE);
-            }
-            else if(this.contadorRondaDescarte !=0 ){
-                    this.contadorRondaDescarte--;
-                    this.setJugadorTurno(this.jugadores.remove());
-                    this.notificar(Evento.DESCARTAR_DOS_CARTAS);
-            }
-            else {
-                finJuego();
-            }
+        this.setJugadorTurno(this.jugadores.remove());
+        this.notificar(Evento.CAMBIO_TURNO);
+        if (this.ultimaRonda){
 
+            this.ronda= new UltimaRonda(jugadorTurno,carnaval,null,this,this.jugadores.size() + 1);
+        }
+        else if(this.rondaDescarte){
+
+            this.ronda= new RondaDescarte(jugadorTurno,carnaval,null,this);
+        }
+        else {
+            this.ronda= new Ronda(jugadorTurno,carnaval,mazo,this);
         }
     }
+
+    public void finTurno(){
+        this.notificar(Evento.FIN_TURNO); // fijate que onda si se va o no
+        this.jugadores.add(this.jugadorTurno);
+    }
+
 
 
     @Override
     public void jugarCarta(int cartaElegida, int[] cartaElegidasCarnaval){
-        Carta carta= this.jugadorTurno.elegirCarta(cartaElegida);
-        this.analizarCartasCarnaval(carta,cartaElegidasCarnaval);
+        this.ronda.jugarCarta(cartaElegida,cartaElegidasCarnaval);
     }
 
+
+    //esto se va antes fijate las notificaciones
     public void analizarCartasCarnaval(Carta carta, int [] cartasElegidas){
         if (!this.carnaval.puedeAgarrarCarnaval(carta)){
             this.notificar(Evento.NO_SE_PUEDE_AGARRAR); // deberia ser un exception o asi esta bien?
@@ -165,10 +161,6 @@ public class Juego implements Observado, IJuego {
     }
 
 
-    public void descartarCarta(int cartaElegida){
-        //deberia considerar el caso en que el jugador elija mas de dos cartas o menos como manejar ese error
-        this.jugadorTurno.quitarCarta(cartaElegida);
-    }
     public void calcularPuntos(){
         evaluarAreaDeJuego();
         for (Jugador jugador : this.jugadores){
@@ -306,6 +298,9 @@ public class Juego implements Observado, IJuego {
         return this.jugadores;
     }
 
+    public Carnaval getCarnaval() {
+        return this.carnaval;
+    }
 }
 
 
