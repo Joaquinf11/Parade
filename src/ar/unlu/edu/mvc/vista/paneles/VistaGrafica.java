@@ -104,31 +104,11 @@ public class VistaGrafica extends  JFrame implements IVista {
 
     @Override
     public void mostrarMensaje(String texto){
-
-        panelMensaje.setMensaje(texto);
-        cardLayout.show(paneles,"Mensaje");
-
-        // Crear un Timer que cerrará la ventana después de segundos
-        Timer timer = new Timer(5000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                cardLayout.last(paneles); // Cierra la ventana
-            }
-        });
-        timer.setRepeats(false); // Asegurarse de que solo se ejecute una vez
-        timer.start();
-    }
-
-    @Override
-     public void mostrarMensajeCambioTurno(){
-        String nombre= this.controlador.getNombreJugadorTurno();
         JFrame frame= new JFrame();
-
         JPanel panel= new JPanel();
         panel.setLayout(new GridBagLayout());
 
-        JLabel mensaje= new JLabel("Es el turno de " + nombre);
+        JLabel mensaje= new JLabel(texto);
         mensaje.setFont(new Font("Ravie",Font.ITALIC,20));
         mensaje.setForeground(new Color(201,217,5));
 
@@ -151,7 +131,25 @@ public class VistaGrafica extends  JFrame implements IVista {
         });
         timer.setRepeats(false); // Asegurarse de que solo se ejecute una vez
         timer.start();
+
+
+        //CHEQUEAR DESPUES POR QUE NO FUNCIONA ESTO
+//        panelMensaje.setMensaje(texto);
+//        cardLayout.show(paneles,"Mensaje");
+//
+//        // Crear un Timer que cerrará la ventana después de segundos
+//        Timer timer = new Timer(5000, new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//
+//                cardLayout.last(paneles); // Cierra la ventana
+//            }
+//        });
+//        timer.setRepeats(false); // Asegurarse de que solo se ejecute una vez
+//        timer.start();
     }
+
+
 
     @Override
     public void activarCartas(){
