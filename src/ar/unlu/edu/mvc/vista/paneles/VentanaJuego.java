@@ -308,4 +308,8 @@ public class VentanaJuego {
         tirarCartaButton.setEnabled(false);
         analizarCartasButton.setEnabled(false);
     }
+
+    public void desactivarUltimaCartaCarnaval() {
+        cartasCarnaval.getLast().setEnabled(false);
+    }
 }

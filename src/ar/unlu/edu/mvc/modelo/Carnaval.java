@@ -58,7 +58,7 @@ public class Carnaval {
     public List<Carta> salvarCartas(int valor) {
         List<Carta> temporal= new ArrayList<>();
         int cantidad=this.cartas.size();
-        for (int i = cantidad - 1; i >=0 && valor != 0 ; i--){
+        for (int i = cantidad - 2; i >=0 && valor != 0 ; i--){
             Carta cartaTemporal= this.cartas.get(i);
             temporal.add(new Carta(cartaTemporal.getValor(),cartaTemporal.getColor()));
             valor--;

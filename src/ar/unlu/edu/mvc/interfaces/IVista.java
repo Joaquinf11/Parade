@@ -36,4 +36,6 @@ public interface IVista {
     void actualizarCartasEnMano();
 
     void desactivarTodosLosBotones();
+
+    void desactivarUltimaCartaCarnaval();
 }

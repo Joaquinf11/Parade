@@ -44,6 +44,7 @@ public class Ronda {
             for (Carta cartaCarnaval : cartasCarnaval) {
                 if (carta.equalsColor(cartaCarnaval) || cartaCarnaval.getValor() <= carta.getValor()) {
                     jugadorTurno.agregarCartaAlAreaDeJuego(cartaCarnaval);
+                    this.juego.notificar(Evento.CARTA_AGREGADA_AREA);
                     System.out.println("CARTA AGREGADA AL AREA DE JUEGO " + cartaCarnaval.getColor() + " " + cartaCarnaval.getValor()); //BORRAR
                 } else {
                     this.juego.notificar(Evento.CARTA_MAL_ELEGIDA_CARNAVAL); // debe ser un exception

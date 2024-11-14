@@ -163,5 +163,10 @@ public class VistaGrafica extends  JFrame implements IVista {
         this.ventanaJuego.desactivarTodosLosBotones();
     }
 
+    @Override
+    public void desactivarUltimaCartaCarnaval() {
+        this.ventanaJuego.desactivarUltimaCartaCarnaval();
+    }
+
 
 }

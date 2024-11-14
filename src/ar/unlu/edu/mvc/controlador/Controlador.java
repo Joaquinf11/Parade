@@ -51,6 +51,7 @@ public class Controlador implements Observador {
                 this.vista.actualizarCarnaval();
                 if (isTurno()){
                     this.vista.activarCartasCarnaval();
+                    this.vista.desactivarUltimaCartaCarnaval();
                 }
                 break;
             case CARTA_AGREGADA_MANO:
@@ -58,6 +59,8 @@ public class Controlador implements Observador {
                     this.vista.actualizarCartasEnMano();
                 }
                 break;
+            case CARTA_AGREGADA_AREA:
+                this.vista.actualizarCarnaval();
             case FIN_TURNO:
                 if (isTurno()){
                     this.vista.actualizarCartasEnMano();
