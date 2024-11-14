@@ -59,10 +59,7 @@ public class Ronda {
 
 
     public void finRonda(){
-        int cantidad=this.jugadorTurno.getCantidadCartasEnMano();
-        for (int i=cantidad ; i < 5 ; i++ ){
-            this.jugadorTurno.agarrarCarta(this.mazo.sacarCarta());
-        }
+        this.jugadorTurno.agarrarCarta(this.mazo.sacarCarta());
         juego.finTurno();
         if (esFinDeRonda()){
             juego.setUltimaRonda(true);
