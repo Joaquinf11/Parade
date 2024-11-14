@@ -41,10 +41,30 @@ public class Controlador implements Observador {
                 break;
             case CARTA_TIRADA:
                 if (isTurno()) {
+                    this.vista.actualizarCartasEnMano();
                     this.vista.desactivarCartasMano();
                     this.vista.activarCartasCarnaval();
                     this.vista.mostrarMensaje("Seleccione cartas del Carnaval"); // no se si es necesario
                 }
+                break;
+            case CARTA_AGREGADA_CARNAVAL:
+                this.vista.actualizarCarnaval();
+                if (isTurno()){
+                    this.vista.activarCartasCarnaval();
+                }
+                break;
+            case CARTA_AGREGADA_MANO:
+                if (isTurno()){
+                    this.vista.actualizarCartasEnMano();
+                }
+                break;
+            case FIN_TURNO:
+                if (isTurno()){
+                    this.vista.actualizarCartasEnMano();
+                    this.vista.desactivarTodosLosBotones();
+                    this.vista.mostrarMensaje("finalizo tu turno");
+                }
+
 
         }
     }

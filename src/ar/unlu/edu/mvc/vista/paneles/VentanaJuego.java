@@ -66,7 +66,7 @@ public class VentanaJuego {
     private JLabel nombreJugador3;
     private List<CartaButton> cartasCarnaval;
     private List<CartaButton> cartasEnMano;
-    private boolean cartaEnManoSeleccionada;
+
 
     private int [] cartasElegidasCarnaval;
     private int cartaElegidaMano;
@@ -78,7 +78,6 @@ public class VentanaJuego {
         this.vista= grafica;
         this.cartasCarnaval= new ArrayList<>();
         this.cartasEnMano= new ArrayList<>();
-        this.cartaEnManoSeleccionada= false;
         this.cartasElegidasCarnaval= new int[1];
 
         tirarCartaButton.addActionListener(new ActionListener() {
@@ -182,16 +181,11 @@ public class VentanaJuego {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (cartaEnManoSeleccionada){
-                        desactivarCartasEnMano();
-                    }
-                    else {
-                         cartaElegidaMano = (int) button.getClientProperty("indice");
-                        button.setForeground(Color.RED);
-                        cartaEnManoSeleccionada=true;
+
+                        cartaElegidaMano = (int) button.getClientProperty("indice");
+                        button.setBorderPainted(true);
 
 
-                    }
                 }
             });
             this.cartasEnMano.add(button);
@@ -208,6 +202,8 @@ public class VentanaJuego {
         for (JButton button : this.cartasEnMano){
             button.setEnabled(true);
         }
+        panelCarnaval.updateUI();
+        panelCartasMano1.updateUI();
     }
 
     public void desactivarCartasEnMano(){
@@ -215,6 +211,7 @@ public class VentanaJuego {
         for (JButton button : this.cartasEnMano){
             button.setEnabled(false);
         }
+
     }
 
 
@@ -224,6 +221,7 @@ public class VentanaJuego {
         for (JButton button : this.cartasCarnaval){
             button.setEnabled(false);
         }
+
     }
 
     public void actualizarAreaDeJuego(){
@@ -243,5 +241,71 @@ public class VentanaJuego {
         for (JButton button : this.cartasCarnaval){
             button.setEnabled(true);
         }
+
+    }
+
+    public void actualizarCartasCarnaval() {
+        cartasCarnaval.clear();
+        panelCarnaval.removeAll();
+        List<String> cartasCarnavalS= this.controlador.listarCartasCarnaval();
+
+        for(int i = 0;  i < cartasCarnavalS.size(); i++) {
+            CartaButton button = new CartaButton("imagenes/cartas/" + cartasCarnavalS.get(i) + ".png", "carnaval");
+            button.putClientProperty("indice", i);
+            button.setEnabled(false);
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (cartasElegidasCarnaval.length == 1) {
+                        cartasElegidasCarnaval[0] = (int) button.getClientProperty("indice");
+                    } else {
+                        int[] auxiliar = new int[cartasElegidasCarnaval.length + 1];
+                        for (int j = 0; j < cartasElegidasCarnaval.length; j++) {
+                            auxiliar[j] = cartasElegidasCarnaval[j];
+                        }
+                        auxiliar[auxiliar.length - 1] = (int) button.getClientProperty("indice");
+                        cartasElegidasCarnaval = auxiliar;
+                    }
+
+                }
+            });
+
+            this.cartasCarnaval.add(button);
+            this.panelCarnaval.add(button);
+        }
+        panelCarnaval.updateUI();
+    }
+
+    public void actualizarCartasEnMano() {
+        cartasEnMano.clear();
+        panelCartasMano1.removeAll();
+        List<String> cartasEnManoS= this.controlador.listarCartasEnMano();
+
+        for (int i = 0; i < cartasEnManoS.size(); i++) {
+
+            CartaButton button= new CartaButton("imagenes/cartas/" + cartasEnManoS.get(i) + ".png","mano");
+            button.setEnabled(false);
+            button.putClientProperty("indice",i);
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    cartaElegidaMano = (int) button.getClientProperty("indice");
+                    button.setBorderPainted(true);
+
+
+                }
+            });
+            this.cartasEnMano.add(button);
+            this.panelCartasMano1.add(button);
+        }
+        panelCartasMano1.updateUI();
+    }
+
+    public void desactivarTodosLosBotones() {
+        desactivarCartasCarnaval();
+        desactivarCartasEnMano();
+        tirarCartaButton.setEnabled(false);
+        analizarCartasButton.setEnabled(false);
     }
 }

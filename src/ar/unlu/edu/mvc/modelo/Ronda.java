@@ -21,17 +21,22 @@ public class Ronda {
 
     public void tirarCarta(int cartaElegida){
         Carta carta= this.jugadorTurno.elegirCarta(cartaElegida);
-        this.carnaval.agregarCarta(carta);
         this.juego.notificar(Evento.CARTA_TIRADA);
+        System.out.println("Carta tirada " + carta.getColor() + " " + carta.getValor()); //BORRAR
+        this.carnaval.agregarCarta(carta);
+        System.out.println("Carta agregada al carnaval " + carta.getColor() + " " + carta.getValor()); //BORRAR
+        this.juego.notificar(Evento.CARTA_AGREGADA_CARNAVAL);
     }
 
     public void analizarCartasCarnaval( int [] cartasElegidas){
         Carta carta= this.carnaval.getUltimaCarta();
         if (!this.carnaval.puedeAgarrarCarnaval(carta)){
             this.juego.notificar(Evento.NO_SE_PUEDE_AGARRAR); // debe ser un exception
+            System.out.println("NO SE PUEDE AGARRAR"); //BORRAR
         }
         else if (this.carnaval.agarroCartasSalvadasCarnaval(carta.getValor(),cartasElegidas)){
             this.juego.notificar(Evento.ELIGIO_CARTA_SALVADA);// debe ser un exception
+            System.out.println("CARTA SALVADA"); //BORRAR
         }
         else {
             List<Carta> cartasCarnaval = this.carnaval.getCartas(cartasElegidas);
@@ -39,8 +44,10 @@ public class Ronda {
             for (Carta cartaCarnaval : cartasCarnaval) {
                 if (carta.equalsColor(cartaCarnaval) || cartaCarnaval.getValor() <= carta.getValor()) {
                     jugadorTurno.agregarCartaAlAreaDeJuego(cartaCarnaval);
+                    System.out.println("CARTA AGREGADA AL AREA DE JUEGO " + cartaCarnaval.getColor() + " " + cartaCarnaval.getValor()); //BORRAR
                 } else {
                     this.juego.notificar(Evento.CARTA_MAL_ELEGIDA_CARNAVAL); // debe ser un exception
+                    System.out.println("CARTA MAL ELEGIDA  " + cartaCarnaval.getColor() + " " + cartaCarnaval.getValor()); //BORRAR
                     this.carnaval.agregarCarta(cartasElegidas[contador],cartaCarnaval);
                 }
                 contador++;
