@@ -31,6 +31,7 @@ public class VentanaIngresarJugador {
                 else{
                     controlador.agregarJugador(nombre.getText());
                 }
+                vistaGrafica.setNombreJugador(nombre.getText());
                 vistaGrafica.mostrarMenuInicial();
             }
         });
@@ -45,6 +46,7 @@ public class VentanaIngresarJugador {
                     else{
                         controlador.agregarJugador(nombre.getText());
                     }
+                    vistaGrafica.setNombreJugador(nombre.getText());
                     vistaGrafica.mostrarMenuInicial();
                 }
             }

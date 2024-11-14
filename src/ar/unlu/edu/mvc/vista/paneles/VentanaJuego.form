@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ar.unlu.edu.mvc.vista.paneles.VentanaJuego">
   <grid id="27dc6" binding="panelVentanaJuego" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="1062" height="400"/>
+      <xy x="20" y="20" width="1062" height="430"/>
     </constraints>
     <properties>
       <background color="-3713341"/>
@@ -28,6 +28,7 @@
             <constraints border-constraint="Center"/>
             <properties>
               <opaque value="false"/>
+              <visible value="false"/>
             </properties>
             <border type="none"/>
             <children>
@@ -133,21 +134,15 @@
         <constraints border-constraint="North"/>
         <properties>
           <opaque value="false"/>
+          <visible value="true"/>
         </properties>
         <border type="none"/>
         <children>
-          <grid id="b10c0" binding="panelCartasMano2" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
-            <constraints border-constraint="North"/>
-            <properties>
-              <opaque value="false"/>
-            </properties>
-            <border type="none"/>
-            <children/>
-          </grid>
           <grid id="926ba" binding="panelArea2" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
             <constraints border-constraint="South"/>
             <properties>
               <opaque value="false"/>
+              <visible value="true"/>
             </properties>
             <border type="none"/>
             <children>
@@ -201,92 +196,243 @@
               </grid>
             </children>
           </grid>
+          <grid id="a64a2" binding="panelCartasNombre" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <opaque value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="b10c0" binding="panelCartasMano2" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <opaque value="false"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="16bd8" class="javax.swing.JButton" binding="carta0B2">
+                    <constraints/>
+                    <properties>
+                      <borderPainted value="false"/>
+                      <contentAreaFilled value="false"/>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
+                      <maximumSize width="60" height="85"/>
+                      <minimumSize width="60" height="85"/>
+                      <opaque value="false"/>
+                      <preferredSize width="60" height="85"/>
+                      <text value="Button"/>
+                    </properties>
+                  </component>
+                  <component id="e4f41" class="javax.swing.JButton" binding="carta1B2">
+                    <constraints/>
+                    <properties>
+                      <borderPainted value="false"/>
+                      <contentAreaFilled value="false"/>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
+                      <maximumSize width="60" height="85"/>
+                      <minimumSize width="60" height="85"/>
+                      <opaque value="false"/>
+                      <preferredSize width="60" height="85"/>
+                      <text value="Button"/>
+                    </properties>
+                  </component>
+                  <component id="beefd" class="javax.swing.JButton" binding="carta2B2">
+                    <constraints/>
+                    <properties>
+                      <borderPainted value="false"/>
+                      <contentAreaFilled value="false"/>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
+                      <maximumSize width="60" height="85"/>
+                      <minimumSize width="60" height="85"/>
+                      <opaque value="false"/>
+                      <preferredSize width="60" height="85"/>
+                      <text value="Button"/>
+                    </properties>
+                  </component>
+                  <component id="44391" class="javax.swing.JButton" binding="carta3B2">
+                    <constraints/>
+                    <properties>
+                      <borderPainted value="false"/>
+                      <contentAreaFilled value="false"/>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
+                      <maximumSize width="60" height="85"/>
+                      <minimumSize width="60" height="85"/>
+                      <opaque value="false"/>
+                      <preferredSize width="60" height="85"/>
+                      <text value="Button"/>
+                    </properties>
+                  </component>
+                  <component id="30a77" class="javax.swing.JButton" binding="carta4B2">
+                    <constraints/>
+                    <properties>
+                      <borderPainted value="false"/>
+                      <contentAreaFilled value="false"/>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
+                      <maximumSize width="60" height="85"/>
+                      <minimumSize width="60" height="85"/>
+                      <opaque value="false"/>
+                      <preferredSize width="60" height="85"/>
+                      <text value="Button"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="b0134" binding="panelNombre2" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                <constraints border-constraint="North"/>
+                <properties>
+                  <opaque value="false"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="fe69d" class="javax.swing.JLabel" binding="nombre2Label">
+                    <constraints/>
+                    <properties>
+                      <background color="-3713341"/>
+                      <font name="Ravie" size="12"/>
+                      <foreground color="-3548923"/>
+                      <text value="nombre jugador"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
         </children>
       </grid>
       <grid id="76e46" binding="panelJugador3" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints border-constraint="East"/>
         <properties>
           <opaque value="false"/>
+          <visible value="false"/>
         </properties>
         <border type="none"/>
         <children>
-          <grid id="53b6b" binding="panelCartasMano3" layout-manager="GridBagLayout">
-            <constraints border-constraint="East"/>
-            <properties>
-              <opaque value="false"/>
-            </properties>
-            <border type="none"/>
-            <children>
-              <component id="61c92" class="javax.swing.JButton" binding="carta0J3">
-                <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <actionCommand value="Button"/>
-                  <enabled value="false"/>
-                  <opaque value="false"/>
-                  <text value="carta0"/>
-                </properties>
-              </component>
-              <component id="bf5ed" class="javax.swing.JButton" binding="carta1J3">
-                <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <actionCommand value="Button"/>
-                  <enabled value="false"/>
-                  <label value="carta1"/>
-                  <opaque value="false"/>
-                  <text value="carta1"/>
-                </properties>
-              </component>
-              <component id="7bfb7" class="javax.swing.JButton" binding="carta2J3">
-                <constraints>
-                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <enabled value="false"/>
-                  <label value="carta2"/>
-                  <opaque value="false"/>
-                  <text value="carta2"/>
-                </properties>
-              </component>
-              <component id="7c012" class="javax.swing.JButton" binding="carta3J3">
-                <constraints>
-                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <enabled value="false"/>
-                  <label value="carta3"/>
-                  <opaque value="false"/>
-                  <text value="carta3"/>
-                </properties>
-              </component>
-              <component id="14408" class="javax.swing.JButton" binding="carta4J3">
-                <constraints>
-                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <enabled value="false"/>
-                  <label value="carta4"/>
-                  <opaque value="false"/>
-                  <text value="carta4"/>
-                </properties>
-              </component>
-            </children>
-          </grid>
           <grid id="c5fb7" binding="panelArea3" layout-manager="GridBagLayout">
-            <constraints border-constraint="West"/>
+            <constraints border-constraint="Center"/>
             <properties>
               <opaque value="false"/>
+              <visible value="false"/>
             </properties>
             <border type="none"/>
             <children/>
+          </grid>
+          <grid id="de403" binding="panelCartasNombre3" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="East"/>
+            <properties>
+              <opaque value="false"/>
+              <visible value="true"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="53b6b" binding="panelCartasMano3" layout-manager="GridBagLayout">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <opaque value="false"/>
+                  <visible value="true"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="30f1b" class="javax.swing.JButton" binding="carta0B3">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <borderPainted value="false"/>
+                      <contentAreaFilled value="false"/>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
+                      <maximumSize width="85" height="60"/>
+                      <minimumSize width="85" height="60"/>
+                      <opaque value="false"/>
+                      <preferredSize width="85" height="60"/>
+                      <text value="Button"/>
+                    </properties>
+                  </component>
+                  <component id="66f54" class="javax.swing.JButton" binding="carta1B3">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <borderPainted value="false"/>
+                      <contentAreaFilled value="false"/>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
+                      <maximumSize width="85" height="60"/>
+                      <minimumSize width="85" height="60"/>
+                      <opaque value="false"/>
+                      <preferredSize width="85" height="60"/>
+                      <text value="Button"/>
+                    </properties>
+                  </component>
+                  <component id="faad8" class="javax.swing.JButton" binding="carta2B3">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <borderPainted value="false"/>
+                      <contentAreaFilled value="false"/>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
+                      <maximumSize width="85" height="60"/>
+                      <minimumSize width="85" height="60"/>
+                      <opaque value="false"/>
+                      <preferredSize width="85" height="60"/>
+                      <text value="Button"/>
+                    </properties>
+                  </component>
+                  <component id="3ac80" class="javax.swing.JButton" binding="carta3B3">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <borderPainted value="false"/>
+                      <contentAreaFilled value="false"/>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
+                      <maximumSize width="85" height="60"/>
+                      <minimumSize width="85" height="60"/>
+                      <opaque value="false"/>
+                      <preferredSize width="85" height="60"/>
+                      <text value="Button"/>
+                    </properties>
+                  </component>
+                  <component id="d73aa" class="javax.swing.JButton" binding="carta4B3">
+                    <constraints>
+                      <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <borderPainted value="false"/>
+                      <contentAreaFilled value="false"/>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
+                      <maximumSize width="85" height="60"/>
+                      <minimumSize width="85" height="60"/>
+                      <opaque value="false"/>
+                      <preferredSize width="85" height="60"/>
+                      <text value="Button"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="2d24" binding="panelNombre3" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="East"/>
+                <properties>
+                  <opaque value="false"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
           </grid>
         </children>
       </grid>
@@ -294,11 +440,12 @@
         <constraints border-constraint="West"/>
         <properties>
           <opaque value="false"/>
+          <visible value="false"/>
         </properties>
         <border type="none"/>
         <children>
           <grid id="29512" binding="panelArea4" layout-manager="GridBagLayout">
-            <constraints border-constraint="East"/>
+            <constraints border-constraint="Center"/>
             <properties>
               <opaque value="false"/>
             </properties>
@@ -372,74 +519,115 @@
               </grid>
             </children>
           </grid>
-          <grid id="aa28b" binding="panelCartasMano4" layout-manager="GridBagLayout">
+          <grid id="50156" binding="panelCartasNombre4" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints border-constraint="West"/>
             <properties>
               <opaque value="false"/>
             </properties>
             <border type="none"/>
             <children>
-              <component id="d215f" class="javax.swing.JButton" binding="carta0J4">
-                <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
+              <grid id="aa28b" binding="panelCartasMano4" layout-manager="GridBagLayout">
+                <constraints border-constraint="Center"/>
                 <properties>
-                  <actionCommand value="Button"/>
-                  <enabled value="false"/>
                   <opaque value="false"/>
-                  <text value="carta0"/>
                 </properties>
-              </component>
-              <component id="12314" class="javax.swing.JButton" binding="carta1J4">
-                <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
+                <border type="none"/>
+                <children>
+                  <component id="bbcf" class="javax.swing.JButton" binding="carta0B4">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <borderPainted value="false"/>
+                      <contentAreaFilled value="false"/>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
+                      <maximumSize width="85" height="60"/>
+                      <minimumSize width="85" height="60"/>
+                      <opaque value="false"/>
+                      <preferredSize width="85" height="60"/>
+                      <text value="Button"/>
+                    </properties>
+                  </component>
+                  <component id="bfbc7" class="javax.swing.JButton" binding="carta1B4">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <borderPainted value="false"/>
+                      <contentAreaFilled value="false"/>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
+                      <maximumSize width="85" height="60"/>
+                      <minimumSize width="85" height="60"/>
+                      <opaque value="false"/>
+                      <preferredSize width="85" height="60"/>
+                      <text value="Button"/>
+                    </properties>
+                  </component>
+                  <component id="8dd2f" class="javax.swing.JButton" binding="carta2B4">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <borderPainted value="false"/>
+                      <contentAreaFilled value="false"/>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
+                      <maximumSize width="85" height="60"/>
+                      <minimumSize width="85" height="60"/>
+                      <opaque value="false"/>
+                      <preferredSize width="85" height="60"/>
+                      <text value="Button"/>
+                    </properties>
+                  </component>
+                  <component id="a4b8a" class="javax.swing.JButton" binding="carta3B4">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <borderPainted value="false"/>
+                      <contentAreaFilled value="false"/>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
+                      <maximumSize width="85" height="60"/>
+                      <minimumSize width="85" height="60"/>
+                      <opaque value="false"/>
+                      <preferredSize width="85" height="60"/>
+                      <text value="Button"/>
+                    </properties>
+                  </component>
+                  <component id="92174" class="javax.swing.JButton" binding="carta4B4">
+                    <constraints>
+                      <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <borderPainted value="false"/>
+                      <contentAreaFilled value="false"/>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
+                      <maximumSize width="85" height="60"/>
+                      <minimumSize width="85" height="60"/>
+                      <opaque value="false"/>
+                      <preferredSize width="85" height="60"/>
+                      <text value="Button"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="5101f" binding="panelNombre4" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="West"/>
                 <properties>
-                  <actionCommand value="Button"/>
-                  <enabled value="false"/>
-                  <label value="carta1"/>
                   <opaque value="false"/>
-                  <text value="carta1"/>
                 </properties>
-              </component>
-              <component id="8b646" class="javax.swing.JButton" binding="carta2J4">
-                <constraints>
-                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <enabled value="false"/>
-                  <label value="carta2"/>
-                  <opaque value="false"/>
-                  <text value="carta2"/>
-                </properties>
-              </component>
-              <component id="ff33f" class="javax.swing.JButton" binding="carta3J4">
-                <constraints>
-                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <enabled value="false"/>
-                  <label value="carta3"/>
-                  <opaque value="false"/>
-                  <text value="carta3"/>
-                </properties>
-              </component>
-              <component id="57039" class="javax.swing.JButton" binding="carta4J4">
-                <constraints>
-                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <enabled value="false"/>
-                  <label value="carta4"/>
-                  <opaque value="false"/>
-                  <text value="carta4"/>
-                </properties>
-              </component>
+                <border type="none"/>
+                <children/>
+              </grid>
             </children>
           </grid>
         </children>

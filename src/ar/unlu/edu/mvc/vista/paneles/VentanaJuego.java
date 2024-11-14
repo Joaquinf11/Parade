@@ -2,12 +2,12 @@ package ar.unlu.edu.mvc.vista.paneles;
 
 import ar.unlu.edu.mvc.controlador.Controlador;
 import ar.unlu.edu.mvc.vista.botones.CartaButton;
+import ar.unlu.edu.mvc.vista.botones.LabelVertical;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,17 +35,7 @@ public class VentanaJuego {
     private JPanel panelArea3;
     private JPanel panelArea4;
     private JPanel panelCartasMano4;
-    private JButton carta0J3;
-    private JButton carta1J3;
-    private JButton carta2J3;
-    private JButton carta3J3;
-    private JButton carta4J3;
     private JPanel panelCentro;
-    private JButton carta0J4;
-    private JButton carta1J4;
-    private JButton carta2J4;
-    private JButton carta3J4;
-    private JButton carta4J4;
 
     private JPanel panelBotones;
     private JButton tirarCartaButton;
@@ -63,14 +53,37 @@ public class VentanaJuego {
     private JPanel panelRojo2;
     private JPanel panelVioleta2;
     private JPanel panelNegro2;
-    private JLabel nombreJugador3;
+    private JPanel panelCartasNombre;
+    private JPanel panelNombre2;
+    private JLabel nombre2Label;
+    private JPanel panelCartasNombre3;
+    private JPanel panelNombre3;
+    private LabelVertical nombre3Label;
+    private JPanel panelCartasNombre4;
+    private JPanel panelNombre4;
+    private JButton carta1B4;
+    private JButton carta2B4;
+    private JButton carta3B4;
+    private JButton carta4B4;
+    private JButton carta0B4;
+    private JButton carta0B3;
+    private JButton carta1B3;
+    private JButton carta2B3;
+    private JButton carta3B3;
+    private JButton carta4B3;
+    private JButton carta0B2;
+    private JButton carta1B2;
+    private JButton carta2B2;
+    private JButton carta3B2;
+    private JButton carta4B2;
+    private LabelVertical nombre4Label;
+
     private List<CartaButton> cartasCarnaval;
     private List<CartaButton> cartasEnMano;
-
-
     private int [] cartasElegidasCarnaval;
     private int cartaElegidaMano;
 
+    private List<String> oponentes;
 
 
     public VentanaJuego(Controlador controlador,VistaGrafica grafica){
@@ -79,6 +92,7 @@ public class VentanaJuego {
         this.cartasCarnaval= new ArrayList<>();
         this.cartasEnMano= new ArrayList<>();
         this.cartasElegidasCarnaval= new int[1];
+        this.cartasElegidasCarnaval[0]= -1;
 
         tirarCartaButton.addActionListener(new ActionListener() {
             @Override
@@ -93,6 +107,7 @@ public class VentanaJuego {
             public void actionPerformed(ActionEvent e) {
                 controlador.analizarCartasCarnaval(cartasElegidasCarnaval);
                 cartasElegidasCarnaval= new int[1];
+                cartasElegidasCarnaval[0]=-1;    //CONTROLADOR?
 
             }
         });
@@ -100,47 +115,48 @@ public class VentanaJuego {
     }
 
     public void iniciarVentanaJuego()  {
-        panelArea1.setVisible(false);
-        panelArea2.setVisible(false);
-        panelArea3.setVisible(false);
-        panelArea4.setVisible(false);
 
-        int cantidadJugadores= this.controlador.getCantidadJugadores();
+        this.oponentes =this.controlador.listarNombreJugadores();
+        this.oponentes.remove(vista.getNombreJugador());
+        ImageIcon imageDorsoHorizontal= new ImageIcon("imagenes/Carta,dorsoHorizontal.jpg");
+        imageDorsoHorizontal.setImage(imageDorsoHorizontal.getImage().getScaledInstance(85,60,Image.SCALE_SMOOTH));
+        for (int i = 0; i < oponentes.size(); i++) {
+            String nombre = oponentes.get(i);
+           if (!nombre.equals(vista.getNombreJugador())){
+               if (i==0){
+                   nombre2Label.setText(nombre);
+                   ImageIcon image= new ImageIcon("imagenes/Carta,dorso.jpg");
+                   image.setImage(image.getImage().getScaledInstance(60,85,Image.SCALE_SMOOTH));
+                   carta0B2.setIcon(image);
+                   carta1B2.setIcon(image);
+                   carta2B2.setIcon(image);
+                   carta3B2.setIcon(image);
+                   carta4B2.setIcon(image);
+                   panelJugador2.setVisible(true);
+               }
+               else if (i==1) {
+                   nombre3Label = new LabelVertical(nombre);
+                   panelCartasNombre3.add(nombre3Label, BorderLayout.EAST);
+                   carta0B3.setIcon(imageDorsoHorizontal);
+                   carta1B3.setIcon(imageDorsoHorizontal);
+                   carta2B3.setIcon(imageDorsoHorizontal);
+                   carta3B3.setIcon(imageDorsoHorizontal);
+                   carta4B3.setIcon(imageDorsoHorizontal);
+                   panelJugador3.setVisible(true);
+               }
+               else if (i==2) {
+                   nombre4Label= new LabelVertical(nombre);
+                   panelCartasNombre4.add(nombre4Label, BorderLayout.WEST);
+                   carta0B4.setIcon(imageDorsoHorizontal);
+                   carta1B4.setIcon(imageDorsoHorizontal);
+                   carta2B4.setIcon(imageDorsoHorizontal);
+                   carta3B4.setIcon(imageDorsoHorizontal);
+                   carta4B4.setIcon(imageDorsoHorizontal);
+                   panelJugador4.setVisible(true);
+               }
+           }
+        }
 
-        if (cantidadJugadores == 2){
-            panelJugador3.setVisible(false);
-            panelJugador4.setVisible(false);
-            for (int i = 0; i < 5; i++) {
-                JButton cartaDorso= new CartaButton("imagenes/Carta,dorso.jpg","dorso vertical");
-                panelCartasMano2.add(cartaDorso);
-            }
-
-        }
-        else if (cantidadJugadores == 3){
-            panelJugador4.setVisible(false);
-            for (int i = 0; i < 5; i++) {
-                JButton cartaDorso= new CartaButton("imagenes/Carta,dorso.jpg","dorso vertical");
-                panelCartasMano2.add(cartaDorso);
-            }
-            for (int i = 0; i < 5; i++) {
-                JButton cartaDorso= new CartaButton("imagenes/Carta,dorso.jpg","dorso horizontal");
-                panelCartasMano3.add(cartaDorso);
-            }
-        }
-        else{
-            for (int i = 0; i < 5; i++) {
-                JButton cartaDorso= new CartaButton("imagenes/Carta,dorso.jpg","dorso vertical");
-                panelCartasMano2.add(cartaDorso);
-            }
-            for (int i = 0; i < 5; i++) {
-                JButton cartaDorso= new CartaButton("imagenes/Carta,dorso.jpg","dorso horizontal");
-                panelCartasMano3.add(cartaDorso);
-            }
-            for (int i = 0; i < 5; i++) {
-                JButton cartaDorso= new CartaButton("imagenes/Carta,dorso.jpg","dorso horizontal");
-                panelCartasMano4.add(cartaDorso);
-            }
-        }
 
         List<String> cartasCarnavalS= this.controlador.listarCartasCarnaval();
 
@@ -151,7 +167,7 @@ public class VentanaJuego {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (cartasElegidasCarnaval.length == 1){
+                    if (cartasElegidasCarnaval[0] == -1){
                         cartasElegidasCarnaval[0] = (int) button.getClientProperty("indice");
                     }
                     else {
@@ -256,7 +272,7 @@ public class VentanaJuego {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (cartasElegidasCarnaval.length == 1) {
+                    if (cartasElegidasCarnaval[0] == - 1) {
                         cartasElegidasCarnaval[0] = (int) button.getClientProperty("indice");
                     } else {
                         int[] auxiliar = new int[cartasElegidasCarnaval.length + 1];

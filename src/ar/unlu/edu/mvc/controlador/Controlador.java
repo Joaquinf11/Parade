@@ -6,7 +6,7 @@ import ar.unlu.edu.mvc.interfaces.Observador;
 import ar.unlu.edu.mvc.interfaces.IVista;
 import ar.unlu.edu.mvc.modelo.Evento;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Controlador implements Observador {
@@ -26,7 +26,6 @@ public class Controlador implements Observador {
             case JUGADOR_AGREGADO:
                 if (isTurno()) {
                     this.vista.mostrarMensaje("Jugador agregado con exito");
-                    //this.vista.mostrarMensaje("Jugador agregado con exito");
                 }
                  break;
             case JUEGO_COMENZADO:
@@ -95,7 +94,17 @@ public class Controlador implements Observador {
     public List<String> listarCartasCarnaval(){
         return  this.juego.listarCartasCarnaval();
     }
-
+    public List<IJugador> listarJugadores() {
+        return this.juego.listarJugadores();
+    }
+    public List<String> listarNombreJugadores() {
+        List<String> resultado= new ArrayList<>();
+        List<IJugador> jugadores= listarJugadores();
+        for (IJugador jugador: jugadores) {
+            resultado.add(jugador.getNombre());
+        }
+        return resultado;
+    }
     public List<String> listarCartasEnMano(){
         return  this.juego.listarCartasEnMano(this.jugador);
     }
@@ -119,4 +128,7 @@ public class Controlador implements Observador {
     public void analizarCartasCarnaval(int [] elegidas){
         this.juego.analizarCartasCarnaval(elegidas);
     }
+
+
+
 }

@@ -16,6 +16,7 @@ public class VistaGrafica extends  JFrame implements IVista {
     private  JPanel paneles;
     private PanelMensaje panelMensaje;
     private VentanaJuego ventanaJuego;
+    private String jugador;
 
     public VistaGrafica(){
 
@@ -58,6 +59,13 @@ public class VistaGrafica extends  JFrame implements IVista {
     }
 
 
+    public void setNombreJugador(String nombre){
+        this.jugador=nombre;
+    }
+
+    public String getNombreJugador(){
+        return this.jugador;
+    }
 
     @Override
     public void setControlador(Controlador controlador){
