@@ -104,8 +104,10 @@ public class Juego implements Observado, IJuego {
     }
 
     public void finTurno() {
+        System.out.println("FIN TURNO " + jugadorTurno.getNombre()); //BORRAR
         this.notificar(Evento.FIN_TURNO); // fijate que onda si se va o no
         this.jugadores.add(this.jugadorTurno);
+        this.cambiarTurno();
     }
     public void calcularPuntos(){
         evaluarAreaDeJuego();
@@ -114,11 +116,19 @@ public class Juego implements Observado, IJuego {
         }
     }
     public IJugador finJuego(){
+        this.agregarCartasEnManoAlAreaDeJuego();
         this.notificar(Evento.FIN_JUEGO);
         this.calcularPuntos();
         return this.definirGanador();
     }
-
+    public void agregarCartasEnManoAlAreaDeJuego(){
+        for (Jugador jugador : this.jugadores){
+            for (Carta carta : jugador.getCartas()){
+                jugador.quitarCarta(carta);
+                jugador.agregarCartaAlAreaDeJuego(carta);
+            }
+        }
+    }
     public void evaluarAreaDeJuego(){
         Jugador jugador_anterior= this.jugadores.peek();
         List<Jugador> jugadoresConMasCartas= new ArrayList<>();
@@ -204,7 +214,10 @@ public class Juego implements Observado, IJuego {
 
     @Override
     public List<String> listarCartasEnMano(String nombre){
-        Jugador jugador = this.buscarJugador(nombre);
+        Jugador jugador= this.buscarJugador(nombre);
+        if (jugador == null){
+            jugador= this.jugadorTurno;
+        }
         List<String> resultado= new ArrayList<>();
         for (Carta carta : jugador.getCartas()){
             resultado.add(carta.toString());
