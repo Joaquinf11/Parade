@@ -95,16 +95,18 @@ public class Juego implements Observado, IJuego {
         }
     }
 
-    public void finTurno(){
+    public void tirarCarta(int cartaElegida){
+        this.ronda.tirarCarta(cartaElegida);
+    }
+
+    public void analizarCartasCarnaval(int[] cartasElegidas){
+        this.ronda.analizarCartasCarnaval(cartasElegidas);
+    }
+
+    public void finTurno() {
         this.notificar(Evento.FIN_TURNO); // fijate que onda si se va o no
         this.jugadores.add(this.jugadorTurno);
     }
-
-    @Override
-    public void jugarCarta(int cartaElegida, int[] cartaElegidasCarnaval) {
-        this.ronda.jugarCarta(cartaElegida, cartaElegidasCarnaval);
-    }
-
     public void calcularPuntos(){
         evaluarAreaDeJuego();
         for (Jugador jugador : this.jugadores){

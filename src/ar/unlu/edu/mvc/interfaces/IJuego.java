@@ -10,8 +10,9 @@ public interface IJuego {
 
     void empezarJuego();
 
-    void jugarCarta(int indice, int[] cartasElegidasCarnaval);
+    void tirarCarta(int indice);
 
+    void analizarCartasCarnaval(int[] indices);
     List<String> listarCartasCarnaval();
     List<String> listarCartasEnMano(String nombre);
     boolean sePuedeComenzar();

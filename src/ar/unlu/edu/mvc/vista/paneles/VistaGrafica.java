@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class VistaGrafica extends  JFrame implements IVista {
 
@@ -63,40 +64,9 @@ public class VistaGrafica extends  JFrame implements IVista {
         this.controlador=controlador;
     }
 
-    @Override
-    public void mostrarMensajeJugadorAgregado(){
-        JFrame frame= new JFrame();
-
-        JPanel panel= new JPanel();
-        panel.setLayout(new GridBagLayout());
-
-        JLabel mensaje= new JLabel("Jugador agregado con exito");
-        mensaje.setFont(new Font("Ravie",Font.ITALIC,20));
-        mensaje.setForeground(new Color(201,217,5));
-
-
-        panel.add(mensaje);
-        panel.setVisible(true);
-        panel.setBackground(new Color(199,86,195));
-
-        frame.setContentPane(panel);
-        frame.setSize(400,200);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-
-        // Crear un Timer que cerrará la ventana después de 5 segundos (5000 ms)
-        Timer timer = new Timer(5000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose(); // Cierra la ventana
-            }
-        });
-        timer.setRepeats(false); // Asegurarse de que solo se ejecute una vez
-        timer.start();
-    }
 
     @Override
-    public void iniciarVentanaJuego(){
+    public void iniciarVentanaJuego()  {
         ventanaJuego.iniciarVentanaJuego();
         mostrarVentanaJuego();
 
@@ -154,6 +124,21 @@ public class VistaGrafica extends  JFrame implements IVista {
     @Override
     public void activarCartas(){
         this.ventanaJuego.activarBotones();
+    }
+
+    @Override
+    public void activarCartasMano() {
+        this.ventanaJuego.activarCartasMano();
+    }
+
+    @Override
+    public void activarCartasCarnaval() {
+        this.ventanaJuego.activarCartasCarnaval();
+    }
+
+    @Override
+    public void desactivarCartasMano() {
+        this.ventanaJuego.desactivarCartasEnMano();
     }
 
 

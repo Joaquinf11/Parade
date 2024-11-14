@@ -6,6 +6,7 @@ import ar.unlu.edu.mvc.interfaces.Observador;
 import ar.unlu.edu.mvc.interfaces.IVista;
 import ar.unlu.edu.mvc.modelo.Evento;
 
+import java.io.IOException;
 import java.util.List;
 
 public class Controlador implements Observador {
@@ -20,7 +21,7 @@ public class Controlador implements Observador {
     }
 
     @Override
-    public void actualizar(Evento evento) {
+    public void actualizar(Evento evento)  {
         switch (evento){
             case JUGADOR_AGREGADO:
                 if (isTurno()) {
@@ -35,9 +36,15 @@ public class Controlador implements Observador {
              //   this.vista.actualizarMesa(); fijate despues como vas a hacer esto
                this.vista.mostrarMensaje("Es el turno de " + getNombreJugadorTurno());
                 if (isTurno()){
-                    this.vista.activarCartas();
+                    this.vista.activarCartasMano();
                 }
                 break;
+            case CARTA_TIRADA:
+                if (isTurno()) {
+                    this.vista.desactivarCartasMano();
+                    this.vista.activarCartasCarnaval();
+                    this.vista.mostrarMensaje("Seleccione cartas del Carnaval"); // no se si es necesario
+                }
 
         }
     }
@@ -81,7 +88,11 @@ public class Controlador implements Observador {
         return this.juego.getJugadorTurno().getNombre();
     }
 
-    public void jugarCarta(int cartaMano,int[] cartasCarnaval ){
-        this.juego.jugarCarta(cartaMano,cartasCarnaval);
+    public void jugarCarta(int cartaMano ){
+        this.juego.tirarCarta(cartaMano);
+    }
+
+    public void analizarCartasCarnaval(int [] elegidas){
+        this.juego.analizarCartasCarnaval(elegidas);
     }
 }

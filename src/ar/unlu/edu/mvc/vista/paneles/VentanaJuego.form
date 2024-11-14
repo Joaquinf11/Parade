@@ -84,7 +84,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="d2a4e" class="javax.swing.JButton" binding="jugarCartasButton">
+              <component id="d2a4e" class="javax.swing.JButton" binding="tirarCartaButton">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
@@ -100,14 +100,19 @@
                   <text value="Jugar Carta"/>
                 </properties>
               </component>
-              <component id="8a24c" class="javax.swing.JButton" binding="button2" default-binding="true">
+              <component id="8a24c" class="javax.swing.JButton" binding="analizarCartasButton">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
-                  <opaque value="false"/>
-                  <text value="Button"/>
+                  <background color="-3548923"/>
+                  <font name="Ravie" size="14"/>
+                  <foreground color="-3713341"/>
+                  <opaque value="true"/>
+                  <selected value="false"/>
+                  <text value="Analizar cartas"/>
+                  <verifyInputWhenFocusTarget value="true"/>
                 </properties>
               </component>
               <component id="377ae" class="javax.swing.JButton" binding="button3" default-binding="true">
@@ -146,56 +151,54 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="4714b" class="javax.swing.JButton" binding="color0J2">
+              <grid id="e09a" binding="panelAmarillo2" layout-manager="GridBagLayout">
                 <constraints/>
                 <properties>
-                  <actionCommand value="Button"/>
-                  <enabled value="false"/>
-                  <label value="color0"/>
-                  <text value="color0"/>
+                  <opaque value="false"/>
                 </properties>
-              </component>
-              <component id="ebb05" class="javax.swing.JButton" binding="color1J2">
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="3261a" binding="panelVerde2" layout-manager="GridBagLayout">
                 <constraints/>
                 <properties>
-                  <actionCommand value="Button"/>
-                  <enabled value="false"/>
-                  <label value="color1"/>
-                  <text value="color1"/>
+                  <opaque value="false"/>
                 </properties>
-              </component>
-              <component id="c6e2d" class="javax.swing.JButton" binding="color2J2">
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="1d3df" binding="panelAzul2" layout-manager="GridBagLayout">
                 <constraints/>
                 <properties>
-                  <enabled value="false"/>
-                  <label value="color2"/>
-                  <text value="color2"/>
+                  <opaque value="false"/>
                 </properties>
-              </component>
-              <component id="78813" class="javax.swing.JButton" binding="color3J2">
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="50679" binding="panelRojo2" layout-manager="GridBagLayout">
                 <constraints/>
                 <properties>
-                  <enabled value="false"/>
-                  <label value="color3"/>
-                  <text value="color3"/>
+                  <opaque value="false"/>
                 </properties>
-              </component>
-              <component id="5ecf9" class="javax.swing.JButton" binding="color4J2">
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="579d3" binding="panelVioleta2" layout-manager="GridBagLayout">
                 <constraints/>
                 <properties>
-                  <enabled value="false"/>
-                  <label value="color4"/>
-                  <text value="color4"/>
+                  <opaque value="false"/>
                 </properties>
-              </component>
-              <component id="12c26" class="javax.swing.JButton" binding="color5J2">
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="5c4c1" binding="panelNegro2" layout-manager="GridBagLayout">
                 <constraints/>
                 <properties>
-                  <enabled value="false"/>
-                  <label value="color5"/>
-                  <text value="color5"/>
+                  <opaque value="false"/>
                 </properties>
-              </component>
+                <border type="none"/>
+                <children/>
+              </grid>
             </children>
           </grid>
         </children>
@@ -283,76 +286,7 @@
               <opaque value="false"/>
             </properties>
             <border type="none"/>
-            <children>
-              <component id="68823" class="javax.swing.JButton" binding="color0J3">
-                <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <actionCommand value="Button"/>
-                  <enabled value="false"/>
-                  <label value="color0"/>
-                  <text value="color0"/>
-                </properties>
-              </component>
-              <component id="5a67a" class="javax.swing.JButton" binding="color1J3">
-                <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <actionCommand value="Button"/>
-                  <enabled value="false"/>
-                  <label value="color1"/>
-                  <text value="color1"/>
-                </properties>
-              </component>
-              <component id="587ff" class="javax.swing.JButton" binding="color2J3">
-                <constraints>
-                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <enabled value="false"/>
-                  <label value="color2"/>
-                  <text value="color2"/>
-                </properties>
-              </component>
-              <component id="82886" class="javax.swing.JButton" binding="color3J3">
-                <constraints>
-                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <enabled value="false"/>
-                  <label value="color3"/>
-                  <text value="color3"/>
-                </properties>
-              </component>
-              <component id="f6c66" class="javax.swing.JButton" binding="color4J3">
-                <constraints>
-                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <enabled value="false"/>
-                  <label value="color4"/>
-                  <text value="color4"/>
-                </properties>
-              </component>
-              <component id="fa390" class="javax.swing.JButton" binding="color5J3">
-                <constraints>
-                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <enabled value="false"/>
-                  <label value="color5"/>
-                  <text value="color5"/>
-                </properties>
-              </component>
-            </children>
+            <children/>
           </grid>
         </children>
       </grid>
@@ -370,76 +304,72 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="ce212" class="javax.swing.JButton" binding="color0J4">
+              <grid id="6876f" binding="panelAmarillo4" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
-                  <actionCommand value="Button"/>
-                  <borderPainted value="false"/>
-                  <enabled value="false"/>
-                  <focusPainted value="true"/>
-                  <label value="color0"/>
-                  <text value="color0"/>
+                  <opaque value="false"/>
                 </properties>
-              </component>
-              <component id="c5ffc" class="javax.swing.JButton" binding="color1J4">
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="b5d99" binding="panelVerde4" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
-                  <actionCommand value="Button"/>
-                  <enabled value="false"/>
-                  <label value="color1"/>
-                  <text value="color1"/>
+                  <opaque value="false"/>
                 </properties>
-              </component>
-              <component id="ddcd9" class="javax.swing.JButton" binding="color2J4">
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="24344" binding="panelAzul4" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
                 <constraints>
-                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
-                  <enabled value="false"/>
-                  <label value="color2"/>
-                  <text value="color2"/>
+                  <opaque value="false"/>
                 </properties>
-              </component>
-              <component id="a6868" class="javax.swing.JButton" binding="color3J4">
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="48732" binding="panelRojo4" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
                 <constraints>
-                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
-                  <enabled value="false"/>
-                  <label value="color3"/>
-                  <text value="color3"/>
+                  <opaque value="false"/>
                 </properties>
-              </component>
-              <component id="895b6" class="javax.swing.JButton" binding="color4J4">
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="ceb95" binding="panelVioleta4" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
                 <constraints>
-                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
-                  <enabled value="false"/>
-                  <label value="color4"/>
-                  <text value="color4"/>
+                  <opaque value="false"/>
                 </properties>
-              </component>
-              <component id="a1e3d" class="javax.swing.JButton" binding="color5J4">
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="2ae" binding="panelNegro4" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
                 <constraints>
-                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
-                  <enabled value="false"/>
-                  <label value="color5"/>
-                  <text value="color5"/>
+                  <opaque value="false"/>
                 </properties>
-              </component>
+                <border type="none"/>
+                <children/>
+              </grid>
             </children>
           </grid>
           <grid id="aa28b" binding="panelCartasMano4" layout-manager="GridBagLayout">

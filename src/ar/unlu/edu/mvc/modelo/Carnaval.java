@@ -16,6 +16,10 @@ public class Carnaval {
         return this.cartas;
     }
 
+    public Carta getUltimaCarta() {
+        return this.cartas.getLast();
+    }
+
     public List<Carta> getCartas(int[] indices){
         List<Carta> resultado = new ArrayList<>();
         List<Carta> eliminar= new ArrayList<>();

@@ -11,8 +11,7 @@ public class RondaDescarte extends Ronda {
     }
 
     public void jugarCarta(int cartaElegida, int[] cartaElegidasCarnaval) {
-        Carta carta = this.jugadorTurno.elegirCarta(cartaElegida);
-        this.analizarCartasCarnaval(carta, cartaElegidasCarnaval);
+        this.jugadorTurno.quitarCarta(cartaElegida);
     }
 
     @Override
