@@ -328,4 +328,30 @@ public class VentanaJuego {
     public void desactivarUltimaCartaCarnaval() {
         cartasCarnaval.getLast().setEnabled(false);
     }
+
+    public void desactivarCartaManoOponente(String oponente) {
+        if (oponente.equals(nombre2Label.getText())){
+            carta0B2.setVisible(false);
+            panelCartasMano2.updateUI();
+        } else if (oponente.equals(nombre3Label.getText())) {
+            carta0B3.setVisible(false);
+            panelCartasMano3.updateUI();
+        }else if (oponente.equals(nombre4Label.getText())) {
+            carta0B4.setVisible(false);
+            panelCartasMano4.updateUI();
+        }
+    }
+
+    public void activarCartaOponente(String oponente) {
+        if (oponente.equals(nombre2Label.getText())){
+            carta0B2.setVisible(true);
+            panelCartasMano2.updateUI();
+        } else if (oponente.equals(nombre3Label.getText())) {
+            carta0B3.setVisible(true);
+            panelCartasMano3.updateUI();
+        }else if (oponente.equals(nombre4Label.getText())) {
+            carta0B4.setVisible(true);
+            panelCartasMano4.updateUI();
+        }
+    }
 }

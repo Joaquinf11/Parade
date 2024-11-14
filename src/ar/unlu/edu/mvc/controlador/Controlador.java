@@ -37,6 +37,9 @@ public class Controlador implements Observador {
                 if (isTurno()){
                     this.vista.activarCartasMano();
                 }
+                else{
+                    this.vista.desactivarCartaManoOponente(getNombreJugadorTurno());
+                }
                 break;
             case CARTA_TIRADA:
                 if (isTurno()) {
@@ -66,6 +69,9 @@ public class Controlador implements Observador {
                     this.vista.actualizarCartasEnMano();
                     this.vista.desactivarTodosLosBotones();
                     this.vista.mostrarMensaje("finalizo tu turno");
+                }
+                else{
+                    this.vista.activarCartaOponente(getNombreJugadorTurno());
                 }
                 break;
 

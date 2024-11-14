@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class VistaGrafica extends  JFrame implements IVista {
 
@@ -174,6 +173,16 @@ public class VistaGrafica extends  JFrame implements IVista {
     @Override
     public void desactivarUltimaCartaCarnaval() {
         this.ventanaJuego.desactivarUltimaCartaCarnaval();
+    }
+
+    @Override
+    public void desactivarCartaManoOponente(String oponente) {
+        this.ventanaJuego.desactivarCartaManoOponente(oponente);
+    }
+
+    @Override
+    public void activarCartaOponente(String oponente) {
+        this.ventanaJuego.activarCartaOponente(oponente);
     }
 
 
