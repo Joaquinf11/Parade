@@ -59,15 +59,16 @@ public class Controlador implements Observador {
                     this.vista.actualizarCartasEnMano();
                 }
                 break;
-            case CARTA_AGREGADA_AREA:
+            case CARTA_AGREGADA_AREA, CARTA_MAL_ELEGIDA_CARNAVAL:
                 this.vista.actualizarCarnaval();
+                break;
             case FIN_TURNO:
                 if (isTurno()){
                     this.vista.actualizarCartasEnMano();
                     this.vista.desactivarTodosLosBotones();
                     this.vista.mostrarMensaje("finalizo tu turno");
                 }
-
+                break;
 
         }
     }
