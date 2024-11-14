@@ -28,4 +28,12 @@ public interface IVista {
     void activarCartasCarnaval();
 
     void desactivarCartasMano();
+
+    void actualizarCarnaval();
+
+    void desactivarCartasCarnaval();
+
+    void actualizarCartasEnMano();
+
+    void desactivarTodosLosBotones();
 }
