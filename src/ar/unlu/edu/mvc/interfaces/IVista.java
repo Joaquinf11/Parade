@@ -1,12 +1,12 @@
 package ar.unlu.edu.mvc.interfaces;
 
-import ar.unlu.edu.mvc.controlador.Controlador;
+import ar.unlu.edu.mvc.controlador.ControladorGrafico;
 
 
 public interface IVista {
    // void mostrarJugadores (List<IJugador> jugadores); //CHEQUEAR SI DESPUES LO VAS A USAR
 
-    void setControlador(Controlador controlador);
+    void setControlador(ControladorGrafico controladorGrafico);
 
 
     void iniciarVentana();

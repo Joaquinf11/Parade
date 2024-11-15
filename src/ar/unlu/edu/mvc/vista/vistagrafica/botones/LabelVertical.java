@@ -1,4 +1,4 @@
-package ar.unlu.edu.mvc.vista.botones;
+package ar.unlu.edu.mvc.vista.vistagrafica.botones;
 
 import javax.swing.*;
 import java.awt.*;

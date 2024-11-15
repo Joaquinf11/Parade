@@ -1,6 +1,6 @@
-package ar.unlu.edu.mvc.vista.paneles;
+package ar.unlu.edu.mvc.vista.vistagrafica.paneles;
 
-import ar.unlu.edu.mvc.controlador.Controlador;
+import ar.unlu.edu.mvc.controlador.ControladorGrafico;
 import ar.unlu.edu.mvc.interfaces.IVista;
 
 import javax.swing.*;
@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 
 public class VistaGrafica extends  JFrame implements IVista {
 
-    Controlador controlador;
+    ControladorGrafico controladorGrafico;
     private  CardLayout cardLayout;
     private  JPanel paneles;
     private PanelMensaje panelMensaje;
@@ -30,9 +30,9 @@ public class VistaGrafica extends  JFrame implements IVista {
 
     @Override
     public void iniciarVentana(){
-        VentanaMenuInicial ventanaMenuInicial= new VentanaMenuInicial(this.controlador,this);
-        VentanaIngresarJugador ventanaIngresarJugador= new VentanaIngresarJugador(this.controlador,this);
-        VentanaJuego ventanaJuego= new VentanaJuego(this.controlador,this);
+        VentanaMenuInicial ventanaMenuInicial= new VentanaMenuInicial(this.controladorGrafico,this);
+        VentanaIngresarJugador ventanaIngresarJugador= new VentanaIngresarJugador(this.controladorGrafico,this);
+        VentanaJuego ventanaJuego= new VentanaJuego(this.controladorGrafico,this);
         this.ventanaJuego= ventanaJuego;
 
         paneles.add(ventanaMenuInicial.panelPrincipal,"Menu Inicial");
@@ -67,8 +67,8 @@ public class VistaGrafica extends  JFrame implements IVista {
     }
 
     @Override
-    public void setControlador(Controlador controlador){
-        this.controlador=controlador;
+    public void setControlador(ControladorGrafico controladorGrafico){
+        this.controladorGrafico = controladorGrafico;
     }
 
 

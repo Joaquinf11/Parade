@@ -1,4 +1,4 @@
-package ar.unlu.edu.mvc.vista.paneles;
+package ar.unlu.edu.mvc.vista.vistagrafica.paneles;
 
 import javax.swing.*;
 import java.awt.*;

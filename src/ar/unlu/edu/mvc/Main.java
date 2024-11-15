@@ -1,9 +1,9 @@
 package ar.unlu.edu.mvc;
 
-import ar.unlu.edu.mvc.controlador.Controlador;
+import ar.unlu.edu.mvc.controlador.ControladorGrafico;
 import ar.unlu.edu.mvc.modelo.Juego;
 import ar.unlu.edu.mvc.interfaces.IVista;
-import ar.unlu.edu.mvc.vista.paneles.VistaGrafica;
+import ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaGrafica;
 
 public class Main {
 
@@ -14,23 +14,23 @@ public class Main {
         IVista vista1= new VistaGrafica();
         IVista vista2= new VistaGrafica();
         IVista vista3= new VistaGrafica();
-      //  IVista vista4= new VistaGrafica();
+        IVista vista4= new VistaGrafica();
 
 
-        Controlador controlador1= new Controlador(juego,vista1);
-        Controlador controlador2= new Controlador(juego,vista2);
-       Controlador controlador3= new Controlador(juego,vista3);
-      //  Controlador controlador4= new Controlador(juego,vista4);
+        ControladorGrafico controladorGrafico1 = new ControladorGrafico(juego,vista1);
+        ControladorGrafico controladorGrafico2 = new ControladorGrafico(juego,vista2);
+       ControladorGrafico controladorGrafico3 = new ControladorGrafico(juego,vista3);
+        ControladorGrafico controladorGrafico4 = new ControladorGrafico(juego,vista4);
 
-        juego.agregarObservador(controlador1);
-        juego.agregarObservador(controlador2);
-       juego.agregarObservador(controlador3);
-      //  juego.agregarObservador(controlador4);
+        juego.agregarObservador(controladorGrafico1);
+        juego.agregarObservador(controladorGrafico2);
+       juego.agregarObservador(controladorGrafico3);
+        juego.agregarObservador(controladorGrafico4);
 
-        controlador1.iniciar();
-        controlador2.iniciar();
-       controlador3.iniciar();
-      //  controlador4.iniciar();
+        controladorGrafico1.iniciar();
+        controladorGrafico2.iniciar();
+       controladorGrafico3.iniciar();
+        controladorGrafico4.iniciar();
     }
 
 

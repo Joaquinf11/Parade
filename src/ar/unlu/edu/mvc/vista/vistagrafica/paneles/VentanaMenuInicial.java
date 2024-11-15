@@ -1,6 +1,6 @@
-package ar.unlu.edu.mvc.vista.paneles;
+package ar.unlu.edu.mvc.vista.vistagrafica.paneles;
 
-import ar.unlu.edu.mvc.controlador.Controlador;
+import ar.unlu.edu.mvc.controlador.ControladorGrafico;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,10 +16,10 @@ public class VentanaMenuInicial {
     private JButton agregarJugButton;
 
     private VistaGrafica vistaGrafica;
-    private Controlador controlador;
+    private ControladorGrafico controladorGrafico;
 
-    public VentanaMenuInicial(Controlador controlador,VistaGrafica vistaGrafica){
-        this.controlador=controlador;
+    public VentanaMenuInicial(ControladorGrafico controladorGrafico, VistaGrafica vistaGrafica){
+        this.controladorGrafico = controladorGrafico;
         this.vistaGrafica=vistaGrafica;
         salirButton.addActionListener(new ActionListener() {
             @Override
@@ -37,8 +37,8 @@ public class VentanaMenuInicial {
         empezarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (controlador.sePuedeComenzar()) {
-                    controlador.empezarPartida();
+                if (controladorGrafico.sePuedeComenzar()) {
+                    controladorGrafico.empezarPartida();
                 }
                 else {
                     vistaGrafica.mostrarMensaje("Faltan jugadores"); // CONTROLADOR?

@@ -1,4 +1,4 @@
-package ar.unlu.edu.mvc.vista.botones;
+package ar.unlu.edu.mvc.vista.vistagrafica.botones;
 
 
 import javax.imageio.ImageIO;
@@ -30,17 +30,16 @@ public class CartaButton extends JButton {
     private static final int HEIGHT_NUMERO_VERTICAL=30;
 
     private static final int WIDTH_ULTIMA_NUMERO_VERTICAL=60;
-    private static final int HEIGHT_ULTIMA_NUMERO_VERTICAL=80;
+    private static final int HEIGHT_ULTIMA_NUMERO_VERTICAL=30;
 
-    private static final int WIDTH_ULTIMA_NUMERO_HORIZONTAL=30;
-    private static final int HEIGHT_ULTIMA_NUMERO_HORIZONTAL=60;
+    private static final int WIDTH_ULTIMA_NUMERO_HORIZONTAL=60;
+    private static final int HEIGHT_ULTIMA_NUMERO_HORIZONTAL=30;
 
     ImageIcon imageIcon;
 
 
     public CartaButton(String path, String tipo)  {
         this.imageIcon= new ImageIcon(path);
-
         switch (tipo) {
             case "carnaval" -> {
                 imageIcon.setImage(imageIcon.getImage().getScaledInstance(WIDTH_CARNAVAL, HEIGHT_CARNAVAL, Image.SCALE_SMOOTH));
@@ -91,7 +90,7 @@ public class CartaButton extends JButton {
                     angulo=90;
                 }
                 else if (tipo.equals("numero area horizontal derecha")){
-                    angulo= -90; //CHEQUEAR
+                    angulo= -90;
                 }
 
                 // Cargar la imagen completa desde el archivo
@@ -124,6 +123,7 @@ public class CartaButton extends JButton {
 
         }
 
+       // this.setDisabledIcon(imageIcon); //USAR DESPUES es para que cuando use setDisable no se pone gris
         this.setBorderPainted(false);
         this.setContentAreaFilled(false);
     }
@@ -149,7 +149,7 @@ public class CartaButton extends JButton {
         return bufferedImage;
     }
 
-    // Método auxiliar para convertir Image a BufferedImage
+    //  convertir Image a BufferedImage
     private BufferedImage toBufferedImage(Image img) {
         BufferedImage bufferedImage = new BufferedImage(
                 img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);

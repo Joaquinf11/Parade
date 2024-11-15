@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class Controlador implements Observador {
+public class ControladorGrafico implements Observador {
     private final IVista vista;
     private String jugador;
     private final IJuego juego;
 
-    public Controlador(IJuego juego, IVista vista) {
+    public ControladorGrafico(IJuego juego, IVista vista) {
         vista.setControlador(this);
         this.vista = vista;
         this.juego = juego;

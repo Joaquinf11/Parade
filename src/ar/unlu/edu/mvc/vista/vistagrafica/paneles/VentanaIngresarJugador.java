@@ -1,6 +1,6 @@
-package ar.unlu.edu.mvc.vista.paneles;
+package ar.unlu.edu.mvc.vista.vistagrafica.paneles;
 
-import ar.unlu.edu.mvc.controlador.Controlador;
+import ar.unlu.edu.mvc.controlador.ControladorGrafico;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,11 +13,11 @@ public class VentanaIngresarJugador {
     private JPanel panelCentro;
     private JButton aceptarButton;
 
-    private Controlador controlador;
+    private ControladorGrafico controladorGrafico;
     private VistaGrafica vistaGrafica;
 
-    public VentanaIngresarJugador(Controlador controlador,VistaGrafica vistaGrafica){
-        this.controlador=controlador;
+    public VentanaIngresarJugador(ControladorGrafico controladorGrafico, VistaGrafica vistaGrafica){
+        this.controladorGrafico = controladorGrafico;
         this.vistaGrafica=vistaGrafica;
         aceptarButton.addActionListener(new ActionListener() {
 
@@ -29,7 +29,7 @@ public class VentanaIngresarJugador {
                     mostrarMensajeNombreInvalido();
                 }
                 else{
-                    controlador.agregarJugador(nombre.getText());
+                    controladorGrafico.agregarJugador(nombre.getText());
 
                 }
                 vistaGrafica.setNombreJugador(nombre.getText());
@@ -46,7 +46,7 @@ public class VentanaIngresarJugador {
                         vistaGrafica.mostrarIngresarJugador();// CONTROLADOR?
                     }
                     else{
-                        controlador.agregarJugador(nombre.getText());
+                        controladorGrafico.agregarJugador(nombre.getText());
                     }
                     vistaGrafica.setNombreJugador(nombre.getText());
                     vistaGrafica.mostrarMenuInicial();

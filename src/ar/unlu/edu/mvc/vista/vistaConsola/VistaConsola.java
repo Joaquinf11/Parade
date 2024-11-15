@@ -1,6 +1,6 @@
-package ar.unlu.edu.mvc.vista;
+package ar.unlu.edu.mvc.vista.vistaConsola;
 
-import ar.unlu.edu.mvc.controlador.Controlador;
+import ar.unlu.edu.mvc.controlador.ControladorGrafico;
 import ar.unlu.edu.mvc.modelo.Carta;
 import ar.unlu.edu.mvc.interfaces.IJugador;
 
@@ -8,15 +8,15 @@ import java.util.Scanner;
 import java.util.List;
 
 public class VistaConsola {
-    private Controlador controlador;
+    private ControladorGrafico controladorGrafico;
     private Scanner scanner;
 
     public VistaConsola() {
         this.scanner = new Scanner(System.in);
     }
 
-    public void registrarControlador(Controlador controlador) {
-        this.controlador = controlador;
+    public void registrarControlador(ControladorGrafico controladorGrafico) {
+        this.controladorGrafico = controladorGrafico;
     }
 
     public int mostrarMenuInicial(){
@@ -37,7 +37,7 @@ public class VistaConsola {
         for (int i = 1 ; i <= cantidadJugadores ; i++){
             System.out.println("Ingrese el nombre del jugador " + i);
             String nombre = this.scanner.nextLine();
-            this.controlador.agregarJugador(nombre);
+            this.controladorGrafico.agregarJugador(nombre);
         }
     }
 
