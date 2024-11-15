@@ -105,7 +105,7 @@ public class VentanaJuego {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.jugarCarta(cartaElegidaMano);
-                finalizarTurnoButton.setEnabled(true); //CONTROLADOR?
+                finalizarTurnoButton.setEnabled(true); //CHEQUEAR
             }
         });
         tirarCartaButton.setEnabled(false);
@@ -439,6 +439,94 @@ public class VentanaJuego {
         }else if (oponente.equals(nombre4Label.getText())) {
             carta0B4.setVisible(true);
             panelCartasMano4.updateUI();
+        }
+    }
+
+    public void actualizarAreaOponente(String oponente) {
+        if (oponente.equals(nombre2Label.getText())){
+            panelAmarillo2.removeAll();
+            panelVerde2.removeAll();
+            panelRojo2.removeAll();
+            panelAzul2.removeAll();
+            panelNegro2.removeAll();
+            panelVioleta2.removeAll();
+
+            Collection<List<String>> cartas = this.controlador.listarCartasArea(oponente);
+            List<String> colores = new ArrayList<>();
+
+            for (List<String> cartasPorColor: cartas){
+                String color= cartasPorColor.getFirst().split(",")[0];
+                colores.add(color);
+            }
+
+            String tipo;
+
+            int indiceColor=0;
+            for (List<String> cartasPorColor : cartas) {
+                for (int i = 0; i < cartasPorColor.size(); i++) {
+                    if (i != cartasPorColor.size() - 1) {
+                        tipo = "numero area vertical";
+                    } else {
+                        tipo = "ultima area vertical";
+                    }
+                    CartaButton button = new CartaButton("imagenes/cartas/" + cartasPorColor.get(i) + ".png", tipo);
+                    switch (colores.get(indiceColor)) {
+                        case "VERDE" -> panelVerde2.add(button);
+                        case "ROJO" -> panelRojo2.add(button);
+                        case "AMARILLO" -> panelAmarillo2.add(button);
+                        case "AZUL" -> panelAzul2.add(button);
+                        case "NEGRO" -> panelNegro2.add(button);
+                        case "VIOLETA" -> panelVioleta2.add(button);
+                    }
+                }
+                indiceColor++;
+            }
+            panelArea2.setVisible(true);
+            panelArea2.updateUI();
+        } else if (oponente.equals(nombre3Label.getText())) {
+            panelAmarillo3.removeAll();
+            panelVerde3.removeAll();
+            panelRojo3.removeAll();
+            panelAzul3.removeAll();
+            panelNegro3.removeAll();
+            panelVioleta3.removeAll();
+
+            Collection<List<String>> cartas = this.controlador.listarCartasArea(oponente);
+            List<String> colores = new ArrayList<>();
+
+            for (List<String> cartasPorColor: cartas){
+                String color= cartasPorColor.getFirst().split(",")[0];
+                colores.add(color);
+            }
+
+            String tipo;
+
+            int indiceColor=0;
+            for (List<String> cartasPorColor : cartas) {
+                for (int i = 0; i < cartasPorColor.size(); i++) {
+                    if (i != cartasPorColor.size() - 1) {
+                        tipo = "numero area horizontal derecha";
+                    } else {
+                        tipo = "ultima area horizontal derecha";
+                    }
+                    CartaButton button = new CartaButton("imagenes/cartas/" + cartasPorColor.get(i) + ".png", tipo);
+                    switch (colores.get(indiceColor)) {
+                        case "VERDE" -> panelVerde3.add(button);
+                        case "ROJO" -> panelRojo3.add(button);
+                        case "AMARILLO" -> panelAmarillo3.add(button);
+                        case "AZUL" -> panelAzul3.add(button);
+                        case "NEGRO" -> panelNegro3.add(button);
+                        case "VIOLETA" -> panelVioleta3.add(button);
+                    }
+                }
+                indiceColor++;
+            }
+            panelArea3.setVisible(true);
+            panelArea3.updateUI();
+
+
+        }else if (oponente.equals(nombre4Label.getText())) {
+
         }
     }
 }

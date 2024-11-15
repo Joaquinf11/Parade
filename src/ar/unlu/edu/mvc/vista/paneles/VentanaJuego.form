@@ -127,6 +127,7 @@
                 </constraints>
                 <properties>
                   <background color="-3548923"/>
+                  <enabled value="false"/>
                   <font name="Ravie" size="14"/>
                   <foreground color="-3713341"/>
                   <opaque value="true"/>

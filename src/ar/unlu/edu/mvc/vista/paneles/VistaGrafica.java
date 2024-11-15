@@ -190,5 +190,10 @@ public class VistaGrafica extends  JFrame implements IVista {
         this.ventanaJuego.actualizarAreaDeJuego();
     }
 
+    @Override
+    public void actualizarAreaDeJuegoOponente(String oponente) {
+        this.ventanaJuego.actualizarAreaOponente(oponente);
+    }
+
 
 }

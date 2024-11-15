@@ -38,9 +38,6 @@ public class Controlador implements Observador {
                 if (isTurno()){
                     this.vista.activarCartasMano();
                 }
-                else{
-                    this.vista.desactivarCartaManoOponente(getNombreJugadorTurno());
-                }
                 break;
             case CARTA_TIRADA:
                 if (isTurno()) {
@@ -48,6 +45,9 @@ public class Controlador implements Observador {
                     this.vista.desactivarCartasMano();
                     this.vista.activarCartasCarnaval();
                     this.vista.mostrarMensaje("Seleccione cartas del Carnaval"); // no se si es necesario
+                }
+                else{
+                    this.vista.desactivarCartaManoOponente(getNombreJugadorTurno());
                 }
                 break;
             case CARTA_AGREGADA_CARNAVAL:
@@ -65,6 +65,9 @@ public class Controlador implements Observador {
             case CARTA_AGREGADA_AREA:
                 if (isTurno()){
                     this.vista.actualizarAreaDeJuego();
+                }
+                else {
+                    this.vista.actualizarAreaDeJuegoOponente(getNombreJugadorTurno());
                 }
                 break;
             case CARTA_MAL_ELEGIDA_CARNAVAL:
