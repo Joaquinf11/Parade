@@ -26,6 +26,9 @@ public class Ronda {
         this.carnaval.agregarCarta(carta);
         System.out.println("Carta agregada al carnaval " + carta.getColor() + " " + carta.getValor()); //BORRAR
         this.juego.notificar(Evento.CARTA_AGREGADA_CARNAVAL);
+        if (cartaElegida == -1){
+            this.finRonda();
+        }
     }
 
     public void analizarCartasCarnaval( int [] cartasElegidas){
