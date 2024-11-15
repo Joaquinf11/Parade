@@ -7,56 +7,101 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class VistaGrafica extends  JFrame implements IVista {
 
     ControladorGrafico controladorGrafico;
-    private  CardLayout cardLayout;
-    private  JPanel paneles;
-    private PanelMensaje panelMensaje;
-    private VentanaJuego ventanaJuego;
+
+    private  JPanel panelMensaje;
+    private JPanel panelMenuInicial;
+    private panelJuego panelJuego;
+    private panelIngresarJugador panelIngresarJugador;
     private String jugador;
+    private String ultimoPanel;
 
     public VistaGrafica(){
 
         setTitle("PARADE");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
         setExtendedState(Frame.MAXIMIZED_BOTH);
+        JPanel panel= new JPanel();
+        panel.setLayout(new BorderLayout());
+        TextArea area = new TextArea("ANDA LA PUTA QUE TE PARIO");
+        panel.add(area,BorderLayout.CENTER);
+        setVisible(true);
 
-        cardLayout= new CardLayout();
-        paneles= new JPanel(cardLayout);
 
     }
 
     @Override
     public void iniciarVentana(){
-        VentanaMenuInicial ventanaMenuInicial= new VentanaMenuInicial(this.controladorGrafico,this);
-        VentanaIngresarJugador ventanaIngresarJugador= new VentanaIngresarJugador(this.controladorGrafico,this);
-        VentanaJuego ventanaJuego= new VentanaJuego(this.controladorGrafico,this);
-        this.ventanaJuego= ventanaJuego;
+        this.panelMenuInicial = (new panelMenuInicial(this.controladorGrafico,this)).getPanel();
 
-        paneles.add(ventanaMenuInicial.panelPrincipal,"Menu Inicial");
-        paneles.add(ventanaIngresarJugador.panelIngresarJugador,"Ingresar Jugador");
-        paneles.add(ventanaJuego.panelVentanaJuego,"Ventana Juego");
+        this.panelIngresarJugador = new panelIngresarJugador(this.controladorGrafico,this);
+        this.panelIngresarJugador.setVisible(true);
+        this.panelJuego = new panelJuego(this.controladorGrafico,this);
+        this.panelJuego.setVisible(true);
+        this.panelMensaje= new JPanel();
+        this.panelMensaje.setLayout(new GridBagLayout());
+        this.panelMensaje.setVisible(true);
 
-        panelMensaje= new PanelMensaje();
-        paneles.add(panelMensaje,"Mensaje");
-        add(paneles);
-        setVisible(true);
-    }
+
+     }
 
     public void mostrarMenuInicial(){
-        cardLayout.show(paneles,"Menu Inicial");
+        setContentPane(this.panelMenuInicial);
+        panelMenuInicial.updateUI();
+        this.ultimoPanel="Menu Inicial";
     }
 
+
+
     public void mostrarIngresarJugador(){
-        cardLayout.show(paneles,"Ingresar Jugador");
+        setContentPane(this.panelIngresarJugador);
+        panelIngresarJugador.updateUI();
+        this.ultimoPanel="Ingresar Jugador";
     }
 
     public void mostrarVentanaJuego(){
-        cardLayout.show(paneles,"Ventana Juego");
+       setContentPane(this.panelIngresarJugador);
+       panelIngresarJugador.updateUI();
+        this.ultimoPanel="Panel Juego";
     }
 
+    public void mostrarPanelMensaje(){
+        setContentPane(this.panelMensaje);
+
+        panelMensaje.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                mostrarUltimoPanel();
+            }
+        });
+
+
+        // Crear un Timer que cerrará la ventana después de 5 segundos (5000 ms)
+        Timer timer = new Timer(5000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarUltimoPanel();
+            }
+        });
+        timer.setRepeats(false); // Asegurarse de que solo se ejecute una vez
+        timer.start();
+        panelMensaje.updateUI();
+    }
+
+    public void mostrarUltimoPanel(){
+        switch (ultimoPanel){
+            case "Menu Inicial"-> { setContentPane(this.panelMenuInicial); panelMenuInicial.updateUI();}
+            case "Ingresar Jugador"-> { setContentPane(this.panelIngresarJugador);panelIngresarJugador.updateUI();}
+            case "Panel Juego"-> { setContentPane(this.panelJuego); panelJuego.updateUI();}
+        }
+    }
 
     public void setNombreJugador(String nombre){
         this.jugador=nombre;
@@ -74,125 +119,93 @@ public class VistaGrafica extends  JFrame implements IVista {
 
     @Override
     public void iniciarVentanaJuego()  {
-        ventanaJuego.iniciarVentanaJuego();
+        panelJuego.iniciarVentanaJuego();
         mostrarVentanaJuego();
 
     }
 
     @Override
-    public void mostrarMensaje(String texto){
-        JFrame frame= new JFrame();
-        JPanel panel= new JPanel();
-        panel.setLayout(new GridBagLayout());
+    public void mostrarMensaje(String mensaje) {
+        setMensaje(mensaje);
+        mostrarPanelMensaje();
+    }
 
-        JLabel mensaje= new JLabel(texto);
-        mensaje.setFont(new Font("Ravie",Font.ITALIC,20));
-        mensaje.setForeground(new Color(201,217,5));
-
-
-        panel.add(mensaje);
-        panel.setVisible(true);
-        panel.setBackground(new Color(199,86,195));
-
-        frame.setContentPane(panel);
-        frame.setSize(400,200);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-
-        // Crear un Timer que cerrará la ventana después de 5 segundos (5000 ms)
-        Timer timer = new Timer(5000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose(); // Cierra la ventana
-            }
-        });
-        timer.setRepeats(false); // Asegurarse de que solo se ejecute una vez
-        timer.start();
-
-
-        //CHEQUEAR DESPUES POR QUE NO FUNCIONA ESTO
-//        panelMensaje.setMensaje(texto);
-//        cardLayout.show(paneles,"Mensaje");
-//
-//        // Crear un Timer que cerrará la ventana después de segundos
-//        Timer timer = new Timer(5000, new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//
-//                cardLayout.last(paneles); // Cierra la ventana
-//            }
-//        });
-//        timer.setRepeats(false); // Asegurarse de que solo se ejecute una vez
-//        timer.start();
+    public void setMensaje(String mensaje){
+        panelMensaje.removeAll();
+        JLabel label= new JLabel(mensaje);
+        label.setFont(new Font("Ravie",Font.ITALIC,20));
+        label.setForeground(new Color(201,217,5));
+        panelMensaje.setBackground(new Color(199,86,195));
+        panelMensaje.add(label);
     }
 
 
 
     @Override
     public void activarCartas(){
-        this.ventanaJuego.activarBotones();
+        this.panelJuego.activarBotones();
     }
 
     @Override
     public void activarCartasMano() {
-        this.ventanaJuego.activarCartasMano();
+        this.panelJuego.activarCartasMano();
     }
 
     @Override
     public void activarCartasCarnaval() {
-        this.ventanaJuego.activarCartasCarnaval();
+        this.panelJuego.activarCartasCarnaval();
     }
 
     @Override
     public void desactivarCartasMano() {
-        this.ventanaJuego.desactivarCartasEnMano();
+        this.panelJuego.desactivarCartasEnMano();
     }
 
     @Override
     public void actualizarCarnaval() {
 
-        this.ventanaJuego.actualizarCartasCarnaval();
+        this.panelJuego.actualizarCartasCarnaval();
 
     }
 
     @Override
     public void desactivarCartasCarnaval() {
-        this.ventanaJuego.desactivarCartasCarnaval();
+        this.panelJuego.desactivarCartasCarnaval();
     }
 
     @Override
     public void actualizarCartasEnMano() {
-        this.ventanaJuego.actualizarCartasEnMano();
+        this.panelJuego.actualizarCartasEnMano();
     }
 
     @Override
     public void desactivarTodosLosBotones() {
-        this.ventanaJuego.desactivarTodosLosBotones();
+        this.panelJuego.desactivarTodosLosBotones();
     }
 
     @Override
     public void desactivarUltimaCartaCarnaval() {
-        this.ventanaJuego.desactivarUltimaCartaCarnaval();
+        this.panelJuego.desactivarUltimaCartaCarnaval();
     }
 
     @Override
     public void desactivarCartaManoOponente(String oponente) {
-        this.ventanaJuego.desactivarCartaManoOponente(oponente);
+        this.panelJuego.desactivarCartaManoOponente(oponente);
     }
 
     @Override
     public void activarCartaOponente(String oponente) {
-        this.ventanaJuego.activarCartaOponente(oponente);
+        this.panelJuego.activarCartaOponente(oponente);
     }
 
     @Override
     public void actualizarAreaDeJuego() {
-        this.ventanaJuego.actualizarAreaDeJuego();
+        this.panelJuego.actualizarAreaDeJuego();
     }
 
     @Override
     public void actualizarAreaDeJuegoOponente(String oponente) {
-        this.ventanaJuego.actualizarAreaOponente(oponente);
+        this.panelJuego.actualizarAreaOponente(oponente);
     }
 
 

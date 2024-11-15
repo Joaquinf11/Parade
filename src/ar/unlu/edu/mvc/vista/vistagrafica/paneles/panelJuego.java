@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class VentanaJuego {
+public class panelJuego extends JPanel{
     ControladorGrafico controladorGrafico;
     VistaGrafica vista;
 
@@ -93,7 +93,9 @@ public class VentanaJuego {
     private List<String> oponentes;
 
 
-    public VentanaJuego(ControladorGrafico controladorGrafico, VistaGrafica grafica){
+    public panelJuego(ControladorGrafico controladorGrafico, VistaGrafica grafica){
+        setLayout(new BorderLayout());
+        add(panelVentanaJuego,BorderLayout.CENTER);
         this.controladorGrafico = controladorGrafico;
         this.vista= grafica;
         this.cartasCarnaval= new ArrayList<>();
@@ -129,6 +131,10 @@ public class VentanaJuego {
 
             }
         });
+    }
+
+    public JPanel getPanel(){
+        return this.panelVentanaJuego;
     }
 
     public void iniciarVentanaJuego()  {
