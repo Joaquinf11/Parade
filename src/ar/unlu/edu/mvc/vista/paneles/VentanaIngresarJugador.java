@@ -30,6 +30,7 @@ public class VentanaIngresarJugador {
                 }
                 else{
                     controlador.agregarJugador(nombre.getText());
+
                 }
                 vistaGrafica.setNombreJugador(nombre.getText());
                 vistaGrafica.mostrarMenuInicial();
@@ -42,6 +43,7 @@ public class VentanaIngresarJugador {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER){
                     if(nombre.getText().isEmpty()){
                         mostrarMensajeNombreInvalido();
+                        vistaGrafica.mostrarIngresarJugador();// CONTROLADOR?
                     }
                     else{
                         controlador.agregarJugador(nombre.getText());
@@ -49,6 +51,14 @@ public class VentanaIngresarJugador {
                     vistaGrafica.setNombreJugador(nombre.getText());
                     vistaGrafica.mostrarMenuInicial();
                 }
+            }
+        });
+
+        nombre.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                nombre.setText("");
             }
         });
     }
