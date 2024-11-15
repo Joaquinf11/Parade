@@ -32,7 +32,7 @@ public class CartaButton extends JButton {
     private static final int WIDTH_ULTIMA_NUMERO_VERTICAL=60;
     private static final int HEIGHT_ULTIMA_NUMERO_VERTICAL=80;
 
-    private static final int WIDTH_ULTIMA_NUMERO_HORIZONTAL=80;
+    private static final int WIDTH_ULTIMA_NUMERO_HORIZONTAL=30;
     private static final int HEIGHT_ULTIMA_NUMERO_HORIZONTAL=60;
 
     ImageIcon imageIcon;
@@ -84,7 +84,16 @@ public class CartaButton extends JButton {
                 setIcon(imageIcon);
                 this.setSize(WIDTH_ULTIMA_NUMERO_VERTICAL, HEIGHT_ULTIMA_NUMERO_VERTICAL);
             }
-            case "numero area horizontal" -> { // tengo que divir entre izquierda y derecha agrego un || y despues pregunto si es izquierda o derecha para pasarle el angulo de rotacion
+            case "numero area horizontal izquierda" , "numero area horizontal derecha"-> { // tengo que divir entre izquierda y derecha agrego un || y despues pregunto si es izquierda o derecha para pasarle el angulo de rotacion
+
+                int angulo=0;
+                if(tipo.equals("numero area horizontal izquierda")){
+                    angulo=90;
+                }
+                else if (tipo.equals("numero area horizontal derecha")){
+                    angulo= -90; //CHEQUEAR
+                }
+
                 // Cargar la imagen completa desde el archivo
                 BufferedImage originalImage = null;
                 try {
@@ -100,15 +109,17 @@ public class CartaButton extends JButton {
                 Image scaledImage = croppedImage.getScaledInstance(WIDTH_NUMERO_HORIZONTAL, HEIGHT_NUMERO_HORIZONTAL, Image.SCALE_SMOOTH);
                 ImageIcon imagenCortada= new ImageIcon(scaledImage);
 
-                Image image =rotarImagen(imagenCortada,90);
+                Image image =rotarImagen(imagenCortada,angulo);
                 setIcon(new ImageIcon(image));
                 setBorder(BorderFactory.createEmptyBorder(-1, 0, -1, 0));
             }
-            case "ultima area horizontal"->{
+            case "ultima area horizontal derecha"->{
                 imageIcon.setImage(imageIcon.getImage().getScaledInstance(WIDTH_ULTIMA_NUMERO_HORIZONTAL, HEIGHT_ULTIMA_NUMERO_HORIZONTAL, Image.SCALE_SMOOTH));
                 setBorder(BorderFactory.createEmptyBorder(-1, 0, 0, 0));
-                setIcon(imageIcon);
+                Image image=rotarImagen(imageIcon,-90);
+                setIcon(new ImageIcon(image));
                 this.setSize(WIDTH_ULTIMA_NUMERO_HORIZONTAL, HEIGHT_ULTIMA_NUMERO_HORIZONTAL);
+
             }
 
         }
