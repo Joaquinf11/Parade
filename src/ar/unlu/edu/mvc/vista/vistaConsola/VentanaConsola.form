@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ar.unlu.edu.mvc.vista.vistaConsola.VentanaConsola">
+  <grid id="27dc6" binding="panelPrincipal" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties>
+      <background color="-14342107"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="b6dcd" binding="panelEntrada" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="South"/>
+        <properties>
+          <background color="-14342107"/>
+          <opaque value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="f333d" class="javax.swing.JTextField" binding="entradaField">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <caretColor color="-14342107"/>
+              <font name="Consolas" size="18"/>
+              <text value="ACA INGRESO DATOS"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="e6ae" binding="panelSalida" layout-manager="GridBagLayout">
+        <constraints border-constraint="North"/>
+        <properties>
+          <background color="-14342107"/>
+          <opaque value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="25fff" class="javax.swing.JTextArea" binding="salidaArea">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="50"/>
+              </grid>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <background color="-14342107"/>
+              <caretColor color="-14342107"/>
+              <disabledTextColor color="-1"/>
+              <font name="Consolas" size="16"/>
+              <foreground color="-1"/>
+              <opaque value="true"/>
+              <selectionColor color="-14342107"/>
+              <text value="aca van los datos"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
