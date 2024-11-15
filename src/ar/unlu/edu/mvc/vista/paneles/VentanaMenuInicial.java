@@ -31,6 +31,7 @@ public class VentanaMenuInicial {
             @Override
             public void actionPerformed(ActionEvent e) {
                 vistaGrafica.mostrarIngresarJugador();
+                agregarJugButton.setEnabled(false);
             }
         });
         empezarButton.addActionListener(new ActionListener() {
@@ -40,7 +41,7 @@ public class VentanaMenuInicial {
                     controlador.empezarPartida();
                 }
                 else {
-                    mostrarMensajeCargarMasJugadores();
+                    vistaGrafica.mostrarMensaje("Faltan jugadores"); // CONTROLADOR?
                 }
                 }
         });
