@@ -5,10 +5,7 @@ import ar.unlu.edu.mvc.interfaces.IJugador;
 import ar.unlu.edu.mvc.interfaces.Observado;
 import ar.unlu.edu.mvc.interfaces.Observador;
 
-import java.util.LinkedList;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class Juego implements Observado, IJuego {
     private Queue<Jugador> jugadores;
@@ -189,6 +186,23 @@ public class Juego implements Observado, IJuego {
     @Override
     public int getCantidadJugadores(){
         return this.jugadores.size();
+    }
+
+    @Override
+    public Collection<List<String>> listarCartasArea(String nombreJugador) {
+        Collection<List<String>> resultado= new ArrayList<>();
+        Jugador jugador= buscarJugador(nombreJugador);
+        if (jugador == null){
+            jugador= this.jugadorTurno;
+        }
+        for (List<Carta> cartas : jugador.getCartasArea()) {
+            List<String> listaNueva= new ArrayList<>();
+            for (Carta carta : cartas) {
+                listaNueva.add(carta.toString());
+            }
+            resultado.add(listaNueva);
+        }
+        return resultado;
     }
 
     @Override

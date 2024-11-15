@@ -40,4 +40,6 @@ public interface IVista {
     void desactivarCartaManoOponente(String nombreJugadorTurno);
 
     void activarCartaOponente(String nombreJugadorTurno);
+
+    void actualizarAreaDeJuego();
 }

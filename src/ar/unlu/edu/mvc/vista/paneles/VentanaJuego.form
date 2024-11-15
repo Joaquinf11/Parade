@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ar.unlu.edu.mvc.vista.paneles.VentanaJuego">
   <grid id="27dc6" binding="panelVentanaJuego" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="1062" height="430"/>
+      <xy x="20" y="20" width="1062" height="532"/>
     </constraints>
     <properties>
       <background color="-3713341"/>
@@ -32,50 +32,54 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="11ac9" class="javax.swing.JButton" binding="color0">
+              <grid id="7719b" binding="panelAmarillo1" layout-manager="GridBagLayout">
                 <constraints/>
                 <properties>
-                  <actionCommand value="Button"/>
-                  <label value="color0"/>
-                  <text value="color0"/>
+                  <opaque value="false"/>
                 </properties>
-              </component>
-              <component id="66ece" class="javax.swing.JButton" binding="color1">
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="d052a" binding="panelVerde1" layout-manager="GridBagLayout">
                 <constraints/>
                 <properties>
-                  <actionCommand value="Button"/>
-                  <label value="color1"/>
-                  <text value="color1"/>
+                  <opaque value="false"/>
                 </properties>
-              </component>
-              <component id="e7d62" class="javax.swing.JButton" binding="color2">
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="445da" binding="panelAzul1" layout-manager="GridBagLayout">
                 <constraints/>
                 <properties>
-                  <label value="color2"/>
-                  <text value="color2"/>
+                  <opaque value="false"/>
                 </properties>
-              </component>
-              <component id="ee048" class="javax.swing.JButton" binding="color3">
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="22aa1" binding="panelRojo1" layout-manager="GridBagLayout">
                 <constraints/>
                 <properties>
-                  <label value="color3"/>
-                  <text value="color3"/>
+                  <opaque value="false"/>
                 </properties>
-              </component>
-              <component id="ab874" class="javax.swing.JButton" binding="color4">
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="83ef8" binding="panelVioleta1" layout-manager="GridBagLayout">
                 <constraints/>
                 <properties>
-                  <label value="color4"/>
-                  <text value="color4"/>
+                  <opaque value="false"/>
                 </properties>
-              </component>
-              <component id="82d16" class="javax.swing.JButton" binding="color5">
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="55044" binding="panelNegro1" layout-manager="GridBagLayout">
                 <constraints/>
                 <properties>
-                  <label value="color5"/>
-                  <text value="color5"/>
+                  <opaque value="false"/>
                 </properties>
-              </component>
+                <border type="none"/>
+                <children/>
+              </grid>
             </children>
           </grid>
           <grid id="cf8a6" binding="panelBotones" layout-manager="GridBagLayout">
@@ -319,7 +323,74 @@
               <visible value="false"/>
             </properties>
             <border type="none"/>
-            <children/>
+            <children>
+              <grid id="64418" binding="panelAmarillo3" layout-manager="GridBagLayout">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <opaque value="false"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="a8f4a" binding="panelVerde3" layout-manager="GridBagLayout">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <opaque value="false"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="92298" binding="panelAzul3" layout-manager="GridBagLayout">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <opaque value="false"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="7b63f" binding="panelRojo3" layout-manager="GridBagLayout">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <opaque value="false"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="24bbe" binding="panelVioleta3" layout-manager="GridBagLayout">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <opaque value="false"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="6bf4c" binding="panelNegro3" layout-manager="GridBagLayout">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <opaque value="false"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
           </grid>
           <grid id="de403" binding="panelCartasNombre3" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints border-constraint="East"/>

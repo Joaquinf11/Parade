@@ -7,9 +7,9 @@ import java.util.Collection;
 import java.util.List;
 
 public class Jugador implements IJugador {
-    private String nombre;
-    private List<Carta> cartasEnMano;
-    private AreaDeJuego area;
+    private final String nombre;
+    private final List<Carta> cartasEnMano;
+    private final AreaDeJuego area;
     private int puntos;
 
     public Jugador(String nombre){
@@ -112,5 +112,9 @@ public class Jugador implements IJugador {
 
     public void mostrarPuntos() {
         System.out.println(this.puntos);
+    }
+
+    public Collection<List<Carta>> getCartasArea() {
+        return this.area.getTodasLasCartas();
     }
 }

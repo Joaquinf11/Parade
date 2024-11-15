@@ -7,6 +7,7 @@ import ar.unlu.edu.mvc.interfaces.IVista;
 import ar.unlu.edu.mvc.modelo.Evento;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Controlador implements Observador {
@@ -61,7 +62,12 @@ public class Controlador implements Observador {
                     this.vista.actualizarCartasEnMano();
                 }
                 break;
-            case CARTA_AGREGADA_AREA, CARTA_MAL_ELEGIDA_CARNAVAL:
+            case CARTA_AGREGADA_AREA:
+                if (isTurno()){
+                    this.vista.actualizarAreaDeJuego();
+                }
+                break;
+            case CARTA_MAL_ELEGIDA_CARNAVAL:
                 this.vista.actualizarCarnaval();
                 break;
             case FIN_TURNO:
@@ -119,10 +125,6 @@ public class Controlador implements Observador {
         return this.juego.sePuedeComenzar();
     }
 
-    public int getCantidadJugadores(){
-        return this.juego.getCantidadJugadores();
-    }
-
     public String getNombreJugadorTurno(){
         return this.juego.getJugadorTurno().getNombre();
     }
@@ -136,5 +138,7 @@ public class Controlador implements Observador {
     }
 
 
-
+    public Collection<List<String>> listarCartasArea(String nombreJugador) {
+       return this.juego.listarCartasArea(nombreJugador);
+    }
 }

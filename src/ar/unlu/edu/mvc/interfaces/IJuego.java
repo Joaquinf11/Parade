@@ -1,6 +1,7 @@
 package ar.unlu.edu.mvc.interfaces;
 
 import java.util.List;
+import java.util.Collection;
 
 public interface IJuego {
     IJugador getJugadorTurno();
@@ -17,4 +18,6 @@ public interface IJuego {
     List<String> listarCartasEnMano(String nombre);
     boolean sePuedeComenzar();
     int getCantidadJugadores();
+
+    Collection<List<String>> listarCartasArea(String nombreJugador);
 }

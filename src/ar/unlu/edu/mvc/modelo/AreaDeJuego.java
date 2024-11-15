@@ -33,6 +33,10 @@ public class AreaDeJuego {
         }
     }
 
+    public Collection<List<Carta>> getTodasLasCartas(){
+        return this.cartas.values();
+    }
+
     public int getCantidadDeCartasTotales(){
         return getCantidadCartasBocaAbajo() + getCantidadCartasBocaArriba();
     }
@@ -51,6 +55,7 @@ public class AreaDeJuego {
 
         return this.cartasBocaAbajo.size();
     }
+
 
 
     public boolean tiene6colores(){
@@ -85,13 +90,8 @@ public class AreaDeJuego {
     //////////////////////////////////
     //FUNCIONES PARA TEST
     //////////////////////////////////
-    public Collection<List<Carta>> getCartas(){
-        return this.cartas.values();
-    }
 
-    public Collection<List<Carta>> getTodasLasCartas(){
-        return this.cartas.values();
-    }
+
 
     public Carta buscarCarta(Color color, int valor){
         if (this.cartas.containsKey(color)){

@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class VentanaJuego {
@@ -21,12 +22,6 @@ public class VentanaJuego {
     private JPanel panelJugador3;
     private JPanel panelJugador4;
     private JPanel panelCarnaval;
-    private JButton color0;
-    private JButton color1;
-    private JButton color2;
-    private JButton color3;
-    private JButton color4;
-    private JButton color5;
     private JPanel panelCartasMano1;
     private JPanel panelArea1;
     private JPanel panelCartasMano2;
@@ -76,6 +71,18 @@ public class VentanaJuego {
     private JButton carta2B2;
     private JButton carta3B2;
     private JButton carta4B2;
+    private JPanel panelAmarillo1;
+    private JPanel panelVerde1;
+    private JPanel panelAzul1;
+    private JPanel panelRojo1;
+    private JPanel panelVioleta1;
+    private JPanel panelNegro1;
+    private JPanel panelAmarillo3;
+    private JPanel panelVerde3;
+    private JPanel panelAzul3;
+    private JPanel panelRojo3;
+    private JPanel panelVioleta3;
+    private JPanel panelNegro3;
     private LabelVertical nombre4Label;
 
     private List<CartaButton> cartasCarnaval;
@@ -115,6 +122,36 @@ public class VentanaJuego {
     }
 
     public void iniciarVentanaJuego()  {
+
+        panelAmarillo1.setLayout(new BoxLayout(panelAmarillo1,BoxLayout.Y_AXIS));
+        panelVerde1.setLayout(new BoxLayout(panelVerde1,BoxLayout.Y_AXIS));
+        panelAzul1.setLayout(new BoxLayout(panelAzul1,BoxLayout.Y_AXIS));
+        panelRojo1.setLayout(new BoxLayout(panelRojo1,BoxLayout.Y_AXIS));
+        panelVioleta1.setLayout(new BoxLayout(panelVioleta1,BoxLayout.Y_AXIS));
+        panelNegro1.setLayout(new BoxLayout(panelNegro1,BoxLayout.Y_AXIS));
+
+
+
+        panelAmarillo2.setLayout(new BoxLayout(panelAmarillo2,BoxLayout.Y_AXIS));
+        panelVerde2.setLayout(new BoxLayout(panelVerde2,BoxLayout.Y_AXIS));
+        panelAzul2.setLayout(new BoxLayout(panelAzul2,BoxLayout.Y_AXIS));
+        panelRojo2.setLayout(new BoxLayout(panelRojo2,BoxLayout.Y_AXIS));
+        panelVioleta2.setLayout(new BoxLayout(panelVioleta2,BoxLayout.Y_AXIS));
+        panelNegro2.setLayout(new BoxLayout(panelNegro2,BoxLayout.Y_AXIS));
+
+        panelAmarillo3.setLayout(new BoxLayout(panelAmarillo3,BoxLayout.X_AXIS));
+        panelVerde3.setLayout(new BoxLayout(panelVerde3,BoxLayout.X_AXIS));
+        panelAzul3.setLayout(new BoxLayout(panelAzul3,BoxLayout.X_AXIS));
+        panelRojo3.setLayout(new BoxLayout(panelRojo3,BoxLayout.X_AXIS));
+        panelVioleta3.setLayout(new BoxLayout(panelVioleta3,BoxLayout.X_AXIS));
+        panelNegro3.setLayout(new BoxLayout(panelNegro3,BoxLayout.X_AXIS));
+
+        panelAmarillo4.setLayout(new BoxLayout(panelAmarillo4,BoxLayout.X_AXIS));
+        panelVerde4.setLayout(new BoxLayout(panelVerde4,BoxLayout.X_AXIS));
+        panelAzul4.setLayout(new BoxLayout(panelAzul4,BoxLayout.X_AXIS));
+        panelRojo4.setLayout(new BoxLayout(panelRojo4,BoxLayout.X_AXIS));
+        panelVioleta4.setLayout(new BoxLayout(panelVioleta4,BoxLayout.X_AXIS));
+        panelNegro4.setLayout(new BoxLayout(panelNegro4,BoxLayout.X_AXIS));
 
         this.oponentes =this.controlador.listarNombreJugadores();
         this.oponentes.remove(vista.getNombreJugador());
@@ -169,6 +206,7 @@ public class VentanaJuego {
                 public void actionPerformed(ActionEvent e) {
                     if (cartasElegidasCarnaval[0] == -1){
                         cartasElegidasCarnaval[0] = (int) button.getClientProperty("indice");
+                        button.setDisabledSelectedIcon(button.getIcon());
                     }
                     else {
                         int [] auxiliar = new int[cartasElegidasCarnaval.length + 1];
@@ -177,6 +215,7 @@ public class VentanaJuego {
                         }
                         auxiliar [ auxiliar.length - 1]= (int) button.getClientProperty("indice");
                         cartasElegidasCarnaval = auxiliar;
+                        button.setDisabledSelectedIcon(button.getIcon());
                     }
 
                 }
@@ -240,8 +279,46 @@ public class VentanaJuego {
 
     }
 
-    public void actualizarAreaDeJuego(){
+    public void actualizarAreaDeJuego() {
+        panelAmarillo1.removeAll();
+        panelVerde1.removeAll();
+        panelRojo1.removeAll();
+        panelAzul1.removeAll();
+        panelNegro1.removeAll();
+        panelVioleta1.removeAll();
 
+        Collection<List<String>> cartas = this.controlador.listarCartasArea(vista.getNombreJugador());
+        List<String> colores = new ArrayList<>();
+
+      for (List<String> cartasPorColor: cartas){
+          String color= cartasPorColor.getFirst().split(",")[0];
+          colores.add(color);
+      }
+
+        String tipo;
+
+        int indiceColor=0;
+        for (List<String> cartasPorColor : cartas) {
+            for (int i = 0; i < cartasPorColor.size(); i++) {
+                if (i != cartasPorColor.size() - 1) {
+                    tipo = "numero area vertical";
+                } else {
+                    tipo = "ultima area vertical";
+                }
+                CartaButton button = new CartaButton("imagenes/cartas/" + cartasPorColor.get(i) + ".png", tipo);
+                switch (colores.get(indiceColor)) {
+                    case "VERDE" -> panelVerde1.add(button);
+                    case "ROJO" -> panelRojo1.add(button);
+                    case "AMARILLO" -> panelAmarillo1.add(button);
+                    case "AZUL" -> panelAzul1.add(button);
+                    case "NEGRO" -> panelNegro1.add(button);
+                    case "VIOLETA" -> panelVioleta1.add(button);
+                }
+            }
+            indiceColor++;
+        }
+        panelArea1.setVisible(true);
+        panelArea1.updateUI();
     }
 
     public void activarCartasMano() {
