@@ -100,9 +100,9 @@
                   <font name="Ravie" size="14"/>
                   <foreground color="-3713341"/>
                   <hideActionText value="false"/>
-                  <label value="Jugar Carta"/>
+                  <label value="Tirar carta"/>
                   <opaque value="true"/>
-                  <text value="Jugar Carta"/>
+                  <text value="Tirar carta"/>
                 </properties>
               </component>
               <component id="8a24c" class="javax.swing.JButton" binding="analizarCartasButton">
@@ -120,14 +120,17 @@
                   <verifyInputWhenFocusTarget value="true"/>
                 </properties>
               </component>
-              <component id="377ae" class="javax.swing.JButton" binding="button3" default-binding="true">
+              <component id="377ae" class="javax.swing.JButton" binding="finalizarTurnoButton" default-binding="true">
                 <constraints>
                   <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
-                  <opaque value="false"/>
-                  <text value="Button"/>
+                  <background color="-3548923"/>
+                  <font name="Ravie" size="14"/>
+                  <foreground color="-3713341"/>
+                  <opaque value="true"/>
+                  <text value="Finalizar turno"/>
                 </properties>
               </component>
             </children>
