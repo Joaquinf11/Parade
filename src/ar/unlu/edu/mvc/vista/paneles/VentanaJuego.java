@@ -35,7 +35,7 @@ public class VentanaJuego {
     private JPanel panelBotones;
     private JButton tirarCartaButton;
     private JButton analizarCartasButton;
-    private JButton button3;
+    private JButton finalizarTurnoButton;
     private JPanel panelAmarillo4;
     private JPanel panelVerde4;
     private JPanel panelAzul4;
@@ -105,6 +105,7 @@ public class VentanaJuego {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.jugarCarta(cartaElegidaMano);
+                finalizarTurnoButton.setEnabled(true); //CONTROLADOR?
             }
         });
         tirarCartaButton.setEnabled(false);
@@ -119,6 +120,15 @@ public class VentanaJuego {
             }
         });
         analizarCartasButton.setEnabled(false);
+
+        finalizarTurnoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.jugarCarta(cartaElegidaMano);
+                finalizarTurnoButton.setEnabled(false);
+
+            }
+        });
     }
 
     public void iniciarVentanaJuego()  {
