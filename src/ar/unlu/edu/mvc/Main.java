@@ -14,23 +14,23 @@ public class Main {
         IVista vista1= new VistaGrafica();
         IVista vista2= new VistaGrafica();
         IVista vista3= new VistaGrafica();
-        IVista vista4= new VistaGrafica();
+        //IVista vista4= new VistaGrafica();
 
 
         ControladorGrafico controladorGrafico1 = new ControladorGrafico(juego,vista1);
         ControladorGrafico controladorGrafico2 = new ControladorGrafico(juego,vista2);
        ControladorGrafico controladorGrafico3 = new ControladorGrafico(juego,vista3);
-        ControladorGrafico controladorGrafico4 = new ControladorGrafico(juego,vista4);
+     //   ControladorGrafico controladorGrafico4 = new ControladorGrafico(juego,vista4);
 
         juego.agregarObservador(controladorGrafico1);
         juego.agregarObservador(controladorGrafico2);
        juego.agregarObservador(controladorGrafico3);
-        juego.agregarObservador(controladorGrafico4);
+       // juego.agregarObservador(controladorGrafico4);
 
         controladorGrafico1.iniciar();
         controladorGrafico2.iniciar();
        controladorGrafico3.iniciar();
-        controladorGrafico4.iniciar();
+     //   controladorGrafico4.iniciar();
     }
 
 

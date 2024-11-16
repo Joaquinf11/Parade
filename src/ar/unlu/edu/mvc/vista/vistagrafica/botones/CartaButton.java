@@ -23,17 +23,17 @@ public class CartaButton extends JButton {
 
 
 
-    private static final int WIDTH_NUMERO_HORIZONTAL=30;
-    private static  final int  HEIGHT_NUMERO_HORIZONTAL=60;
+    private static final int WIDTH_NUMERO_HORIZONTAL=60;
+    private static  final int  HEIGHT_NUMERO_HORIZONTAL=30;
 
     private static final int WIDTH_NUMERO_VERTICAL=60;
     private static final int HEIGHT_NUMERO_VERTICAL=30;
 
     private static final int WIDTH_ULTIMA_NUMERO_VERTICAL=60;
-    private static final int HEIGHT_ULTIMA_NUMERO_VERTICAL=30;
+    private static final int HEIGHT_ULTIMA_NUMERO_VERTICAL=80;
 
     private static final int WIDTH_ULTIMA_NUMERO_HORIZONTAL=60;
-    private static final int HEIGHT_ULTIMA_NUMERO_HORIZONTAL=30;
+    private static final int HEIGHT_ULTIMA_NUMERO_HORIZONTAL=80;
 
     ImageIcon imageIcon;
 
@@ -102,7 +102,7 @@ public class CartaButton extends JButton {
                 }
 
                 // Recortar la imagen a la región deseada
-                BufferedImage croppedImage = originalImage.getSubimage(0, 1, 200, 56);
+                BufferedImage croppedImage = originalImage.getSubimage(0, 0, 200, 56);
 
                 // Escalar la imagen recortada al tamaño del botón (opcional)
                 Image scaledImage = croppedImage.getScaledInstance(WIDTH_NUMERO_HORIZONTAL, HEIGHT_NUMERO_HORIZONTAL, Image.SCALE_SMOOTH);
@@ -110,12 +110,19 @@ public class CartaButton extends JButton {
 
                 Image image =rotarImagen(imagenCortada,angulo);
                 setIcon(new ImageIcon(image));
-                setBorder(BorderFactory.createEmptyBorder(-1, 0, -1, 0));
+                setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             }
-            case "ultima area horizontal derecha"->{
+            case "ultima area horizontal derecha" , "ultima area horizontal izquierda" ->{
+                int angulo;
+                if (tipo.equals("ultima area horizontal derecha")){
+                    angulo=-90;
+                }
+                else {
+                    angulo=90;
+                }
                 imageIcon.setImage(imageIcon.getImage().getScaledInstance(WIDTH_ULTIMA_NUMERO_HORIZONTAL, HEIGHT_ULTIMA_NUMERO_HORIZONTAL, Image.SCALE_SMOOTH));
-                setBorder(BorderFactory.createEmptyBorder(-1, 0, 0, 0));
-                Image image=rotarImagen(imageIcon,-90);
+                setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+                Image image=rotarImagen(imageIcon,angulo);
                 setIcon(new ImageIcon(image));
                 this.setSize(WIDTH_ULTIMA_NUMERO_HORIZONTAL, HEIGHT_ULTIMA_NUMERO_HORIZONTAL);
 

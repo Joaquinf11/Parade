@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class panelMenuInicial extends JPanel {
+public class panelMenuInicial  {
     protected JPanel panelPrincipal;
     private JLabel lTitulo;
     private JPanel panelCentro;
@@ -19,8 +19,6 @@ public class panelMenuInicial extends JPanel {
     private ControladorGrafico controladorGrafico;
 
     public panelMenuInicial(ControladorGrafico controladorGrafico, VistaGrafica vistaGrafica){
-        setLayout(new BorderLayout());
-        add(panelPrincipal,BorderLayout.CENTER);
         this.controladorGrafico = controladorGrafico;
         this.vistaGrafica=vistaGrafica;
         salirButton.addActionListener(new ActionListener() {

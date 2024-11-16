@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class panelJuego extends JPanel{
+public class panelJuego {
     ControladorGrafico controladorGrafico;
     VistaGrafica vista;
 
@@ -94,8 +94,6 @@ public class panelJuego extends JPanel{
 
 
     public panelJuego(ControladorGrafico controladorGrafico, VistaGrafica grafica){
-        setLayout(new BorderLayout());
-        add(panelVentanaJuego,BorderLayout.CENTER);
         this.controladorGrafico = controladorGrafico;
         this.vista= grafica;
         this.cartasCarnaval= new ArrayList<>();
@@ -155,6 +153,7 @@ public class panelJuego extends JPanel{
         panelVioleta2.setLayout(new BoxLayout(panelVioleta2,BoxLayout.Y_AXIS));
         panelNegro2.setLayout(new BoxLayout(panelNegro2,BoxLayout.Y_AXIS));
 
+
         panelAmarillo3.setLayout(new BoxLayout(panelAmarillo3,BoxLayout.X_AXIS));
         panelVerde3.setLayout(new BoxLayout(panelVerde3,BoxLayout.X_AXIS));
         panelAzul3.setLayout(new BoxLayout(panelAzul3,BoxLayout.X_AXIS));
@@ -162,12 +161,29 @@ public class panelJuego extends JPanel{
         panelVioleta3.setLayout(new BoxLayout(panelVioleta3,BoxLayout.X_AXIS));
         panelNegro3.setLayout(new BoxLayout(panelNegro3,BoxLayout.X_AXIS));
 
+        panelArea3.setLayout(new GridLayout(6,1));
+        panelArea3.add(panelAmarillo3,0,0);
+        panelArea3.add(panelVerde3,1,0);
+        panelArea3.add(panelAzul3,2,0);
+        panelArea3.add(panelRojo3,3,0);
+        panelArea3.add(panelVioleta3,4,0);
+        panelArea3.add(panelNegro3,5,0);
+
+
         panelAmarillo4.setLayout(new BoxLayout(panelAmarillo4,BoxLayout.X_AXIS));
         panelVerde4.setLayout(new BoxLayout(panelVerde4,BoxLayout.X_AXIS));
         panelAzul4.setLayout(new BoxLayout(panelAzul4,BoxLayout.X_AXIS));
         panelRojo4.setLayout(new BoxLayout(panelRojo4,BoxLayout.X_AXIS));
         panelVioleta4.setLayout(new BoxLayout(panelVioleta4,BoxLayout.X_AXIS));
         panelNegro4.setLayout(new BoxLayout(panelNegro4,BoxLayout.X_AXIS));
+
+        panelArea4.setLayout(new GridLayout(6,1));
+        panelArea4.add(panelAmarillo4,0,0);
+        panelArea4.add(panelVerde4,1,0);
+        panelArea4.add(panelAzul4,2,0);
+        panelArea4.add(panelRojo4,3,0);
+        panelArea4.add(panelVioleta4,4,0);
+        panelArea4.add(panelNegro4,5,0);
 
         this.oponentes =this.controladorGrafico.listarNombreJugadores();
         this.oponentes.remove(vista.getNombreJugador());

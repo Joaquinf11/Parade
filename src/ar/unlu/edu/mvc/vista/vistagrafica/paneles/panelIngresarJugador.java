@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class panelIngresarJugador extends JPanel{
+public class panelIngresarJugador {
     protected JPanel panelIngresarJugador;
     private JLabel lTitulo;
     private JTextField nombre;
@@ -17,8 +17,6 @@ public class panelIngresarJugador extends JPanel{
     private VistaGrafica vistaGrafica;
 
     public panelIngresarJugador(ControladorGrafico controladorGrafico, VistaGrafica vistaGrafica){
-        setLayout(new BorderLayout());
-        add(panelIngresarJugador,BorderLayout.CENTER);
         this.controladorGrafico = controladorGrafico;
         this.vistaGrafica=vistaGrafica;
         aceptarButton.addActionListener(new ActionListener() {

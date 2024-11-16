@@ -16,10 +16,11 @@ public class VistaGrafica extends  JFrame implements IVista {
 
     private  JPanel panelMensaje;
     private JPanel panelMenuInicial;
-    private panelJuego panelJuego;
-    private panelIngresarJugador panelIngresarJugador;
+    private JPanel panelPrincipalJuego;
+    private JPanel panelIngresarJugador;
     private String jugador;
     private String ultimoPanel;
+    private panelJuego panelJuego;
 
     public VistaGrafica(){
 
@@ -39,11 +40,9 @@ public class VistaGrafica extends  JFrame implements IVista {
     @Override
     public void iniciarVentana(){
         this.panelMenuInicial = (new panelMenuInicial(this.controladorGrafico,this)).getPanel();
-
-        this.panelIngresarJugador = new panelIngresarJugador(this.controladorGrafico,this);
-        this.panelIngresarJugador.setVisible(true);
-        this.panelJuego = new panelJuego(this.controladorGrafico,this);
-        this.panelJuego.setVisible(true);
+        this.panelIngresarJugador = (new panelIngresarJugador(this.controladorGrafico,this)).getPanel();
+        this.panelJuego =new panelJuego(this.controladorGrafico,this);
+        this.panelPrincipalJuego=panelJuego.getPanel();
         this.panelMensaje= new JPanel();
         this.panelMensaje.setLayout(new GridBagLayout());
         this.panelMensaje.setVisible(true);
@@ -99,7 +98,7 @@ public class VistaGrafica extends  JFrame implements IVista {
         switch (ultimoPanel){
             case "Menu Inicial"-> { setContentPane(this.panelMenuInicial); panelMenuInicial.updateUI();}
             case "Ingresar Jugador"-> { setContentPane(this.panelIngresarJugador);panelIngresarJugador.updateUI();}
-            case "Panel Juego"-> { setContentPane(this.panelJuego); panelJuego.updateUI();}
+            case "Panel Juego"-> { setContentPane(this.panelPrincipalJuego); panelPrincipalJuego.updateUI();}
         }
     }
 
