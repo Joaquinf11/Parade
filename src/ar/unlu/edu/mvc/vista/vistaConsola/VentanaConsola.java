@@ -43,9 +43,10 @@ public class VentanaConsola extends JFrame{
         comandos.add("mano");
         comandos.add("salir");
         comandos.add("clear");
+        comandos.add("area oponentes");
+        comandos.add("como jugar");
 
-        this.oponentes= this.controlador.listarNombreJugadores();
-        this.oponentes.remove(this.jugador);
+
         //CHEQUEAR los el panel entrada puede ir en un first las before afte, investigar
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("PARADE");
@@ -79,8 +80,7 @@ public class VentanaConsola extends JFrame{
                     case "0" ->{System.exit(0); } //CHEQUEAR como hacer para sacar jguador
                     case "1" -> { mostrarMensaje("Ingrese el nombre del Jugador "); setIngresarJugadorField();}
                     case "2" -> { if (controlador.sePuedeComenzar()){ //CONTROLADOR? asi esta bien?
-                                    controlador.empezarPartida();
-                                    setJuegoTextField();}
+                                    controlador.empezarPartida();}
                                    else{ mostrarMensaje("Faltan jugadores");}}
                     default -> { procesarComandos(entradaMenuField.getText());}
 
@@ -117,32 +117,23 @@ public class VentanaConsola extends JFrame{
                 if (comandos.contains(entrada)) {
                     procesarComandos(entrada);
                 } else {
-                    controlador.tirarCarta(Integer.parseInt(entrada));
+                    controlador.tirarCarta(Integer.parseInt(entrada) - 1);
                     tirarCartaField.setText("");//EXCEPTION por si ingresa uno novalido
                 }
             }
         });
 
-        elegirCartasField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                String texto = elegirCartasField.getText();
-                if (!comandos.contains(texto)) {
-                    texto = texto.trim().replaceAll("\\s", "n");
-                    elegirCartasField.setText(texto);
-                }
-            }
-        });
+
         elegirCartasField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (comandos.contains(elegirCartasField.getText())) {
                     procesarComandos(elegirCartasField.getText());
                 } else {
-                    String[] partes = elegirCartasField.getText().split(",");
+                    String[] partes = elegirCartasField.getText().split(" ");
                     int[] cartasElegidas = new int[partes.length];
                     for (int i = 0; i < partes.length; i++) {
-                        cartasElegidas[i] = Integer.parseInt(partes[i]);
+                        cartasElegidas[i] = Integer.parseInt(partes[i]) - 1;
                     }
                     controlador.analizarCartasCarnaval(cartasElegidas);
                     elegirCartasField.setText("");     //EXCEPTION manejo de error por mala conversion o letra ingresa invalida
@@ -150,21 +141,13 @@ public class VentanaConsola extends JFrame{
             }
         });
     }
+
     public void iniciar(){
+        this.oponentes= this.controlador.listarNombreJugadores();
+        this.oponentes.remove(this.jugador);
+        mostrarComoJugar();
         setMenuField();
         areaSalida.append(menuInicial());
-    }
-
-    private void setMenuField() {
-        panelEntradas.removeAll();
-        panelEntradas.add(entradaMenuField,BorderLayout.SOUTH);
-        panelEntradas.updateUI();
-    }
-
-    private void setJuegoTextField() {
-        panelEntradas.removeAll();
-        panelEntradas.add(tirarCartaField,BorderLayout.SOUTH);
-        panelEntradas.updateUI();
     }
 
     public String menuInicial(){
@@ -174,20 +157,10 @@ public class VentanaConsola extends JFrame{
                 "2-Comenzar Partida\n";
     }
 
-    public void procesarComandos(String comando){
-        switch (comando){
-            case "salir"-> {System.exit(0);}
-            case "clear" -> {areaSalida.setText(" ");}
-            case "mano" -> {mostrarCartasEnMano(this.jugador);}
-            case "carnaval"-> {mostrarCarnaval();}
-            case "area" -> { mostrarArea(this.jugador);}
-            case "comandos"-> { mostrarMensaje("salir:cierra la consola\n" +
-                                                " clear: limpia la pantalla de la consola\n" +
-                                                "mano: muestra las cartas en mano\n" +
-                                                "canarval: muestra las cartas del carnaval\n" +
-                                                "area: muestra las cartas del area de juego\n" );}
-            default -> { mostrarMensaje("El comando es invalido, ingrese comandos para ver los comandos dispobiles");}
-        }
+    private void setMenuField() {
+        panelEntradas.removeAll();
+        panelEntradas.add(entradaMenuField,BorderLayout.SOUTH);
+        panelEntradas.updateUI();
     }
 
     public void setIngresarJugadorField(){
@@ -196,6 +169,11 @@ public class VentanaConsola extends JFrame{
         panelEntradas.updateUI();
     }
 
+    public void setTirarCartaField() {
+        panelEntradas.removeAll();
+        panelEntradas.add(tirarCartaField,BorderLayout.SOUTH);
+        panelEntradas.updateUI();
+    }
     public void setElegirCartaField() {
         panelEntradas.removeAll();
         panelEntradas.add(elegirCartasField,BorderLayout.SOUTH);
@@ -206,6 +184,26 @@ public class VentanaConsola extends JFrame{
         this.controlador=controladorConsola;
     }
 
+    public void procesarComandos(String comando){
+        areaSalida.append(comando);
+        switch (comando){
+            case "salir"-> {System.exit(0);}
+            case "clear" -> {areaSalida.setText(" ");}
+            case "mano" -> {mostrarCartasEnMano(this.jugador);}
+            case "carnaval"-> {mostrarCarnaval();}
+            case "area" -> { mostrarArea(this.jugador);}
+            case "area oponentes"->{mostrarAreaOponentes();}
+            case "como jugar"->{ mostrarComoJugar();}
+            case "comandos"-> { mostrarMensaje("salir:cierra la consola\n" +
+                                                " clear: limpia la pantalla de la consola\n" +
+                                                "mano: muestra las cartas en mano\n" +
+                                                "canarval: muestra las cartas del carnaval\n" +
+                                                "area: muestra las cartas del area de juego\n" +
+                                                "area oponentes: muestra el area de todos los oponentes" +
+                                                "como jugar: explica como seleccionar las cartas");}
+            default -> { mostrarMensaje("El comando es invalido, ingrese comandos para ver los comandos dispobiles");}
+        }
+    }
 
     public void mostrarMensaje(String mensaje) {
         areaSalida.append(mensaje + "\n");
@@ -215,6 +213,14 @@ public class VentanaConsola extends JFrame{
         mostrarCarnaval();
         mostrarCartasEnMano(jugador);
 
+    }
+
+    public void mostrarComoJugar(){
+        mostrarMensaje("BIENVENIDO A PARADE \n" +
+                        "Para seleccionar cartas de la Mano ingrese un numero del 1 al 5\n" +
+                        "Para seleccionar cartas del Carnaval ingrese los numeros necesarios separados por un espacio. Ejemplo: 1 2 3 4\n" +
+                        "Si necesitas ver las cartas ingresa comandos y eligi lo que necesitas ver\n"
+        );
     }
 
     public void mostrarCarnaval(){
@@ -229,12 +235,20 @@ public class VentanaConsola extends JFrame{
         areaSalida.append(cartasToString(cartasMano));
      }
     public void mostrarArea(String jugador) {
-        areaSalida.append("AREA DE JUEGO \n");
+        areaSalida.append("AREA DE JUEGO DE " + jugador + "\n");
         Collection<List<String>> cartasArea= this.controlador.listarCartasArea(jugador);
         for (List<String> cartasColor : cartasArea){
             areaSalida.append(cartasToString(cartasColor));
         }
     }
+
+    public void mostrarAreaOponentes(){
+        for (String jugador : this.oponentes){
+            mostrarArea(jugador);
+        }
+    }
+
+
     public String cartasToString(List<String> cartas){
         String resultado="";
         for (String carta : cartas){
@@ -251,5 +265,6 @@ public class VentanaConsola extends JFrame{
     public void desactivarEntrada() {
         panelEntradas.setEnabled(false);
     }
+
 
 }

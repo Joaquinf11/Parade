@@ -1,10 +1,12 @@
 package ar.unlu.edu.mvc.controlador;
 
 import ar.unlu.edu.mvc.interfaces.IJuego;
+import ar.unlu.edu.mvc.interfaces.IJugador;
 import ar.unlu.edu.mvc.interfaces.Observador;
 import ar.unlu.edu.mvc.modelo.Evento;
 import ar.unlu.edu.mvc.vista.vistaConsola.VentanaConsola;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.awt.*;
@@ -29,11 +31,14 @@ public class ControladorConsola implements Observador {
                 }
                 break;
             case JUEGO_COMENZADO:
+                this.vista.setTirarCartaField();
                 this.vista.mostrarMesa(this.jugador);
                 break;
             case CAMBIO_TURNO:
                 this.vista.mostrarMensaje("Es el turno de " + getNombreJugadorTurno());
                 if (isTurno()){
+                    this.vista.mostrarCarnaval();
+                    this.vista.setTirarCartaField();
                     this.vista.activarEntrada();
                     this.vista.mostrarCartasEnMano(getNombreJugadorTurno());
                 }
@@ -43,14 +48,17 @@ public class ControladorConsola implements Observador {
                 break;
             case CARTA_TIRADA:
                 //muestro un mensaje de la carta tirada?
-                this.vista.mostrarCarnaval();
                 if (isTurno()){
                     this.vista.setElegirCartaField();
+                    this.vista.mostrarMensaje("Elegir cartas del Carnaval");
+                }
+                else {
+                    this.vista.mostrarCarnaval();
                 }
                 break;
             case CARTA_AGREGADA_CARNAVAL:
-                if (isTurno()){
-                    this.vista.mostrarMensaje("Elegir cartas del Carnaval");
+                if (!isTurno()) {
+                    this.vista.mostrarMensaje(getNombreJugadorTurno() + "\tagrego una carta al CARNAVAL");
                 }
                 this.vista.mostrarCarnaval();
                 break;
@@ -58,12 +66,14 @@ public class ControladorConsola implements Observador {
                 if (isTurno()){
                     this.vista.mostrarArea(getNombreJugadorTurno());
                 }
+                else{
+                    this.vista.mostrarMensaje(getNombreJugadorTurno()+ "\tagrego una carta a su AREA DE JUEGO");
+                }
                 break;
             case CARTA_MAL_ELEGIDA_CARNAVAL:
                 if (isTurno()){
                     this.vista.mostrarMensaje("CARTA MAL ELEGIDA");//CHEQUEAR
                 }
-                this.vista.mostrarCarnaval();
             case FIN_TURNO:
                 if (isTurno()){
                     this.vista.desactivarEntrada();
@@ -117,5 +127,14 @@ public class ControladorConsola implements Observador {
 
     public void iniciar() {
         this.vista.iniciar();
+    }
+
+    public List<String> listarNombreJugadores() {
+        List<String> resultado= new ArrayList<>();
+        List<IJugador> jugadores= this.juego.listarJugadores();
+        for (IJugador jugador : jugadores){
+            resultado.add(jugador.getNombre());
+        }
+        return resultado;
     }
 }
