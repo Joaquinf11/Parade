@@ -4,6 +4,8 @@ import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.interfaces.Observador;
 import ar.unlu.edu.mvc.modelo.Evento;
 import ar.unlu.edu.mvc.vista.vistaConsola.VentanaConsola;
+
+import java.util.Collection;
 import java.util.List;
 import java.awt.*;
 
@@ -27,20 +29,45 @@ public class ControladorConsola implements Observador {
                 }
                 break;
             case JUEGO_COMENZADO:
-                this.vista.mostrarMesa();
+                this.vista.mostrarMesa(this.jugador);
                 break;
             case CAMBIO_TURNO:
                 this.vista.mostrarMensaje("Es el turno de " + getNombreJugadorTurno());
                 if (isTurno()){
                     this.vista.activarEntrada();
+                    this.vista.mostrarCartasEnMano(getNombreJugadorTurno());
+                }
+                else{
+                    this.vista.desactivarEntrada();
                 }
                 break;
             case CARTA_TIRADA:
                 //muestro un mensaje de la carta tirada?
                 this.vista.mostrarCarnaval();
+                if (isTurno()){
+                    this.vista.setElegirCartaField();
+                }
                 break;
             case CARTA_AGREGADA_CARNAVAL:
-                //CHEQUEAR DEJASTE ACAC
+                if (isTurno()){
+                    this.vista.mostrarMensaje("Elegir cartas del Carnaval");
+                }
+                this.vista.mostrarCarnaval();
+                break;
+            case CARTA_AGREGADA_AREA:
+                if (isTurno()){
+                    this.vista.mostrarArea(getNombreJugadorTurno());
+                }
+                break;
+            case CARTA_MAL_ELEGIDA_CARNAVAL:
+                if (isTurno()){
+                    this.vista.mostrarMensaje("CARTA MAL ELEGIDA");//CHEQUEAR
+                }
+                this.vista.mostrarCarnaval();
+            case FIN_TURNO:
+                if (isTurno()){
+                    this.vista.desactivarEntrada();
+                }
                 break;
 
             }
@@ -59,7 +86,36 @@ public class ControladorConsola implements Observador {
         return this.juego.listarCartasCarnaval();
     }
 
-    public List<String> listarCartasMano() {
-        return this.juego.listarCartasEnMano(getNombreJugadorTurno());
+    public List<String> listarCartasMano(String jugador) {
+        return this.juego.listarCartasEnMano(jugador);
+    }
+
+    public Collection<List<String>> listarCartasArea(String jugador) {
+        return this.juego.listarCartasArea(jugador);
+    }
+
+    public void agregarJugador(String nombre) {
+        this.jugador=nombre;
+        this.juego.agregarJugador(nombre);
+    }
+
+    public boolean sePuedeComenzar() {
+        return this.juego.sePuedeComenzar();
+    }
+
+    public void empezarPartida(){
+        this.juego.empezarJuego();
+    }
+
+    public void tirarCarta(int carta) {
+        this.juego.tirarCarta(carta);
+    }
+
+    public void analizarCartasCarnaval(int[] cartasElegidas) {
+        this.juego.analizarCartasCarnaval(cartasElegidas);
+    }
+
+    public void iniciar() {
+        this.vista.iniciar();
     }
 }
