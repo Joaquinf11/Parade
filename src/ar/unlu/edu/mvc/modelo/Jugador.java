@@ -28,9 +28,6 @@ public class Jugador implements IJugador {
         return this.area.getCantidadDeCartasTotales();
     }
 
-    public int getCantidadCartasEnMano() {
-        return this.cartasEnMano.size();
-    }
 
     public AreaDeJuego getArea(){
         return this.area;
@@ -45,8 +42,10 @@ public class Jugador implements IJugador {
     }
 
 
-    public void quitarCarta(Carta carta){
-        this.cartasEnMano.remove(carta);
+    public Carta descartarCarta(int indice){
+        Carta resultado=this.cartasEnMano.get(indice);
+        this.cartasEnMano.remove(indice);
+        return resultado;
     }
 
     public void quitarCarta(int indice){
@@ -55,9 +54,7 @@ public class Jugador implements IJugador {
     }
 
     public Carta elegirCarta(int indice){
-        Carta carta= this.cartasEnMano.get(indice);
-        quitarCarta(carta);
-        return carta;
+        return descartarCarta(indice);
     }
 
     public void agregarCartaAlAreaDeJuego(Carta carta){

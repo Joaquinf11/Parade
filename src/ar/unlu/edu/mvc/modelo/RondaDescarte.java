@@ -10,8 +10,12 @@ public class RondaDescarte extends Ronda {
         super(jugador, carnaval, mazo, juego);
     }
 
-    public void jugarCarta(int cartaElegida, int[] cartaElegidasCarnaval) {
-        this.jugadorTurno.quitarCarta(cartaElegida);
+    @Override
+    public void tirarCarta(int cartaElegida) {
+        this.jugadorTurno.getArea().agregarCarta(this.jugadorTurno.descartarCarta(cartaElegida));
+        juego.notificar(Evento.CARTA_TIRADA);
+        juego.notificar(Evento.CARTA_AGREGADA_AREA);
+
     }
 
     @Override

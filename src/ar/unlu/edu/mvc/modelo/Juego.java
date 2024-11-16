@@ -113,19 +113,11 @@ public class Juego implements Observado, IJuego {
         }
     }
     public IJugador finJuego(){
-        this.agregarCartasEnManoAlAreaDeJuego();
         this.notificar(Evento.FIN_JUEGO);
         this.calcularPuntos();
         return this.definirGanador();
     }
-    public void agregarCartasEnManoAlAreaDeJuego(){
-        for (Jugador jugador : this.jugadores){
-            for (Carta carta : jugador.getCartas()){
-                jugador.quitarCarta(carta);
-                jugador.agregarCartaAlAreaDeJuego(carta);
-            }
-        }
-    }
+
     public void evaluarAreaDeJuego(){
         Jugador jugador_anterior= this.jugadores.peek();
         List<Jugador> jugadoresConMasCartas= new ArrayList<>();
