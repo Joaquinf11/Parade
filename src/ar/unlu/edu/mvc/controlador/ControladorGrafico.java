@@ -44,7 +44,6 @@ public class ControladorGrafico implements Observador {
                     this.vista.actualizarCartasEnMano();
                     this.vista.desactivarCartasMano();
                     this.vista.activarCartasCarnaval();
-                    this.vista.mostrarMensaje("Seleccione cartas del Carnaval"); // no se si es necesario
                 }
                 else{
                     this.vista.desactivarCartaManoOponente(getNombreJugadorTurno());
