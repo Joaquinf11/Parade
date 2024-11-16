@@ -24,7 +24,7 @@ public class panelMenuInicial  {
         salirButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                System.exit(0); //HACER que se elimine el jugador del juego
             }
         });
         agregarJugButton.addActionListener(new ActionListener() {
@@ -37,11 +37,11 @@ public class panelMenuInicial  {
         empezarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (controladorGrafico.sePuedeComenzar()) {
+                if (controladorGrafico.sePuedeComenzar()) { //CONTROLADOR? asi esta bien?
                     controladorGrafico.empezarPartida();
                 }
                 else {
-                    vistaGrafica.mostrarMensaje("Faltan jugadores"); // CONTROLADOR?
+                    vistaGrafica.mostrarMensaje("Faltan jugadores");
                 }
                 }
         });
