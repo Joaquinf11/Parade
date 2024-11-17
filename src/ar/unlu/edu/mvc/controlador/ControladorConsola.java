@@ -139,10 +139,10 @@ public class ControladorConsola implements Observador {
         try {
             this.juego.analizarCartasCarnaval(cartasElegidas);
         } catch (CartaException e) {
+            this.vista.mostrarMensaje(e.getMessage());
             if (e.getTipo() == TipoException.CARTA_MAYORVALOR_DISTINTOCOLOR){
                 this.vista.mostrarCarnaval();
             }
-            this.vista.mostrarMensaje(e.getMessage());
         }
     }
 
