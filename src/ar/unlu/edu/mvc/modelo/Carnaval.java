@@ -22,13 +22,9 @@ public class Carnaval {
 
     public List<Carta> getCartas(int[] indices){
         List<Carta> resultado = new ArrayList<>();
-        List<Carta> eliminar= new ArrayList<>();
         for (int index : indices){
             resultado.add(this.cartas.get(index));
-            eliminar.add(this.cartas.get(index));
         }
-        eliminarCartas(eliminar);
-
         return resultado;
     }
 
