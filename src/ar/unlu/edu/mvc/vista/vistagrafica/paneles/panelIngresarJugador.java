@@ -19,19 +19,17 @@ public class panelIngresarJugador {
     public panelIngresarJugador(ControladorGrafico controladorGrafico, VistaGrafica vistaGrafica){
         this.controladorGrafico = controladorGrafico;
         this.vistaGrafica=vistaGrafica;
+
         aceptarButton.addActionListener(new ActionListener() {
-
-
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(nombre.getText().isEmpty()){
-                    vistaGrafica.mostrarMensaje("El nombre ingresado es invalido");
+                    vistaGrafica.mostrarMensaje("El nombre ingresado es invalido"); //CONTROLADOR?
                 }
                 else{
                     controladorGrafico.agregarJugador(nombre.getText());
                     vistaGrafica.setNombreJugador(nombre.getText());
-                    vistaGrafica.mostrarMenuInicial();
+                   // vistaGrafica.mostrarMenuInicial();
 
                 }
             }
@@ -42,7 +40,7 @@ public class panelIngresarJugador {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER){
                     if(nombre.getText().isEmpty()){
-                        vistaGrafica.mostrarMensaje("El nombre ingresado es invalido");
+                        vistaGrafica.mostrarMensaje("El nombre ingresado es invalido");// CONTROLADOR?
                     }
                     else{
                         controladorGrafico.agregarJugador(nombre.getText());
