@@ -3,11 +3,14 @@ package ar.unlu.edu.mvc.modelo;
 
 
 public class RondaDescarte extends Ronda {
-    private static int contador;
+    private  int contador=0;
+    private final int cantidadJugadores;
 
 
-    public RondaDescarte(Jugador jugador, Carnaval carnaval, Mazo mazo, Juego juego) {
+    public RondaDescarte(Jugador jugador, Carnaval carnaval, Mazo mazo,int cantidadJugadores, Juego juego) {
         super(jugador, carnaval, mazo, juego);
+        contador++;
+        this.cantidadJugadores=cantidadJugadores;
     }
 
     @Override
@@ -15,7 +18,7 @@ public class RondaDescarte extends Ronda {
         this.jugadorTurno.getArea().agregarCarta(this.jugadorTurno.descartarCarta(cartaElegida));
         juego.notificar(Evento.CARTA_TIRADA);
         juego.notificar(Evento.CARTA_AGREGADA_AREA);
-
+        this.tiroCarta=true;
     }
 
     @Override

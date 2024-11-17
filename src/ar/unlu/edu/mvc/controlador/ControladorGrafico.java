@@ -146,4 +146,13 @@ public class ControladorGrafico implements Observador {
     public Collection<List<String>> listarCartasArea(String nombreJugador) {
        return this.juego.listarCartasArea(nombreJugador);
     }
+
+    public void finalizarTurno() {
+        try {
+            this.juego.finalizarTurno();
+        }
+        catch (CartaException e){
+            this.vista.mostrarMensaje(e.getMessage());
+        }
+    }
 }

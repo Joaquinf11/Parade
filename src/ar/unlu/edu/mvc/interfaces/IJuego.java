@@ -18,6 +18,9 @@ public interface IJuego {
     void analizarCartasCarnaval(int[] indices) throws CartaException;
     List<String> listarCartasCarnaval();
     List<String> listarCartasEnMano(String nombre);
+
+    void finalizarTurno()throws CartaException;
+
     boolean sePuedeComenzar();
     int getCantidadJugadores();
 

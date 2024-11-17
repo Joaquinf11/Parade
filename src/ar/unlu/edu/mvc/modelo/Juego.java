@@ -85,19 +85,26 @@ public class Juego implements Observado, IJuego {
         }
         else if(this.rondaDescarte){
 
-            this.ronda= new RondaDescarte(jugadorTurno,carnaval,null,this);
+            this.ronda= new RondaDescarte(jugadorTurno,carnaval,null,this.jugadores.size(),this);
         }
         else {
             this.ronda= new Ronda(jugadorTurno,carnaval,mazo,this);
         }
     }
 
+    @Override
     public void tirarCarta(int cartaElegida){
         this.ronda.tirarCarta(cartaElegida);
     }
 
+    @Override
     public void analizarCartasCarnaval (int[] cartasElegidas) throws CartaException{
         this.ronda.analizarCartasCarnaval(cartasElegidas);
+    }
+
+    @Override
+    public void finalizarTurno()throws CartaException{
+        this.ronda.finRonda();
     }
 
     public void finTurno() {

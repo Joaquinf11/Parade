@@ -1,7 +1,7 @@
 package ar.unlu.edu.mvc.modelo;
 
 public class UltimaRonda extends Ronda{
-    private static int contador=0;
+    private  int contador=0;
     private final int cantidadJugadores;
 
     public UltimaRonda(Jugador jugador, Carnaval carnaval,Mazo mazo,Juego juego,int cantidad){

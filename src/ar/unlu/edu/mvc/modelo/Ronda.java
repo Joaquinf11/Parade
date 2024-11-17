@@ -11,12 +11,14 @@ public class Ronda {
     private final Mazo mazo;
     protected Jugador jugadorTurno;
     protected Juego juego;
+    protected boolean tiroCarta;
 
     public Ronda(Jugador jugador, Carnaval carnaval,Mazo mazo,Juego juego){
         this.jugadorTurno=jugador;
         this.carnaval= carnaval;
         this.mazo= mazo;
         this.juego=juego;
+        this.tiroCarta=false;
     }
 
 
@@ -29,9 +31,7 @@ public class Ronda {
         this.carnaval.agregarCarta(carta);
         System.out.println("Carta agregada al carnaval " + carta.getColor() + " " + carta.getValor()); //BORRAR
         this.juego.notificar(Evento.CARTA_AGREGADA_CARNAVAL);
-        if (cartaElegida == -1){
-            this.finRonda();
-        }
+        this.tiroCarta=true;
     }
 
     public void analizarCartasCarnaval( int [] cartasElegidas) throws CartaException{
@@ -63,11 +63,16 @@ public class Ronda {
     }
 
 
-    public void finRonda(){
-        this.jugadorTurno.agarrarCarta(this.mazo.sacarCarta());
-        juego.finTurno();
-        if (esFinDeRonda()){
-            juego.setUltimaRonda(true);
+    public void finRonda() throws  CartaException{
+        if (tiroCarta) {
+            this.jugadorTurno.agarrarCarta(this.mazo.sacarCarta());
+            juego.finTurno();
+            if (esFinDeRonda()) {
+                juego.setUltimaRonda(true);
+            }
+        }
+        else{
+            throw new CartaException("Debes tirar una carta antes de finalizar tu turno");
         }
     }
 

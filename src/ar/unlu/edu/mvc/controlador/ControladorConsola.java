@@ -5,19 +5,18 @@ import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.interfaces.IJugador;
 import ar.unlu.edu.mvc.interfaces.Observador;
 import ar.unlu.edu.mvc.modelo.Evento;
-import ar.unlu.edu.mvc.vista.vistaConsola.VentanaConsola;
+import ar.unlu.edu.mvc.vista.vistaConsola.VistaConsola;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.awt.*;
 
 public class ControladorConsola implements Observador {
-    private final VentanaConsola vista;
+    private final VistaConsola vista;
     private String jugador;
     private final IJuego juego;
 
-    public ControladorConsola(VentanaConsola vista, IJuego juego) {
+    public ControladorConsola(VistaConsola vista, IJuego juego) {
         vista.setControlador(this);
         this.vista = vista;
         this.juego = juego;
@@ -141,5 +140,14 @@ public class ControladorConsola implements Observador {
             resultado.add(jugador.getNombre());
         }
         return resultado;
+    }
+
+    public void finalizarTurno() {
+        try {
+            this.juego.finalizarTurno();
+        }
+        catch (CartaException e){
+            this.vista.mostrarMensaje(e.getMessage());
+        }
     }
 }

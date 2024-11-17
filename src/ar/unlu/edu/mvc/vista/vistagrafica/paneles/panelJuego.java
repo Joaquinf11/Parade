@@ -105,7 +105,7 @@ public class panelJuego {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controladorGrafico.jugarCarta(cartaElegidaMano);
-                finalizarTurnoButton.setEnabled(true); //CHEQUEAR
+                finalizarTurnoButton.setEnabled(true); //CONTROLADOR?
             }
         });
         tirarCartaButton.setEnabled(false);
@@ -124,7 +124,7 @@ public class panelJuego {
         finalizarTurnoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controladorGrafico.jugarCarta(cartaElegidaMano);
+                controladorGrafico.finalizarTurno();
                 finalizarTurnoButton.setEnabled(false);
 
             }
