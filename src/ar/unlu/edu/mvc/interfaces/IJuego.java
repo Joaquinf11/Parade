@@ -1,5 +1,7 @@
 package ar.unlu.edu.mvc.interfaces;
 
+import ar.unlu.edu.mvc.exceptions.CartaException;
+
 import java.util.List;
 import java.util.Collection;
 
@@ -13,7 +15,7 @@ public interface IJuego {
 
     void tirarCarta(int indice);
 
-    void analizarCartasCarnaval(int[] indices);
+    void analizarCartasCarnaval(int[] indices) throws CartaException;
     List<String> listarCartasCarnaval();
     List<String> listarCartasEnMano(String nombre);
     boolean sePuedeComenzar();

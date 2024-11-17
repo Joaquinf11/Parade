@@ -1,5 +1,5 @@
 package ar.unlu.edu.mvc.modelo;
-
+import ar.unlu.edu.mvc.exceptions.CartaException;
 import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.interfaces.IJugador;
 import ar.unlu.edu.mvc.interfaces.Observado;
@@ -96,7 +96,7 @@ public class Juego implements Observado, IJuego {
         this.ronda.tirarCarta(cartaElegida);
     }
 
-    public void analizarCartasCarnaval(int[] cartasElegidas){
+    public void analizarCartasCarnaval (int[] cartasElegidas) throws CartaException{
         this.ronda.analizarCartasCarnaval(cartasElegidas);
     }
 

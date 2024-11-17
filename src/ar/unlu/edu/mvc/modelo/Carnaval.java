@@ -79,6 +79,18 @@ public class Carnaval {
         }
         return false;
     }
+    public boolean faltaAgarrarCartas(Carta carta, int[] cartasElegidas) {
+        List<Carta> salvadas=this.salvarCartas(carta.getValor());
+        int cantidadCartasElegidas= cartasElegidas.length;
+        int contador=0;
+
+        for( Carta cartaCarnaval : this.cartas){
+            if (!cartaCarnaval.equals(carta) && !salvadas.contains(cartaCarnaval) && (carta.equalsColor(cartaCarnaval) || cartaCarnaval.getValor() <= carta.getValor())){
+                contador++;
+            }
+        }
+        return contador != cantidadCartasElegidas;
+    }
     //////////////////////////////////
     //FUNCIONES PARA TEST
     //////////////////////////////////
@@ -91,4 +103,5 @@ public class Carnaval {
         }
         System.out.println("----------");
     }
+
 }

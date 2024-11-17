@@ -1,5 +1,8 @@
 package ar.unlu.edu.mvc.modelo;
 
+import ar.unlu.edu.mvc.exceptions.CartaException;
+import ar.unlu.edu.mvc.exceptions.TipoException;
+
 import java.util.List;
 
 public class Ronda {
@@ -31,15 +34,16 @@ public class Ronda {
         }
     }
 
-    public void analizarCartasCarnaval( int [] cartasElegidas){
+    public void analizarCartasCarnaval( int [] cartasElegidas) throws CartaException{
         Carta carta= this.carnaval.getUltimaCarta();
         if (!this.carnaval.puedeAgarrarCarnaval(carta)){
-            this.juego.notificar(Evento.NO_SE_PUEDE_AGARRAR); // debe ser un exception
-            System.out.println("NO SE PUEDE AGARRAR"); //BORRAR
+            throw new CartaException("La carta tirada: " + carta.toString() + " tiene mayor valor a la cantidad de cartas que hay en el carnaval");
         }
         else if (this.carnaval.agarroCartasSalvadasCarnaval(carta.getValor(),cartasElegidas)){
-            this.juego.notificar(Evento.ELIGIO_CARTA_SALVADA);// debe ser un exception
-            System.out.println("CARTA SALVADA"); //BORRAR
+            throw new CartaException("La carta: " + carta.toString() + "esta salvada");
+        }
+        else if(this.carnaval.faltaAgarrarCartas(carta,cartasElegidas)){
+            throw new CartaException("Podes seleccionar mas cartas del carnaval");
         }
         else {
             List<Carta> cartasCarnaval = this.carnaval.getCartas(cartasElegidas);
@@ -50,9 +54,7 @@ public class Ronda {
                     this.juego.notificar(Evento.CARTA_AGREGADA_AREA);
                     System.out.println("CARTA AGREGADA AL AREA DE JUEGO " + cartaCarnaval.getColor() + " " + cartaCarnaval.getValor()); //BORRAR
                 } else {
-                    this.juego.notificar(Evento.CARTA_MAL_ELEGIDA_CARNAVAL); // debe ser un exception
-                    System.out.println("CARTA MAL ELEGIDA  " + cartaCarnaval.getColor() + " " + cartaCarnaval.getValor()); //BORRAR
-                    this.carnaval.agregarCarta(cartasElegidas[contador],cartaCarnaval);
+                        throw new CartaException("La carta elegida: " + cartaCarnaval.toString() + "no se puede agarrar");
                 }
                 contador++;
             }
