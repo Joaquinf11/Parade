@@ -8,10 +8,11 @@ import java.util.Collection;
 public interface IJuego {
     IJugador getJugadorTurno();
 
-    void agregarJugador(String nombre);
+    void agregarJugador(String nombre) throws Exception;
+
     List<IJugador> listarJugadores();
 
-    void empezarJuego();
+    void empezarJuego() throws Exception;
 
     void tirarCarta(int indice);
 
@@ -25,4 +26,8 @@ public interface IJuego {
     int getCantidadJugadores();
 
     Collection<List<String>> listarCartasArea(String nombreJugador);
+
+    IJugador definirGanador();
+
+    int getCantidadCartasMazo();
 }
