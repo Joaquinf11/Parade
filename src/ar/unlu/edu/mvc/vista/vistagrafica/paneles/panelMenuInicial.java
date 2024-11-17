@@ -37,12 +37,7 @@ public class panelMenuInicial  {
         empezarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (controladorGrafico.sePuedeComenzar()) { //CONTROLADOR? asi esta bien?
                     controladorGrafico.empezarPartida();
-                }
-                else {
-                    vistaGrafica.mostrarMensaje("Faltan jugadores");
-                }
                 }
         });
     }
