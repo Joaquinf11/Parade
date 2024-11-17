@@ -247,8 +247,8 @@ public class panelJuego {
                         }
                         auxiliar [ auxiliar.length - 1]= (int) button.getClientProperty("indice");
                         cartasElegidasCarnaval = auxiliar;
-                        button.setDisabledSelectedIcon(button.getIcon());
                     }
+                    button.setEnabled(false);
 
                 }
             });
@@ -268,11 +268,8 @@ public class panelJuego {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
                         cartaElegidaMano = (int) button.getClientProperty("indice");
                         button.setBorderPainted(true);
-
-
                 }
             });
             this.cartasEnMano.add(button);
@@ -588,5 +585,9 @@ public class panelJuego {
             panelArea4.setVisible(true);
             panelArea4.updateUI();
         }
+    }
+
+    public void desactivaBotonAnalizarCartas() {
+        analizarCartasButton.setEnabled(false);
     }
 }
