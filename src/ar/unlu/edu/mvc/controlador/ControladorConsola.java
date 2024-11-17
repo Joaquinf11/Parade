@@ -47,7 +47,6 @@ public class ControladorConsola implements Observador {
                 }
                 break;
             case CARTA_TIRADA:
-                //muestro un mensaje de la carta tirada?
                 if (isTurno()){
                     this.vista.setElegirCartaField();
                     this.vista.mostrarMensaje("Elegir cartas del Carnaval");
@@ -82,6 +81,7 @@ public class ControladorConsola implements Observador {
                 this.vista.mostrarMensaje("Comienza la Ronda Descarte");
                 break;
             case FIN_JUEGO:
+                this.vista.mostrarMensaje("Finalizo el juego");
                 this.vista.mostrarMensaje("El ganador es " + this.getNombreGanador());
                 break;
             }

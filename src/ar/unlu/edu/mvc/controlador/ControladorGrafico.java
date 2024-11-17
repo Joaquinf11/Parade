@@ -4,19 +4,20 @@ import ar.unlu.edu.mvc.exceptions.CartaException;
 import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.interfaces.IJugador;
 import ar.unlu.edu.mvc.interfaces.Observador;
-import ar.unlu.edu.mvc.interfaces.IVista;
+
 import ar.unlu.edu.mvc.modelo.Evento;
+import ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaGrafica;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class ControladorGrafico implements Observador {
-    private final IVista vista;
+    private final VistaGrafica vista;
     private String jugador;
     private final IJuego juego;
 
-    public ControladorGrafico(IJuego juego, IVista vista) {
+    public ControladorGrafico(IJuego juego, VistaGrafica vista) {
         vista.setControlador(this);
         this.vista = vista;
         this.juego = juego;
@@ -74,6 +75,14 @@ public class ControladorGrafico implements Observador {
                     this.vista.activarCartaOponente(getNombreJugadorTurno());
                 }
                 break;
+            case ULTIMA_RONDA:
+                this.vista.mostrarMensaje("Comienza la ULTIMA RONDA");
+                break;
+            case RONDA_DESCARTE:
+                this.vista.mostrarMensaje("Comienza la RONDA DESCARTE");
+                this.vista.desactivaBotonAnalizarCartas();
+                break;
+
             case FIN_JUEGO:
                 this.vista.mostrarMensaje(this.getNombreGanadaor());
 
