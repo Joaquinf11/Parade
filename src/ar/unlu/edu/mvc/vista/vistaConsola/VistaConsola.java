@@ -125,16 +125,19 @@ public class VistaConsola extends JFrame{
         elegirCartasField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (comandos.contains(elegirCartasField.getText())) {
-                    procesarComandos(elegirCartasField.getText());
+                String entrada= elegirCartasField.getText();
+                if (comandos.contains(entrada)) {
+                    procesarComandos(entrada);
+                } else if (entrada.equals("finalizar turno")) {
+                    procesarComandos(entrada);
                 } else {
-                    String[] partes = elegirCartasField.getText().split(" ");
+                    String[] partes = entrada.split(" ");
                     int[] cartasElegidas = new int[partes.length];
                     for (int i = 0; i < partes.length; i++) {
-                        cartasElegidas[i] = Integer.parseInt(partes[i]) - 1;
+                        cartasElegidas[i] = Integer.parseInt(partes[i]) - 1;  //EXCEPTION manejo de error por mala conversion o letra ingresa invalida
                     }
                     controlador.analizarCartasCarnaval(cartasElegidas);
-                    elegirCartasField.setText("");     //EXCEPTION manejo de error por mala conversion o letra ingresa invalida
+                    elegirCartasField.setText("");
                 }
             }
         });
