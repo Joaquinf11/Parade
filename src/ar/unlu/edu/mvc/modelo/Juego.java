@@ -26,6 +26,10 @@ public class Juego implements Observado, IJuego {
         this.rondaDescarte=false;
 
     }
+
+    public int getCantidadCartasMazo(){
+        return this.mazo.getCantidadCartas();
+    }
      public void setJugadorTurno(Jugador jugador){
         this.jugadorTurno=jugador;
      }
@@ -39,7 +43,6 @@ public class Juego implements Observado, IJuego {
         this.rondaDescarte=b;
     }
 
-     //fijate si al final lo vas a usar
      public Jugador buscarJugador(String nombre){
         for (Jugador jugador : this.jugadores){
             if (jugador.getNombre().equals(nombre)){
@@ -50,11 +53,16 @@ public class Juego implements Observado, IJuego {
      }
 
      @Override
-    public void agregarJugador (String nombre){
-        Jugador jugador= new Jugador(nombre);
-        this.setJugadorTurno(jugador);
-        this.jugadores.add( jugador);
-        this.notificar(Evento.JUGADOR_AGREGADO);
+    public void agregarJugador (String nombre) throws Exception{
+        if(buscarJugador(nombre) == null) {
+            Jugador jugador = new Jugador(nombre);
+            this.setJugadorTurno(jugador);
+            this.jugadores.add(jugador);
+            this.notificar(Evento.JUGADOR_AGREGADO);
+        }
+        else {
+            throw new Exception("El jugador ya se encuentra agregado");
+        }
     }
 
     public void repartirCartas(){
@@ -70,10 +78,15 @@ public class Juego implements Observado, IJuego {
     }
 
     @Override
-    public void empezarJuego(){
-        this.repartirCartas();
-        this.notificar(Evento.JUEGO_COMENZADO);
-        this.cambiarTurno();
+    public void empezarJuego() throws Exception{
+        if(sePuedeComenzar()) {
+            this.repartirCartas();
+            this.notificar(Evento.JUEGO_COMENZADO);
+            this.cambiarTurno();
+        }
+        else {
+            throw new Exception("Fatan jugadores");
+        }
     }
 
     public void cambiarTurno(){
@@ -119,10 +132,9 @@ public class Juego implements Observado, IJuego {
             jugador.sumarPuntos();
         }
     }
-    public IJugador finJuego(){
+    public void finJuego(){
         this.notificar(Evento.FIN_JUEGO);
         this.calcularPuntos();
-        return this.definirGanador();
     }
 
     public void evaluarAreaDeJuego(){
