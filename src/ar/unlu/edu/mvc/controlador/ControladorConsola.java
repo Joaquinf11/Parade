@@ -64,24 +64,32 @@ public class ControladorConsola implements Observador {
                 break;
             case CARTA_AGREGADA_AREA:
                 if (isTurno()){
-                    this.vista.mostrarArea(getNombreJugadorTurno());
+                    this.vista.mostrarMensaje("Se agrego una carta a tu area de juego");
                 }
                 else{
                     this.vista.mostrarMensaje(getNombreJugadorTurno()+ "\tagrego una carta a su AREA DE JUEGO");
                 }
                 break;
-            case CARTA_MAL_ELEGIDA_CARNAVAL:
-                if (isTurno()){
-                    this.vista.mostrarMensaje("CARTA MAL ELEGIDA");//CHEQUEAR
-                }
             case FIN_TURNO:
                 if (isTurno()){
                     this.vista.desactivarEntrada();
                 }
                 break;
-
+            case ULTIMA_RONDA:
+                this.vista.mostrarMensaje("Comienza la ULTIMA RONDA");
+                break;
+            case RONDA_DESCARTE:
+                this.vista.mostrarMensaje("Comienza la Ronda Descarte");
+                break;
+            case FIN_JUEGO:
+                this.vista.mostrarMensaje("El ganador es " + this.getNombreGanador());
+                break;
             }
 
+    }
+
+    private String getNombreGanador() {
+        return this.juego.definirGanador().getNombre();
     }
 
     private boolean isTurno() {
@@ -105,16 +113,21 @@ public class ControladorConsola implements Observador {
     }
 
     public void agregarJugador(String nombre) {
-        this.jugador=nombre;
-        this.juego.agregarJugador(nombre);
-    }
-
-    public boolean sePuedeComenzar() {
-        return this.juego.sePuedeComenzar();
+        try {
+            this.jugador = nombre;
+            this.juego.agregarJugador(nombre);
+        } catch (Exception e) {
+            this.vista.mostrarMensaje(e.getMessage());
+        }
     }
 
     public void empezarPartida(){
-        this.juego.empezarJuego();
+        try {
+            this.juego.empezarJuego();
+        }
+        catch (Exception e){
+            this.vista.mostrarMensaje(e.getMessage());
+        }
     }
 
     public void tirarCarta(int carta) {

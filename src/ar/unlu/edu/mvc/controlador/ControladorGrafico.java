@@ -56,11 +56,6 @@ public class ControladorGrafico implements Observador {
                     this.vista.desactivarUltimaCartaCarnaval();
                 }
                 break;
-            case CARTA_AGREGADA_MANO:
-                if (isTurno()){
-                    this.vista.actualizarCartasEnMano();
-                }
-                break;
             case CARTA_AGREGADA_AREA:
                 if (isTurno()){
                     this.vista.actualizarAreaDeJuego();
@@ -74,14 +69,19 @@ public class ControladorGrafico implements Observador {
                 if (isTurno()){
                     this.vista.actualizarCartasEnMano();
                     this.vista.desactivarTodosLosBotones();
-                    this.vista.mostrarMensaje("finalizo tu turno");
                 }
                 else{
                     this.vista.activarCartaOponente(getNombreJugadorTurno());
                 }
                 break;
+            case FIN_JUEGO:
+                this.vista.mostrarMensaje(this.getNombreGanadaor());
 
         }
+    }
+
+    private String getNombreGanadaor() {
+        return this.juego.definirGanador().getNombre();
     }
 
     public void iniciar() {
@@ -90,9 +90,13 @@ public class ControladorGrafico implements Observador {
     }
 
 
-    public void agregarJugador(String nombre){
-        this.jugador= nombre;
-        this.juego.agregarJugador(nombre);
+    public void agregarJugador(String nombre) {
+        try {
+            this.jugador = nombre;
+            this.juego.agregarJugador(nombre);
+        } catch (Exception e) {
+            this.vista.mostrarMensaje(e.getMessage());
+        }
     }
 
     public boolean isTurno(){
@@ -100,7 +104,12 @@ public class ControladorGrafico implements Observador {
     }
 
     public void empezarPartida(){
-        this.juego.empezarJuego();
+        try {
+            this.juego.empezarJuego();
+        }
+        catch (Exception e){
+            this.vista.mostrarMensaje(e.getMessage());
+        }
     }
 
     public List<String> listarCartasCarnaval(){
@@ -121,9 +130,7 @@ public class ControladorGrafico implements Observador {
         return  this.juego.listarCartasEnMano(this.jugador);
     }
 
-    public boolean sePuedeComenzar(){
-        return this.juego.sePuedeComenzar();
-    }
+
 
     public String getNombreJugadorTurno(){
         return this.juego.getJugadorTurno().getNombre();
@@ -154,5 +161,9 @@ public class ControladorGrafico implements Observador {
         catch (CartaException e){
             this.vista.mostrarMensaje(e.getMessage());
         }
+    }
+
+    public int getCantidadCartasEnMano(){
+        return this.juego.getCantidadCartasMazo();
     }
 }
