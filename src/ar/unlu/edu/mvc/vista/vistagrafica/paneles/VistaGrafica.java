@@ -5,10 +5,7 @@ import ar.unlu.edu.mvc.interfaces.IVista;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class VistaGrafica extends  JFrame implements IVista {
 
@@ -80,17 +77,16 @@ public class VistaGrafica extends  JFrame implements IVista {
                 mostrarUltimoPanel();
             }
         });
-
-
-        // Crear un Timer que cerrará la ventana después de 5 segundos (5000 ms)
-        Timer timer = new Timer(5000, new ActionListener() {
+        panelMensaje.addKeyListener(new KeyAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                mostrarUltimoPanel();
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                    mostrarUltimoPanel();
+                }
             }
         });
-        timer.setRepeats(false); // Asegurarse de que solo se ejecute una vez
-        timer.start();
+
         panelMensaje.updateUI();
     }
 
