@@ -1,13 +1,13 @@
 package ar.unlu.edu.mvc.vista.vistagrafica.paneles;
 
 import ar.unlu.edu.mvc.controlador.ControladorGrafico;
-import ar.unlu.edu.mvc.interfaces.IVista;
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class VistaGrafica extends  JFrame implements IVista {
+public class VistaGrafica extends  JFrame  {
 
     ControladorGrafico controladorGrafico;
 
@@ -34,7 +34,7 @@ public class VistaGrafica extends  JFrame implements IVista {
 
     }
 
-    @Override
+
     public void iniciarVentana(){
         this.panelMenuInicial = (new panelMenuInicial(this.controladorGrafico,this)).getPanel();
         this.panelIngresarJugador = (new panelIngresarJugador(this.controladorGrafico,this)).getPanel();
@@ -106,20 +106,20 @@ public class VistaGrafica extends  JFrame implements IVista {
         return this.jugador;
     }
 
-    @Override
+
     public void setControlador(ControladorGrafico controladorGrafico){
         this.controladorGrafico = controladorGrafico;
     }
 
 
-    @Override
+
     public void iniciarVentanaJuego()  {
         panelJuego.iniciarVentanaJuego();
         mostrarVentanaJuego();
 
     }
 
-    @Override
+
     public void mostrarMensaje(String mensaje) {
         setMensaje(mensaje);
         mostrarPanelMensaje();
@@ -136,69 +136,69 @@ public class VistaGrafica extends  JFrame implements IVista {
 
 
 
-    @Override
+
     public void activarCartas(){
         this.panelJuego.activarBotones();
     }
 
-    @Override
+
     public void activarCartasMano() {
         this.panelJuego.activarCartasMano();
     }
 
-    @Override
+
     public void activarCartasCarnaval() {
         this.panelJuego.activarCartasCarnaval();
     }
 
-    @Override
+
     public void desactivarCartasMano() {
         this.panelJuego.desactivarCartasEnMano();
     }
 
-    @Override
+
     public void actualizarCarnaval() {
 
         this.panelJuego.actualizarCartasCarnaval();
 
     }
 
-    @Override
+
     public void desactivarCartasCarnaval() {
         this.panelJuego.desactivarCartasCarnaval();
     }
 
-    @Override
+
     public void actualizarCartasEnMano() {
         this.panelJuego.actualizarCartasEnMano();
     }
 
-    @Override
+
     public void desactivarTodosLosBotones() {
         this.panelJuego.desactivarTodosLosBotones();
     }
 
-    @Override
+
     public void desactivarUltimaCartaCarnaval() {
         this.panelJuego.desactivarUltimaCartaCarnaval();
     }
 
-    @Override
+
     public void desactivarCartaManoOponente(String oponente) {
         this.panelJuego.desactivarCartaManoOponente(oponente);
     }
 
-    @Override
+
     public void activarCartaOponente(String oponente) {
         this.panelJuego.activarCartaOponente(oponente);
     }
 
-    @Override
+
     public void actualizarAreaDeJuego() {
         this.panelJuego.actualizarAreaDeJuego();
     }
 
-    @Override
+
     public void actualizarAreaDeJuegoOponente(String oponente) {
         this.panelJuego.actualizarAreaOponente(oponente);
     }
