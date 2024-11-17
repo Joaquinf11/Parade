@@ -1,6 +1,7 @@
 package ar.unlu.edu.mvc.modelo;
 
 
+import ar.unlu.edu.mvc.exceptions.CartaException;
 
 public class RondaDescarte extends Ronda {
     private  int contador=0;
@@ -22,10 +23,15 @@ public class RondaDescarte extends Ronda {
     }
 
     @Override
-    public void finRonda() {
-        this.juego.finTurno();
-        if (esFinDeRonda()) {
-            this.juego.finJuego();
+    public void finRonda() throws CartaException{
+        if (tiroCarta) {
+            this.juego.finTurno();
+            if (esFinDeRonda()) {
+                this.juego.finJuego();
+            }
+        }
+        else {
+            throw new CartaException("Debes tirar una carta antes de finalizar tu turno");
         }
     }
 
