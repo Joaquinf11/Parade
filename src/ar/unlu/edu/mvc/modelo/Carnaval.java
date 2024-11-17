@@ -81,7 +81,13 @@ public class Carnaval {
     }
     public boolean faltaAgarrarCartas(Carta carta, int[] cartasElegidas) {
         List<Carta> salvadas=this.salvarCartas(carta.getValor());
-        int cantidadCartasElegidas= cartasElegidas.length;
+        int cantidadCartasElegidas;
+        if (cartasElegidas == null){
+            cantidadCartasElegidas=0;
+        }
+        else {
+            cantidadCartasElegidas= cartasElegidas.length;
+        }
         int contador=0;
 
         for( Carta cartaCarnaval : this.cartas){
@@ -89,7 +95,7 @@ public class Carnaval {
                 contador++;
             }
         }
-        return contador != cantidadCartasElegidas;
+        return contador > cantidadCartasElegidas;
     }
     //////////////////////////////////
     //FUNCIONES PARA TEST
