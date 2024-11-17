@@ -12,6 +12,9 @@ public class Ronda {
     protected Jugador jugadorTurno;
     protected Juego juego;
     protected boolean tiroCarta;
+    private int[] indicesCartasElegidas=null;
+    private  Carta cartaTirada;
+
 
     public Ronda(Jugador jugador, Carnaval carnaval,Mazo mazo,Juego juego){
         this.jugadorTurno=jugador;
@@ -30,48 +33,49 @@ public class Ronda {
         this.carnaval.agregarCarta(carta);
         this.juego.notificar(Evento.CARTA_AGREGADA_CARNAVAL);
         this.tiroCarta=true;
+        this.cartaTirada=carta;
     }
 
     public void analizarCartasCarnaval( int [] cartasElegidas) throws CartaException{
         Carta carta= this.carnaval.getUltimaCarta();
         if (!this.carnaval.puedeAgarrarCarnaval(carta)){
-            throw new CartaException("La carta tirada: " + carta.toString() + " tiene mayor valor a la cantidad de cartas que hay en el carnaval");
+            throw new CartaException("La carta tirada: " + carta.toString() + " tiene mayor valor a la cantidad de cartas que hay en el carnaval",TipoException.CARTAS_SALVADAS);
         }
         else if (this.carnaval.agarroCartasSalvadasCarnaval(carta.getValor(),cartasElegidas)){
-            throw new CartaException("Elegiste una carta salvada");
+            throw new CartaException("Elegiste una carta salvada",TipoException.CARTA_SALVADA);
         }
         else if(this.carnaval.faltaAgarrarCartas(carta,cartasElegidas)){
-            throw new CartaException("Podes seleccionar mas cartas del carnaval");
+            throw new CartaException("Podes seleccionar mas cartas del carnaval",TipoException.FALTAN_CARTAS);
         }
         else {
             List<Carta> cartasCarnaval = this.carnaval.getCartas(cartasElegidas);
-            int contador= 0;
             for (Carta cartaCarnaval : cartasCarnaval) {
                 if (carta.equalsColor(cartaCarnaval) || cartaCarnaval.getValor() <= carta.getValor()) {
                     jugadorTurno.agregarCartaAlAreaDeJuego(cartaCarnaval);
+                    this.carnaval.sacarCarta(cartaCarnaval);
                     this.juego.notificar(Evento.CARTA_AGREGADA_AREA);
                 } else {
-                        throw new CartaException("La carta elegida: " + cartaCarnaval.toString() + " no se puede agarrar");
+                        throw new CartaException("La carta elegida: " + cartaCarnaval.toString() + " no se puede agarrar",TipoException.CARTA_MAYORVALOR_DISTINTOCOLOR);
                 }
-                contador++;
             }
         }
+        this.indicesCartasElegidas= cartasElegidas;
         this.finRonda();
     }
 
 
     public void finRonda() throws  CartaException{
-        if (tiroCarta && !this.carnaval.faltaAgarrarCartas(this.carnaval.getUltimaCarta(), null)) {
+        if (tiroCarta && !this.carnaval.faltaAgarrarCartas(cartaTirada, indicesCartasElegidas)) {
             this.jugadorTurno.agarrarCarta(this.mazo.sacarCarta());
             juego.finTurno();
             if (esFinDeRonda()) {
                 juego.setUltimaRonda(true);
             }
         } else if (this.carnaval.faltaAgarrarCartas(this.carnaval.getUltimaCarta(),null)) {
-            throw new CartaException("Debes elegir cartas del carnaval antes de finalizar turno");
+            throw new CartaException("Debes elegir cartas del carnaval antes de finalizar turno",TipoException.TIRAR_CARTA);
 
         } else{
-            throw new CartaException("Debes tirar una carta antes de finalizar tu turno");
+            throw new CartaException("Debes tirar una carta antes de finalizar tu turno",TipoException.ELEGIR_CARTAS);
         }
     }
 
