@@ -17,7 +17,6 @@ public class Mazo {
             }
         }
         Collections.shuffle(this.cartas);
-        // chequear los null pointer, capaz podes meter un Exceptions
     }
 
 
@@ -35,5 +34,9 @@ public class Mazo {
 
     public boolean tieneCartas(){
         return !this.cartas.isEmpty();
+    }
+
+    public int getCantidadCartas() {
+        return this.cartas.size();
     }
 }
