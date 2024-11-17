@@ -6,19 +6,11 @@ public enum Evento {
     CAMBIO_TURNO,
     CARTA_TIRADA,
     CARTA_AGREGADA_CARNAVAL,
-    CARTA_AGREGADA_MANO,
     CARTA_AGREGADA_AREA,
     FIN_TURNO,
     ULTIMA_RONDA,
-    DESCARTAR_DOS_CARTAS,
+    MAZO_SIN_CARTAS, // cuando agregue el mazo a la vista tengo que actualizarlo para mostrar que se quedo sin cartas
     RONDA_DESCARTE,
     FIN_JUEGO,
-
-
-
-    //probables exceptions
-    NO_SE_PUEDE_AGARRAR,
-    ELIGIO_CARTA_SALVADA,
-    CARTA_MAL_ELEGIDA_CARNAVAL
 
 }
