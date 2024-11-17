@@ -204,4 +204,7 @@ public class VistaGrafica extends  JFrame implements IVista {
     }
 
 
+    public void desactivaBotonAnalizarCartas() {
+        this.panelJuego.desactivaBotonAnalizarCartas();
+    }
 }
