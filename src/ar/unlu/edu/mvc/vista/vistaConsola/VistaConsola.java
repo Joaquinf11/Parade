@@ -5,6 +5,7 @@ import ar.unlu.edu.mvc.controlador.ControladorConsola;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import javax.swing.*;
@@ -77,9 +78,7 @@ public class VistaConsola extends JFrame{
                 switch (entradaMenuField.getText()){
                     case "0" ->{System.exit(0); } //CHEQUEAR como hacer para sacar jguador
                     case "1" -> { mostrarMensaje("Ingrese el nombre del Jugador "); setIngresarJugadorField();}
-                    case "2" -> { if (controlador.sePuedeComenzar()){ //CONTROLADOR? asi esta bien?
-                                    controlador.empezarPartida();}
-                                   else{ mostrarMensaje("Faltan jugadores");}}
+                    case "2" -> {controlador.empezarPartida();}
                     default -> { procesarComandos(entradaMenuField.getText());}
 
                 }
@@ -113,11 +112,15 @@ public class VistaConsola extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 String entrada = tirarCartaField.getText();
                 if (comandos.contains(entrada)) {
+                    procesarComandos(entrada);}
+                else if (entrada.equals("finalizar turno")) {
                     procesarComandos(entrada);
-                } else {
-                    controlador.tirarCarta(Integer.parseInt(entrada) - 1);
-                    tirarCartaField.setText("");//EXCEPTION por si ingresa uno novalido
                 }
+                 else {
+                     mostrarMensaje(entrada);
+                     convertirCartaElegidaAInteger(entrada);
+                }
+                 tirarCartaField.setText("");
             }
         });
 
@@ -131,21 +134,42 @@ public class VistaConsola extends JFrame{
                 } else if (entrada.equals("finalizar turno")) {
                     procesarComandos(entrada);
                 } else {
-                    String[] partes = entrada.split(" ");
-                    int[] cartasElegidas = new int[partes.length];
-                    for (int i = 0; i < partes.length; i++) {
-                        cartasElegidas[i] = Integer.parseInt(partes[i]) - 1;  //EXCEPTION manejo de error por mala conversion o letra ingresa invalida
-                    }
-                    controlador.analizarCartasCarnaval(cartasElegidas);
-                    elegirCartasField.setText("");
+                    mostrarMensaje(entrada);
+                    convertirCartasElegidasAInteger(entrada);
+
+
                 }
+                elegirCartasField.setText("");
             }
         });
     }
 
+    private void convertirCartasElegidasAInteger(String entrada) {
+        try{
+            String[] partes = entrada.split(" ");
+            int[] cartasElegidas = new int[partes.length];
+            for (int i = 0; i < partes.length; i++) {
+                cartasElegidas[i] = Integer.parseInt(partes[i]) - 1;
+            }
+            controlador.analizarCartasCarnaval(cartasElegidas);
+        }
+        catch (NumberFormatException e){
+            procesarComandos(entrada);
+        }
+    }
+
+    private void convertirCartaElegidaAInteger(String entrada) {
+        try{
+            int cartaElegida= Integer.parseInt(entrada) - 1;
+            this.controlador.tirarCarta(cartaElegida);
+        }
+        catch (NumberFormatException e){
+            procesarComandos(entrada);
+        }
+    }
+
     public void iniciar(){
-        this.oponentes= this.controlador.listarNombreJugadores();
-        this.oponentes.remove(this.jugador);
+
         mostrarComoJugar();
         setMenuField();
         areaSalida.append(menuInicial());
@@ -186,7 +210,7 @@ public class VistaConsola extends JFrame{
     }
 
     public void procesarComandos(String comando){
-        areaSalida.append(comando);
+        areaSalida.append(comando + "\n");
         switch (comando){
             case "salir"-> {System.exit(0);}
             case "clear" -> {areaSalida.setText(" ");}
@@ -213,6 +237,8 @@ public class VistaConsola extends JFrame{
     }
 
     public void mostrarMesa(String jugador) {
+        this.oponentes= this.controlador.listarNombreJugadores();
+        this.oponentes.remove(this.jugador);
         mostrarCarnaval();
         mostrarCartasEnMano(jugador);
 
