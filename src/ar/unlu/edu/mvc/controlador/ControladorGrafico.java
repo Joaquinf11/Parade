@@ -1,6 +1,7 @@
 package ar.unlu.edu.mvc.controlador;
 
 import ar.unlu.edu.mvc.exceptions.CartaException;
+import ar.unlu.edu.mvc.exceptions.TipoException;
 import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.interfaces.IJugador;
 import ar.unlu.edu.mvc.interfaces.Observador;
@@ -64,8 +65,8 @@ public class ControladorGrafico implements Observador {
                 else {
                     this.vista.actualizarAreaDeJuegoOponente(getNombreJugadorTurno());
                 }
+                this.vista.actualizarCarnaval();
                 break;
-
             case FIN_TURNO:
                 if (isTurno()){
                     this.vista.actualizarCartasEnMano();
@@ -154,6 +155,9 @@ public class ControladorGrafico implements Observador {
             this.juego.analizarCartasCarnaval(elegidas);
         }
         catch (CartaException e){
+            if (e.getTipo() == TipoException.CARTA_MAYORVALOR_DISTINTOCOLOR){
+                this.vista.actualizarCarnaval();
+            }
             this.vista.mostrarMensaje(e.getMessage());
         }
     }

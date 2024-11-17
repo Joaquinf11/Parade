@@ -1,6 +1,7 @@
 package ar.unlu.edu.mvc.modelo;
 
 import ar.unlu.edu.mvc.exceptions.CartaException;
+import ar.unlu.edu.mvc.exceptions.TipoException;
 
 public class UltimaRonda extends Ronda{
     private  int contador=0;
@@ -21,7 +22,7 @@ public class UltimaRonda extends Ronda{
             }
         }
         else{
-            throw new CartaException("Debes tirar una carta antes de finalizar tu turno");
+            throw new CartaException("Debes tirar una carta antes de finalizar tu turno", TipoException.TIRAR_CARTA);
             }
 
     }

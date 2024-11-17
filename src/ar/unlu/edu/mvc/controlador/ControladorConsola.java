@@ -1,6 +1,7 @@
 package ar.unlu.edu.mvc.controlador;
 
 import ar.unlu.edu.mvc.exceptions.CartaException;
+import ar.unlu.edu.mvc.exceptions.TipoException;
 import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.interfaces.IJugador;
 import ar.unlu.edu.mvc.interfaces.Observador;
@@ -138,6 +139,9 @@ public class ControladorConsola implements Observador {
         try {
             this.juego.analizarCartasCarnaval(cartasElegidas);
         } catch (CartaException e) {
+            if (e.getTipo() == TipoException.CARTA_MAYORVALOR_DISTINTOCOLOR){
+                this.vista.mostrarCarnaval();
+            }
             this.vista.mostrarMensaje(e.getMessage());
         }
     }

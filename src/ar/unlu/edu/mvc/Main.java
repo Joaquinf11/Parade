@@ -3,7 +3,7 @@ package ar.unlu.edu.mvc;
 import ar.unlu.edu.mvc.controlador.ControladorConsola;
 import ar.unlu.edu.mvc.controlador.ControladorGrafico;
 import ar.unlu.edu.mvc.modelo.Juego;
-import ar.unlu.edu.mvc.interfaces.IVista;
+
 import ar.unlu.edu.mvc.vista.vistaConsola.VistaConsola;
 import ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaGrafica;
 
@@ -13,10 +13,10 @@ public class Main {
     public static void main(String[] args){
         Juego juego = new Juego();
 
-        IVista vista1= new VistaGrafica();
-       // IVista vista2= new VistaGrafica();
-      //  IVista vista3= new VistaGrafica();
-        //IVista vista4= new VistaGrafica();
+        VistaGrafica vista1= new VistaGrafica();
+       // VistaGrafica vista2= new VistaGrafica();
+      //  VistaGrafica vista3= new VistaGrafica();
+        //VistaGrafica vista4= new VistaGrafica();
 
         VistaConsola consola= new VistaConsola();
 
