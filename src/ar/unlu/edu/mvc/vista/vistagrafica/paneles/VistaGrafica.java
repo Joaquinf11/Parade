@@ -20,7 +20,7 @@ public class VistaGrafica extends  JFrame  {
     private panelJuego panelJuego;
     private JMenuBar menuBar;
     private JPanel panelReglas;
-    private JTextArea reglasLabel;
+    private JTextArea reglasText;
 
     public VistaGrafica(){
 
@@ -31,20 +31,55 @@ public class VistaGrafica extends  JFrame  {
         panelReglas= new JPanel();
         panelReglas.setBackground(new Color(199,86,195));
         panelReglas.setLayout(new BorderLayout());
-        reglasLabel= new JTextArea();
-        panelReglas.add(reglasLabel);
+
+        reglasText= new JTextArea();
+        reglasText.setEditable(false);
+        reglasText.setOpaque(false);
+        reglasText.setFont(new Font("Arial",Font.PLAIN,16));
+        reglasText.setForeground(new Color(201,217,5));
+
+
+        panelReglas.add(reglasText,BorderLayout.CENTER);
+
+        JButton volverButton=new JButton("Volver");
+        volverButton.setBackground(new Color(201,217,5));
+        volverButton.setForeground(new Color(199,86,195));
+        volverButton.setFont(new Font("Ravie",Font.PLAIN,16));
+        volverButton.setSize(200,100);
+        volverButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                mostrarUltimoPanel();
+            }
+        });
+        JPanel panelVolver= new JPanel(new GridBagLayout());
+        panelVolver.setOpaque(false);
+        panelVolver.add(volverButton);
+        panelReglas.add(panelVolver, BorderLayout.SOUTH);
 
         JMenu ayuda= new JMenu("Ayuda");
         JMenuItem reglasItem= new JMenuItem("Reglas");
+        reglasItem.setBackground(new Color(201,217,5));
         reglasItem.addActionListener(e -> {mostrarReglas();});
         JMenuItem comoJugarItem= new JMenuItem("Como jugar");
+        comoJugarItem.setBackground(new Color(201,217,5));
         ayuda.add(reglasItem);
         ayuda.add(comoJugarItem);
 
         JMenu salir= new JMenu("Salir");
         JMenuItem salirItem= new JMenuItem("Salir");
+        salirItem.setBackground(new Color(201,217,5));
+        salirItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controladorGrafico.removeJugador(jugador);
+            }
+        });
+        salir.add(salirItem);
 
         menuBar.add(ayuda);
+        menuBar.add(salir);
 
         setJMenuBar(menuBar);
         setTitle("PARADE");
@@ -56,7 +91,7 @@ public class VistaGrafica extends  JFrame  {
     }
 
     private void mostrarReglas() {
-        reglasLabel.setText("OBJETIVO DEL JUEGO\n" +
+        reglasText.setText("OBJETIVO DEL JUEGO\n" +
                 "Los jugadores deberán jugar sus cartas de la mano mientras intentan no quedarse cartas del carnaval, pues estas representan puntos negativos.\n" +
                 "Se reparten 5 a cada jugador. Luego se ponen 6 cartas más en el centro de la mesa que representan el carnaval. El principio del carnaval comienza a la izquierda mientras que el final es a la derecha.\n" +
                 "\n" +
@@ -274,5 +309,9 @@ public class VistaGrafica extends  JFrame  {
 
     public void setCantidadCartasMazo(int cantidad) {
         this.panelJuego.setCantCartasMazo(cantidad);
+    }
+
+    public void removeJugador() {
+        this.controladorGrafico.removeJugador(this.jugador);
     }
 }

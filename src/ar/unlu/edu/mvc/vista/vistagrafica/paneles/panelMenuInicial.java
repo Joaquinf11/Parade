@@ -24,7 +24,8 @@ public class panelMenuInicial  {
         salirButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0); //HACER que se elimine el jugador del juego
+                 vistaGrafica.removeJugador();
+                 vistaGrafica.dispose();
             }
         });
         agregarJugButton.addActionListener(new ActionListener() {
