@@ -5,7 +5,7 @@ import ar.unlu.edu.mvc.exceptions.CartaException;
 import ar.unlu.edu.mvc.exceptions.TipoException;
 
 public class RondaDescarte extends Ronda {
-    private  int contador=0;
+    private static int contador=0;
     private final int cantidadJugadores;
 
 
