@@ -1,5 +1,6 @@
 package ar.unlu.edu.mvc.interfaces;
 
+import ar.unlu.edu.mvc.controlador.ControladorGrafico;
 import ar.unlu.edu.mvc.exceptions.CartaException;
 
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.Collection;
 
 public interface IJuego {
     IJugador getJugadorTurno();
+
+    void sacarJugador(String jugador, Observador observador);
 
     void agregarJugador(String nombre) throws Exception;
 
@@ -30,4 +33,5 @@ public interface IJuego {
     IJugador definirGanador();
 
     int getCantidadCartasMazo();
+
 }

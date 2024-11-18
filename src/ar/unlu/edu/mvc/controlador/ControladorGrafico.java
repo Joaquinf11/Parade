@@ -187,4 +187,9 @@ public class ControladorGrafico implements Observador {
     public int getCantidadCartasMazo() {
         return this.juego.getCantidadCartasMazo();
     }
+
+    public void removeJugador(String jugador) {
+        this.juego.sacarJugador(jugador,this);
+
+    }
 }

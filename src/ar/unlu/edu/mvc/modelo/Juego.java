@@ -30,7 +30,15 @@ public class Juego implements Observado, IJuego {
     public int getCantidadCartasMazo(){
         return this.mazo.getCantidadCartas();
     }
-     public void setJugadorTurno(Jugador jugador){
+
+    @Override
+    public void sacarJugador(String nombre, Observador observador) {
+        Jugador jugador = buscarJugador(nombre);
+        this.jugadores.remove(jugador);
+        this.observadores.remove(observador);
+    }
+
+    public void setJugadorTurno(Jugador jugador){
         this.jugadorTurno=jugador;
      }
     public void setUltimaRonda(boolean b){
@@ -121,8 +129,7 @@ public class Juego implements Observado, IJuego {
     }
 
     public void finTurno() {
-        System.out.println("FIN TURNO " + jugadorTurno.getNombre()); //BORRAR
-        this.notificar(Evento.FIN_TURNO); // fijate que onda si se va o no
+        this.notificar(Evento.FIN_TURNO);
         this.jugadores.add(this.jugadorTurno);
         this.cambiarTurno();
     }

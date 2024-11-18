@@ -171,4 +171,8 @@ public class ControladorConsola implements Observador {
     public int getCantidadCartasMazo() {
         return this.juego.getCantidadCartasMazo();
     }
+
+    public void sacarJugador(String nombre){
+        this.juego.sacarJugador(nombre,this);
+    }
 }
