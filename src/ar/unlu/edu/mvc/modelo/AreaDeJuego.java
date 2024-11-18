@@ -46,14 +46,14 @@ public class AreaDeJuego {
 
         for (Map.Entry<Color, List<Carta>> entry : this.cartas.entrySet()) {
             List<Carta> cartas = entry.getValue();
-            totalCartas += cartas.size(); // Sumar la cantidad de cartas en cada lista
+            totalCartas -= cartas.size(); // Sumar la cantidad de cartas en cada lista
         }
         return totalCartas;
     }
 
     public int getCantidadCartasBocaAbajo(){
 
-        return this.cartasBocaAbajo.size();
+        return (this.cartasBocaAbajo.size()) *(-1);
     }
 
 
@@ -76,7 +76,7 @@ public class AreaDeJuego {
         for (Map.Entry<Color, List<Carta>> entry : this.cartas.entrySet()) {
             // Segundo for-each: recorre la lista de cartas de un color específico
             for (Carta carta : entry.getValue()) {
-                total += carta.getValor();  // Suma el valor de cada carta al total
+                total -= carta.getValor();  // Suma el valor de cada carta al total
             }
         }
 

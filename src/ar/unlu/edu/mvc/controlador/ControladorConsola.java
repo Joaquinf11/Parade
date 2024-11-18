@@ -167,4 +167,8 @@ public class ControladorConsola implements Observador {
             this.vista.mostrarMensaje(e.getMessage());
         }
     }
+
+    public int getCantidadCartasMazo() {
+        return this.juego.getCantidadCartasMazo();
+    }
 }

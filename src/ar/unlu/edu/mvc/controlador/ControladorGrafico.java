@@ -67,6 +67,9 @@ public class ControladorGrafico implements Observador {
                 }
                 this.vista.actualizarCarnaval();
                 break;
+            case MAZO_SIN_CARTAS:
+                this.vista.setCantidadCartasMazo(0);
+                break;
             case FIN_TURNO:
                 if (isTurno()){
                     this.vista.actualizarCartasEnMano();
@@ -75,6 +78,7 @@ public class ControladorGrafico implements Observador {
                 else{
                     this.vista.activarCartaOponente(getNombreJugadorTurno());
                 }
+                this.vista.setCantidadCartasMazo(this.getCantidadCartasMazo());
                 break;
             case ULTIMA_RONDA:
                 this.vista.mostrarMensaje("Comienza la ULTIMA RONDA");
@@ -177,6 +181,10 @@ public class ControladorGrafico implements Observador {
     }
 
     public int getCantidadCartasEnMano(){
+        return this.juego.getCantidadCartasMazo();
+    }
+
+    public int getCantidadCartasMazo() {
         return this.juego.getCantidadCartasMazo();
     }
 }

@@ -44,6 +44,7 @@ public class VistaConsola extends JFrame{
         comandos.add("clear");
         comandos.add("area oponentes");
         comandos.add("como jugar");
+        comandos.add("mazo");
 
 
         //CHEQUEAR los el panel entrada puede ir en un first las before afte, investigar
@@ -220,6 +221,7 @@ public class VistaConsola extends JFrame{
             case "area oponentes"->{mostrarAreaOponentes();}
             case "como jugar"->{ mostrarComoJugar();}
             case "finalizar turno"-> { this.controlador.finalizarTurno();}
+            case "mazo" ->{ mostrarMensaje("Cantidad de cartas del mazo: " + this.controlador.getCantidadCartasMazo());}
             case "comandos"-> { mostrarMensaje("salir:cierra la consola\n" +
                                                 " clear: limpia la pantalla de la consola\n" +
                                                 "mano: muestra las cartas en mano\n" +
@@ -227,7 +229,8 @@ public class VistaConsola extends JFrame{
                                                 "area: muestra las cartas del area de juego\n" +
                                                 "area oponentes: muestra el area de todos los oponentes" +
                                                 "como jugar: explica como seleccionar las cartas" +
-                                                "finalizar turno: en caso de que no puedas agarrar cartas del carnaval ingresa este comando");}
+                                                "finalizar turno: en caso de que no puedas agarrar cartas del carnaval ingresa este comando" +
+                                                "mazo: muestra la cantidad de cartas que quedan en el mazo");}
             default -> { mostrarMensaje("El comando es invalido, ingrese comandos para ver los comandos dispobiles");}
         }
     }

@@ -19,6 +19,7 @@
           <grid id="56ed8" binding="panelCartasMano1" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
             <constraints border-constraint="South"/>
             <properties>
+              <maximumSize width="100" height="32767"/>
               <opaque value="false"/>
             </properties>
             <border type="none"/>
@@ -132,6 +133,36 @@
                   <foreground color="-3713341"/>
                   <opaque value="true"/>
                   <text value="Finalizar turno"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="df3ec" binding="panelMazo" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="West"/>
+            <properties>
+              <alignmentX value="0.5"/>
+              <opaque value="false"/>
+              <preferredSize width="100" height="70"/>
+            </properties>
+            <border type="none">
+              <color color="-3548923"/>
+            </border>
+            <children>
+              <component id="1eafa" class="javax.swing.JLabel" binding="cantCartasMazo">
+                <constraints border-constraint="North"/>
+                <properties>
+                  <font name="Ravie" size="14"/>
+                  <foreground color="-3548923"/>
+                  <text value="Cantidad de cartas:"/>
+                </properties>
+              </component>
+              <component id="83fa9" class="javax.swing.JLabel" binding="mazoLabel">
+                <constraints border-constraint="South"/>
+                <properties>
+                  <font name="Ravie" size="14"/>
+                  <foreground color="-3548923"/>
+                  <horizontalAlignment value="0"/>
+                  <text value="Mazo"/>
                 </properties>
               </component>
             </children>
@@ -710,6 +741,7 @@
       <grid id="45d4e" binding="panelCentro" layout-manager="GridBagLayout">
         <constraints border-constraint="Center"/>
         <properties>
+          <maximumSize width="2147483647" height="150"/>
           <opaque value="false"/>
         </properties>
         <border type="none"/>
@@ -722,6 +754,7 @@
             <properties>
               <enabled value="false"/>
               <focusable value="true"/>
+              <maximumSize width="32767" height="150"/>
               <opaque value="false"/>
               <visible value="true"/>
             </properties>

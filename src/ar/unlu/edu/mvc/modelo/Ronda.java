@@ -67,6 +67,9 @@ public class Ronda {
     public void finRonda() throws  CartaException{
         if (tiroCarta && !this.carnaval.faltaAgarrarCartas(cartaTirada, indicesCartasElegidas)) {
             this.jugadorTurno.agarrarCarta(this.mazo.sacarCarta());
+            if (!this.mazo.tieneCartas()){
+                juego.notificar(Evento.MAZO_SIN_CARTAS);
+            }
             juego.finTurno();
             if (esFinDeRonda()) {
                 juego.setUltimaRonda(true);

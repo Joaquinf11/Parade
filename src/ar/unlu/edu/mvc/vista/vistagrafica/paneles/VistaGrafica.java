@@ -207,4 +207,8 @@ public class VistaGrafica extends  JFrame  {
     public void desactivaBotonAnalizarCartas() {
         this.panelJuego.desactivaBotonAnalizarCartas();
     }
+
+    public void setCantidadCartasMazo(int cantidad) {
+        this.panelJuego.setCantCartasMazo(cantidad);
+    }
 }

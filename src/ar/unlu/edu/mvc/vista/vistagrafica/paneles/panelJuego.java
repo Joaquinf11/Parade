@@ -83,8 +83,12 @@ public class panelJuego {
     private JPanel panelRojo3;
     private JPanel panelVioleta3;
     private JPanel panelNegro3;
-    private LabelVertical nombre4Label;
+    private JPanel panelMazo;
 
+    private JLabel cantCartasMazo;
+    private JLabel mazoLabel;
+    private LabelVertical nombre4Label;
+    private CartaButton mazoButton;
     private List<CartaButton> cartasCarnaval;
     private List<CartaButton> cartasEnMano;
     private int [] cartasElegidasCarnaval;
@@ -136,6 +140,10 @@ public class panelJuego {
     }
 
     public void iniciarVentanaJuego()  {
+        mazoButton = new CartaButton("imagenes/Carta,dorso.jpg","mano");
+        setCantCartasMazo(this.controladorGrafico.getCantidadCartasMazo());
+        panelMazo.add(mazoButton,BorderLayout.CENTER);
+
 
         panelAmarillo1.setLayout(new BoxLayout(panelAmarillo1,BoxLayout.Y_AXIS));
         panelVerde1.setLayout(new BoxLayout(panelVerde1,BoxLayout.Y_AXIS));
@@ -589,5 +597,9 @@ public class panelJuego {
 
     public void desactivaBotonAnalizarCartas() {
         analizarCartasButton.setEnabled(false);
+    }
+
+    public void setCantCartasMazo(int cantidad){
+        cantCartasMazo.setText("Cantidad cartas: " + cantidad );
     }
 }
