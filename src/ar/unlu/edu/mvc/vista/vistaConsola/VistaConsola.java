@@ -47,7 +47,7 @@ public class VistaConsola extends JFrame{
         comandos.add("reglas");
 
 
-        //CHEQUEAR los el panel entrada puede ir en un first las before afte, investigar
+
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("PARADE");
         setExtendedState(Frame.MAXIMIZED_BOTH);
@@ -77,7 +77,7 @@ public class VistaConsola extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 switch (entradaMenuField.getText()){
-                    case "0" ->{System.exit(0); } //CHEQUEAR como hacer para sacar jguador
+                    case "0" ->{controlador.sacarJugador(jugador); dispose();}
                     case "1" -> { mostrarMensaje("Ingrese el nombre del Jugador "); setIngresarJugadorField();}
                     case "2" -> {controlador.empezarPartida();}
                     default -> { procesarComandos(entradaMenuField.getText());}
@@ -99,7 +99,7 @@ public class VistaConsola extends JFrame{
                         mostrarMensaje("El nombre ingresado es invalido");
                     }
                     else{
-                        controlador.agregarJugador(nombre); //CHEQUEAR falta ver que no este agregado
+                        controlador.agregarJugador(nombre);
                         jugador= nombre;
                         setMenuField(); //CONTROLADOR?
                     }
