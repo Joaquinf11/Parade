@@ -93,17 +93,6 @@ public class Carnaval {
         }
         return contador > cantidadCartasElegidas;
     }
-    //////////////////////////////////
-    //FUNCIONES PARA TEST
-    //////////////////////////////////
 
-    public void mostrarCarnaval(){
-        System.out.println("----------");
-        System.out.println("CARNAVAL");
-        for (Carta carta : this.cartas){
-            System.out.println("[ " + carta.getColor() + ", " + carta.getValor() + " ] ;");
-        }
-        System.out.println("----------");
-    }
 
 }

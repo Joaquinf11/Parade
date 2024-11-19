@@ -76,42 +76,5 @@ public class Jugador implements IJugador {
         return this.getNombre().equals(jugador.getNombre());
 
     }
-
-    //////////////////////////////////
-    //FUNCIONES PARA TEST
-    //////////////////////////////////
-
-    public void mostrarCartasEnMano(){
-        System.out.println(" CARTAS EN MANO DE " + this.getNombre());
-        for (Carta carta : this.cartasEnMano){
-            System.out.print("[ " + carta.getColor() + ", " + carta.getValor() + " ] ;");
-        }
-        System.out.println();
-    }
-
-    public void mostrarAreaDeJuego() {
-
-        System.out.println("AREA DE JUEGO");
-        Collection<List<Carta>> cartas=this.area.getTodasLasCartas();
-        if(cartas.isEmpty()){
-            System.out.println("VACIA");
-        }
-        else {
-            for (List<Carta> cartasArea : cartas) {
-                for (Carta carta : cartasArea) {
-                    System.out.print("[ " + carta.getColor() + ", " + carta.getValor() + " ] ;");
-                }
-            }
-        }
-        System.out.println();
-
-    }
-
-    public void mostrarPuntos() {
-        System.out.println(this.puntos);
-    }
-
-    public Collection<List<Carta>> getCartasArea() {
-        return this.area.getTodasLasCartas();
-    }
+    
 }

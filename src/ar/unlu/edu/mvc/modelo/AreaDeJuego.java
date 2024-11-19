@@ -87,39 +87,4 @@ public class AreaDeJuego {
         return  this.getCantidadCartasBocaAbajo() + sumarValorDeCartas();
     }
 
-    //////////////////////////////////
-    //FUNCIONES PARA TEST
-    //////////////////////////////////
-
-
-
-    public Carta buscarCarta(Color color, int valor){
-        if (this.cartas.containsKey(color)){
-            List<Carta> cartas= this.cartas.get(color);
-            for (Carta carta : cartas) {
-                if (carta.getColor().equals(color) && carta.getValor() == valor){
-                    return carta;
-                }
-            }
-        }
-        return null;
-    }
-
-    public void sacarCarta(Color color, int valor){
-        Carta carta =buscarCarta(color,valor);
-
-        List<Carta> cartas=this.cartas.get(color);
-        if (cartas.size() == 1){
-            this.cartas.remove(color);
-        }
-        else {
-            Iterator<Carta> iter = cartas.iterator();
-            while (iter.hasNext()) {
-                Carta cartaArea = iter.next();
-                if (cartaArea.equals(carta)) {
-                    iter.remove();
-                }
-            }
-        }
-    }
 }

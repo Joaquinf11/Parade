@@ -271,27 +271,6 @@ public class Juego implements Observado, IJuego {
         }
     }
 
-
-
-//////////////////////////////////
-    //FUNCIONES PARA TEST
-    //////////////////////////////////
-
-
-    public void mostrarCartasEnManoPorJugador(){
-        for (Jugador jugador : this.jugadores){
-            System.out.println(jugador.getNombre());
-            jugador.mostrarCartasEnMano();
-        }
-    }
-
-    public Queue<Jugador> getJugadores() {
-        return this.jugadores;
-    }
-
-    public Carnaval getCarnaval() {
-        return this.carnaval;
-    }
 }
 
 
