@@ -153,6 +153,7 @@
                 <properties>
                   <font name="Ravie" size="14"/>
                   <foreground color="-3548923"/>
+                  <horizontalAlignment value="0"/>
                   <text value=""/>
                 </properties>
               </component>
