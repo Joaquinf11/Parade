@@ -76,5 +76,8 @@ public class Jugador implements IJugador {
         return this.getNombre().equals(jugador.getNombre());
 
     }
-    
+
+    public Collection<List<Carta>> getCartasArea() {
+        return this.area.getTodasLasCartas();
+    }
 }
