@@ -98,11 +98,11 @@ public class VistaGrafica extends  JFrame  {
 
     public void iniciarVentana(){
         this.panelMenuInicial = new panelMenuInicial(this.controladorGrafico,this);
-        this.panelIngresarJugador = (new panelIngresarJugador(this.controladorGrafico,this));
+        this.panelIngresarJugador = new panelIngresarJugador(this.controladorGrafico,this);
         this.panelJuego =new panelJuego(this.controladorGrafico,this);
-        this.panelPrincipalMenuInicial= this.panelMenuInicial.getPanel();
+        this.panelPrincipalMenuInicial= panelMenuInicial.getPanel();
         this.panelPrincipalJuego=panelJuego.getPanel();
-        this.panelPrincipalIngresarJugador= this.panelMenuInicial.getPanel();
+        this.panelPrincipalIngresarJugador= panelIngresarJugador.getPanel();
         this.panelMensaje= new JPanel();
         this.panelMensaje.setLayout(new GridBagLayout());
         this.panelMensaje.setVisible(true);
