@@ -46,6 +46,7 @@ public class ControladorGrafico implements Observador {
                     this.vista.actualizarCartasEnMano();
                     this.vista.desactivarCartasMano();
                     this.vista.activarCartasCarnaval();
+                    this.vista.setFinalizarTurno(true);
                 }
                 else{
                     this.vista.desactivarCartaManoOponente(getNombreJugadorTurno());
@@ -74,6 +75,7 @@ public class ControladorGrafico implements Observador {
                 if (isTurno()){
                     this.vista.actualizarCartasEnMano();
                     this.vista.desactivarTodosLosBotones();
+                    this.vista.setFinalizarTurno(false);
                 }
                 else{
                     this.vista.activarCartaOponente(getNombreJugadorTurno());

@@ -109,7 +109,6 @@ public class panelJuego {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controladorGrafico.jugarCarta(cartaElegidaMano);
-                finalizarTurnoButton.setEnabled(true); //CONTROLADOR?
             }
         });
         tirarCartaButton.setEnabled(false);
@@ -129,7 +128,6 @@ public class panelJuego {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controladorGrafico.finalizarTurno();
-                finalizarTurnoButton.setEnabled(false);
 
             }
         });
@@ -601,5 +599,9 @@ public class panelJuego {
 
     public void setCantCartasMazo(int cantidad){
         cantCartasMazo.setText("Cantidad cartas: " + cantidad );
+    }
+
+    public void setFinalizarButton(boolean b) {
+        finalizarTurnoButton.setEnabled(b);
     }
 }

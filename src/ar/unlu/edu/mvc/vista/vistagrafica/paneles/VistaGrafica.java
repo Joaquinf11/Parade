@@ -314,4 +314,8 @@ public class VistaGrafica extends  JFrame  {
     public void removeJugador() {
         this.controladorGrafico.removeJugador(this.jugador);
     }
+
+    public void setFinalizarTurno(boolean b) {
+        this.panelJuego.setFinalizarButton(b);
+    }
 }
