@@ -138,9 +138,9 @@ public class panelJuego {
     }
 
     public void iniciarVentanaJuego()  {
-        mazoButton = new CartaButton("imagenes/Carta,dorso.jpg","mano");
-        setCantCartasMazo(this.controladorGrafico.getCantidadCartasMazo());
+        mazoButton = new CartaButton("imagenes/Carta,dorso.jpg","carnaval");
         panelMazo.add(mazoButton,BorderLayout.CENTER);
+        setCantCartasMazo(this.controladorGrafico.getCantidadCartasMazo());
 
 
         panelAmarillo1.setLayout(new BoxLayout(panelAmarillo1,BoxLayout.Y_AXIS));
@@ -244,7 +244,6 @@ public class panelJuego {
                 public void actionPerformed(ActionEvent e) {
                     if (cartasElegidasCarnaval[0] == -1){
                         cartasElegidasCarnaval[0] = (int) button.getClientProperty("indice");
-                        button.setDisabledSelectedIcon(button.getIcon());
                     }
                     else {
                         int [] auxiliar = new int[cartasElegidasCarnaval.length + 1];
@@ -255,6 +254,7 @@ public class panelJuego {
                         cartasElegidasCarnaval = auxiliar;
                     }
                     button.setEnabled(false);
+                    panelCarnaval.updateUI();
 
                 }
             });
