@@ -37,12 +37,15 @@ public class VistaGrafica extends  JFrame  {
 
         reglasText= new JTextArea();
         reglasText.setEditable(false);
-        reglasText.setOpaque(false);
+
         reglasText.setFont(new Font("Arial",Font.PLAIN,16));
         reglasText.setForeground(new Color(201,217,5));
+        reglasText.setBackground(new Color(199,86,195));
 
-
-        panelReglas.add(reglasText,BorderLayout.CENTER);
+        JScrollPane scrollReglas= new JScrollPane(reglasText);
+        scrollReglas.setBackground(new Color(199,86,195));
+        scrollReglas.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        panelReglas.add(scrollReglas,BorderLayout.CENTER);
 
         JButton volverButton=new JButton("Volver");
         volverButton.setBackground(new Color(201,217,5));
@@ -290,7 +293,8 @@ public class VistaGrafica extends  JFrame  {
     private void mostrarReglas() {
         reglasText.setText("OBJETIVO DEL JUEGO\n" +
                 "Los jugadores deberán jugar sus cartas de la mano mientras intentan no quedarse cartas del carnaval, pues estas representan puntos negativos.\n" +
-                "Se reparten 5 a cada jugador. Luego se ponen 6 cartas más en el centro de la mesa que representan el carnaval. El principio del carnaval comienza a la izquierda mientras que el final es a la derecha.\n" +
+                "Se reparten 5 a cada jugador. Luego se ponen 6 cartas más en el centro de la mesa que representan el carnaval." +
+                "El principio del carnaval comienza a la izquierda mientras que el final es a la derecha.\n" +
                 "\n" +
                 "SECUENCIA DEL JUEGO\n" +
                 "Durante su turno cada jugador llevará a cabo las siguientes acciones en el orden descrito:\n" +
