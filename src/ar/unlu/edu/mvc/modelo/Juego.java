@@ -100,7 +100,7 @@ public class Juego implements Observado, IJuego {
     public void cambiarTurno(){
         this.setJugadorTurno(this.jugadores.remove());
         this.notificar(Evento.CAMBIO_TURNO);
-        if (this.ultimaRonda){
+        if (this.ultimaRonda && !this.rondaDescarte){
 
             this.ronda= new UltimaRonda(jugadorTurno,carnaval,null,this,this.jugadores.size() + 1);
         }
