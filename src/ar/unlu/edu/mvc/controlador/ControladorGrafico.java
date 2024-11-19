@@ -34,6 +34,9 @@ public class ControladorGrafico implements Observador {
                  break;
             case JUEGO_COMENZADO:
                 this.vista.iniciarVentanaJuego();
+                if (isTurno()){
+                    this.vista.desactivarAgregarJugador();
+                }
                 break;
             case CAMBIO_TURNO:
                this.vista.mostrarMensaje("Es el turno de " + getNombreJugadorTurno());

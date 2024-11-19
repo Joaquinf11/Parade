@@ -62,7 +62,7 @@ public class Juego implements Observado, IJuego {
 
      @Override
     public void agregarJugador (String nombre) throws Exception{
-        if(buscarJugador(nombre) == null) {
+        if(buscarJugador(nombre) == null || !nombre.equals(this.jugadorTurno.getNombre())) {
             Jugador jugador = new Jugador(nombre);
             this.setJugadorTurno(jugador);
             this.jugadores.add(jugador);

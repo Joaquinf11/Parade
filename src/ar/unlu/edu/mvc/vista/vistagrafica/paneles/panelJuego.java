@@ -598,7 +598,7 @@ public class panelJuego {
     }
 
     public void setCantCartasMazo(int cantidad){
-        cantCartasMazo.setText("Cantidad cartas: " + cantidad );
+        cantCartasMazo.setText(cantidad+"" );
     }
 
     public void setFinalizarButton(boolean b) {

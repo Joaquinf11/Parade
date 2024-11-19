@@ -3,7 +3,6 @@ package ar.unlu.edu.mvc.vista.vistagrafica.paneles;
 import ar.unlu.edu.mvc.controlador.ControladorGrafico;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -32,7 +31,6 @@ public class panelMenuInicial  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 vistaGrafica.mostrarIngresarJugador();
-                agregarJugButton.setEnabled(false);
             }
         });
         empezarButton.addActionListener(new ActionListener() {
@@ -47,8 +45,7 @@ public class panelMenuInicial  {
         return this.panelPrincipal;
     }
 
-
-
-
-
+    public void desactivarAgregarJugador() {
+        this.agregarJugButton.setEnabled(false);
+    }
 }

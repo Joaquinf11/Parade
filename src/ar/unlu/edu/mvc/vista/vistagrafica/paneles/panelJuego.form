@@ -153,7 +153,7 @@
                 <properties>
                   <font name="Ravie" size="14"/>
                   <foreground color="-3548923"/>
-                  <text value="Cantidad de cartas:"/>
+                  <text value=""/>
                 </properties>
               </component>
               <component id="83fa9" class="javax.swing.JLabel" binding="mazoLabel">
