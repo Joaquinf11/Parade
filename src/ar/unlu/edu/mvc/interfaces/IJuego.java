@@ -1,6 +1,5 @@
 package ar.unlu.edu.mvc.interfaces;
 
-import ar.unlu.edu.mvc.controlador.ControladorGrafico;
 import ar.unlu.edu.mvc.exceptions.CartaException;
 
 import java.util.List;

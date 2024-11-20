@@ -1,7 +1,6 @@
 package ar.unlu.edu.mvc;
 
-import ar.unlu.edu.mvc.controlador.ControladorConsola;
-import ar.unlu.edu.mvc.controlador.ControladorGrafico;
+import ar.unlu.edu.mvc.controlador.Controlador;
 import ar.unlu.edu.mvc.modelo.Juego;
 
 import ar.unlu.edu.mvc.vista.vistaConsola.VistaConsola;
@@ -14,30 +13,30 @@ public class Main {
         Juego juego = new Juego();
 
         VistaGrafica vista1= new VistaGrafica();
-        VistaGrafica vista2= new VistaGrafica();
+       // VistaGrafica vista2= new VistaGrafica();
       //  VistaGrafica vista3= new VistaGrafica();
         //VistaGrafica vista4= new VistaGrafica();
 
-      //  VistaConsola consola= new VistaConsola();
+        VistaConsola consola= new VistaConsola();
 
-        ControladorGrafico controladorGrafico1 = new ControladorGrafico(juego,vista1);
-        ControladorGrafico controladorGrafico2 = new ControladorGrafico(juego,vista2);
+        Controlador controlador1 = new Controlador(juego,vista1);
+       // Controlador controlador2 = new Controlador(juego,vista2);
     //   ControladorGrafico controladorGrafico3 = new ControladorGrafico(juego,vista3);
      //   ControladorGrafico controladorGrafico4 = new ControladorGrafico(juego,vista4);
 
-       // ControladorConsola controladorConsola= new ControladorConsola(consola,juego);
+        Controlador controlador= new Controlador(juego,consola);
 
-        juego.agregarObservador(controladorGrafico1);
-        juego.agregarObservador(controladorGrafico2);
+        juego.agregarObservador(controlador1);
+     //   juego.agregarObservador(controlador2);
     //   juego.agregarObservador(controladorGrafico3);
        // juego.agregarObservador(controladorGrafico4);
-      //  juego.agregarObservador(controladorConsola);
-        controladorGrafico1.iniciar();
-        controladorGrafico2.iniciar();
+        juego.agregarObservador(controlador);
+        controlador1.iniciar();
+     //   controlador2.iniciar();
       // controladorGrafico3.iniciar();
      //   controladorGrafico4.iniciar();
 
-      //  controladorConsola.iniciar();
+        controlador.iniciar();
     }
 
 

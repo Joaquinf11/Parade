@@ -1,15 +1,16 @@
 package ar.unlu.edu.mvc.vista.vistagrafica.paneles;
 
-import ar.unlu.edu.mvc.controlador.ControladorGrafico;
+import ar.unlu.edu.mvc.controlador.Controlador;
+import ar.unlu.edu.mvc.interfaces.IVista;
 
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class VistaGrafica extends  JFrame  {
+public class VistaGrafica extends  JFrame implements IVista {
 
-    ControladorGrafico controladorGrafico;
+    Controlador controlador;
 
     private  JPanel panelMensaje;
     private panelMenuInicial panelMenuInicial;
@@ -79,7 +80,7 @@ public class VistaGrafica extends  JFrame  {
         salirItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controladorGrafico.removeJugador(jugador);
+                controlador.removeJugador(jugador);
             }
         });
         salir.add(salirItem);
@@ -96,22 +97,6 @@ public class VistaGrafica extends  JFrame  {
 
     }
 
-
-
-
-    public void iniciarVentana(){
-        this.panelMenuInicial = new panelMenuInicial(this.controladorGrafico,this);
-        this.panelIngresarJugador = new panelIngresarJugador(this.controladorGrafico,this);
-        this.panelJuego =new panelJuego(this.controladorGrafico,this);
-        this.panelPrincipalMenuInicial= panelMenuInicial.getPanel();
-        this.panelPrincipalJuego=panelJuego.getPanel();
-        this.panelPrincipalIngresarJugador= panelIngresarJugador.getPanel();
-        this.panelMensaje= new JPanel();
-        this.panelMensaje.setLayout(new GridBagLayout());
-        this.panelMensaje.setVisible(true);
-
-
-     }
 
     public void mostrarMenuInicial(){
         setContentPane(this.panelPrincipalMenuInicial);
@@ -172,20 +157,81 @@ public class VistaGrafica extends  JFrame  {
         return this.jugador;
     }
 
-
-    public void setControlador(ControladorGrafico controladorGrafico){
-        this.controladorGrafico = controladorGrafico;
+    @Override
+    public void setControlador(Controlador controlador){
+        this.controlador = controlador;
     }
 
 
 
-    public void iniciarVentanaJuego()  {
+    public void iniciarJuego()  {
         panelJuego.iniciarVentanaJuego();
         mostrarVentanaJuego();
 
     }
 
+    @Override
+    public void cambioDeTurno() {
+        this.panelJuego.activarCartasMano();
+    }
 
+    @Override
+    public void cartaTirada() {
+            this.panelJuego.actualizarCartasEnMano();
+            this.panelJuego.desactivarCartasEnMano();
+            this.panelJuego.activarCartasCarnaval();
+            this.panelJuego.setFinalizarButton(true);
+    }
+
+    @Override
+    public void mostrarCarnaval() {
+        this.panelJuego.actualizarCartasCarnaval();
+    }
+
+    @Override
+    public void cartaAgregadaCarnaval() {
+        this.panelJuego.actualizarCartasCarnaval();
+    }
+
+    @Override
+    public void mostrarAreaDeJuego() {
+        this.panelJuego.desactivarCartasCarnaval();
+        this.panelJuego.desactivaBotonAnalizarCartas();
+        this.panelJuego.actualizarAreaDeJuego();
+    }
+
+    @Override
+    public void mostrarAreaDeJuegoOponente(String nombreJugadorTurno) {
+        this.panelJuego.actualizarAreaOponente(nombreJugadorTurno);
+    }
+
+    @Override
+    public void actualizarCantidadCartasMazo() {
+        this.panelJuego.setCantCartasMazo(this.controlador.getCantidadCartasMazo());
+    }
+
+    @Override
+    public void finDeTurno() {
+        this.panelJuego.actualizarCartasEnMano();
+        this.panelJuego.desactivarTodosLosBotones();
+    }
+
+
+    @Override
+    public void iniciar() { //REFACTOR
+        this.panelMenuInicial = new panelMenuInicial(this.controlador,this);
+        this.panelIngresarJugador = new panelIngresarJugador(this.controlador,this);
+        this.panelJuego =new panelJuego(this.controlador,this);
+        this.panelPrincipalMenuInicial= panelMenuInicial.getPanel();
+        this.panelPrincipalJuego=panelJuego.getPanel();
+        this.panelPrincipalIngresarJugador= panelIngresarJugador.getPanel();
+        this.panelMensaje= new JPanel();
+        this.panelMensaje.setLayout(new GridBagLayout());
+        this.panelMensaje.setVisible(true);
+        mostrarMenuInicial();
+    }
+
+    @Override
     public void mostrarMensaje(String mensaje) {
         setMensaje(mensaje);
         mostrarPanelMensaje();
@@ -201,94 +247,10 @@ public class VistaGrafica extends  JFrame  {
     }
 
 
-
-
-    public void activarCartas(){
-        this.panelJuego.activarBotones();
-    }
-
-
-    public void activarCartasMano() {
-        this.panelJuego.activarCartasMano();
-    }
-
-
-    public void activarCartasCarnaval() {
-        this.panelJuego.activarCartasCarnaval();
-    }
-
-
-    public void desactivarCartasMano() {
-        this.panelJuego.desactivarCartasEnMano();
-    }
-
-
-    public void actualizarCarnaval() {
-
-        this.panelJuego.actualizarCartasCarnaval();
-
-    }
-
-
-    public void desactivarCartasCarnaval() {
-        this.panelJuego.desactivarCartasCarnaval();
-    }
-
-
-    public void actualizarCartasEnMano() {
-        this.panelJuego.actualizarCartasEnMano();
-    }
-
-
-    public void desactivarTodosLosBotones() {
-        this.panelJuego.desactivarTodosLosBotones();
-    }
-
-
-    public void desactivarUltimaCartaCarnaval() {
-        this.panelJuego.desactivarUltimaCartaCarnaval();
-    }
-
-
-    public void desactivarCartaManoOponente(String oponente) {
-        this.panelJuego.desactivarCartaManoOponente(oponente);
-    }
-
-
-    public void activarCartaOponente(String oponente) {
-        this.panelJuego.activarCartaOponente(oponente);
-    }
-
-
-    public void actualizarAreaDeJuego() {
-        this.panelJuego.actualizarAreaDeJuego();
-    }
-
-
-    public void actualizarAreaDeJuegoOponente(String oponente) {
-        this.panelJuego.actualizarAreaOponente(oponente);
-    }
-
-
-    public void desactivaBotonAnalizarCartas() {
-        this.panelJuego.desactivaBotonAnalizarCartas();
-    }
-
-    public void setCantidadCartasMazo(int cantidad) {
-        this.panelJuego.setCantCartasMazo(cantidad);
-    }
-
     public void removeJugador() {
-        this.controladorGrafico.removeJugador(this.jugador);
+        this.controlador.removeJugador(this.jugador);
     }
 
-    public void setFinalizarTurno(boolean b) {
-        this.panelJuego.setFinalizarButton(b);
-    }
-
-    public void desactivarAgregarJugador() {
-        this.panelMenuInicial.desactivarAgregarJugador();
-    }
 
     private void mostrarReglas() {
         reglasText.setText("OBJETIVO DEL JUEGO\n" +

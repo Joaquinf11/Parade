@@ -1,9 +1,8 @@
 package ar.unlu.edu.mvc.vista.vistagrafica.paneles;
 
-import ar.unlu.edu.mvc.controlador.ControladorGrafico;
+import ar.unlu.edu.mvc.controlador.Controlador;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 
 public class panelIngresarJugador {
@@ -13,11 +12,11 @@ public class panelIngresarJugador {
     private JPanel panelCentro;
     private JButton aceptarButton;
 
-    private ControladorGrafico controladorGrafico;
+    private Controlador controlador;
     private VistaGrafica vistaGrafica;
 
-    public panelIngresarJugador(ControladorGrafico controladorGrafico, VistaGrafica vistaGrafica){
-        this.controladorGrafico = controladorGrafico;
+    public panelIngresarJugador(Controlador controlador, VistaGrafica vistaGrafica){
+        this.controlador = controlador;
         this.vistaGrafica=vistaGrafica;
 
         aceptarButton.addActionListener(new ActionListener() {
@@ -27,7 +26,7 @@ public class panelIngresarJugador {
                     vistaGrafica.mostrarMensaje("El nombre ingresado es invalido"); //CONTROLADOR?
                 }
                 else{
-                    controladorGrafico.agregarJugador(nombre.getText());
+                    controlador.agregarJugador(nombre.getText());
                     vistaGrafica.setNombreJugador(nombre.getText());
                    // vistaGrafica.mostrarMenuInicial();
 
@@ -43,7 +42,7 @@ public class panelIngresarJugador {
                         vistaGrafica.mostrarMensaje("El nombre ingresado es invalido");// CONTROLADOR?
                     }
                     else{
-                        controladorGrafico.agregarJugador(nombre.getText());
+                        controlador.agregarJugador(nombre.getText());
                         vistaGrafica.setNombreJugador(nombre.getText());
                         vistaGrafica.mostrarMenuInicial();
                     }

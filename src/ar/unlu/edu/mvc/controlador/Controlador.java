@@ -4,21 +4,21 @@ import ar.unlu.edu.mvc.exceptions.CartaException;
 import ar.unlu.edu.mvc.exceptions.TipoException;
 import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.interfaces.IJugador;
+import ar.unlu.edu.mvc.interfaces.IVista;
 import ar.unlu.edu.mvc.interfaces.Observador;
 
 import ar.unlu.edu.mvc.modelo.Evento;
-import ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaGrafica;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class ControladorGrafico implements Observador {
-    private final VistaGrafica vista;
+public class Controlador implements Observador {
+    private final IVista vista;
     private String jugador;
     private final IJuego juego;
 
-    public ControladorGrafico(IJuego juego, VistaGrafica vista) {
+    public Controlador(IJuego juego, IVista vista) {
         vista.setControlador(this);
         this.vista = vista;
         this.juego = juego;
@@ -33,66 +33,51 @@ public class ControladorGrafico implements Observador {
                 }
                  break;
             case JUEGO_COMENZADO:
-                this.vista.iniciarVentanaJuego();
-                if (isTurno()){
-                    this.vista.desactivarAgregarJugador();
-                }
+                this.vista.iniciarJuego();
                 break;
             case CAMBIO_TURNO:
                this.vista.mostrarMensaje("Es el turno de " + getNombreJugadorTurno());
-                if (isTurno()){
-                    this.vista.activarCartasMano();
-                }
+               if (isTurno()) {
+                   this.vista.cambioDeTurno();
+               }
                 break;
             case CARTA_TIRADA:
                 if (isTurno()) {
-                    this.vista.actualizarCartasEnMano();
-                    this.vista.desactivarCartasMano();
-                    this.vista.activarCartasCarnaval();
-                    this.vista.setFinalizarTurno(true);
-                }
-                else{
-                    this.vista.desactivarCartaManoOponente(getNombreJugadorTurno());
+                    this.vista.cartaTirada();
                 }
                 break;
             case CARTA_AGREGADA_CARNAVAL:
-                this.vista.actualizarCarnaval();
                 if (isTurno()){
-                    this.vista.activarCartasCarnaval();
-                    this.vista.desactivarUltimaCartaCarnaval();
+                    this.vista.cartaAgregadaCarnaval();
+                }
+                else{
+                    this.vista.mostrarCarnaval();
                 }
                 break;
             case CARTA_AGREGADA_AREA:
                 if (isTurno()){
-                    this.vista.actualizarAreaDeJuego();
+                    this.vista.mostrarAreaDeJuego();
                 }
                 else {
-                    this.vista.actualizarAreaDeJuegoOponente(getNombreJugadorTurno());
+                    this.vista.mostrarAreaDeJuegoOponente(getNombreJugadorTurno());
                 }
-                this.vista.actualizarCarnaval();
+                this.vista.mostrarCarnaval();
                 break;
             case MAZO_SIN_CARTAS:
-                this.vista.setCantidadCartasMazo(0);
+                this.vista.actualizarCantidadCartasMazo();
                 break;
             case FIN_TURNO:
                 if (isTurno()){
-                    this.vista.actualizarCartasEnMano();
-                    this.vista.desactivarTodosLosBotones();
-                    this.vista.setFinalizarTurno(false);
+                    this.vista.finDeTurno();
                 }
-                else{
-                    this.vista.activarCartaOponente(getNombreJugadorTurno());
-                }
-                this.vista.setCantidadCartasMazo(this.getCantidadCartasMazo());
+                this.vista.actualizarCantidadCartasMazo();
                 break;
             case ULTIMA_RONDA:
                 this.vista.mostrarMensaje("Comienza la ULTIMA RONDA");
                 break;
             case RONDA_DESCARTE:
                 this.vista.mostrarMensaje("Comienza la RONDA DESCARTE");
-                this.vista.desactivaBotonAnalizarCartas();
                 break;
-
             case FIN_JUEGO:
                 this.vista.mostrarMensaje(this.getNombreGanadaor());
 
@@ -104,8 +89,8 @@ public class ControladorGrafico implements Observador {
     }
 
     public void iniciar() {
-        vista.iniciarVentana();
-        vista.mostrarMenuInicial();
+        this.vista.iniciar();
+
     }
 
 
@@ -145,6 +130,7 @@ public class ControladorGrafico implements Observador {
         }
         return resultado;
     }
+
     public List<String> listarCartasEnMano(){
         return  this.juego.listarCartasEnMano(this.jugador);
     }
@@ -164,9 +150,6 @@ public class ControladorGrafico implements Observador {
             this.juego.analizarCartasCarnaval(elegidas);
         }
         catch (CartaException e){
-            if (e.getTipo() == TipoException.CARTA_MAYORVALOR_DISTINTOCOLOR){
-                this.vista.actualizarCarnaval();
-            }
             this.vista.mostrarMensaje(e.getMessage());
         }
     }
@@ -185,9 +168,6 @@ public class ControladorGrafico implements Observador {
         }
     }
 
-    public int getCantidadCartasEnMano(){
-        return this.juego.getCantidadCartasMazo();
-    }
 
     public int getCantidadCartasMazo() {
         return this.juego.getCantidadCartasMazo();

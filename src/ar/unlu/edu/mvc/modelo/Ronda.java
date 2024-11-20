@@ -37,6 +37,7 @@ public class Ronda {
     }
 
     public void analizarCartasCarnaval( int [] cartasElegidas) throws CartaException{
+        boolean agrego=false;
         Carta carta= this.carnaval.getUltimaCarta();
         if (!this.carnaval.puedeAgarrarCarnaval(carta)){
             throw new CartaException("La carta tirada: " + carta.toString() + " tiene mayor valor a la cantidad de cartas que hay en el carnaval",TipoException.CARTAS_SALVADAS);
@@ -53,11 +54,14 @@ public class Ronda {
                 if (carta.equalsColor(cartaCarnaval) || cartaCarnaval.getValor() <= carta.getValor()) {
                     jugadorTurno.agregarCartaAlAreaDeJuego(cartaCarnaval);
                     this.carnaval.sacarCarta(cartaCarnaval);
-                    this.juego.notificar(Evento.CARTA_AGREGADA_AREA);
+                    agrego=true;
                 } else {
                         throw new CartaException("La carta elegida: " + cartaCarnaval.toString() + " no se puede agarrar",TipoException.CARTA_MAYORVALOR_DISTINTOCOLOR);
                 }
             }
+        }
+        if (agrego){
+            this.juego.notificar(Evento.CARTA_AGREGADA_AREA);
         }
         this.indicesCartasElegidas= cartasElegidas;
         this.finRonda();

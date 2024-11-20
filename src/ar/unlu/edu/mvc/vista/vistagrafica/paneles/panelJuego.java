@@ -1,6 +1,6 @@
 package ar.unlu.edu.mvc.vista.vistagrafica.paneles;
 
-import ar.unlu.edu.mvc.controlador.ControladorGrafico;
+import ar.unlu.edu.mvc.controlador.Controlador;
 import ar.unlu.edu.mvc.vista.vistagrafica.botones.CartaButton;
 import ar.unlu.edu.mvc.vista.vistagrafica.botones.LabelVertical;
 
@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class panelJuego {
-    ControladorGrafico controladorGrafico;
+    Controlador controlador;
     VistaGrafica vista;
 
     protected JPanel panelVentanaJuego;
@@ -97,8 +97,8 @@ public class panelJuego {
     private List<String> oponentes;
 
 
-    public panelJuego(ControladorGrafico controladorGrafico, VistaGrafica grafica){
-        this.controladorGrafico = controladorGrafico;
+    public panelJuego(Controlador controlador, VistaGrafica grafica){
+        this.controlador = controlador;
         this.vista= grafica;
         this.cartasCarnaval= new ArrayList<>();
         this.cartasEnMano= new ArrayList<>();
@@ -108,7 +108,7 @@ public class panelJuego {
         tirarCartaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controladorGrafico.jugarCarta(cartaElegidaMano);
+                controlador.jugarCarta(cartaElegidaMano);
             }
         });
         tirarCartaButton.setEnabled(false);
@@ -116,7 +116,7 @@ public class panelJuego {
         analizarCartasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controladorGrafico.analizarCartasCarnaval(cartasElegidasCarnaval);
+                controlador.analizarCartasCarnaval(cartasElegidasCarnaval);
                 cartasElegidasCarnaval= new int[1];
                 cartasElegidasCarnaval[0]=-1;    //CONTROLADOR?
 
@@ -127,7 +127,7 @@ public class panelJuego {
         finalizarTurnoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controladorGrafico.finalizarTurno();
+                controlador.finalizarTurno();
 
             }
         });
@@ -140,7 +140,7 @@ public class panelJuego {
     public void iniciarVentanaJuego()  {
         mazoButton = new CartaButton("imagenes/Carta,dorso.jpg","carnaval");
         panelMazo.add(mazoButton,BorderLayout.CENTER);
-        setCantCartasMazo(this.controladorGrafico.getCantidadCartasMazo());
+        setCantCartasMazo(this.controlador.getCantidadCartasMazo());
 
 
         panelAmarillo1.setLayout(new BoxLayout(panelAmarillo1,BoxLayout.Y_AXIS));
@@ -191,7 +191,7 @@ public class panelJuego {
         panelArea4.add(panelVioleta4,4,0);
         panelArea4.add(panelNegro4,5,0);
 
-        this.oponentes =this.controladorGrafico.listarNombreJugadores();
+        this.oponentes =this.controlador.listarNombreJugadores();
         this.oponentes.remove(vista.getNombreJugador());
         ImageIcon imageDorsoHorizontal= new ImageIcon("imagenes/Carta,dorsoHorizontal.jpg");
         imageDorsoHorizontal.setImage(imageDorsoHorizontal.getImage().getScaledInstance(85,60,Image.SCALE_SMOOTH));
@@ -233,7 +233,7 @@ public class panelJuego {
         }
 
 
-        List<String> cartasCarnavalS= this.controladorGrafico.listarCartasCarnaval();
+        List<String> cartasCarnavalS= this.controlador.listarCartasCarnaval();
 
         for (int i = 0;  i < cartasCarnavalS.size(); i++) {
             CartaButton button= new CartaButton("imagenes/cartas/" + cartasCarnavalS.get(i) + ".png","carnaval");
@@ -264,7 +264,7 @@ public class panelJuego {
         }
 
 
-        List<String> cartasEnManoS= this.controladorGrafico.listarCartasEnMano();
+        List<String> cartasEnManoS= this.controlador.listarCartasEnMano();
 
         for (int i = 0; i < cartasEnManoS.size(); i++) {
 
@@ -276,6 +276,7 @@ public class panelJuego {
                 public void actionPerformed(ActionEvent e) {
                         cartaElegidaMano = (int) button.getClientProperty("indice");
                         button.setBorderPainted(true);
+                        tirarCartaButton.setEnabled(true);
                 }
             });
             this.cartasEnMano.add(button);
@@ -322,7 +323,7 @@ public class panelJuego {
         panelNegro1.removeAll();
         panelVioleta1.removeAll();
 
-        Collection<List<String>> cartas = this.controladorGrafico.listarCartasArea(vista.getNombreJugador());
+        Collection<List<String>> cartas = this.controlador.listarCartasArea(vista.getNombreJugador());
         List<String> colores = new ArrayList<>();
 
       for (List<String> cartasPorColor: cartas){
@@ -369,18 +370,19 @@ public class panelJuego {
         for (JButton button : this.cartasCarnaval){
             button.setEnabled(true);
         }
-
+        this.panelCarnaval.updateUI();
+        this.panelBotones.updateUI();
+        this.panelVentanaJuego.updateUI();
     }
 
     public void actualizarCartasCarnaval() {
         cartasCarnaval.clear();
         panelCarnaval.removeAll();
-        List<String> cartasCarnavalS= this.controladorGrafico.listarCartasCarnaval();
+        List<String> cartasCarnavalS= this.controlador.listarCartasCarnaval();
 
         for(int i = 0;  i < cartasCarnavalS.size(); i++) {
             CartaButton button = new CartaButton("imagenes/cartas/" + cartasCarnavalS.get(i) + ".png", "carnaval");
             button.putClientProperty("indice", i);
-            button.setEnabled(false);
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -407,7 +409,7 @@ public class panelJuego {
     public void actualizarCartasEnMano() {
         cartasEnMano.clear();
         panelCartasMano1.removeAll();
-        List<String> cartasEnManoS= this.controladorGrafico.listarCartasEnMano();
+        List<String> cartasEnManoS= this.controlador.listarCartasEnMano();
 
         for (int i = 0; i < cartasEnManoS.size(); i++) {
 
@@ -435,37 +437,10 @@ public class panelJuego {
         desactivarCartasEnMano();
         tirarCartaButton.setEnabled(false);
         analizarCartasButton.setEnabled(false);
+        finalizarTurnoButton.setEnabled(false);
     }
 
-    public void desactivarUltimaCartaCarnaval() {
-        cartasCarnaval.getLast().setEnabled(false);
-    }
 
-    public void desactivarCartaManoOponente(String oponente) {
-        if (oponente.equals(nombre2Label.getText())){
-            carta0B2.setVisible(false);
-            panelCartasMano2.updateUI();
-        } else if (oponente.equals(nombre3Label.getText())) {
-            carta0B3.setVisible(false);
-            panelCartasMano3.updateUI();
-        }else if (oponente.equals(nombre4Label.getText())) {
-            carta0B4.setVisible(false);
-            panelCartasMano4.updateUI();
-        }
-    }
-
-    public void activarCartaOponente(String oponente) {
-        if (oponente.equals(nombre2Label.getText())){
-            carta0B2.setVisible(true);
-            panelCartasMano2.updateUI();
-        } else if (oponente.equals(nombre3Label.getText())) {
-            carta0B3.setVisible(true);
-            panelCartasMano3.updateUI();
-        }else if (oponente.equals(nombre4Label.getText())) {
-            carta0B4.setVisible(true);
-            panelCartasMano4.updateUI();
-        }
-    }
 
     public void actualizarAreaOponente(String oponente) {
         if (oponente.equals(nombre2Label.getText())){
@@ -476,7 +451,7 @@ public class panelJuego {
             panelNegro2.removeAll();
             panelVioleta2.removeAll();
 
-            Collection<List<String>> cartas = this.controladorGrafico.listarCartasArea(oponente);
+            Collection<List<String>> cartas = this.controlador.listarCartasArea(oponente);
             List<String> colores = new ArrayList<>();
 
             for (List<String> cartasPorColor: cartas){
@@ -516,7 +491,7 @@ public class panelJuego {
             panelNegro3.removeAll();
             panelVioleta3.removeAll();
 
-            Collection<List<String>> cartas = this.controladorGrafico.listarCartasArea(oponente);
+            Collection<List<String>> cartas = this.controlador.listarCartasArea(oponente);
             List<String> colores = new ArrayList<>();
 
             for (List<String> cartasPorColor: cartas){
@@ -558,7 +533,7 @@ public class panelJuego {
             panelNegro4.removeAll();
             panelVioleta4.removeAll();
 
-            Collection<List<String>> cartas = this.controladorGrafico.listarCartasArea(oponente);
+            Collection<List<String>> cartas = this.controlador.listarCartasArea(oponente);
             List<String> colores = new ArrayList<>();
 
             for (List<String> cartasPorColor: cartas){

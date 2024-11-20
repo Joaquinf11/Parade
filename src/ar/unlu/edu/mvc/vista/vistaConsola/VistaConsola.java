@@ -1,6 +1,7 @@
 package ar.unlu.edu.mvc.vista.vistaConsola;
 
-import ar.unlu.edu.mvc.controlador.ControladorConsola;
+import ar.unlu.edu.mvc.controlador.Controlador;
+import ar.unlu.edu.mvc.interfaces.IVista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,8 +11,8 @@ import java.util.List;
 import javax.swing.*;
 import java.awt.*;
 
-public class VistaConsola extends JFrame{
-    private ControladorConsola controlador;
+public class VistaConsola extends JFrame implements IVista {
+    private Controlador controlador;
     private String jugador;
     private List<String> oponentes;
 
@@ -77,7 +78,7 @@ public class VistaConsola extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 switch (entradaMenuField.getText()){
-                    case "0" ->{controlador.sacarJugador(jugador); dispose();}
+                    case "0" ->{controlador.removeJugador(jugador); dispose();}
                     case "1" -> { mostrarMensaje("Ingrese el nombre del Jugador "); setIngresarJugadorField();}
                     case "2" -> {controlador.empezarPartida();}
                     default -> { procesarComandos(entradaMenuField.getText());}
@@ -96,12 +97,14 @@ public class VistaConsola extends JFrame{
                 }
                 else{
                     if (nombre.isEmpty()){
-                        mostrarMensaje("El nombre ingresado es invalido");
+                        mostrarMensaje("El nombre ingresado es invalido"); //REFACTOR LO TIENE QUE HACER EL MODELO
                     }
                     else{
+                        mostrarMensaje(nombre);
                         controlador.agregarJugador(nombre);
                         jugador= nombre;
-                        setMenuField(); //CONTROLADOR?
+                        mostrarMensaje(menuInicial());
+                        setMenuField();
                     }
                 }
                 entradaIngresarJugadorField.setText("");
@@ -162,7 +165,7 @@ public class VistaConsola extends JFrame{
     private void convertirCartaElegidaAInteger(String entrada) {
         try{
             int cartaElegida= Integer.parseInt(entrada) - 1;
-            this.controlador.tirarCarta(cartaElegida);
+            this.controlador.jugarCarta(cartaElegida);
         }
         catch (NumberFormatException e){
             procesarComandos(entrada);
@@ -208,16 +211,16 @@ public class VistaConsola extends JFrame{
         panelEntradas.updateUI();
     }
 
-    public void setControlador(ControladorConsola controladorConsola) {
-        this.controlador=controladorConsola;
+    public void setControlador(Controlador controlador) {
+        this.controlador=controlador;
     }
 
     public void procesarComandos(String comando){
         areaSalida.append(comando + "\n");
         switch (comando){
-            case "salir"-> {this.controlador.sacarJugador(this.jugador); dispose();}
+            case "salir"-> {this.controlador.removeJugador(this.jugador); dispose();}
             case "clear" -> {areaSalida.setText(" ");}
-            case "mano" -> {mostrarCartasEnMano(this.jugador);}
+            case "mano" -> {mostrarCartasEnMano();}
             case "carnaval"-> {mostrarCarnaval();}
             case "area" -> { mostrarArea(this.jugador);}
             case "area oponentes"->{mostrarAreaOponentes();}
@@ -241,13 +244,34 @@ public class VistaConsola extends JFrame{
 
     public void mostrarMensaje(String mensaje) {
         areaSalida.append(mensaje + "\n");
+        areaSalida.updateUI();
     }
 
-    public void mostrarMesa(String jugador) {
+    @Override
+    public void iniciarJuego() {
         this.oponentes= this.controlador.listarNombreJugadores();
         this.oponentes.remove(this.jugador);
+        setTirarCartaField();
+        mostrarMesa();
+    }
+
+    @Override
+    public void cambioDeTurno() {
+            setTirarCartaField();
+            activarEntrada();
+            mostrarCarnaval();
+            mostrarCartasEnMano();
+    }
+
+    @Override
+    public void cartaTirada() {
+        setElegirCartaField();
+        mostrarMensaje("Elegir cartas del Carnaval");
+    }
+
+    public void mostrarMesa() {
         mostrarCarnaval();
-        mostrarCartasEnMano(jugador);
+        mostrarCartasEnMano();
 
     }
 
@@ -259,22 +283,58 @@ public class VistaConsola extends JFrame{
         );
     }
 
+    @Override
     public void mostrarCarnaval(){
         areaSalida.append("CARNAVAL \n");
         List<String> cartasCarnaval= this.controlador.listarCartasCarnaval();
         areaSalida.append(cartasToString(cartasCarnaval));
+        areaSalida.updateUI();
     }
 
-    public void mostrarCartasEnMano(String jugador){
+    @Override
+    public void cartaAgregadaCarnaval() {
+        mostrarCarnaval();
+    }
+
+    @Override
+    public void mostrarAreaDeJuego() {
+        mostrarArea(this.jugador);
+    }
+
+    @Override
+    public void mostrarAreaDeJuegoOponente(String nombreJugadorTurno) {
+        mostrarArea(nombreJugadorTurno);
+    }
+
+    @Override
+    public void actualizarCantidadCartasMazo() {
+        mostrarMensaje("Cantidad de cartas del mazo: " + this.controlador.getCantidadCartasMazo());
+    }
+
+    @Override
+    public void finDeTurno() {
+        desactivarEntrada();
+    }
+
+    public void mostrarCartasEnMano(){
+
         areaSalida.append("CARTAS EN MANO \n");
-        List<String> cartasMano=this.controlador.listarCartasMano(jugador);
+        List<String> cartasMano=this.controlador.listarCartasEnMano();
         areaSalida.append(cartasToString(cartasMano));
-     }
+        areaSalida.updateUI();
+    }
+
     public void mostrarArea(String jugador) {
-        areaSalida.append("AREA DE JUEGO DE " + jugador + "\n");
         Collection<List<String>> cartasArea= this.controlador.listarCartasArea(jugador);
-        for (List<String> cartasColor : cartasArea){
-            areaSalida.append(cartasToString(cartasColor));
+        String mensaje= "AREA DE JUEGO";
+        if (cartasArea != null) {
+            if (!jugador.equals(this.jugador)) {
+                mensaje +=  " jugador" + "\n";
+            }
+            mostrarMensaje(mensaje);
+            for (List<String> cartasColor : cartasArea) {
+                areaSalida.append(cartasToString(cartasColor));
+            }
         }
     }
 

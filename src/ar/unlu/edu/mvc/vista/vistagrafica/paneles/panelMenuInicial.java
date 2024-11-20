@@ -1,6 +1,6 @@
 package ar.unlu.edu.mvc.vista.vistagrafica.paneles;
 
-import ar.unlu.edu.mvc.controlador.ControladorGrafico;
+import ar.unlu.edu.mvc.controlador.Controlador;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,10 +15,10 @@ public class panelMenuInicial  {
     private JButton agregarJugButton;
 
     private VistaGrafica vistaGrafica;
-    private ControladorGrafico controladorGrafico;
+    private Controlador controlador;
 
-    public panelMenuInicial(ControladorGrafico controladorGrafico, VistaGrafica vistaGrafica){
-        this.controladorGrafico = controladorGrafico;
+    public panelMenuInicial(Controlador controlador, VistaGrafica vistaGrafica){
+        this.controlador = controlador;
         this.vistaGrafica=vistaGrafica;
         salirButton.addActionListener(new ActionListener() {
             @Override
@@ -36,7 +36,7 @@ public class panelMenuInicial  {
         empezarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    controladorGrafico.empezarPartida();
+                    controlador.empezarPartida();
                 }
         });
     }
