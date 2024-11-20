@@ -23,12 +23,12 @@ public class panelIngresarJugador {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(nombre.getText().isEmpty()){
-                    vistaGrafica.mostrarMensaje("El nombre ingresado es invalido"); //CONTROLADOR?
+                    vistaGrafica.mostrarMensaje("El nombre ingresado es invalido"); //REFACTOR
                 }
                 else{
                     controlador.agregarJugador(nombre.getText());
                     vistaGrafica.setNombreJugador(nombre.getText());
-                   // vistaGrafica.mostrarMenuInicial();
+
 
                 }
             }
@@ -39,12 +39,11 @@ public class panelIngresarJugador {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER){
                     if(nombre.getText().isEmpty()){
-                        vistaGrafica.mostrarMensaje("El nombre ingresado es invalido");// CONTROLADOR?
+                        vistaGrafica.mostrarMensaje("El nombre ingresado es invalido");// REFACTOR
                     }
                     else{
                         controlador.agregarJugador(nombre.getText());
                         vistaGrafica.setNombreJugador(nombre.getText());
-                        vistaGrafica.mostrarMenuInicial();
                     }
                 }
             }

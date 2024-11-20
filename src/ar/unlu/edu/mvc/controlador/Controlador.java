@@ -29,7 +29,7 @@ public class Controlador implements Observador {
         switch (evento){
             case JUGADOR_AGREGADO:
                 if (isTurno()) {
-                    this.vista.mostrarMensaje("Jugador agregado con exito");
+                    this.vista.jugadorAgregado();
                 }
                  break;
             case JUEGO_COMENZADO:

@@ -179,6 +179,11 @@ public class VistaConsola extends JFrame implements IVista {
         areaSalida.append(menuInicial());
     }
 
+    @Override
+    public void jugadorAgregado() {
+        mostrarMensaje("Jugador agregado con exito");
+    }
+
     public String menuInicial(){
         return """
                 MENU INCIAL

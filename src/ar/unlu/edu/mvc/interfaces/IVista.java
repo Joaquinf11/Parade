@@ -27,4 +27,6 @@ public interface IVista {
     void finDeTurno();
 
     void iniciar();
+
+    void jugadorAgregado();
 }
