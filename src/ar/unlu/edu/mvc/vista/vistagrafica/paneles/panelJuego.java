@@ -193,6 +193,8 @@ public class panelJuego {
 
         this.oponentes =this.controlador.listarNombreJugadores();
         this.oponentes.remove(vista.getNombreJugador());
+
+        //REFACTOR
         ImageIcon imageDorsoHorizontal= new ImageIcon("imagenes/Carta,dorsoHorizontal.jpg");
         imageDorsoHorizontal.setImage(imageDorsoHorizontal.getImage().getScaledInstance(85,60,Image.SCALE_SMOOTH));
         for (int i = 0; i < oponentes.size(); i++) {
@@ -315,6 +317,7 @@ public class panelJuego {
 
     }
 
+    //REFACTOR
     public void actualizarAreaDeJuego() {
         panelAmarillo1.removeAll();
         panelVerde1.removeAll();
@@ -383,18 +386,25 @@ public class panelJuego {
         for(int i = 0;  i < cartasCarnavalS.size(); i++) {
             CartaButton button = new CartaButton("imagenes/cartas/" + cartasCarnavalS.get(i) + ".png", "carnaval");
             button.putClientProperty("indice", i);
+            button.setBorder(BorderFactory.createLineBorder(new Color(201, 217, 5), 5));
+            button.setBorderPainted(false);
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (cartasElegidasCarnaval[0] == - 1) {
                         cartasElegidasCarnaval[0] = (int) button.getClientProperty("indice");
+                        button.setBorderPainted(true);
                     } else {
-                        int[] auxiliar = new int[cartasElegidasCarnaval.length + 1];
-                        for (int j = 0; j < cartasElegidasCarnaval.length; j++) {
-                            auxiliar[j] = cartasElegidasCarnaval[j];
+                        int nuevaCarta= (int) button.getClientProperty("indice");
+                        if (arrayTieneLaCarta(nuevaCarta)){
+                            sacarCartaDelArray(nuevaCarta);
+                            button.setBorderPainted(false);
                         }
-                        auxiliar[auxiliar.length - 1] = (int) button.getClientProperty("indice");
-                        cartasElegidasCarnaval = auxiliar;
+                        else {
+                            agregarCartaAlArray(nuevaCarta);
+                            button.setBorderPainted(true);
+                        }
+
                     }
 
                 }
@@ -404,6 +414,42 @@ public class panelJuego {
             this.panelCarnaval.add(button);
         }
         panelCarnaval.updateUI();
+    }
+
+    private void agregarCartaAlArray(int nuevaCarta) {
+        int[] auxiliar = new int[cartasElegidasCarnaval.length + 1];
+        for (int j = 0; j < cartasElegidasCarnaval.length; j++) {
+            auxiliar[j] = cartasElegidasCarnaval[j];
+        }
+        auxiliar[auxiliar.length - 1] = nuevaCarta;
+        cartasElegidasCarnaval = auxiliar;
+    }
+
+    private void sacarCartaDelArray(int nuevaCarta) {
+        if (cartasElegidasCarnaval.length == 1){
+            cartasElegidasCarnaval= new int[1];
+            cartasElegidasCarnaval[0]=-1;
+        }
+        else {
+            int[] auxiliar = new int[cartasElegidasCarnaval.length - 1];
+            int i = 0;
+            for (int carta : this.cartasElegidasCarnaval) {
+                if (carta != nuevaCarta) {
+                    auxiliar[i] = carta;
+                    i++;
+                }
+            }
+            this.cartasElegidasCarnaval = auxiliar;
+        }
+    }
+
+    private boolean arrayTieneLaCarta(int nuevaCarta) {
+        for (int carta: this.cartasElegidasCarnaval){
+            if (carta == nuevaCarta){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void actualizarCartasEnMano() {
