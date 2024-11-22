@@ -271,6 +271,12 @@ public class VistaGrafica extends  JFrame implements IVista {
     }
 
     @Override
+    public void comienzoRondaDescarte() {
+        mostrarMensaje("Comienza la RONDA DESCARTE");
+        this.panelJuego.removePanelCarnaval();
+    }
+
+    @Override
     public void mostrarMensaje(String mensaje) {
         setMensaje(mensaje);
         mostrarPanelMensaje();

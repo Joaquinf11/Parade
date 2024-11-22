@@ -24,8 +24,8 @@ public class VistaConsola extends JFrame implements IVista {
     private JPanel panelEntradas;
     private JTextField entradaMenuField;
     private final JTextField tirarCartaField;
-    private final JTextField elegirCartasField;
-    private final JTextField entradaIngresarJugadorField;
+    private  JTextField elegirCartasField;
+    private  JTextField entradaIngresarJugadorField;
 
     private int cartaTirada;
     private int[] cartasElegidas;
@@ -183,6 +183,7 @@ public class VistaConsola extends JFrame implements IVista {
     @Override
     public void jugadorAgregado() {
         mostrarMensaje("Jugador agregado con exito");
+        entradaIngresarJugadorField=null;
 
     }
 
@@ -201,6 +202,13 @@ public class VistaConsola extends JFrame implements IVista {
         mostrarCartasEnMano();
     }
 
+    @Override
+    public void comienzoRondaDescarte() {
+        elegirCartasField= null;
+        mostrarMensaje("Comienza la RONDA DESCARTE");
+
+    }
+
     public String menuInicial(){
         return """
                 MENU INCIAL
@@ -217,9 +225,11 @@ public class VistaConsola extends JFrame implements IVista {
     }
 
     public void setIngresarJugadorField(){
-        panelEntradas.removeAll();
-        panelEntradas.add(entradaIngresarJugadorField,BorderLayout.SOUTH);
-        panelEntradas.updateUI();
+        if (entradaIngresarJugadorField != null) {
+            panelEntradas.removeAll();
+            panelEntradas.add(entradaIngresarJugadorField, BorderLayout.SOUTH);
+            panelEntradas.updateUI();
+        }
     }
 
     public void setTirarCartaField() {
@@ -228,9 +238,11 @@ public class VistaConsola extends JFrame implements IVista {
         panelEntradas.updateUI();
     }
     public void setElegirCartaField() {
-        panelEntradas.removeAll();
-        panelEntradas.add(elegirCartasField,BorderLayout.SOUTH);
-        panelEntradas.updateUI();
+        if (elegirCartasField != null) {
+            panelEntradas.removeAll();
+            panelEntradas.add(elegirCartasField, BorderLayout.SOUTH);
+            panelEntradas.updateUI();
+        }
     }
 
     public void setControlador(Controlador controlador) {

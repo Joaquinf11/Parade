@@ -33,4 +33,6 @@ public interface IVista {
     void mostrarPuntos(String nombreGanadaor);
 
     void actualizarCartasEnMano();
+
+    void comienzoRondaDescarte();
 }

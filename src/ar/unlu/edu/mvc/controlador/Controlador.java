@@ -76,10 +76,11 @@ public class Controlador implements Observador {
                 this.vista.mostrarMensaje("Comienza la ULTIMA RONDA");
                 break;
             case RONDA_DESCARTE:
-                this.vista.mostrarMensaje("Comienza la RONDA DESCARTE");
+                this.vista.comienzoRondaDescarte();
                 break;
             case CARTA_DESCARTADA:
                 this.vista.actualizarCartasEnMano();
+                break;
             case FIN_JUEGO:
                 this.vista.mostrarPuntos(this.getNombreGanadaor());
 

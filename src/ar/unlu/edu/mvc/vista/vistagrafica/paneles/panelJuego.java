@@ -623,4 +623,9 @@ public class panelJuego {
     public void setFinalizarButton(boolean b) {
         finalizarTurnoButton.setEnabled(b);
     }
+
+    public void removePanelCarnaval() {
+        panelCentro.removeAll();
+        panelCentro.setVisible(false);
+    }
 }
