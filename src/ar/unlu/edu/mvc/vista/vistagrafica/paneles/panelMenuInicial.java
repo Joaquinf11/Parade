@@ -48,4 +48,8 @@ public class panelMenuInicial  {
     public void desactivarAgregarJugador() {
         this.agregarJugButton.setEnabled(false);
     }
+
+    public void setAgregarJugador(boolean b) {
+        agregarJugButton.setEnabled(b);
+    }
 }
