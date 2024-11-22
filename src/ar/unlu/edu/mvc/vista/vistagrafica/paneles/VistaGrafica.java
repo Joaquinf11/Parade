@@ -2,11 +2,12 @@ package ar.unlu.edu.mvc.vista.vistagrafica.paneles;
 
 import ar.unlu.edu.mvc.controlador.Controlador;
 import ar.unlu.edu.mvc.interfaces.IVista;
-
+import ar.unlu.edu.mvc.interfaces.IJugador;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 
 public class VistaGrafica extends  JFrame implements IVista {
 
@@ -25,12 +26,19 @@ public class VistaGrafica extends  JFrame implements IVista {
     private JMenuBar menuBar;
     private JPanel panelReglas;
     private JTextArea reglasText;
+    private JPanel panelPuntuacion;
+    private JTextArea tablaJugadores;
 
     public VistaGrafica(){
+        panelPuntuacion= new JPanel();
+        panelPuntuacion.setBackground(new Color(199,86,195));
+        panelPuntuacion.setLayout(new GridBagLayout());
 
-        menuBar= new JMenuBar();
-        menuBar.setBackground(new Color(201,217,5));
-        menuBar.setSize(100,30);
+        tablaJugadores = new JTextArea();
+        tablaJugadores.setFont(new Font("Ravie",Font.PLAIN,20));
+        tablaJugadores.setForeground(new Color(201,217,5));
+        tablaJugadores.setBackground(new Color(199,86,195));
+
 
         panelReglas= new JPanel();
         panelReglas.setBackground(new Color(199,86,195));
@@ -47,6 +55,12 @@ public class VistaGrafica extends  JFrame implements IVista {
         scrollReglas.setBackground(new Color(199,86,195));
         scrollReglas.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         panelReglas.add(scrollReglas,BorderLayout.CENTER);
+
+
+
+        menuBar= new JMenuBar();
+        menuBar.setBackground(new Color(201,217,5));
+        menuBar.setSize(100,30);
 
         JButton volverButton=new JButton("Volver");
         volverButton.setBackground(new Color(201,217,5));
@@ -234,8 +248,26 @@ public class VistaGrafica extends  JFrame implements IVista {
     @Override
     public void jugadorAgregado() {
         this.ultimoPanel= "Menu Inicial";
+        this.panelMenuInicial.setAgregarJugador(false);
         mostrarMensaje("Jugador agregado con exito");
 
+    }
+
+    @Override
+    public void mostrarPuntos(String nombreGanadaor) {
+        List<IJugador> jugadores= this.controlador.listarJugadores();
+        String resultado="";
+        for (IJugador jugador : jugadores){
+            resultado += jugador.getNombre() + "tiene " + jugador.getPuntos() + "\n";
+        }
+        resultado+= "\n\n EL GANADOR ES " + nombreGanadaor;
+        tablaJugadores.setText(resultado);
+        setContentPane(panelPuntuacion);
+    }
+
+    @Override
+    public void actualizarCartasEnMano() {
+        this.panelJuego.actualizarCartasEnMano();
     }
 
     @Override

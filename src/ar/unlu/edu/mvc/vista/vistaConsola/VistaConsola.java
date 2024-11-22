@@ -1,6 +1,7 @@
 package ar.unlu.edu.mvc.vista.vistaConsola;
 
 import ar.unlu.edu.mvc.controlador.Controlador;
+import ar.unlu.edu.mvc.interfaces.IJugador;
 import ar.unlu.edu.mvc.interfaces.IVista;
 
 import java.awt.event.ActionEvent;
@@ -182,6 +183,22 @@ public class VistaConsola extends JFrame implements IVista {
     @Override
     public void jugadorAgregado() {
         mostrarMensaje("Jugador agregado con exito");
+
+    }
+
+    @Override
+    public void mostrarPuntos(String nombreGanadaor) {
+        List<IJugador> jugadores = this.controlador.listarJugadores();
+
+        for (IJugador jugador : jugadores){
+            mostrarMensaje(jugador.getNombre() + " tiene " + jugador.getPuntos());
+        }
+        mostrarMensaje("El ganador es " + nombreGanadaor);
+    }
+
+    @Override
+    public void actualizarCartasEnMano() {
+        mostrarCartasEnMano();
     }
 
     public String menuInicial(){
@@ -249,6 +266,7 @@ public class VistaConsola extends JFrame implements IVista {
 
     public void mostrarMensaje(String mensaje) {
         areaSalida.append(mensaje + "\n");
+        areaSalida.setCaretPosition(areaSalida.getDocument().getLength());
         areaSalida.updateUI();
     }
 
@@ -264,8 +282,7 @@ public class VistaConsola extends JFrame implements IVista {
     public void cambioDeTurno() {
             setTirarCartaField();
             activarEntrada();
-            mostrarCarnaval();
-            mostrarCartasEnMano();
+            mostrarMesa();
     }
 
     @Override
@@ -275,6 +292,8 @@ public class VistaConsola extends JFrame implements IVista {
     }
 
     public void mostrarMesa() {
+        mostrarAreaOponentes();
+        mostrarArea(this.jugador);
         mostrarCarnaval();
         mostrarCartasEnMano();
 
@@ -331,10 +350,10 @@ public class VistaConsola extends JFrame implements IVista {
 
     public void mostrarArea(String jugador) {
         Collection<List<String>> cartasArea= this.controlador.listarCartasArea(jugador);
-        String mensaje= "AREA DE JUEGO";
-        if (cartasArea != null) {
+        if (!cartasArea.isEmpty()) {
+            String mensaje= "AREA DE JUEGO";
             if (!jugador.equals(this.jugador)) {
-                mensaje +=  " jugador" + "\n";
+                mensaje +=   jugador ;
             }
             mostrarMensaje(mensaje);
             for (List<String> cartasColor : cartasArea) {
