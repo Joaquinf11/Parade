@@ -31,6 +31,8 @@ public class Juego implements Observado, IJuego {
         return this.mazo.getCantidadCartas();
     }
 
+   
+
     @Override
     public void sacarJugador(String nombre, Observador observador) {
         Jugador jugador = buscarJugador(nombre);
@@ -62,7 +64,10 @@ public class Juego implements Observado, IJuego {
 
      @Override
     public void agregarJugador (String nombre) throws Exception{
-        if(buscarJugador(nombre) == null || !nombre.equals(this.jugadorTurno.getNombre()) || !nombre.isEmpty()) {
+        if (nombre.isEmpty()){
+            throw new Exception("El nombre ingresado es invalido");
+        }
+        else if(buscarJugador(nombre) == null || !nombre.equals(this.jugadorTurno.getNombre())) {
             Jugador jugador = new Jugador(nombre);
             this.setJugadorTurno(jugador);
             this.jugadores.add(jugador);
