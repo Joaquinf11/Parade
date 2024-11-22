@@ -18,7 +18,7 @@ public class RondaDescarte extends Ronda {
     @Override
     public void tirarCarta(int cartaElegida) {
         this.jugadorTurno.getArea().agregarCarta(this.jugadorTurno.descartarCarta(cartaElegida));
-        juego.notificar(Evento.CARTA_TIRADA);
+        juego.notificar(Evento.CARTA_DESCARTADA);
         juego.notificar(Evento.CARTA_AGREGADA_AREA);
         this.tiroCarta=true;
     }
@@ -26,14 +26,19 @@ public class RondaDescarte extends Ronda {
     @Override
     public void finRonda() throws CartaException{
         if (tiroCarta) {
-            this.juego.finTurno();
             if (esFinDeRonda()) {
                 this.juego.finJuego();
             }
+            this.juego.finTurno();
         }
         else {
             throw new CartaException("Debes tirar una carta antes de finalizar tu turno", TipoException.TIRAR_CARTA);
         }
+    }
+
+    @Override
+    public boolean esFinDeRonda(){
+        return  contador == cantidadJugadores;
     }
 
 }

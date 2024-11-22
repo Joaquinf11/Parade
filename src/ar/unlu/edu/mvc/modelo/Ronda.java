@@ -74,10 +74,10 @@ public class Ronda {
             if (!this.mazo.tieneCartas()){
                 juego.notificar(Evento.MAZO_SIN_CARTAS);
             }
-            juego.finTurno();
             if (esFinDeRonda()) {
                 juego.setUltimaRonda(true);
             }
+            juego.finTurno();
         } else if (this.carnaval.faltaAgarrarCartas(this.carnaval.getUltimaCarta(),null)) {
             throw new CartaException("Debes elegir cartas del carnaval antes de finalizar turno",TipoException.TIRAR_CARTA);
 

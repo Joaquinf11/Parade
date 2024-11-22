@@ -16,10 +16,10 @@ public class UltimaRonda extends Ronda{
     @Override
     public void finRonda() throws CartaException{
         if (tiroCarta) {
-            this.juego.finTurno();
             if (esFinDeRonda()) {
                 this.juego.setRondaDescarte(true);
             }
+            this.juego.finTurno();
         }
         else{
             throw new CartaException("Debes tirar una carta antes de finalizar tu turno", TipoException.TIRAR_CARTA);
