@@ -117,9 +117,6 @@ public class panelJuego {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.analizarCartasCarnaval(cartasElegidasCarnaval);
-                cartasElegidasCarnaval= new int[1];
-                cartasElegidasCarnaval[0]=-1;    //CONTROLADOR?
-
             }
         });
         analizarCartasButton.setEnabled(false);
@@ -128,7 +125,8 @@ public class panelJuego {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.finalizarTurno();
-
+                cartasElegidasCarnaval= new int[1];
+                cartasElegidasCarnaval[0]=-1;
             }
         });
     }
