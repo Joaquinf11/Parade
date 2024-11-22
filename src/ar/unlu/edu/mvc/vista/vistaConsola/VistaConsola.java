@@ -97,16 +97,11 @@ public class VistaConsola extends JFrame implements IVista {
                     procesarComandos(nombre);
                 }
                 else{
-                    if (nombre.isEmpty()){
-                        mostrarMensaje("El nombre ingresado es invalido"); //REFACTOR LO TIENE QUE HACER EL MODELO
-                    }
-                    else{
                         mostrarMensaje(nombre);
                         controlador.agregarJugador(nombre);
                         jugador= nombre;
                         mostrarMensaje(menuInicial());
                         setMenuField();
-                    }
                 }
                 entradaIngresarJugadorField.setText("");
             }

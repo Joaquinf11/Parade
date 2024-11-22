@@ -192,7 +192,7 @@ public class panelJuego {
         this.oponentes =this.controlador.listarNombreJugadores();
         this.oponentes.remove(vista.getNombreJugador());
 
-        //REFACTOR
+        //REFACTOR SACAR
         ImageIcon imageDorsoHorizontal= new ImageIcon("imagenes/Carta,dorsoHorizontal.jpg");
         imageDorsoHorizontal.setImage(imageDorsoHorizontal.getImage().getScaledInstance(85,60,Image.SCALE_SMOOTH));
         for (int i = 0; i < oponentes.size(); i++) {
@@ -285,18 +285,6 @@ public class panelJuego {
 
     }
 
-    public void activarBotones(){
-        tirarCartaButton.setEnabled(true);
-        for (JButton button : this.cartasCarnaval){
-            button.setEnabled(true);
-        }
-        for (JButton button : this.cartasEnMano){
-            button.setEnabled(true);
-        }
-        panelCarnaval.updateUI();
-        panelCartasMano1.updateUI();
-    }
-
     public void desactivarCartasEnMano(){
         tirarCartaButton.setEnabled(false);
         for (JButton button : this.cartasEnMano){
@@ -304,8 +292,6 @@ public class panelJuego {
         }
 
     }
-
-
 
     public void desactivarCartasCarnaval(){
         analizarCartasButton.setEnabled(false);
@@ -611,6 +597,8 @@ public class panelJuego {
             panelArea4.updateUI();
         }
     }
+
+
 
     public void desactivaBotonAnalizarCartas() {
         analizarCartasButton.setEnabled(false);
