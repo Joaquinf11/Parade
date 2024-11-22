@@ -11,6 +11,7 @@ public enum Evento {
     ULTIMA_RONDA,
     MAZO_SIN_CARTAS, // cuando agregue el mazo a la vista tengo que actualizarlo para mostrar que se quedo sin cartas
     RONDA_DESCARTE,
+    CARTA_DESCARTADA,
     FIN_JUEGO,
 
 }
