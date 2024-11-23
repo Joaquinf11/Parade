@@ -145,7 +145,11 @@ public class Controlador implements Observador {
     }
 
     public void jugarCarta(int cartaMano ){
-        this.juego.tirarCarta(cartaMano);
+        try {
+            this.juego.tirarCarta(cartaMano);
+        } catch (CartaException e) {
+            this.vista.mostrarMensaje(e.getMessage());
+        }
     }
 
     public void analizarCartasCarnaval(int [] elegidas){

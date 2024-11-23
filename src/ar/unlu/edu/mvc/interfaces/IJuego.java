@@ -16,7 +16,7 @@ public interface IJuego {
 
     void empezarJuego() throws Exception;
 
-    void tirarCarta(int indice);
+    void tirarCarta(int indice) throws CartaException;
 
     void analizarCartasCarnaval(int[] indices) throws CartaException;
     List<String> listarCartasCarnaval();

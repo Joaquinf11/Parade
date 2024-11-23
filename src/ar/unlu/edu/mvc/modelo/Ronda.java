@@ -27,7 +27,7 @@ public class Ronda {
 
 
 
-    public void tirarCarta(int cartaElegida){
+    public void tirarCarta(int cartaElegida) throws CartaException {
         Carta carta= this.jugadorTurno.elegirCarta(cartaElegida);
         this.juego.notificar(Evento.CARTA_TIRADA);
         this.carnaval.agregarCarta(carta);

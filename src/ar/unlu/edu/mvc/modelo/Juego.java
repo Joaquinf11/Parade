@@ -119,7 +119,7 @@ public class Juego implements Observado, IJuego {
     }
 
     @Override
-    public void tirarCarta(int cartaElegida){
+    public void tirarCarta(int cartaElegida) throws CartaException {
         this.ronda.tirarCarta(cartaElegida);
     }
 
