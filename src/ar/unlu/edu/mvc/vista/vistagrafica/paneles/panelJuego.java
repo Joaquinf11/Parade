@@ -125,8 +125,6 @@ public class panelJuego {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.finalizarTurno();
-                cartasElegidasCarnaval= new int[1];
-                cartasElegidasCarnaval[0]=-1;
             }
         });
     }
@@ -232,56 +230,8 @@ public class panelJuego {
            }
         }
 
-
-        List<String> cartasCarnavalS= this.controlador.listarCartasCarnaval();
-
-        for (int i = 0;  i < cartasCarnavalS.size(); i++) {
-            CartaButton button= new CartaButton("imagenes/cartas/" + cartasCarnavalS.get(i) + ".png","carnaval");
-            button.setEnabled(false);
-            button.putClientProperty("indice",i);
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (cartasElegidasCarnaval[0] == -1){
-                        cartasElegidasCarnaval[0] = (int) button.getClientProperty("indice");
-                    }
-                    else {
-                        int [] auxiliar = new int[cartasElegidasCarnaval.length + 1];
-                        for (int j = 0; j < cartasElegidasCarnaval.length; j++) {
-                            auxiliar[j]= cartasElegidasCarnaval[j];
-                        }
-                        auxiliar [ auxiliar.length - 1]= (int) button.getClientProperty("indice");
-                        cartasElegidasCarnaval = auxiliar;
-                    }
-                    button.setEnabled(false);
-                    panelCarnaval.updateUI();
-
-                }
-            });
-
-            this.cartasCarnaval.add(button);
-            this.panelCarnaval.add(button);
-        }
-
-
-        List<String> cartasEnManoS= this.controlador.listarCartasEnMano();
-
-        for (int i = 0; i < cartasEnManoS.size(); i++) {
-
-            CartaButton button= new CartaButton("imagenes/cartas/" + cartasEnManoS.get(i) + ".png","mano");
-            button.setEnabled(false);
-            button.putClientProperty("indice",i);
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                        cartaElegidaMano = (int) button.getClientProperty("indice");
-                        button.setBorderPainted(true);
-                        tirarCartaButton.setEnabled(true);
-                }
-            });
-            this.cartasEnMano.add(button);
-            this.panelCartasMano1.add(button);
-        }
+    actualizarCartasCarnaval();
+    actualizarCartasEnMano();
 
     }
 
@@ -615,5 +565,10 @@ public class panelJuego {
     public void removePanelCarnaval() {
         panelCentro.removeAll();
         panelCentro.setVisible(false);
+    }
+
+    public void clearCartasElegidas() {
+        cartasElegidasCarnaval= new int[1];
+        cartasElegidasCarnaval[0]=-1;
     }
 }
