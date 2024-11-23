@@ -227,6 +227,7 @@ public class VistaGrafica extends  JFrame implements IVista {
     @Override
     public void finDeTurno() {
         this.panelJuego.actualizarCartasEnMano();
+        this.panelJuego.clearCartasElegidas();
         this.panelJuego.desactivarTodosLosBotones();
     }
 
