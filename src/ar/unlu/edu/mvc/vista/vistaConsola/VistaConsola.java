@@ -93,6 +93,7 @@ public class VistaConsola extends JFrame implements IVista {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nombre= entradaIngresarJugadorField.getText();
+                entradaIngresarJugadorField.setText("");
                 if (comandos.contains(nombre)){
                     procesarComandos(nombre);
                 }
@@ -103,7 +104,6 @@ public class VistaConsola extends JFrame implements IVista {
                         mostrarMensaje(menuInicial());
                         setMenuField();
                 }
-                entradaIngresarJugadorField.setText("");
             }
         });
 
