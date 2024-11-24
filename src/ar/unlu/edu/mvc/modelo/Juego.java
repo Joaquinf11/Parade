@@ -111,7 +111,7 @@ public class Juego implements Observado, IJuego {
         }
         else if(this.rondaDescarte){
 
-            this.ronda= new RondaDescarte(jugadorTurno,carnaval,null,this.jugadores.size(),this);
+            this.ronda= new RondaDescarte(jugadorTurno,carnaval,null,this.jugadores.size() + 1,this);
         }
         else {
             this.ronda= new Ronda(jugadorTurno,carnaval,mazo,this);
@@ -138,15 +138,31 @@ public class Juego implements Observado, IJuego {
         this.jugadores.add(this.jugadorTurno);
         this.cambiarTurno();
     }
+
+    public void finJuego(){
+        this.jugadores.add(this.jugadorTurno);
+        agregarCartasEnManoAlArea();
+        this.calcularPuntos();
+        this.notificar(Evento.FIN_JUEGO);
+    }
+
+    private void agregarCartasEnManoAlArea() {
+        for (Jugador jugador : this.jugadores) {
+            List<Carta> cartas = jugador.getCartas();
+            for (Carta carta : cartas ){
+                jugador.quitarCarta(carta);
+                this.notificar(Evento.CARTA_DESCARTADA);
+                jugador.agregarCartaAlAreaDeJuego(carta);
+            }
+            this.notificar(Evento.CARTA_AGREGADA_AREA);
+        }
+    }
+
     public void calcularPuntos(){
         evaluarAreaDeJuego();
         for (Jugador jugador : this.jugadores){
             jugador.sumarPuntos();
         }
-    }
-    public void finJuego(){
-        this.notificar(Evento.FIN_JUEGO);
-        this.calcularPuntos();
     }
 
     public void evaluarAreaDeJuego(){
@@ -166,6 +182,9 @@ public class Juego implements Observado, IJuego {
                         }
                         jugadoresConMasCartas.add(jugador);
                     }
+                }
+                else if (jugador_anterior.getArea().getCantidadDeCartasPorColor(color) != 0){
+                         jugadoresConMasCartas.add(jugador_anterior);
                 }
             }
             for (Jugador jugador : jugadoresConMasCartas){
@@ -198,7 +217,7 @@ public class Juego implements Observado, IJuego {
         }
 
         return jugador_anterior;
-        // falta considerar el caso en que sea un empate TOTAL
+        // TODO falta considerar el caso en que sea un empate TOTAL
     }
 
     @Override
