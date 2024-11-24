@@ -34,12 +34,6 @@ public class VistaGrafica extends  JFrame implements IVista {
         panelPuntuacion.setBackground(new Color(199,86,195));
         panelPuntuacion.setLayout(new GridBagLayout());
 
-        tablaJugadores = new JTextArea();
-        tablaJugadores.setFont(new Font("Ravie",Font.PLAIN,20));
-        tablaJugadores.setForeground(new Color(201,217,5));
-        tablaJugadores.setBackground(new Color(199,86,195));
-
-
         panelReglas= new JPanel();
         panelReglas.setBackground(new Color(199,86,195));
         panelReglas.setLayout(new BorderLayout());
@@ -251,11 +245,15 @@ public class VistaGrafica extends  JFrame implements IVista {
         this.ultimoPanel= "Menu Inicial";
         this.panelMenuInicial.setAgregarJugador(false);
         mostrarMensaje("Jugador agregado con exito");
-
     }
 
     @Override
     public void mostrarPuntos(String nombreGanadaor) {
+        tablaJugadores = new JTextArea();
+        tablaJugadores.setFont(new Font("Ravie",Font.PLAIN,20));
+        tablaJugadores.setForeground(new Color(201,217,5));
+        tablaJugadores.setBackground(new Color(199,86,195));
+
         List<IJugador> jugadores= this.controlador.listarJugadores();
         String resultado="";
         for (IJugador jugador : jugadores){
