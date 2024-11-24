@@ -198,7 +198,7 @@ public class Juego implements Observado, IJuego {
         List<Jugador> jugadoresConMenosPuntos= new ArrayList<>();
         Jugador jugador_anterior= this.jugadores.peek();
         for (Jugador jugador : this.jugadores){
-            if (jugador.getPuntos() < jugador_anterior.getPuntos()){
+            if (jugador.getPuntos() > jugador_anterior.getPuntos()){
                 jugador_anterior = jugador;
                 jugadoresConMenosPuntos.clear();
                 jugadoresConMenosPuntos.add(jugador_anterior);
