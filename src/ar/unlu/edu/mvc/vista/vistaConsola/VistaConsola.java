@@ -129,6 +129,7 @@ public class VistaConsola extends JFrame implements IVista {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String entrada= elegirCartasField.getText();
+                elegirCartasField.setText("");
                 if (comandos.contains(entrada)) {
                     procesarComandos(entrada);
                 } else if (entrada.equals("finalizar turno")) {
@@ -136,10 +137,7 @@ public class VistaConsola extends JFrame implements IVista {
                 } else {
                     mostrarMensaje(entrada);
                     convertirCartasElegidasAInteger(entrada);
-
-
                 }
-                elegirCartasField.setText("");
             }
         });
     }
