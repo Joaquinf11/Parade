@@ -29,27 +29,22 @@ public class RondaDescarte extends Ronda {
     public void finRonda() throws CartaException{
         if (tiroCarta) {
             if (esFinDeRonda()) {
-                agregarCartasEnManoAlArea();
                 this.juego.finJuego();
             }
-            this.juego.finTurno();
+            else{
+                this.juego.finTurno();
+            }
         }
         else {
             throw new CartaException("Debes tirar una carta antes de finalizar tu turno", TipoException.TIRAR_CARTA);
         }
     }
 
-    private void agregarCartasEnManoAlArea() {
-        List<Carta> cartas = this.jugadorTurno.getCartas();
-        for (Carta carta : cartas ){
-            this.jugadorTurno.agregarCartaAlAreaDeJuego(carta);
-        }
-        this.juego.notificar(Evento.CARTA_AGREGADA_AREA);
-    }
+
 
     @Override
     public boolean esFinDeRonda(){
-        return  contador == cantidadJugadores;
+        return  contador == (cantidadJugadores * 2);
     }
 
 }
