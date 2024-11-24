@@ -257,11 +257,12 @@ public class VistaGrafica extends  JFrame implements IVista {
         List<IJugador> jugadores= this.controlador.listarJugadores();
         String resultado="";
         for (IJugador jugador : jugadores){
-            resultado += jugador.getNombre() + "tiene " + jugador.getPuntos() + "\n";
+            resultado += jugador.getNombre() + " tiene " + jugador.getPuntos() + "\n";
         }
         resultado+= "\n\n EL GANADOR ES " + nombreGanadaor;
         tablaJugadores.setText(resultado);
         setContentPane(panelPuntuacion);
+        panelPuntuacion.updateUI();
     }
 
     @Override
