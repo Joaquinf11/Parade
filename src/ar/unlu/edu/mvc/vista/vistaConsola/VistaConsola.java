@@ -185,7 +185,7 @@ public class VistaConsola extends JFrame implements IVista {
         List<IJugador> jugadores = this.controlador.listarJugadores();
 
         for (IJugador jugador : jugadores){
-            mostrarMensaje(jugador.getNombre() + " tiene " + jugador.getPuntos());
+            mostrarMensaje(jugador.getNombre() + " tiene " + jugador.getPuntos() + " puntos") ;
         }
         mostrarMensaje("El ganador es " + nombreGanadaor);
     }
