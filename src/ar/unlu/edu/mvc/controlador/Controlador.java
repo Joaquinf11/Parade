@@ -11,6 +11,7 @@ import ar.unlu.edu.mvc.modelo.Evento;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 public class Controlador implements Observador {
@@ -79,7 +80,9 @@ public class Controlador implements Observador {
                 this.vista.comienzoRondaDescarte();
                 break;
             case CARTA_DESCARTADA:
-                this.vista.actualizarCartasEnMano();
+                if (isTurno()) {
+                    this.vista.actualizarCartasEnMano();
+                }
                 break;
             case FIN_JUEGO:
                 this.vista.mostrarPuntos(this.getNombreGanadaor());
