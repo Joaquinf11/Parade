@@ -1,10 +1,8 @@
 package ar.unlu.edu.mvc.modelo;
 
 
-import ar.unlu.edu.mvc.exceptions.CartaException;
+import ar.unlu.edu.mvc.exceptions.JuegoException;
 import ar.unlu.edu.mvc.exceptions.TipoException;
-
-import java.util.List;
 
 public class RondaDescarte extends Ronda {
     private static int contador=0;
@@ -18,7 +16,7 @@ public class RondaDescarte extends Ronda {
     }
 
     @Override
-    public void tirarCarta(int cartaElegida) throws CartaException {
+    public void tirarCarta(int cartaElegida) throws JuegoException {
         this.jugadorTurno.quitarCarta(cartaElegida);
         juego.notificar(Evento.CARTA_DESCARTADA);
         this.tiroCarta=true;
@@ -26,7 +24,7 @@ public class RondaDescarte extends Ronda {
     }
 
     @Override
-    public void finRonda() throws CartaException{
+    public void finRonda() throws JuegoException {
         if (tiroCarta) {
             if (esFinDeRonda()) {
                 this.juego.finJuego();
@@ -36,7 +34,7 @@ public class RondaDescarte extends Ronda {
             }
         }
         else {
-            throw new CartaException("Debes tirar una carta antes de finalizar tu turno", TipoException.TIRAR_CARTA);
+            throw new JuegoException("Debes tirar una carta antes de finalizar tu turno", TipoException.TIRAR_CARTA);
         }
     }
 

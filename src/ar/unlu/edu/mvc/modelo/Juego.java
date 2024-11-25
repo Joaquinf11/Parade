@@ -1,7 +1,8 @@
 package ar.unlu.edu.mvc.modelo;
 import ar.edu.unlu.rmimvc.observer.IObservadorRemoto;
 import ar.edu.unlu.rmimvc.observer.ObservableRemoto;
-import ar.unlu.edu.mvc.exceptions.CartaException;
+import ar.unlu.edu.mvc.exceptions.JuegoException;
+import ar.unlu.edu.mvc.exceptions.TipoException;
 import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.interfaces.IJugador;
 
@@ -63,9 +64,9 @@ public class Juego extends ObservableRemoto implements  IJuego {
      }
 
      @Override
-    public void agregarJugador (String nombre) throws Exception ,RemoteException{
+    public void agregarJugador (String nombre) throws JuegoException ,RemoteException{
         if (nombre.isEmpty()){
-            throw new Exception("El nombre ingresado es invalido");
+            throw new JuegoException("El nombre ingresado es invalido", TipoException.JUGADOR_INVALIDO_EXCEPTION);
         }
         else if(buscarJugador(nombre) == null || !nombre.equals(this.jugadorTurno.getNombre())) {
             Jugador jugador = new Jugador(nombre);
@@ -74,7 +75,7 @@ public class Juego extends ObservableRemoto implements  IJuego {
             this.notificar(Evento.JUGADOR_AGREGADO);
         }
         else {
-            throw new Exception("El jugador ya se encuentra agregado");
+            throw new JuegoException("El jugador ya se encuentra agregado",TipoException.JUGADOR_INVALIDO_EXCEPTION);
         }
     }
 
@@ -91,14 +92,14 @@ public class Juego extends ObservableRemoto implements  IJuego {
     }
 
     @Override
-    public void empezarJuego() throws Exception , RemoteException{
+    public void empezarJuego() throws JuegoException , RemoteException{
         if(sePuedeComenzar()) {
             this.repartirCartas();
             this.notificar(Evento.JUEGO_COMENZADO);
             this.cambiarTurno();
         }
         else {
-            throw new Exception("Fatan jugadores");
+            throw new JuegoException("Fatan jugadores",TipoException.FALTAN_JUGADORES);
         }
     }
 
@@ -119,17 +120,17 @@ public class Juego extends ObservableRemoto implements  IJuego {
     }
 
     @Override
-    public void tirarCarta(int cartaElegida) throws CartaException,RemoteException {
+    public void tirarCarta(int cartaElegida) throws JuegoException,RemoteException {
         this.ronda.tirarCarta(cartaElegida);
     }
 
     @Override
-    public void analizarCartasCarnaval (int[] cartasElegidas) throws CartaException ,RemoteException{
+    public void analizarCartasCarnaval (int[] cartasElegidas) throws JuegoException,RemoteException{
         this.ronda.analizarCartasCarnaval(cartasElegidas);
     }
 
     @Override
-    public void finalizarTurno()throws CartaException, RemoteException{
+    public void finalizarTurno()throws JuegoException, RemoteException{
         this.ronda.finRonda();
     }
 

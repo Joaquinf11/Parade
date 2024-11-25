@@ -1,8 +1,8 @@
 package ar.unlu.edu.mvc.exceptions;
 
-public class CartaException extends Exception {
+public class JuegoException extends Exception {
     TipoException tipo;
-    public CartaException(String message ,TipoException tipo) {
+    public JuegoException(String message , TipoException tipo) {
         super(message);
         this.tipo=tipo;
     }

@@ -2,7 +2,7 @@ package ar.unlu.edu.mvc.controlador;
 
 import ar.edu.unlu.rmimvc.cliente.IControladorRemoto;
 import ar.edu.unlu.rmimvc.observer.IObservableRemoto;
-import ar.unlu.edu.mvc.exceptions.CartaException;
+import ar.unlu.edu.mvc.exceptions.JuegoException;
 
 import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.interfaces.IJugador;
@@ -14,7 +14,6 @@ import ar.unlu.edu.mvc.modelo.Evento;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 public class Controlador implements IControladorRemoto {
@@ -116,7 +115,7 @@ public class Controlador implements IControladorRemoto {
         }catch (RemoteException e) {
             throw new RuntimeException(e);
         }
-        catch (Exception e) {
+        catch (JuegoException e) {
             this.vista.mostrarMensaje(e.getMessage());
         }
     }
@@ -135,7 +134,7 @@ public class Controlador implements IControladorRemoto {
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
-        catch (Exception e) {
+        catch (JuegoException e) {
             this.vista.mostrarMensaje(e.getMessage());
         }
     }
@@ -187,7 +186,7 @@ public class Controlador implements IControladorRemoto {
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
-        catch (CartaException e) {
+        catch (JuegoException e) {
             this.vista.mostrarMensaje(e.getMessage());
         }
     }
@@ -198,7 +197,7 @@ public class Controlador implements IControladorRemoto {
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
-        catch (CartaException e) {
+        catch (JuegoException e) {
             this.vista.mostrarMensaje(e.getMessage());
         }
     }
@@ -219,7 +218,7 @@ public class Controlador implements IControladorRemoto {
         catch (RemoteException e) {
             throw new RuntimeException(e);
         }
-        catch (CartaException e) {
+        catch (JuegoException e) {
             this.vista.mostrarMensaje(e.getMessage());
         }
     }

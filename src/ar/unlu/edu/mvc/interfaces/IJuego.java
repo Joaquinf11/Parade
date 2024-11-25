@@ -2,7 +2,7 @@ package ar.unlu.edu.mvc.interfaces;
 
 import ar.edu.unlu.rmimvc.observer.IObservableRemoto;
 import ar.edu.unlu.rmimvc.observer.IObservadorRemoto;
-import ar.unlu.edu.mvc.exceptions.CartaException;
+import ar.unlu.edu.mvc.exceptions.JuegoException;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -14,21 +14,21 @@ public interface IJuego  extends IObservableRemoto, Serializable {
 
     void sacarJugador(String jugador, IObservadorRemoto o)throws RemoteException;
 
-    void agregarJugador(String nombre) throws Exception;
+    void agregarJugador(String nombre) throws JuegoException,RemoteException;
 
     List<IJugador> listarJugadores() throws RemoteException;
 
-    void empezarJuego() throws Exception, RemoteException;
+    void empezarJuego() throws JuegoException, RemoteException;
 
-    void tirarCarta(int indice) throws CartaException , RemoteException;
+    void tirarCarta(int indice) throws JuegoException, RemoteException;
 
-    void analizarCartasCarnaval(int[] indices) throws CartaException, RemoteException;
+    void analizarCartasCarnaval(int[] indices) throws JuegoException, RemoteException;
 
     List<String> listarCartasCarnaval()throws RemoteException;
 
     List<String> listarCartasEnMano(String nombre)throws RemoteException;
 
-    void finalizarTurno()throws CartaException , RemoteException;
+    void finalizarTurno()throws JuegoException, RemoteException;
 
     boolean sePuedeComenzar() throws RemoteException;
 
