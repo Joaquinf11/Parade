@@ -6,7 +6,7 @@ import java.awt.*;
 public class LabelVertical extends JLabel {
     public LabelVertical(String text) {
         super(text);
-        setFont(new Font("Ravie",Font.PLAIN,14));
+        setFont(new Font("Ravie",Font.PLAIN,18));
         setForeground(new Color(201,217,5));
     }
 

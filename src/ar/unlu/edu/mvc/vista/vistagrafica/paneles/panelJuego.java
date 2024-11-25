@@ -261,6 +261,7 @@ public class panelJuego {
             this.panelCarnaval.add(button);
         }
         panelCarnaval.updateUI();
+        panelVentanaJuego.updateUI();
     }
 
     private void agregarCartaAlArray(int nuevaCarta) {

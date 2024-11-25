@@ -225,7 +225,6 @@ public class VistaGrafica extends  JFrame implements IVista {
     @Override
     public void cartaAgregadaCarnaval() {
         this.panelJuego.actualizarCartasCarnaval();
-        panelPrincipalJuego.updateUI();
     }
 
     @Override

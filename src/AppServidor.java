@@ -66,10 +66,8 @@ public class AppServidor {
         try {
             servidor.iniciar(juego);
         } catch (RemoteException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (RMIMVCException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
