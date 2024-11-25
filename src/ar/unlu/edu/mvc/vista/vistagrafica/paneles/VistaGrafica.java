@@ -95,6 +95,16 @@ public class VistaGrafica extends  JFrame implements IVista {
             }
         });
         salir.add(salirItem);
+        JMenuItem guardarItem= new JMenuItem("Guardar partida");
+        guardarItem.setBackground(new Color(201,217,5));
+        guardarItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nombrePartida= (String) JOptionPane.showInputDialog(getContentPane(),"Ingrese nombre de la partida",
+                                                                            "Guardar Partida",JOptionPane.INFORMATION_MESSAGE);
+                controlador.guardarPartida(nombrePartida);
+            }
+        });
 
         tabla= new JMenu("Tabla");
         tabla.setEnabled(false);
@@ -107,6 +117,7 @@ public class VistaGrafica extends  JFrame implements IVista {
             }
         });
         tabla.add(tablaItem);
+
 
 
 

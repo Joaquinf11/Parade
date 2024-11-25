@@ -4,7 +4,9 @@ import ar.edu.unlu.rmimvc.observer.IObservableRemoto;
 import ar.edu.unlu.rmimvc.observer.IObservadorRemoto;
 import ar.unlu.edu.mvc.exceptions.JuegoException;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Collection;
@@ -38,4 +40,7 @@ public interface IJuego  extends IObservableRemoto, Serializable {
 
     int getCantidadCartasMazo() throws RemoteException;
 
+    IJuego cargarPartida(String text) throws  IOException, ClassNotFoundException;
+
+    void guardarPartida(String nombrePartida) throws RemoteException, IOException;
 }

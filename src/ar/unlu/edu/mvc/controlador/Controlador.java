@@ -11,6 +11,7 @@ import ar.unlu.edu.mvc.interfaces.IVista;
 
 import ar.unlu.edu.mvc.modelo.Evento;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -246,6 +247,30 @@ public class Controlador implements IControladorRemoto {
             return this.juego.definirGanador().getNombre();
         } catch (RemoteException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void cargarPartida(String text) {
+        try {
+                this.juego= this.juego.cargarPartida(text);
+            } catch (RemoteException e) {
+            throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+    }
+
+    public void guardarPartida(String nombrePartida)
+    {
+        try {
+            this.juego.guardarPartida(nombrePartida);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+        catch (IOException e){
+            throw  new RuntimeException(e);
         }
     }
 }

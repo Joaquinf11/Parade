@@ -3,6 +3,7 @@ package ar.unlu.edu.mvc.vista.vistagrafica.paneles;
 import ar.unlu.edu.mvc.controlador.Controlador;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,6 +14,7 @@ public class panelMenuInicial  {
     private JButton salirButton;
     private JButton empezarButton;
     private JButton agregarJugButton;
+    private JButton cargarPartidaButton;
 
     private VistaGrafica vistaGrafica;
     private Controlador controlador;
@@ -39,14 +41,44 @@ public class panelMenuInicial  {
                     controlador.empezarPartida();
                 }
         });
+
+        cargarPartidaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panelCargarPartida();
+            }
+        });
     }
 
     public JPanel getPanel(){
         return this.panelPrincipal;
     }
 
-    public void desactivarAgregarJugador() {
-        this.agregarJugButton.setEnabled(false);
+    public void panelCargarPartida(){
+        JPanel panelCargarPartida= new JPanel();
+        panelCargarPartida.setOpaque(false);
+        panelCargarPartida.setLayout(new GridBagLayout());
+
+        JLabel label= new JLabel("Ingrese el nombre de la partida ");
+        label.setOpaque(false);
+
+        JTextField ingresarNombrePartida= new JTextField();
+        ingresarNombrePartida.setBackground(new Color(201,217,5));
+        ingresarNombrePartida.setForeground(new Color(199,86,195));
+        ingresarNombrePartida.setFont(new Font("Ravie",Font.PLAIN,18));
+
+        JButton aceptar= new JButton("Aceptar");
+        aceptar.setBackground(new Color(201,217,5));
+        aceptar.setForeground(new Color(199,86,195));
+        aceptar.setFont(new Font("Ravie",Font.PLAIN,18));
+        aceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.cargarPartida(ingresarNombrePartida.getText());
+            }
+        });
+
+
     }
 
     public void setAgregarJugador(boolean b) {

@@ -6,7 +6,7 @@ import java.io.*;
 
 public class RepositorioJuego {
 
-    private String nombreArchivo;
+    private final String nombreArchivo;
 
     public RepositorioJuego(String nombreArchivo){
         this.nombreArchivo=nombreArchivo;

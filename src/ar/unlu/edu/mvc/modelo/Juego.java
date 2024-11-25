@@ -5,7 +5,9 @@ import ar.unlu.edu.mvc.exceptions.JuegoException;
 import ar.unlu.edu.mvc.exceptions.TipoException;
 import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.interfaces.IJugador;
+import ar.unlu.edu.mvc.persistencia.RepositorioJuego;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.*;
@@ -33,7 +35,18 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         return this.mazo.getCantidadCartas();
     }
 
-   
+    @Override
+    public IJuego cargarPartida(String text) throws IOException, ClassNotFoundException {
+        RepositorioJuego repo= new RepositorioJuego(text);
+        return repo.recuperar();
+    }
+
+    @Override
+    public void guardarPartida(String nombrePartida) throws IOException {
+        RepositorioJuego repo= new RepositorioJuego(nombrePartida);
+        repo.persistir(this);
+    }
+
 
     @Override
     public void sacarJugador(String nombre, IObservadorRemoto o) throws RemoteException {

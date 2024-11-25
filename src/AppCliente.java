@@ -10,37 +10,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class AppCliente {
-//    public static void main(String[] args) {
-//        // Vista
-//        IVista vista = new VistaGrafica();
-//        // Controlador
-//        Controlador controlador = new Controlador(vista);
-//        ar.edu.unlu.rmimvc.cliente.Cliente cliente = new ar.edu.unlu.rmimvc.cliente.Cliente(
-//                "127.0.0.1",
-//                Integer.parseInt(args[0]),
-//                "127.0.0.1",
-//                20000
-//        );
-//        Runtime.getRuntime().addShutdownHook(new Thread(){
-//            @Override
-//            public void run() {
-//                super.run();
-//                try {
-//                    controlador.getJuego().removerObservador(controlador);
-//                } catch (RemoteException e) {
-//                    throw new RuntimeException(e);
-//                }
-//            }
-//        });
-//        try {
-//            cliente.iniciar(controlador);
-//            controlador.iniciar();
-//        } catch (RMIMVCException e) {
-//            throw new RuntimeException(e);
-//        } catch (RemoteException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+
 
     public static void main(String[] args) {
         ArrayList<String> ips = Util.getIpDisponibles();

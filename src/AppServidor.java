@@ -13,35 +13,6 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class AppServidor {
-//    public static void main(String[] args) {
-//        RepositorioJuego repo = new RepositorioJuego("juego.dat");
-//        try {
-//            IJuego juego = repo.recuperar();
-//            if(juego == null){
-//                juego = new Juego();
-//            }
-//            IJuego finalJuego = juego;
-//            juego.agregarObservador(new IObservadorRemoto() {
-//                @Override
-//                public void actualizar(IObservableRemoto iObservableRemoto, Object o) throws RemoteException {
-//                    try {
-//                        repo.persistir(finalJuego);
-//                    } catch (IOException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                }
-//            });
-//            ar.edu.unlu.rmimvc.servidor.Servidor servidor = new ar.edu.unlu.rmimvc.servidor.Servidor("127.0.0.1", 20000);
-//            servidor.iniciar(juego);
-//        } catch (RemoteException e) {
-//            throw new RuntimeException(e);
-//        } catch (RMIMVCException e) {
-//            throw new RuntimeException(e);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        } catch (ClassNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
 
     public static void main(String[] args) {
         ArrayList<String> ips = Util.getIpDisponibles();
