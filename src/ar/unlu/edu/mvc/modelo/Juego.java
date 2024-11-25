@@ -185,7 +185,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
                         jugadoresConMasCartas.add(jugador);
                     }
                 }
-                else if (jugador_anterior.getArea().getCantidadDeCartasPorColor(color) != 0){
+                else if (jugador_anterior.getArea().getCantidadDeCartasPorColor(color) != 0 && jugadoresConMasCartas.isEmpty()){
                          jugadoresConMasCartas.add(jugador_anterior);
                 }
             }
