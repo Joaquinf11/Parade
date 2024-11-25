@@ -150,10 +150,9 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
 
     private void agregarCartasEnManoAlArea() {
         for (Jugador jugador : this.jugadores) {
-            List<Carta> cartas = jugador.getCartas();
+            List<Carta> cartas = jugador.sacarCartasEnMano();
+            this.notificar(Evento.CARTA_DESCARTADA);
             for (Carta carta : cartas ){
-                jugador.quitarCarta(carta);
-                this.notificar(Evento.CARTA_DESCARTADA);
                 jugador.agregarCartaAlAreaDeJuego(carta);
             }
             this.notificar(Evento.CARTA_AGREGADA_AREA);

@@ -80,4 +80,10 @@ public class Jugador implements IJugador, Serializable {
     public Collection<List<Carta>> getCartasArea() {
         return this.area.getTodasLasCartas();
     }
+
+    public List<Carta> sacarCartasEnMano() {
+        List<Carta> cartas= new ArrayList<>(cartasEnMano);
+        this.cartasEnMano.clear();
+        return cartas;
+    }
 }
