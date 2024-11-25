@@ -24,12 +24,9 @@ public class panelJuego {
     private JPanel panelCarnaval;
     private JPanel panelCartasMano1;
     private JPanel panelArea1;
-    private JPanel panelCartasMano2;
     private JPanel panelArea2;
-    private JPanel panelCartasMano3;
     private JPanel panelArea3;
     private JPanel panelArea4;
-    private JPanel panelCartasMano4;
     private JPanel panelCentro;
 
     private JPanel panelBotones;
@@ -48,7 +45,6 @@ public class panelJuego {
     private JPanel panelRojo2;
     private JPanel panelVioleta2;
     private JPanel panelNegro2;
-    private JPanel panelCartasNombre;
     private JPanel panelNombre2;
     private JLabel nombre2Label;
     private JPanel panelCartasNombre3;
@@ -56,21 +52,6 @@ public class panelJuego {
     private LabelVertical nombre3Label;
     private JPanel panelCartasNombre4;
     private JPanel panelNombre4;
-    private JButton carta1B4;
-    private JButton carta2B4;
-    private JButton carta3B4;
-    private JButton carta4B4;
-    private JButton carta0B4;
-    private JButton carta0B3;
-    private JButton carta1B3;
-    private JButton carta2B3;
-    private JButton carta3B3;
-    private JButton carta4B3;
-    private JButton carta0B2;
-    private JButton carta1B2;
-    private JButton carta2B2;
-    private JButton carta3B2;
-    private JButton carta4B2;
     private JPanel panelAmarillo1;
     private JPanel panelVerde1;
     private JPanel panelAzul1;
@@ -190,45 +171,7 @@ public class panelJuego {
         this.oponentes =this.controlador.listarNombreJugadores();
         this.oponentes.remove(vista.getNombreJugador());
 
-        //REFACTOR SACAR
-        ImageIcon imageDorsoHorizontal= new ImageIcon("imagenes/Carta,dorsoHorizontal.jpg");
-        imageDorsoHorizontal.setImage(imageDorsoHorizontal.getImage().getScaledInstance(85,60,Image.SCALE_SMOOTH));
-        for (int i = 0; i < oponentes.size(); i++) {
-            String nombre = oponentes.get(i);
-           if (!nombre.equals(vista.getNombreJugador())){
-               if (i==0){
-                   nombre2Label.setText(nombre);
-                   ImageIcon image= new ImageIcon("imagenes/Carta,dorso.jpg");
-                   image.setImage(image.getImage().getScaledInstance(60,85,Image.SCALE_SMOOTH));
-                   carta0B2.setIcon(image);
-                   carta1B2.setIcon(image);
-                   carta2B2.setIcon(image);
-                   carta3B2.setIcon(image);
-                   carta4B2.setIcon(image);
-                   panelJugador2.setVisible(true);
-               }
-               else if (i==1) {
-                   nombre3Label = new LabelVertical(nombre);
-                   panelCartasNombre3.add(nombre3Label, BorderLayout.EAST);
-                   carta0B3.setIcon(imageDorsoHorizontal);
-                   carta1B3.setIcon(imageDorsoHorizontal);
-                   carta2B3.setIcon(imageDorsoHorizontal);
-                   carta3B3.setIcon(imageDorsoHorizontal);
-                   carta4B3.setIcon(imageDorsoHorizontal);
-                   panelJugador3.setVisible(true);
-               }
-               else if (i==2) {
-                   nombre4Label= new LabelVertical(nombre);
-                   panelCartasNombre4.add(nombre4Label, BorderLayout.WEST);
-                   carta0B4.setIcon(imageDorsoHorizontal);
-                   carta1B4.setIcon(imageDorsoHorizontal);
-                   carta2B4.setIcon(imageDorsoHorizontal);
-                   carta3B4.setIcon(imageDorsoHorizontal);
-                   carta4B4.setIcon(imageDorsoHorizontal);
-                   panelJugador4.setVisible(true);
-               }
-           }
-        }
+
 
     actualizarCartasCarnaval();
     actualizarCartasEnMano();

@@ -53,12 +53,7 @@ public class Controlador implements IControladorRemoto {
                 }
                 break;
             case CARTA_AGREGADA_CARNAVAL:
-                if (isTurno()){
-                    this.vista.cartaAgregadaCarnaval();
-                }
-                else{
-                    this.vista.mostrarCarnaval();
-                }
+                this.vista.mostrarCarnaval();
                 break;
             case CARTA_AGREGADA_AREA:
                 if (isTurno()){
