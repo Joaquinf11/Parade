@@ -249,7 +249,7 @@
                   <background color="-3713341"/>
                   <font name="Ravie" size="12"/>
                   <foreground color="-3548923"/>
-                  <text value="nombre jugador"/>
+                  <text value=""/>
                 </properties>
               </component>
             </children>

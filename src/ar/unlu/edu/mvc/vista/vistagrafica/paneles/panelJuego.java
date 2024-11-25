@@ -128,7 +128,6 @@ public class panelJuego {
         panelNegro1.setLayout(new BoxLayout(panelNegro1,BoxLayout.Y_AXIS));
 
 
-
         panelAmarillo2.setLayout(new BoxLayout(panelAmarillo2,BoxLayout.Y_AXIS));
         panelVerde2.setLayout(new BoxLayout(panelVerde2,BoxLayout.Y_AXIS));
         panelAzul2.setLayout(new BoxLayout(panelAzul2,BoxLayout.Y_AXIS));
@@ -170,8 +169,21 @@ public class panelJuego {
 
         this.oponentes =this.controlador.listarNombreJugadores();
         this.oponentes.remove(vista.getNombreJugador());
+        int contador= this.oponentes.size();
+        for (String nombre : oponentes){
+            if (nombre2Label.getText().isEmpty() && contador == this.oponentes.size()){
+                nombre2Label.setText(nombre);
+                contador--;
+            }
+            else if (nombre3Label.getText().isEmpty() && contador == this.oponentes.size() - 1){
+                nombre2Label.setText(nombre);
+                contador--;
+            }
+            else {
+                nombre4Label.setText(nombre);
+            }
 
-
+        }
 
     actualizarCartasCarnaval();
     actualizarCartasEnMano();
@@ -241,9 +253,7 @@ public class panelJuego {
                             agregarCartaAlArray(nuevaCarta);
                             button.setBorderPainted(true);
                         }
-
                     }
-
                 }
             });
 
