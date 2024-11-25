@@ -46,12 +46,16 @@ public class CartaButton extends JButton {
                 setIcon(imageIcon);
                 this.setSize(WIDTH_CARNAVAL, HEIGHT_CARNAVAL);
                 setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+                setBorder(BorderFactory.createLineBorder(new Color(201, 217, 5), 5));
+                setBorderPainted(false);
             }
             case "mano" -> {
                 imageIcon.setImage(imageIcon.getImage().getScaledInstance(WIDTH_MANO, HEIGHT_MANO, Image.SCALE_SMOOTH));
                 setIcon(imageIcon);
                 this.setSize(WIDTH_MANO, HEIGHT_MANO);
                 setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+                setBorder(BorderFactory.createLineBorder(new Color(201, 217, 5), 5));
+                setBorderPainted(false);
             }
             case "dorso vertical" -> {
                 imageIcon.setImage(imageIcon.getImage().getScaledInstance(WIDTH_DORSO_VERTICAL, HEIGHT_DORSO_VERTICAL, Image.SCALE_SMOOTH));

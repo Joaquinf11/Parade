@@ -251,7 +251,7 @@ public class VistaGrafica extends  JFrame implements IVista {
 
 
     @Override
-    public void iniciar() { //REFACTOR
+    public void iniciar() { // TODO REFACTOR
         this.panelMenuInicial = new panelMenuInicial(this.controlador,this);
         this.panelIngresarJugador = new panelIngresarJugador(this.controlador,this);
         this.panelJuego =new panelJuego(this.controlador,this);

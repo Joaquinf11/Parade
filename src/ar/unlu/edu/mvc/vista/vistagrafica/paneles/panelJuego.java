@@ -99,6 +99,7 @@ public class panelJuego {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.analizarCartasCarnaval(cartasElegidasCarnaval);
+                cartasEnMano.get(cartaElegidaMano).setBorderPainted(false);
             }
         });
         analizarCartasButton.setEnabled(false);
@@ -107,6 +108,7 @@ public class panelJuego {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.finalizarTurno();
+                cartasEnMano.get(cartaElegidaMano).setBorderPainted(false);
             }
         });
     }
@@ -236,8 +238,6 @@ public class panelJuego {
         for(int i = 0;  i < cartasCarnavalS.size(); i++) {
             CartaButton button = new CartaButton("imagenes/cartas/" + cartasCarnavalS.get(i) + ".png", "carnaval");
             button.putClientProperty("indice", i);
-            button.setBorder(BorderFactory.createLineBorder(new Color(201, 217, 5), 5));
-            button.setBorderPainted(false);
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -324,11 +324,8 @@ public class panelJuego {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
                     cartaElegidaMano = (int) button.getClientProperty("indice");
                     button.setBorderPainted(true);
-
-
                 }
             });
             this.cartasEnMano.add(button);
