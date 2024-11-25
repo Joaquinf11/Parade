@@ -194,48 +194,8 @@ public class panelJuego {
 
     }
 
-    //TODO REFACTOR
-    public void actualizarAreaDeJuego() {
-        panelAmarillo1.removeAll();
-        panelVerde1.removeAll();
-        panelRojo1.removeAll();
-        panelAzul1.removeAll();
-        panelNegro1.removeAll();
-        panelVioleta1.removeAll();
 
-        Collection<List<String>> cartas = this.controlador.listarCartasArea(vista.getNombreJugador());
-        List<String> colores = new ArrayList<>();
 
-      for (List<String> cartasPorColor: cartas){
-          String color= cartasPorColor.getFirst().split(",")[0];
-          colores.add(color);
-      }
-
-        String tipo;
-
-        int indiceColor=0;
-        for (List<String> cartasPorColor : cartas) {
-            for (int i = 0; i < cartasPorColor.size(); i++) {
-                if (i != cartasPorColor.size() - 1) {
-                    tipo = "numero area vertical";
-                } else {
-                    tipo = "ultima area vertical";
-                }
-                CartaButton button = new CartaButton("imagenes/cartas/" + cartasPorColor.get(i) + ".png", tipo);
-                switch (colores.get(indiceColor)) {
-                    case "VERDE" -> panelVerde1.add(button);
-                    case "ROJO" -> panelRojo1.add(button);
-                    case "AMARILLO" -> panelAmarillo1.add(button);
-                    case "AZUL" -> panelAzul1.add(button);
-                    case "NEGRO" -> panelNegro1.add(button);
-                    case "VIOLETA" -> panelVioleta1.add(button);
-                }
-            }
-            indiceColor++;
-        }
-        panelArea1.setVisible(true);
-        panelArea1.updateUI();
-    }
 
     public void activarCartasMano() {
         tirarCartaButton.setEnabled(true);
@@ -329,6 +289,16 @@ public class panelJuego {
         return false;
     }
 
+
+
+    public void desactivarTodosLosBotones() {
+        desactivarCartasCarnaval();
+        desactivarCartasEnMano();
+        tirarCartaButton.setEnabled(false);
+        analizarCartasButton.setEnabled(false);
+        finalizarTurnoButton.setEnabled(false);
+    }
+
     public void actualizarCartasEnMano() {
         cartasEnMano.clear();
         panelCartasMano1.removeAll();
@@ -354,145 +324,112 @@ public class panelJuego {
         }
         panelCartasMano1.updateUI();
     }
+    public void actualizarAreaDeJuego() {
+        JPanel[] paneles = {panelAmarillo1, panelVerde1, panelRojo1, panelAzul1, panelNegro1, panelVioleta1, panelArea1};
 
-    public void desactivarTodosLosBotones() {
-        desactivarCartasCarnaval();
-        desactivarCartasEnMano();
-        tirarCartaButton.setEnabled(false);
-        analizarCartasButton.setEnabled(false);
-        finalizarTurnoButton.setEnabled(false);
+        clearPaneles(paneles);
+
+        Collection<List<String>> cartas = this.controlador.listarCartasArea(vista.getNombreJugador());
+        List<String> colores = getColores(cartas);
+
+        int indiceColor = 0;
+        for (List<String> cartasPorColor : cartas) {
+            for (int i = 0; i < cartasPorColor.size(); i++) {
+                String tipo;
+                if (i != cartasPorColor.size() - 1) {
+                    tipo= "numero area";
+                }
+                else {
+                    tipo= "ultima area";
+                }
+                tipo+=" vertical";
+                CartaButton button = new CartaButton("imagenes/cartas/" + cartasPorColor.get(i) + ".png", tipo);
+
+                agregarCartaAPanelColor(paneles, colores.get(indiceColor), button);
+            }
+            indiceColor++;
+        }
+        updateUIPaneles(paneles);
     }
 
-
-
     public void actualizarAreaOponente(String oponente) {
-        if (oponente.equals(nombre2Label.getText())){
-            panelAmarillo2.removeAll();
-            panelVerde2.removeAll();
-            panelRojo2.removeAll();
-            panelAzul2.removeAll();
-            panelNegro2.removeAll();
-            panelVioleta2.removeAll();
+        JPanel[] paneles = getPanelesOponente(oponente);
+        if (paneles == null) return;
 
-            Collection<List<String>> cartas = this.controlador.listarCartasArea(oponente);
-            List<String> colores = new ArrayList<>();
+        clearPaneles(paneles);
 
-            for (List<String> cartasPorColor: cartas){
-                String color= cartasPorColor.getFirst().split(",")[0];
-                colores.add(color);
-            }
+        Collection<List<String>> cartas = this.controlador.listarCartasArea(oponente);
+        List<String> colores = getColores(cartas);
 
-            String tipo;
-
-            int indiceColor=0;
-            for (List<String> cartasPorColor : cartas) {
-                for (int i = 0; i < cartasPorColor.size(); i++) {
-                    if (i != cartasPorColor.size() - 1) {
-                        tipo = "numero area vertical";
-                    } else {
-                        tipo = "ultima area vertical";
-                    }
-                    CartaButton button = new CartaButton("imagenes/cartas/" + cartasPorColor.get(i) + ".png", tipo);
-                    switch (colores.get(indiceColor)) {
-                        case "VERDE" -> panelVerde2.add(button);
-                        case "ROJO" -> panelRojo2.add(button);
-                        case "AMARILLO" -> panelAmarillo2.add(button);
-                        case "AZUL" -> panelAzul2.add(button);
-                        case "NEGRO" -> panelNegro2.add(button);
-                        case "VIOLETA" -> panelVioleta2.add(button);
-                    }
+        int indiceColor = 0;
+        for (List<String> cartasPorColor : cartas) {
+            for (int i = 0; i < cartasPorColor.size(); i++) {
+                String tipo;
+                if (i != cartasPorColor.size() - 1) {
+                    tipo= "numero area ";
                 }
-                indiceColor++;
+                else {
+                    tipo= "ultima area ";
+                }
+                tipo+= getTipoCarta(oponente);
+                CartaButton button = new CartaButton("imagenes/cartas/" + cartasPorColor.get(i) + ".png", tipo);
+                agregarCartaAPanelColor(paneles, colores.get(indiceColor), button);
             }
-            panelArea2.setVisible(true);
-            panelArea2.updateUI();
+            indiceColor++;
+        }
+        updateUIPaneles(paneles);
+    }
+
+    private JPanel[] getPanelesOponente(String oponente) {
+        if (oponente.equals(nombre2Label.getText())) {
+            return new JPanel[]{panelAmarillo2, panelVerde2, panelRojo2, panelAzul2, panelNegro2, panelVioleta2, panelArea2};
         } else if (oponente.equals(nombre3Label.getText())) {
-            panelAmarillo3.removeAll();
-            panelVerde3.removeAll();
-            panelRojo3.removeAll();
-            panelAzul3.removeAll();
-            panelNegro3.removeAll();
-            panelVioleta3.removeAll();
+            return new JPanel[]{panelAmarillo3, panelVerde3, panelRojo3, panelAzul3, panelNegro3, panelVioleta3, panelArea3};
+        } else if (oponente.equals(nombre4Label.getText())) {
+            return new JPanel[]{panelAmarillo4, panelVerde4, panelRojo4, panelAzul4, panelNegro4, panelVioleta4, panelArea4};
+        }
+        return null; // No se encontró el oponente.
+    }
 
-            Collection<List<String>> cartas = this.controlador.listarCartasArea(oponente);
-            List<String> colores = new ArrayList<>();
-
-            for (List<String> cartasPorColor: cartas){
-                String color= cartasPorColor.getFirst().split(",")[0];
-                colores.add(color);
-            }
-
-            String tipo;
-
-            int indiceColor=0;
-            for (List<String> cartasPorColor : cartas) {
-                for (int i = 0; i < cartasPorColor.size(); i++) {
-                    if (i != cartasPorColor.size() - 1) {
-                        tipo = "numero area horizontal derecha";
-                    } else {
-                        tipo = "ultima area horizontal derecha";
-                    }
-                    CartaButton button = new CartaButton("imagenes/cartas/" + cartasPorColor.get(i) + ".png", tipo);
-                    switch (colores.get(indiceColor)) {
-                        case "VERDE" -> panelVerde3.add(button);
-                        case "ROJO" -> panelRojo3.add(button);
-                        case "AMARILLO" -> panelAmarillo3.add(button);
-                        case "AZUL" -> panelAzul3.add(button);
-                        case "NEGRO" -> panelNegro3.add(button);
-                        case "VIOLETA" -> panelVioleta3.add(button);
-                    }
-                }
-                indiceColor++;
-            }
-            panelArea3.setVisible(true);
-            panelArea3.updateUI();
-
-
-        }else if (oponente.equals(nombre4Label.getText())) {
-            panelAmarillo4.removeAll();
-            panelVerde4.removeAll();
-            panelRojo4.removeAll();
-            panelAzul4.removeAll();
-            panelNegro4.removeAll();
-            panelVioleta4.removeAll();
-
-            Collection<List<String>> cartas = this.controlador.listarCartasArea(oponente);
-            List<String> colores = new ArrayList<>();
-
-            for (List<String> cartasPorColor: cartas){
-                String color= cartasPorColor.getFirst().split(",")[0];
-                colores.add(color);
-            }
-
-            String tipo;
-
-            int indiceColor=0;
-            for (List<String> cartasPorColor : cartas) {
-                for (int i = 0; i < cartasPorColor.size(); i++) {
-                    if (i != cartasPorColor.size() - 1) {
-                        tipo = "numero area horizontal izquierda";
-                    } else {
-                        tipo = "ultima area horizontal izquierda";
-                    }
-                    CartaButton button = new CartaButton("imagenes/cartas/" + cartasPorColor.get(i) + ".png", tipo);
-                    switch (colores.get(indiceColor)) {
-                        case "VERDE" -> panelVerde4.add(button);
-                        case "ROJO" -> panelRojo4.add(button);
-                        case "AMARILLO" -> panelAmarillo4.add(button);
-                        case "AZUL" -> panelAzul4.add(button);
-                        case "NEGRO" -> panelNegro4.add(button);
-                        case "VIOLETA" -> panelVioleta4.add(button);
-                    }
-                }
-                indiceColor++;
-            }
-            panelArea4.setVisible(true);
-            panelArea4.updateUI();
+    private void clearPaneles(JPanel[] paneles) {
+        for (int i = 0; i < paneles.length - 1; i++) { // Excluye el último panel (área principal).
+            paneles[i].removeAll();
         }
     }
 
+    private List<String> getColores(Collection<List<String>> cartas) {
+        List<String> colores = new ArrayList<>();
+        for (List<String> cartasPorColor : cartas) {
+            String color = cartasPorColor.get(0).split(",")[0]; // Obtener el color de la primera carta.
+            colores.add(color);
+        }
+        return colores;
+    }
 
+    private String getTipoCarta(String oponente) {
+        if (oponente.equals(nombre2Label.getText())) return "vertical";
+        if (oponente.equals(nombre3Label.getText())) return "horizontal derecha";
+        if (oponente.equals(nombre4Label.getText())) return "horizontal izquierda";
+        return "vertical"; // Valor predeterminado.
+    }
 
+    private void agregarCartaAPanelColor(JPanel[] paneles, String color, CartaButton button) {
+        switch (color) {
+            case "VERDE" -> paneles[1].add(button);
+            case "ROJO" -> paneles[2].add(button);
+            case "AMARILLO" -> paneles[0].add(button);
+            case "AZUL" -> paneles[3].add(button);
+            case "NEGRO" -> paneles[4].add(button);
+            case "VIOLETA" -> paneles[5].add(button);
+        }
+    }
+
+    private void updateUIPaneles(JPanel[] paneles) {
+        JPanel panelPrincipal = paneles[paneles.length - 1];
+        panelPrincipal.setVisible(true);
+        panelPrincipal.updateUI();
+    }
+    
     public void desactivaBotonAnalizarCartas() {
         analizarCartasButton.setEnabled(false);
     }
