@@ -247,7 +247,7 @@
                 <constraints/>
                 <properties>
                   <background color="-3713341"/>
-                  <font name="Ravie" size="12"/>
+                  <font name="Ravie" size="16"/>
                   <foreground color="-3548923"/>
                   <text value=""/>
                 </properties>
