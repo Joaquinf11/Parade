@@ -4,7 +4,9 @@ package ar.unlu.edu.mvc.modelo;
 import ar.unlu.edu.mvc.exceptions.JuegoException;
 import ar.unlu.edu.mvc.exceptions.TipoException;
 
-public class RondaDescarte extends Ronda {
+import java.io.Serializable;
+
+public class RondaDescarte extends Ronda implements Serializable {
     private static int contador=0;
     private final int cantidadJugadores;
 

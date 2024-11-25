@@ -1,11 +1,12 @@
 package ar.unlu.edu.mvc.modelo;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Carnaval {
+public class Carnaval implements Serializable {
     private List<Carta> cartas;
 
     public Carnaval (){

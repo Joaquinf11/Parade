@@ -2,10 +2,11 @@ package ar.unlu.edu.mvc.modelo;
 
 
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Stack;
 
-public class Mazo {
+public class Mazo implements Serializable {
     private Stack<Carta> cartas;
 
     public Mazo (){

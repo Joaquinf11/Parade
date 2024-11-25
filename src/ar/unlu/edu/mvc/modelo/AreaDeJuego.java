@@ -1,8 +1,9 @@
 package ar.unlu.edu.mvc.modelo;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class AreaDeJuego {
+public class AreaDeJuego implements Serializable {
 
     private Map<Color,List<Carta>> cartas ;
     private List<Carta> cartasBocaAbajo;

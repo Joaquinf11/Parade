@@ -6,10 +6,11 @@ import ar.unlu.edu.mvc.exceptions.TipoException;
 import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.interfaces.IJugador;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.*;
 
-public class Juego extends ObservableRemoto implements  IJuego {
+public class Juego extends ObservableRemoto implements Serializable, IJuego {
     private Queue<Jugador> jugadores;
     private Carnaval carnaval;
     private Mazo mazo;

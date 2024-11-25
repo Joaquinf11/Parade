@@ -3,9 +3,10 @@ package ar.unlu.edu.mvc.modelo;
 import ar.unlu.edu.mvc.exceptions.JuegoException;
 import ar.unlu.edu.mvc.exceptions.TipoException;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Ronda {
+public class Ronda implements Serializable {
 
     private final Carnaval carnaval;
     private final Mazo mazo;
