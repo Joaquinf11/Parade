@@ -115,7 +115,7 @@ public class panelJuego {
     }
 
     public void iniciarVentanaJuego()  {
-        mazoButton = new CartaButton("imagenes/Carta,dorso.jpg","carnaval");
+        mazoButton = new CartaButton("imagenes/Carta,dorso.jpg","dorso vertical");
         panelMazo.add(mazoButton,BorderLayout.CENTER);
         setCantCartasMazo(this.controlador.getCantidadCartasMazo());
 
@@ -429,7 +429,7 @@ public class panelJuego {
         panelPrincipal.setVisible(true);
         panelPrincipal.updateUI();
     }
-    
+
     public void desactivaBotonAnalizarCartas() {
         analizarCartasButton.setEnabled(false);
     }

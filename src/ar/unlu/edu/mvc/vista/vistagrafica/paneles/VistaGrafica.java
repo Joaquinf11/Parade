@@ -37,7 +37,6 @@ public class VistaGrafica extends  JFrame implements IVista {
         panelPuntuacion.setBackground(new Color(199,86,195));
         panelPuntuacion.setLayout(new GridBagLayout());
 
-
         panelReglas= new JPanel();
         panelReglas.setBackground(new Color(199,86,195));
         panelReglas.setLayout(new BorderLayout());
@@ -285,6 +284,7 @@ public class VistaGrafica extends  JFrame implements IVista {
         }
         resultado+= "\n\n EL GANADOR ES " + nombreGanadaor;
         tablaJugadores.setText(resultado);
+        tablaJugadores.setEditable(false);
 
         JButton volverButton= new JButton();
         volverButton.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
