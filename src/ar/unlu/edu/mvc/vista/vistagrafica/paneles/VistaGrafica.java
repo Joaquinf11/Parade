@@ -30,7 +30,6 @@ public class VistaGrafica extends  JFrame implements IVista {
     private JTextArea tablaJugadores;
 
     private JMenu tabla;
-    private JLabel estado;
 
     public VistaGrafica(){
         panelPuntuacion= new JPanel();
@@ -92,6 +91,7 @@ public class VistaGrafica extends  JFrame implements IVista {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.removeJugador(jugador);
+                dispose();
             }
         });
         salir.add(salirItem);
@@ -108,14 +108,12 @@ public class VistaGrafica extends  JFrame implements IVista {
         });
         tabla.add(tablaItem);
 
-        estado= new JLabel("Estado: ");
-        estado.setOpaque(false);
-        estado.setVisible(false);
+
 
         menuBar.add(ayuda);
         menuBar.add(tabla);
         menuBar.add(salir);
-        menuBar.add(estado);
+
 
         setJMenuBar(menuBar);
         setTitle("PARADE");
@@ -276,6 +274,11 @@ public class VistaGrafica extends  JFrame implements IVista {
     @Override
     public void mostrarPuntos(String nombreGanadaor) {
         tabla.setEnabled(true);
+        tablaJugadores= new JTextArea();
+        tablaJugadores.setFont(new Font("Ravie",Font.PLAIN,20));
+        tablaJugadores.setForeground(new Color(201,217,5));
+        tablaJugadores.setBackground(new Color(199,86,195));
+
         List<IJugador> jugadores= this.controlador.listarJugadores();
         String resultado="";
         for (IJugador jugador : jugadores){
@@ -313,15 +316,13 @@ public class VistaGrafica extends  JFrame implements IVista {
     public void comienzoRondaDescarte() {
         mostrarMensaje("Comienza la RONDA DESCARTE");
         this.panelJuego.removePanelCarnaval();
-        this.estado.setText("Estado : RONDA DESCARTE");
-        this.estado.setVisible(true);
+        this.panelJuego.setEstado("RONDA DESCARTE");
     }
 
     @Override
     public void comienzoUltimaRonda() {
         mostrarMensaje("Comienza la ULTIMA RONDA");
-        this.estado.setText("Estado : ULTIMA RONDA");
-        this.estado.setVisible(true);
+        this.panelJuego.setEstado(" ULTIMA RONDA");
     }
 
     @Override

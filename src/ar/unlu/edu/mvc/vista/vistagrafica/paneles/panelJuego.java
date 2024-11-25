@@ -68,6 +68,7 @@ public class panelJuego {
 
     private JLabel cantCartasMazo;
     private JLabel mazoLabel;
+    private JLabel estadoLabel;
     private LabelVertical nombre4Label;
     private CartaButton mazoButton;
     private List<CartaButton> cartasCarnaval;
@@ -461,5 +462,10 @@ public class panelJuego {
     public void clearCartasElegidas() {
         cartasElegidasCarnaval= new int[1];
         cartasElegidasCarnaval[0]=-1;
+    }
+
+    public void setEstado(String estado) {
+        this.estadoLabel.setText(estado);
+        this.estadoLabel.setVisible(true);
     }
 }

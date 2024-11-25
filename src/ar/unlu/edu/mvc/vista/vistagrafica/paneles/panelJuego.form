@@ -254,6 +254,16 @@
               </component>
             </children>
           </grid>
+          <component id="73cab" class="javax.swing.JLabel" binding="estadoLabel">
+            <constraints border-constraint="West"/>
+            <properties>
+              <background color="-3713341"/>
+              <font name="Ravie" size="18"/>
+              <foreground color="-3548923"/>
+              <text value="ULTIMA RONDA"/>
+              <visible value="false"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <grid id="76e46" binding="panelJugador3" layout-manager="BorderLayout" hgap="0" vgap="0">
