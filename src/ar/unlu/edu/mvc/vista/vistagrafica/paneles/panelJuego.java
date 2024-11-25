@@ -175,12 +175,12 @@ public class panelJuego {
                 nombre2Label.setText(nombre);
                 contador--;
             }
-            else if (nombre3Label.getText().isEmpty() && contador == this.oponentes.size() - 1){
-                nombre2Label.setText(nombre);
+            else if (nombre3Label == null && contador == this.oponentes.size() - 1){
+                nombre3Label= new LabelVertical(nombre);
                 contador--;
             }
             else {
-                nombre4Label.setText(nombre);
+                nombre4Label = new LabelVertical(nombre);
             }
 
         }
