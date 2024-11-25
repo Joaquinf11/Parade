@@ -29,10 +29,14 @@ public class VistaGrafica extends  JFrame implements IVista {
     private JPanel panelPuntuacion;
     private JTextArea tablaJugadores;
 
+    private JMenu tabla;
+    private JLabel estado;
+
     public VistaGrafica(){
         panelPuntuacion= new JPanel();
         panelPuntuacion.setBackground(new Color(199,86,195));
         panelPuntuacion.setLayout(new GridBagLayout());
+
 
         panelReglas= new JPanel();
         panelReglas.setBackground(new Color(199,86,195));
@@ -93,8 +97,26 @@ public class VistaGrafica extends  JFrame implements IVista {
         });
         salir.add(salirItem);
 
+        tabla= new JMenu("Tabla");
+        tabla.setEnabled(false);
+        JMenuItem tablaItem= new JMenuItem("Puntos");
+        tablaItem.setBackground(new Color(201,217,5));
+        tablaItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarTabla();
+            }
+        });
+        tabla.add(tablaItem);
+
+        estado= new JLabel("Estado: ");
+        estado.setOpaque(false);
+        estado.setVisible(false);
+
         menuBar.add(ayuda);
+        menuBar.add(tabla);
         menuBar.add(salir);
+        menuBar.add(estado);
 
         setJMenuBar(menuBar);
         setTitle("PARADE");
@@ -103,6 +125,11 @@ public class VistaGrafica extends  JFrame implements IVista {
         setExtendedState(Frame.MAXIMIZED_BOTH);
         setVisible(true);
 
+    }
+
+    private void mostrarTabla() {
+        setContentPane(panelPuntuacion);
+        panelPuntuacion.updateUI();
     }
 
 
@@ -250,11 +277,7 @@ public class VistaGrafica extends  JFrame implements IVista {
 
     @Override
     public void mostrarPuntos(String nombreGanadaor) {
-        tablaJugadores = new JTextArea();
-        tablaJugadores.setFont(new Font("Ravie",Font.PLAIN,20));
-        tablaJugadores.setForeground(new Color(201,217,5));
-        tablaJugadores.setBackground(new Color(199,86,195));
-
+        tabla.setEnabled(true);
         List<IJugador> jugadores= this.controlador.listarJugadores();
         String resultado="";
         for (IJugador jugador : jugadores){
@@ -262,6 +285,21 @@ public class VistaGrafica extends  JFrame implements IVista {
         }
         resultado+= "\n\n EL GANADOR ES " + nombreGanadaor;
         tablaJugadores.setText(resultado);
+
+        JButton volverButton= new JButton();
+        volverButton.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+        volverButton.setBackground(new Color(201,217,5));
+        volverButton.setForeground(new Color(199,86,195));
+        volverButton.setFont(new Font("Ravie",Font.PLAIN,16));
+        volverButton.setSize(200,100);
+        volverButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarUltimoPanel();
+            }
+        });
+
+
         panelPuntuacion.add(tablaJugadores);
         setContentPane(panelPuntuacion);
         panelPuntuacion.updateUI();
@@ -276,6 +314,20 @@ public class VistaGrafica extends  JFrame implements IVista {
     public void comienzoRondaDescarte() {
         mostrarMensaje("Comienza la RONDA DESCARTE");
         this.panelJuego.removePanelCarnaval();
+        this.estado.setText("Estado : RONDA DESCARTE");
+        this.estado.setVisible(true);
+    }
+
+    @Override
+    public void comienzoUltimaRonda() {
+        mostrarMensaje("Comienza la ULTIMA RONDA");
+        this.estado.setText("Estado : ULTIMA RONDA");
+        this.estado.setVisible(true);
+    }
+
+    @Override
+    public void finDelJuego(String nombreGanadaor) {
+        mostrarPuntos(nombreGanadaor);
     }
 
     @Override

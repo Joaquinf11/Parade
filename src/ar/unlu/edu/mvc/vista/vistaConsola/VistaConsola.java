@@ -182,6 +182,7 @@ public class VistaConsola extends JFrame implements IVista {
 
     @Override
     public void mostrarPuntos(String nombreGanadaor) {
+        comandos.add("tabla");
         List<IJugador> jugadores = this.controlador.listarJugadores();
 
         for (IJugador jugador : jugadores){
@@ -200,6 +201,16 @@ public class VistaConsola extends JFrame implements IVista {
         elegirCartasField= null;
         mostrarMensaje("Comienza la RONDA DESCARTE");
 
+    }
+
+    @Override
+    public void comienzoUltimaRonda() {
+        mostrarMensaje("Comienza la Ultima Ronda");
+    }
+
+    @Override
+    public void finDelJuego(String nombreGanadaor) {
+        mostrarPuntos(nombreGanadaor);
     }
 
     public String menuInicial(){
@@ -255,16 +266,18 @@ public class VistaConsola extends JFrame implements IVista {
             case "finalizar turno"-> { this.controlador.finalizarTurno();}
             case "mazo" ->{ mostrarMensaje("Cantidad de cartas del mazo: " + this.controlador.getCantidadCartasMazo());}
             case "reglas"->{ mostrarReglas();}
+            case "tabla"-> { mostrarPuntos(this.controlador.getNombreGanador());}
             case "comandos"-> { mostrarMensaje("salir:cierra la consola\n" +
                                                 " clear: limpia la pantalla de la consola\n" +
+                                                "reglas: muestra las reglas del juego\n" +
+                                                "como jugar: explica como seleccionar las cartas\n" +
                                                 "mano: muestra las cartas en mano\n" +
                                                 "canarval: muestra las cartas del carnaval\n" +
                                                 "area: muestra las cartas del area de juego\n" +
                                                 "area oponentes: muestra el area de todos los oponentes\n" +
-                                                "como jugar: explica como seleccionar las cartas\n" +
                                                 "finalizar turno: en caso de que no puedas agarrar cartas del carnaval ingresa este comando\n" +
                                                 "mazo: muestra la cantidad de cartas que quedan en el mazo\n" +
-                                                "reglas: muestra las reglas del juego\n");}
+                                                "tabla: muestra las puntuaciones de todos los jugadores" );}
             default -> { mostrarMensaje("El comando es invalido, ingrese comandos para ver los comandos dispobiles");}
         }
     }

@@ -194,7 +194,7 @@ public class panelJuego {
 
     }
 
-    //REFACTOR
+    //TODO REFACTOR
     public void actualizarAreaDeJuego() {
         panelAmarillo1.removeAll();
         panelVerde1.removeAll();

@@ -74,7 +74,7 @@ public class Controlador implements IControladorRemoto {
                 this.vista.actualizarCantidadCartasMazo();
                 break;
             case ULTIMA_RONDA:
-                this.vista.mostrarMensaje("Comienza la ULTIMA RONDA");
+                this.vista.comienzoUltimaRonda();
                 break;
             case RONDA_DESCARTE:
                 this.vista.comienzoRondaDescarte();
@@ -85,7 +85,8 @@ public class Controlador implements IControladorRemoto {
                 }
                 break;
             case FIN_JUEGO:
-                this.vista.mostrarPuntos(this.getNombreGanadaor());
+                this.vista.finDelJuego(this.getNombreGanadaor());
+                break;
 
         }
     }
@@ -238,5 +239,13 @@ public class Controlador implements IControladorRemoto {
 
     public IJuego getJuego() {
         return this.juego;
+    }
+
+    public String getNombreGanador() {
+        try {
+            return this.juego.definirGanador().getNombre();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -35,4 +35,8 @@ public interface IVista {
     void actualizarCartasEnMano();
 
     void comienzoRondaDescarte();
+
+    void comienzoUltimaRonda();
+
+    void finDelJuego(String nombreGanadaor);
 }

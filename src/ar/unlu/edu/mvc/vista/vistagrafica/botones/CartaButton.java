@@ -130,7 +130,7 @@ public class CartaButton extends JButton {
 
         }
 
-       // this.setDisabledIcon(imageIcon); //USAR DESPUES es para que cuando use setDisable no se pone gris
+        this.setDisabledIcon(imageIcon);
         this.setBorderPainted(false);
         this.setContentAreaFilled(false);
     }
