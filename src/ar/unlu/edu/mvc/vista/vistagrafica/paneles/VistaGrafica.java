@@ -261,6 +261,7 @@ public class VistaGrafica extends  JFrame implements IVista {
         }
         resultado+= "\n\n EL GANADOR ES " + nombreGanadaor;
         tablaJugadores.setText(resultado);
+        panelPuntuacion.add(tablaJugadores);
         setContentPane(panelPuntuacion);
         panelPuntuacion.updateUI();
     }
