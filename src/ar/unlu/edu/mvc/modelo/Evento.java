@@ -11,7 +11,7 @@ public enum Evento implements Serializable {
     CARTA_AGREGADA_AREA,
     FIN_TURNO,
     ULTIMA_RONDA,
-    MAZO_SIN_CARTAS, // cuando agregue el mazo a la vista tengo que actualizarlo para mostrar que se quedo sin cartas
+    MAZO_SIN_CARTAS,
     RONDA_DESCARTE,
     CARTA_DESCARTADA,
     FIN_JUEGO,

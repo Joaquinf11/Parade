@@ -34,7 +34,7 @@ public class RondaDescarte extends Ronda {
             }
         }
         else {
-            throw new JuegoException("Debes tirar una carta antes de finalizar tu turno", TipoException.TIRAR_CARTA);
+            throw new JuegoException("Debes tirar una carta antes de finalizar tu turno", TipoException.CARTA_EXCEPTION);
         }
     }
 
