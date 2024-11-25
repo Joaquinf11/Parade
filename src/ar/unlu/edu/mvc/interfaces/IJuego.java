@@ -1,36 +1,41 @@
 package ar.unlu.edu.mvc.interfaces;
 
+import ar.edu.unlu.rmimvc.observer.IObservableRemoto;
+import ar.edu.unlu.rmimvc.observer.IObservadorRemoto;
 import ar.unlu.edu.mvc.exceptions.CartaException;
 
+import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Collection;
 
-public interface IJuego {
-    IJugador getJugadorTurno();
+public interface IJuego  extends IObservableRemoto, Serializable {
+    IJugador getJugadorTurno() throws RemoteException;
 
-    void sacarJugador(String jugador, Observador observador);
+    void sacarJugador(String jugador, IObservadorRemoto o)throws RemoteException;
 
     void agregarJugador(String nombre) throws Exception;
 
-    List<IJugador> listarJugadores();
+    List<IJugador> listarJugadores() throws RemoteException;
 
-    void empezarJuego() throws Exception;
+    void empezarJuego() throws Exception, RemoteException;
 
-    void tirarCarta(int indice) throws CartaException;
+    void tirarCarta(int indice) throws CartaException , RemoteException;
 
-    void analizarCartasCarnaval(int[] indices) throws CartaException;
-    List<String> listarCartasCarnaval();
-    List<String> listarCartasEnMano(String nombre);
+    void analizarCartasCarnaval(int[] indices) throws CartaException, RemoteException;
 
-    void finalizarTurno()throws CartaException;
+    List<String> listarCartasCarnaval()throws RemoteException;
 
-    boolean sePuedeComenzar();
-    int getCantidadJugadores();
+    List<String> listarCartasEnMano(String nombre)throws RemoteException;
 
-    Collection<List<String>> listarCartasArea(String nombreJugador);
+    void finalizarTurno()throws CartaException , RemoteException;
 
-    IJugador definirGanador();
+    boolean sePuedeComenzar() throws RemoteException;
 
-    int getCantidadCartasMazo();
+    Collection<List<String>> listarCartasArea(String nombreJugador) throws RemoteException;
+
+    IJugador definirGanador() throws RemoteException;
+
+    int getCantidadCartasMazo() throws RemoteException;
 
 }

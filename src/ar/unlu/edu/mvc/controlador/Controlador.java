@@ -1,33 +1,39 @@
 package ar.unlu.edu.mvc.controlador;
 
+import ar.edu.unlu.rmimvc.cliente.IControladorRemoto;
+import ar.edu.unlu.rmimvc.observer.IObservableRemoto;
 import ar.unlu.edu.mvc.exceptions.CartaException;
-import ar.unlu.edu.mvc.exceptions.TipoException;
+
 import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.interfaces.IJugador;
 import ar.unlu.edu.mvc.interfaces.IVista;
-import ar.unlu.edu.mvc.interfaces.Observador;
+
 
 import ar.unlu.edu.mvc.modelo.Evento;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
-public class Controlador implements Observador {
+public class Controlador implements IControladorRemoto {
     private final IVista vista;
     private String jugador;
-    private final IJuego juego;
+    private  IJuego juego;
 
-    public Controlador(IJuego juego, IVista vista) {
+    public Controlador(IVista vista) {
         vista.setControlador(this);
         this.vista = vista;
-        this.juego = juego;
+    }
+
+    public <T extends IObservableRemoto> void setModeloRemoto(T t) throws RemoteException {
+        this.juego = (IJuego) t;
     }
 
     @Override
-    public void actualizar(Evento evento)  {
-        switch (evento){
+    public void actualizar(IObservableRemoto iObservableRemoto, Object o) throws RemoteException {
+        switch ((Evento) o){
             case JUGADOR_AGREGADO:
                 if (isTurno()) {
                     this.vista.jugadorAgregado();
@@ -91,12 +97,15 @@ public class Controlador implements Observador {
     }
 
     private String getNombreGanadaor() {
-        return this.juego.definirGanador().getNombre();
+        try {
+            return this.juego.definirGanador().getNombre();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void iniciar() {
         this.vista.iniciar();
-
     }
 
 
@@ -104,29 +113,46 @@ public class Controlador implements Observador {
         try {
             this.jugador = nombre;
             this.juego.agregarJugador(nombre);
-        } catch (Exception e) {
+        }catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+        catch (Exception e) {
             this.vista.mostrarMensaje(e.getMessage());
         }
     }
 
     public boolean isTurno(){
-        return this.juego.getJugadorTurno().getNombre().equals(this.jugador);
+        try {
+            return this.juego.getJugadorTurno().getNombre().equals(this.jugador);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void empezarPartida(){
         try {
             this.juego.empezarJuego();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
         }
-        catch (Exception e){
+        catch (Exception e) {
             this.vista.mostrarMensaje(e.getMessage());
         }
     }
 
     public List<String> listarCartasCarnaval(){
-        return  this.juego.listarCartasCarnaval();
+        try {
+            return  this.juego.listarCartasCarnaval();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
     public List<IJugador> listarJugadores() {
-        return this.juego.listarJugadores();
+        try {
+            return this.juego.listarJugadores();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
     public List<String> listarNombreJugadores() {
         List<String> resultado= new ArrayList<>();
@@ -138,19 +164,30 @@ public class Controlador implements Observador {
     }
 
     public List<String> listarCartasEnMano(){
-        return  this.juego.listarCartasEnMano(this.jugador);
+        try {
+            return  this.juego.listarCartasEnMano(this.jugador);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
 
     public String getNombreJugadorTurno(){
-        return this.juego.getJugadorTurno().getNombre();
+        try {
+            return this.juego.getJugadorTurno().getNombre();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void jugarCarta(int cartaMano ){
         try {
             this.juego.tirarCarta(cartaMano);
-        } catch (CartaException e) {
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+        catch (CartaException e) {
             this.vista.mostrarMensaje(e.getMessage());
         }
     }
@@ -158,33 +195,54 @@ public class Controlador implements Observador {
     public void analizarCartasCarnaval(int [] elegidas){
         try {
             this.juego.analizarCartasCarnaval(elegidas);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
         }
-        catch (CartaException e){
+        catch (CartaException e) {
             this.vista.mostrarMensaje(e.getMessage());
         }
     }
 
 
     public Collection<List<String>> listarCartasArea(String nombreJugador) {
-       return this.juego.listarCartasArea(nombreJugador);
+        try {
+            return this.juego.listarCartasArea(nombreJugador);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void finalizarTurno() {
         try {
             this.juego.finalizarTurno();
         }
-        catch (CartaException e){
+        catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+        catch (CartaException e) {
             this.vista.mostrarMensaje(e.getMessage());
         }
     }
 
 
     public int getCantidadCartasMazo() {
-        return this.juego.getCantidadCartasMazo();
+        try {
+            return this.juego.getCantidadCartasMazo();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void removeJugador(String jugador) {
-        this.juego.sacarJugador(jugador,this);
 
+    public void removeJugador(String jugador) {
+        try {
+            this.juego.sacarJugador(jugador,this);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public IJuego getJuego() {
+        return this.juego;
     }
 }

@@ -1,18 +1,18 @@
 package ar.unlu.edu.mvc.modelo;
+import ar.edu.unlu.rmimvc.observer.IObservadorRemoto;
+import ar.edu.unlu.rmimvc.observer.ObservableRemoto;
 import ar.unlu.edu.mvc.exceptions.CartaException;
 import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.interfaces.IJugador;
-import ar.unlu.edu.mvc.interfaces.Observado;
-import ar.unlu.edu.mvc.interfaces.Observador;
 
+import java.rmi.RemoteException;
 import java.util.*;
 
-public class Juego implements Observado, IJuego {
+public class Juego extends ObservableRemoto implements  IJuego {
     private Queue<Jugador> jugadores;
     private Carnaval carnaval;
     private Mazo mazo;
     private Jugador jugadorTurno;
-    private List<Observador> observadores;
     private boolean ultimaRonda;
     private  Ronda ronda;
     private boolean rondaDescarte;
@@ -21,12 +21,12 @@ public class Juego implements Observado, IJuego {
         this.jugadores= new LinkedList<>();
         this.carnaval= new Carnaval();
         this.mazo= new Mazo();
-        this.observadores = new ArrayList<>();
         this.ultimaRonda=false;
         this.rondaDescarte=false;
 
     }
 
+    @Override
     public int getCantidadCartasMazo(){
         return this.mazo.getCantidadCartas();
     }
@@ -34,10 +34,10 @@ public class Juego implements Observado, IJuego {
    
 
     @Override
-    public void sacarJugador(String nombre, Observador observador) {
+    public void sacarJugador(String nombre, IObservadorRemoto o) throws RemoteException {
         Jugador jugador = buscarJugador(nombre);
         this.jugadores.remove(jugador);
-        this.observadores.remove(observador);
+        removerObservador(o);
     }
 
     public void setJugadorTurno(Jugador jugador){
@@ -53,7 +53,7 @@ public class Juego implements Observado, IJuego {
         this.rondaDescarte=b;
     }
 
-     public Jugador buscarJugador(String nombre){
+     private Jugador buscarJugador(String nombre){
         for (Jugador jugador : this.jugadores){
             if (jugador.getNombre().equals(nombre)){
                 return jugador;
@@ -63,7 +63,7 @@ public class Juego implements Observado, IJuego {
      }
 
      @Override
-    public void agregarJugador (String nombre) throws Exception{
+    public void agregarJugador (String nombre) throws Exception ,RemoteException{
         if (nombre.isEmpty()){
             throw new Exception("El nombre ingresado es invalido");
         }
@@ -78,7 +78,7 @@ public class Juego implements Observado, IJuego {
         }
     }
 
-    public void repartirCartas(){
+    private void repartirCartas(){
         for (int i = 1 ; i <= 6 ; i++){
             this.carnaval.agregarCarta(this.mazo.sacarCarta());
         }
@@ -91,7 +91,7 @@ public class Juego implements Observado, IJuego {
     }
 
     @Override
-    public void empezarJuego() throws Exception{
+    public void empezarJuego() throws Exception , RemoteException{
         if(sePuedeComenzar()) {
             this.repartirCartas();
             this.notificar(Evento.JUEGO_COMENZADO);
@@ -102,7 +102,7 @@ public class Juego implements Observado, IJuego {
         }
     }
 
-    public void cambiarTurno(){
+    private void cambiarTurno(){
         this.setJugadorTurno(this.jugadores.remove());
         this.notificar(Evento.CAMBIO_TURNO);
         if (this.ultimaRonda && !this.rondaDescarte){
@@ -119,17 +119,17 @@ public class Juego implements Observado, IJuego {
     }
 
     @Override
-    public void tirarCarta(int cartaElegida) throws CartaException {
+    public void tirarCarta(int cartaElegida) throws CartaException,RemoteException {
         this.ronda.tirarCarta(cartaElegida);
     }
 
     @Override
-    public void analizarCartasCarnaval (int[] cartasElegidas) throws CartaException{
+    public void analizarCartasCarnaval (int[] cartasElegidas) throws CartaException ,RemoteException{
         this.ronda.analizarCartasCarnaval(cartasElegidas);
     }
 
     @Override
-    public void finalizarTurno()throws CartaException{
+    public void finalizarTurno()throws CartaException, RemoteException{
         this.ronda.finRonda();
     }
 
@@ -158,14 +158,14 @@ public class Juego implements Observado, IJuego {
         }
     }
 
-    public void calcularPuntos(){
+   private void calcularPuntos(){
         evaluarAreaDeJuego();
         for (Jugador jugador : this.jugadores){
             jugador.sumarPuntos();
         }
     }
 
-    public void evaluarAreaDeJuego(){
+   private void evaluarAreaDeJuego(){
         Jugador jugador_anterior= this.jugadores.peek();
         List<Jugador> jugadoresConMasCartas= new ArrayList<>();
         for (Color color : Color.values()){
@@ -194,7 +194,8 @@ public class Juego implements Observado, IJuego {
         }
     }
 
-    public Jugador definirGanador(){
+    @Override
+    public Jugador definirGanador()throws RemoteException{
         List<Jugador> jugadoresConMenosPuntos= new ArrayList<>();
         Jugador jugador_anterior= this.jugadores.peek();
         for (Jugador jugador : this.jugadores){
@@ -221,17 +222,13 @@ public class Juego implements Observado, IJuego {
     }
 
     @Override
-    public boolean sePuedeComenzar(){
+    public boolean sePuedeComenzar()throws RemoteException{
         return this.jugadores.size() > 1;
     }
 
-    @Override
-    public int getCantidadJugadores(){
-        return this.jugadores.size();
-    }
 
     @Override
-    public Collection<List<String>> listarCartasArea(String nombreJugador) {
+    public Collection<List<String>> listarCartasArea(String nombreJugador)throws RemoteException {
         Collection<List<String>> resultado= new ArrayList<>();
         Jugador jugador= buscarJugador(nombreJugador);
         if (jugador == null){
@@ -248,19 +245,19 @@ public class Juego implements Observado, IJuego {
     }
 
     @Override
-    public List<IJugador> listarJugadores(){
+    public List<IJugador> listarJugadores()throws RemoteException{
         List<IJugador> jugadores = new ArrayList<>();
         jugadores.addAll(this.jugadores);
         return jugadores;
     }
 
     @Override
-    public IJugador getJugadorTurno(){
+    public IJugador getJugadorTurno()throws RemoteException{
         return this.jugadorTurno;
     }
 
     @Override
-    public List<String> listarCartasCarnaval(){
+    public List<String> listarCartasCarnaval()throws RemoteException{
         List<String> resultado= new ArrayList<>();
         for (Carta carta : this.carnaval.getCartas()){
             resultado.add(carta.toString());
@@ -269,7 +266,7 @@ public class Juego implements Observado, IJuego {
     }
 
     @Override
-    public List<String> listarCartasEnMano(String nombre){
+    public List<String> listarCartasEnMano(String nombre) throws RemoteException{
         Jugador jugador= this.buscarJugador(nombre);
         if (jugador == null){
             jugador= this.jugadorTurno;
@@ -281,17 +278,12 @@ public class Juego implements Observado, IJuego {
         return resultado;
     }
 
-    @Override
-    public void agregarObservador(Observador observador) {
-        if(!this.observadores.contains(observador)){
-            this.observadores.add(observador);
-        }
-    }
 
-    @Override
     public void notificar(Evento evento) {
-        for (Observador observador: this.observadores){
-            observador.actualizar(evento);
+        try {
+            notificarObservadores(evento);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
         }
     }
 

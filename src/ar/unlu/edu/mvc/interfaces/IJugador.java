@@ -1,10 +1,12 @@
 package ar.unlu.edu.mvc.interfaces;
 
-public interface IJugador {
+import java.io.Serializable;
+
+public interface IJugador extends Serializable {
 
     String getNombre();
 
-    boolean equalsNombre(IJugador jugador);
+
 
     int getPuntos();
 }

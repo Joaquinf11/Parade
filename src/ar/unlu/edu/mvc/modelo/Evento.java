@@ -1,6 +1,8 @@
 package ar.unlu.edu.mvc.modelo;
 
-public enum Evento {
+import java.io.Serializable;
+
+public enum Evento implements Serializable {
     JUEGO_COMENZADO,
     JUGADOR_AGREGADO,
     CAMBIO_TURNO,

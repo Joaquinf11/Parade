@@ -2,11 +2,12 @@ package ar.unlu.edu.mvc.modelo;
 
 import ar.unlu.edu.mvc.interfaces.IJugador;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class Jugador implements IJugador {
+public class Jugador implements IJugador, Serializable {
     private final String nombre;
     private final List<Carta> cartasEnMano;
     private final AreaDeJuego area;
@@ -75,11 +76,6 @@ public class Jugador implements IJugador {
         return this.cartasEnMano;
     }
 
-    @Override
-    public boolean equalsNombre(IJugador jugador){
-        return this.getNombre().equals(jugador.getNombre());
-
-    }
 
     public Collection<List<Carta>> getCartasArea() {
         return this.area.getTodasLasCartas();
