@@ -213,6 +213,16 @@ public class VistaConsola extends JFrame implements IVista {
         mostrarPuntos(nombreGanadaor);
     }
 
+    @Override
+    public void partidaCargada() {
+        //TODO
+    }
+
+    @Override
+    public void mostrarMenuInicial() {
+        //TODO
+    }
+
     public String menuInicial(){
         return """
                 MENU INCIAL

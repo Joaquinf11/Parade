@@ -39,4 +39,8 @@ public interface IVista {
     void comienzoUltimaRonda();
 
     void finDelJuego(String nombreGanadaor);
+
+    void partidaCargada();
+
+    void mostrarMenuInicial();
 }

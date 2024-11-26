@@ -170,26 +170,15 @@ public class panelJuego {
         panelArea4.add(panelVioleta4,4,0);
         panelArea4.add(panelNegro4,5,0);
 
-        this.oponentes =this.controlador.listarNombreJugadores();
-        this.oponentes.remove(vista.getNombreJugador());
-        int contador= this.oponentes.size();
-        for (String nombre : oponentes){
-            if (nombre2Label.getText().isEmpty() && contador == this.oponentes.size()){
-                nombre2Label.setText(nombre);
-                contador--;
-            }
-            else if (nombre3Label == null && contador == this.oponentes.size() - 1){
-                nombre3Label= new LabelVertical(nombre);
-                contador--;
-            }
-            else {
-                nombre4Label = new LabelVertical(nombre);
-            }
+        setOponentes();
 
-        }
 
     actualizarCartasCarnaval();
     actualizarCartasEnMano();
+    actualizarAreaDeJuego();
+    for (String jugador: oponentes){
+        actualizarAreaOponente(jugador);
+    }
 
     }
 
@@ -334,59 +323,60 @@ public class panelJuego {
         panelCartasMano1.updateUI();
     }
     public void actualizarAreaDeJuego() {
-        JPanel[] paneles = {panelAmarillo1, panelVerde1, panelRojo1, panelAzul1, panelNegro1, panelVioleta1, panelArea1};
-
-        clearPaneles(paneles);
-
         Collection<List<String>> cartas = this.controlador.listarCartasArea(vista.getNombreJugador());
-        List<String> colores = getColores(cartas);
+        if (cartas != null) {
+            JPanel[] paneles = {panelAmarillo1, panelVerde1, panelRojo1, panelAzul1, panelNegro1, panelVioleta1, panelArea1};
+            clearPaneles(paneles);
 
-        int indiceColor = 0;
-        for (List<String> cartasPorColor : cartas) {
-            for (int i = 0; i < cartasPorColor.size(); i++) {
-                String tipo;
-                if (i != cartasPorColor.size() - 1) {
-                    tipo= "numero area";
-                }
-                else {
-                    tipo= "ultima area";
-                }
-                tipo+=" vertical";
-                CartaButton button = new CartaButton("imagenes/cartas/" + cartasPorColor.get(i) + ".png", tipo);
+            List<String> colores = getColores(cartas);
 
-                agregarCartaAPanelColor(paneles, colores.get(indiceColor), button);
+            int indiceColor = 0;
+            for (List<String> cartasPorColor : cartas) {
+                for (int i = 0; i < cartasPorColor.size(); i++) {
+                    String tipo;
+                    if (i != cartasPorColor.size() - 1) {
+                        tipo = "numero area";
+                    } else {
+                        tipo = "ultima area";
+                    }
+                    tipo += " vertical";
+                    CartaButton button = new CartaButton("imagenes/cartas/" + cartasPorColor.get(i) + ".png", tipo);
+
+                    agregarCartaAPanelColor(paneles, colores.get(indiceColor), button);
+                }
+                indiceColor++;
             }
-            indiceColor++;
+            updateUIPaneles(paneles);
         }
-        updateUIPaneles(paneles);
     }
 
     public void actualizarAreaOponente(String oponente) {
-        JPanel[] paneles = getPanelesOponente(oponente);
-        if (paneles == null) return;
-
-        clearPaneles(paneles);
-
         Collection<List<String>> cartas = this.controlador.listarCartasArea(oponente);
-        List<String> colores = getColores(cartas);
+        if (cartas != null) {
+            JPanel[] paneles = getPanelesOponente(oponente);
+            if (paneles == null) return;
 
-        int indiceColor = 0;
-        for (List<String> cartasPorColor : cartas) {
-            for (int i = 0; i < cartasPorColor.size(); i++) {
-                String tipo;
-                if (i != cartasPorColor.size() - 1) {
-                    tipo= "numero area ";
+            clearPaneles(paneles);
+
+            List<String> colores = getColores(cartas);
+
+            int indiceColor = 0;
+            for (List<String> cartasPorColor : cartas) {
+                for (int i = 0; i < cartasPorColor.size(); i++) {
+                    String tipo;
+                    if (i != cartasPorColor.size() - 1) {
+                        tipo = "numero area ";
+                    } else {
+                        tipo = "ultima area ";
+                    }
+                    tipo += getTipoCarta(oponente);
+                    CartaButton button = new CartaButton("imagenes/cartas/" + cartasPorColor.get(i) + ".png", tipo);
+                    agregarCartaAPanelColor(paneles, colores.get(indiceColor), button);
                 }
-                else {
-                    tipo= "ultima area ";
-                }
-                tipo+= getTipoCarta(oponente);
-                CartaButton button = new CartaButton("imagenes/cartas/" + cartasPorColor.get(i) + ".png", tipo);
-                agregarCartaAPanelColor(paneles, colores.get(indiceColor), button);
+                indiceColor++;
             }
-            indiceColor++;
+            updateUIPaneles(paneles);
         }
-        updateUIPaneles(paneles);
     }
 
     private JPanel[] getPanelesOponente(String oponente) {
@@ -464,5 +454,24 @@ public class panelJuego {
     public void setEstado(String estado) {
         this.estadoLabel.setText(estado);
         this.estadoLabel.setVisible(true);
+    }
+
+    public void setOponentes() {
+        this.oponentes =this.controlador.listarNombreJugadores();
+        this.oponentes.remove(vista.getNombreJugador());
+        int contador= this.oponentes.size();
+        for (String nombre : oponentes){
+            if (nombre2Label.getText().isEmpty() && contador == this.oponentes.size()){
+                nombre2Label.setText(nombre);
+                contador--;
+            }
+            else if (nombre3Label == null && contador == this.oponentes.size() - 1){
+                nombre3Label= new LabelVertical(nombre);
+                contador--;
+            }
+            else {
+                nombre4Label = new LabelVertical(nombre);
+            }
+        }
     }
 }

@@ -105,6 +105,7 @@ public class VistaGrafica extends  JFrame implements IVista {
                 controlador.guardarPartida(nombrePartida);
             }
         });
+        salir.add(guardarItem);
 
         tabla= new JMenu("Tabla");
         tabla.setEnabled(false);
@@ -156,8 +157,8 @@ public class VistaGrafica extends  JFrame implements IVista {
     }
 
     public void mostrarVentanaJuego(){
-       setContentPane(this.panelPrincipalIngresarJugador);
-       panelPrincipalIngresarJugador.updateUI();
+        setContentPane(this.panelPrincipalIngresarJugador);
+        panelPrincipalIngresarJugador.updateUI();
         this.ultimoPanel="Panel Juego";
     }
 
@@ -339,6 +340,11 @@ public class VistaGrafica extends  JFrame implements IVista {
     @Override
     public void finDelJuego(String nombreGanadaor) {
         mostrarPuntos(nombreGanadaor);
+    }
+
+    @Override
+    public void partidaCargada() {
+        iniciarJuego();
     }
 
     @Override

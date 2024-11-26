@@ -4,6 +4,7 @@ import ar.edu.unlu.rmimvc.cliente.IControladorRemoto;
 import ar.edu.unlu.rmimvc.observer.IObservableRemoto;
 import ar.unlu.edu.mvc.exceptions.JuegoException;
 
+import ar.unlu.edu.mvc.exceptions.TipoException;
 import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.interfaces.IJugador;
 import ar.unlu.edu.mvc.interfaces.IVista;
@@ -114,6 +115,9 @@ public class Controlador implements IControladorRemoto {
         }
         catch (JuegoException e) {
             this.vista.mostrarMensaje(e.getMessage());
+            if (e.getTipo() == TipoException.JUGADOR_INVALIDO_EXCEPTION){
+                this.vista.mostrarMenuInicial();
+            }
         }
     }
 
@@ -252,7 +256,9 @@ public class Controlador implements IControladorRemoto {
 
     public void cargarPartida(String text) {
         try {
-                this.juego= this.juego.cargarPartida(text);
+                IJuego juegoCargado=this.juego.cargarPartida(text);
+                this.juego=juegoCargado;
+                this.vista.partidaCargada();
             } catch (RemoteException e) {
             throw new RuntimeException(e);
             } catch (IOException e) {
