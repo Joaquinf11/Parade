@@ -167,10 +167,8 @@ public class VistaConsola extends JFrame implements IVista {
     }
 
     public void iniciar(){
-
         mostrarComoJugar();
-        setMenuField();
-        areaSalida.append(menuInicial());
+        mostrarMenuInicial();
     }
 
     @Override
@@ -216,12 +214,13 @@ public class VistaConsola extends JFrame implements IVista {
 
     @Override
     public void partidaCargada() {
-        //TODO
+        iniciarJuego();
     }
 
     @Override
     public void mostrarMenuInicial() {
-        //TODO
+        setMenuField();
+        areaSalida.append(menuInicial());
     }
 
     public String menuInicial(){
@@ -332,7 +331,8 @@ public class VistaConsola extends JFrame implements IVista {
         mostrarMensaje("BIENVENIDO A PARADE \n" +
                         "Para seleccionar cartas de la Mano ingrese un numero del 1 al 5\n" +
                         "Para seleccionar cartas del Carnaval ingrese los numeros necesarios separados por un espacio. Ejemplo: 1 2 3 4\n" +
-                        "Si necesitas ver las cartas ingresa comandos y eligi lo que necesitas ver\n"
+                        "Para terminar tu turno ingresa finalizar turno\n" +
+                        "Ingresa comandos para ver los comandos disponibles\n"
         );
     }
 
