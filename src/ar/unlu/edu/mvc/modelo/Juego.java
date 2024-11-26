@@ -27,7 +27,6 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         this.mazo= new Mazo();
         this.ultimaRonda=false;
         this.rondaDescarte=false;
-
     }
 
     @Override
@@ -45,6 +44,15 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     public void guardarPartida(String nombrePartida) throws IOException {
         RepositorioJuego repo= new RepositorioJuego(nombrePartida);
         repo.persistir(this);
+    }
+
+    @Override
+    public String getUltimoJugadorAgregado() throws RemoteException {
+        String resultado=null;
+        for (Jugador jugador: this.jugadores){
+            resultado= jugador.getNombre();
+        }
+        return resultado;
     }
 
 

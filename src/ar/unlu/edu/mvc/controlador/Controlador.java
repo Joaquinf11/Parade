@@ -36,7 +36,7 @@ public class Controlador implements IControladorRemoto {
     public void actualizar(IObservableRemoto iObservableRemoto, Object o) throws RemoteException {
         switch ((Evento) o){
             case JUGADOR_AGREGADO:
-                    this.vista.jugadorAgregado(this.jugador);
+                    this.vista.jugadorAgregado(getUltimoJugadorAgregado());
                  break;
             case JUEGO_COMENZADO:
                 this.vista.iniciarJuego();
@@ -88,6 +88,14 @@ public class Controlador implements IControladorRemoto {
                 this.vista.finDelJuego(this.getNombreGanadaor());
                 break;
 
+        }
+    }
+
+    private String getUltimoJugadorAgregado() {
+        try {
+            return this.juego.getUltimoJugadorAgregado();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -99,8 +99,8 @@ public class VistaConsola extends JFrame implements IVista {
                 }
                 else{
                         mostrarMensaje(nombre);
-                        controlador.agregarJugador(nombre);
                         jugador= nombre;
+                        controlador.agregarJugador(nombre);
                         mostrarMensaje(menuInicial());
                         setMenuField();
                 }
@@ -174,10 +174,11 @@ public class VistaConsola extends JFrame implements IVista {
     }
 
     @Override
-    public void jugadorAgregado(String jugador) {
-        mostrarMensaje("Jugador agregado con exito");
-        entradaIngresarJugadorField=null;
-
+    public void jugadorAgregado(String nombre) {
+        if (nombre.equals(this.jugador)) {
+            mostrarMensaje("Jugador agregado con exito");
+            entradaIngresarJugadorField = null;
+        }
     }
 
     @Override

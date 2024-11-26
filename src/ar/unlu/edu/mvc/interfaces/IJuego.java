@@ -43,4 +43,6 @@ public interface IJuego  extends IObservableRemoto, Serializable {
     IJuego cargarPartida(String text) throws  IOException, ClassNotFoundException;
 
     void guardarPartida(String nombrePartida) throws RemoteException, IOException;
+
+    String getUltimoJugadorAgregado() throws  RemoteException;
 }

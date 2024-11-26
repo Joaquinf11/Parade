@@ -282,9 +282,9 @@ public class VistaGrafica extends  JFrame implements IVista {
     public void jugadorAgregado(String nombre) {
         if (nombre.equals(this.jugador)){
             mostrarMensaje("Jugador agregado con exito");
+            this.ultimoPanel= "Menu Inicial";
+            this.vistaMenuInicial.setAgregarJugador(false);
         }
-        this.ultimoPanel= "Menu Inicial";
-        this.vistaMenuInicial.setAgregarJugador(false);
 
     }
 
