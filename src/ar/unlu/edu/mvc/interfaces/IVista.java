@@ -28,7 +28,7 @@ public interface IVista {
 
     void iniciar();
 
-    void jugadorAgregado();
+    void jugadorAgregado(String jugador);
 
     void mostrarPuntos(String nombreGanadaor);
 

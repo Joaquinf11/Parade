@@ -36,9 +36,7 @@ public class Controlador implements IControladorRemoto {
     public void actualizar(IObservableRemoto iObservableRemoto, Object o) throws RemoteException {
         switch ((Evento) o){
             case JUGADOR_AGREGADO:
-                if (isTurno()) {
-                    this.vista.jugadorAgregado();
-                }
+                    this.vista.jugadorAgregado(this.jugador);
                  break;
             case JUEGO_COMENZADO:
                 this.vista.iniciarJuego();
