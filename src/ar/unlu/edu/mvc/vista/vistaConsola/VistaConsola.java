@@ -174,7 +174,7 @@ public class VistaConsola extends JFrame implements IVista {
     }
 
     @Override
-    public void jugadorAgregado() {
+    public void jugadorAgregado(String jugador) {
         mostrarMensaje("Jugador agregado con exito");
         entradaIngresarJugadorField=null;
 

@@ -22,15 +22,8 @@ public class VistaIngresarJugador {
         aceptarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(nombre.getText().isEmpty()){
-                    vistaGrafica.mostrarMensaje("El nombre ingresado es invalido"); //REFACTOR
-                }
-                else{
-                    controlador.agregarJugador(nombre.getText());
                     vistaGrafica.setNombreJugador(nombre.getText());
-
-
-                }
+                    controlador.agregarJugador(nombre.getText());
             }
         });
 
@@ -38,8 +31,8 @@ public class VistaIngresarJugador {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER){
-                        controlador.agregarJugador(nombre.getText());
                         vistaGrafica.setNombreJugador(nombre.getText());
+                        controlador.agregarJugador(nombre.getText());
                 }
             }
         });

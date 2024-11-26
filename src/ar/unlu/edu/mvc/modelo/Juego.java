@@ -84,7 +84,6 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         }
         else if(buscarJugador(nombre) == null || !nombre.equals(this.jugadorTurno.getNombre())) {
             Jugador jugador = new Jugador(nombre);
-            this.setJugadorTurno(jugador);
             this.jugadores.add(jugador);
             this.notificar(Evento.JUGADOR_AGREGADO);
         }
