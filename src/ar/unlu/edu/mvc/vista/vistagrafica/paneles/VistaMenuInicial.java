@@ -3,11 +3,10 @@ package ar.unlu.edu.mvc.vista.vistagrafica.paneles;
 import ar.unlu.edu.mvc.controlador.Controlador;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class panelMenuInicial  {
+public class VistaMenuInicial {
     protected JPanel panelPrincipal;
     private JLabel lTitulo;
     private JPanel panelCentro;
@@ -19,7 +18,7 @@ public class panelMenuInicial  {
     private VistaGrafica vistaGrafica;
     private Controlador controlador;
 
-    public panelMenuInicial(Controlador controlador, VistaGrafica vistaGrafica){
+    public VistaMenuInicial(Controlador controlador, VistaGrafica vistaGrafica){
         this.controlador = controlador;
         this.vistaGrafica=vistaGrafica;
         salirButton.addActionListener(new ActionListener() {

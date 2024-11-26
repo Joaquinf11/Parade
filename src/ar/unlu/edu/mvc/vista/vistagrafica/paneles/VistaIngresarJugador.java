@@ -5,7 +5,7 @@ import ar.unlu.edu.mvc.controlador.Controlador;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class panelIngresarJugador {
+public class VistaIngresarJugador {
     protected JPanel panelIngresarJugador;
     private JLabel lTitulo;
     private JTextField nombre;
@@ -15,7 +15,7 @@ public class panelIngresarJugador {
     private Controlador controlador;
     private VistaGrafica vistaGrafica;
 
-    public panelIngresarJugador(Controlador controlador, VistaGrafica vistaGrafica){
+    public VistaIngresarJugador(Controlador controlador, VistaGrafica vistaGrafica){
         this.controlador = controlador;
         this.vistaGrafica=vistaGrafica;
 

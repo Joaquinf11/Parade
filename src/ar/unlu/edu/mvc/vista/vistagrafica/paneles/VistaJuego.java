@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class panelJuego {
+public class VistaJuego {
     Controlador controlador;
     VistaGrafica vista;
 
@@ -79,7 +79,7 @@ public class panelJuego {
     private List<String> oponentes;
 
 
-    public panelJuego(Controlador controlador, VistaGrafica grafica){
+    public VistaJuego(Controlador controlador, VistaGrafica grafica){
         this.controlador = controlador;
         this.vista= grafica;
         this.cartasCarnaval= new ArrayList<>();

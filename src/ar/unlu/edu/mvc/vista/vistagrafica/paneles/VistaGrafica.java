@@ -14,9 +14,9 @@ public class VistaGrafica extends  JFrame implements IVista {
     Controlador controlador;
 
     private  JPanel panelMensaje;
-    private panelMenuInicial panelMenuInicial;
-    private panelIngresarJugador panelIngresarJugador;
-    private panelJuego panelJuego;
+    private VistaMenuInicial vistaMenuInicial;
+    private VistaIngresarJugador vistaIngresarJugador;
+    private VistaJuego vistaJuego;
     private JPanel panelPrincipalMenuInicial;
     private JPanel panelPrincipalIngresarJugador;
     private JPanel panelPrincipalJuego;
@@ -209,67 +209,69 @@ public class VistaGrafica extends  JFrame implements IVista {
 
 
     public void iniciarJuego()  {
-        panelJuego.iniciarVentanaJuego();
+        vistaJuego.iniciarVentanaJuego();
         mostrarVentanaJuego();
 
     }
 
     @Override
     public void cambioDeTurno() {
-        this.panelJuego.activarCartasMano();
+        this.vistaJuego.activarCartasMano();
     }
 
     @Override
     public void cartaTirada() {
-            this.panelJuego.actualizarCartasEnMano();
-            this.panelJuego.desactivarCartasEnMano();
-            this.panelJuego.activarCartasCarnaval();
-            this.panelJuego.setFinalizarButton(true);
+            this.vistaJuego.actualizarCartasEnMano();
+            this.vistaJuego.desactivarCartasEnMano();
+            this.vistaJuego.activarCartasCarnaval();
+            this.vistaJuego.setFinalizarButton(true);
     }
 
     @Override
     public void mostrarCarnaval() {
-        this.panelJuego.actualizarCartasCarnaval();
+        this.vistaJuego.actualizarCartasCarnaval();
     }
 
     @Override
     public void cartaAgregadaCarnaval() {
-        this.panelJuego.actualizarCartasCarnaval();
+        this.vistaJuego.actualizarCartasCarnaval();
     }
 
     @Override
     public void mostrarAreaDeJuego() {
-        this.panelJuego.desactivarCartasCarnaval();
-        this.panelJuego.desactivaBotonAnalizarCartas();
-        this.panelJuego.actualizarAreaDeJuego();
+        this.vistaJuego.desactivarCartasCarnaval();
+        this.vistaJuego.desactivaBotonAnalizarCartas();
+        this.vistaJuego.actualizarAreaDeJuego();
     }
 
     @Override
     public void mostrarAreaDeJuegoOponente(String nombreJugadorTurno) {
-        this.panelJuego.actualizarAreaOponente(nombreJugadorTurno);
+        this.vistaJuego.actualizarAreaOponente(nombreJugadorTurno);
     }
 
     @Override
     public void actualizarCantidadCartasMazo() {
-        this.panelJuego.setCantCartasMazo(this.controlador.getCantidadCartasMazo());
+        this.vistaJuego.setCantCartasMazo(this.controlador.getCantidadCartasMazo());
     }
 
     @Override
     public void finDeTurno() {
-        this.panelJuego.actualizarCartasEnMano();
-        this.panelJuego.clearCartasElegidas();
-        this.panelJuego.desactivarTodosLosBotones();
+        this.vistaJuego.actualizarCartasEnMano();
+        this.vistaJuego.clearCartasElegidas();
+        this.vistaJuego.desactivarTodosLosBotones();
     }
 
 
     @Override
-    public void iniciar() { // TODO REFACTOR
-        this.panelMenuInicial = new panelMenuInicial(this.controlador,this);
-        this.panelIngresarJugador = new panelIngresarJugador(this.controlador,this);
-        this.panelJuego =new panelJuego(this.controlador,this);
-        this.panelPrincipalMenuInicial= panelMenuInicial.getPanel();
-        this.panelPrincipalJuego=panelJuego.getPanel();
-        this.panelPrincipalIngresarJugador= panelIngresarJugador.getPanel();
+    public void iniciar() {
+        this.vistaMenuInicial = new VistaMenuInicial(this.controlador,this);
+        this.vistaIngresarJugador = new VistaIngresarJugador(this.controlador,this);
+        this.vistaJuego =new VistaJuego(this.controlador,this);
+
+        this.panelPrincipalMenuInicial= vistaMenuInicial.getPanel();
+        this.panelPrincipalJuego= vistaJuego.getPanel();
+        this.panelPrincipalIngresarJugador= vistaIngresarJugador.getPanel();
+
         this.panelMensaje= new JPanel();
         this.panelMensaje.setLayout(new GridBagLayout());
         this.panelMensaje.setVisible(true);
@@ -279,7 +281,7 @@ public class VistaGrafica extends  JFrame implements IVista {
     @Override
     public void jugadorAgregado() {
         this.ultimoPanel= "Menu Inicial";
-        this.panelMenuInicial.setAgregarJugador(false);
+        this.vistaMenuInicial.setAgregarJugador(false);
         mostrarMensaje("Jugador agregado con exito");
     }
 
@@ -321,20 +323,20 @@ public class VistaGrafica extends  JFrame implements IVista {
 
     @Override
     public void actualizarCartasEnMano() {
-        this.panelJuego.actualizarCartasEnMano();
+        this.vistaJuego.actualizarCartasEnMano();
     }
 
     @Override
     public void comienzoRondaDescarte() {
         mostrarMensaje("Comienza la RONDA DESCARTE");
-        this.panelJuego.removePanelCarnaval();
-        this.panelJuego.setEstado("RONDA DESCARTE");
+        this.vistaJuego.removePanelCarnaval();
+        this.vistaJuego.setEstado("RONDA DESCARTE");
     }
 
     @Override
     public void comienzoUltimaRonda() {
         mostrarMensaje("Comienza la ULTIMA RONDA");
-        this.panelJuego.setEstado(" ULTIMA RONDA");
+        this.vistaJuego.setEstado(" ULTIMA RONDA");
     }
 
     @Override
