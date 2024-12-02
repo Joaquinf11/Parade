@@ -206,8 +206,6 @@ public class VistaGrafica extends  JFrame implements IVista {
         this.controlador = controlador;
     }
 
-
-
     public void iniciarJuego()  {
         vistaJuego.iniciarVentanaJuego();
         mostrarVentanaJuego();

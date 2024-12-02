@@ -119,7 +119,7 @@ public class VistaJuego {
     }
 
     public void iniciarVentanaJuego()  {
-        mazoButton = new CartaButton("imagenes/Carta,dorso.jpg", TipoCarta.DORSO);
+        mazoButton = new CartaButton("imagenes/Carta,dorso.jpg", TipoCarta.DORSO_VERTICAL);
         panelMazo.add(mazoButton,BorderLayout.CENTER);
         setCantCartasMazo(this.controlador.getCantidadCartasMazo());
 
@@ -400,32 +400,32 @@ public class VistaJuego {
     }
 
     private TipoCarta getTipoConOrientacion(boolean esUltima,String oponente) {
-        TipoCarta resultado =null;
+
         if (oponente.equals(nombre2Label.getText())) {
             if (esUltima){
-                resultado= TipoCarta.ULTIMA_AREA_VERTICAL;
+                return TipoCarta.ULTIMA_AREA_VERTICAL;
             }
             else {
-                resultado= TipoCarta.NUM_AREA_VERTICAL;
+                return TipoCarta.NUM_AREA_VERTICAL;
             }
         }
         if (oponente.equals(nombre3Label.getText())){
             if (esUltima){
-                resultado= TipoCarta.ULTIMA_AREA_HORIZONTAL_DER;
+                return TipoCarta.ULTIMA_AREA_HORIZONTAL_DER;
             }
             else {
-                resultado= TipoCarta.NUM_AREA_HORIZONTAL_DER;
+                return TipoCarta.NUM_AREA_HORIZONTAL_DER;
             }
         }
         if (oponente.equals(nombre4Label.getText())) {
             if (esUltima){
-                resultado= TipoCarta.ULTIMA_AREA_HORIZONTAL_IZQ;
+                return TipoCarta.ULTIMA_AREA_HORIZONTAL_IZQ;
             }
             else {
-                resultado= TipoCarta.NUM_AREA_HORIZONTAL_IZQ;
+                return TipoCarta.NUM_AREA_HORIZONTAL_IZQ;
             }
         }
-        return resultado;
+        return null;
     }
 
     private void agregarCartaAPanelColor(JPanel[] paneles, String color, CartaButton button) {

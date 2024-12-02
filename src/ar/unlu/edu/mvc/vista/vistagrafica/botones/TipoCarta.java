@@ -3,7 +3,6 @@ package ar.unlu.edu.mvc.vista.vistagrafica.botones;
 public enum TipoCarta {
     CARNAVAL,
     MANO,
-    DORSO,
     DORSO_VERTICAL,
     NUM_AREA_VERTICAL,
     ULTIMA_AREA_VERTICAL,
@@ -11,7 +10,4 @@ public enum TipoCarta {
     NUM_AREA_HORIZONTAL_DER,
     ULTIMA_AREA_HORIZONTAL_DER,
     ULTIMA_AREA_HORIZONTAL_IZQ,
-    NUMERO_AREA,
-    ULTIMA_AREA
-
 }
