@@ -38,10 +38,10 @@ public class CartaButton extends JButton {
     ImageIcon imageIcon;
 
 
-    public CartaButton(String path, String tipo)  {
+    public CartaButton(String path, TipoCarta tipo)  {
         this.imageIcon= new ImageIcon(path);
         switch (tipo) {
-            case "carnaval" -> {
+            case CARNAVAL -> {
                 imageIcon.setImage(imageIcon.getImage().getScaledInstance(WIDTH_CARNAVAL, HEIGHT_CARNAVAL, Image.SCALE_SMOOTH));
                 setIcon(imageIcon);
                 this.setSize(WIDTH_CARNAVAL, HEIGHT_CARNAVAL);
@@ -49,7 +49,7 @@ public class CartaButton extends JButton {
                 setBorder(BorderFactory.createLineBorder(new Color(201, 217, 5), 5));
                 setBorderPainted(false);
             }
-            case "mano" -> {
+            case MANO -> {
                 imageIcon.setImage(imageIcon.getImage().getScaledInstance(WIDTH_MANO, HEIGHT_MANO, Image.SCALE_SMOOTH));
                 setIcon(imageIcon);
                 this.setSize(WIDTH_MANO, HEIGHT_MANO);
@@ -57,12 +57,12 @@ public class CartaButton extends JButton {
                 setBorder(BorderFactory.createLineBorder(new Color(201, 217, 5), 5));
                 setBorderPainted(false);
             }
-            case "dorso vertical" -> {
+            case DORSO_VERTICAL -> {
                 imageIcon.setImage(imageIcon.getImage().getScaledInstance(WIDTH_DORSO_VERTICAL, HEIGHT_DORSO_VERTICAL, Image.SCALE_SMOOTH));
                 setIcon(imageIcon);
                 this.setSize(WIDTH_DORSO_VERTICAL, HEIGHT_DORSO_VERTICAL);
             }
-            case "numero area vertical" -> {
+            case NUM_AREA_VERTICAL -> {
 
                 // Cargar la imagen completa desde el archivo
                 BufferedImage originalImage = null;
@@ -81,19 +81,19 @@ public class CartaButton extends JButton {
                 setBorder(BorderFactory.createEmptyBorder(-1, 0, -1, 0));
             }
 
-            case "ultima area vertical" -> {
+            case ULTIMA_AREA_VERTICAL-> {
                 imageIcon.setImage(imageIcon.getImage().getScaledInstance(WIDTH_ULTIMA_NUMERO_VERTICAL, HEIGHT_ULTIMA_NUMERO_VERTICAL, Image.SCALE_SMOOTH));
                 setBorder(BorderFactory.createEmptyBorder(-1, 0, 0, 0));
                 setIcon(imageIcon);
                 this.setSize(WIDTH_ULTIMA_NUMERO_VERTICAL, HEIGHT_ULTIMA_NUMERO_VERTICAL);
             }
-            case "numero area horizontal izquierda" , "numero area horizontal derecha"-> { // tengo que divir entre izquierda y derecha agrego un || y despues pregunto si es izquierda o derecha para pasarle el angulo de rotacion
+            case NUM_AREA_HORIZONTAL_IZQ, NUM_AREA_HORIZONTAL_DER-> { // tengo que divir entre izquierda y derecha agrego un || y despues pregunto si es izquierda o derecha para pasarle el angulo de rotacion
 
                 int angulo=0;
-                if(tipo.equals("numero area horizontal izquierda")){
+                if(tipo.equals(TipoCarta.NUM_AREA_HORIZONTAL_IZQ)){
                     angulo=90;
                 }
-                else if (tipo.equals("numero area horizontal derecha")){
+                else if (tipo.equals( TipoCarta.NUM_AREA_HORIZONTAL_DER)){
                     angulo= -90;
                 }
 
@@ -116,9 +116,9 @@ public class CartaButton extends JButton {
                 setIcon(new ImageIcon(image));
                 setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             }
-            case "ultima area horizontal derecha" , "ultima area horizontal izquierda" ->{
+            case ULTIMA_AREA_HORIZONTAL_DER , ULTIMA_AREA_HORIZONTAL_IZQ ->{
                 int angulo;
-                if (tipo.equals("ultima area horizontal derecha")){
+                if (tipo.equals(TipoCarta.ULTIMA_AREA_HORIZONTAL_DER)){
                     angulo=-90;
                 }
                 else {
