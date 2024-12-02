@@ -262,8 +262,7 @@ public class Controlador implements IControladorRemoto {
 
     public void cargarPartida(String text) {
         try {
-                IJuego juegoCargado=this.juego.cargarPartida(text);
-                this.juego=juegoCargado;
+            this.juego= this.juego.cargarPartida(text);
                 this.juego.agregarObservador(this);
                 this.vista.partidaCargada();
             } catch (RemoteException e) {
