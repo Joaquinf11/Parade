@@ -21,8 +21,6 @@ public class CartaButton extends JButton {
     private static final int WIDTH_DORSO_VERTICAL=60;
     private static final int  HEIGHT_DORSO_VERTICAL=85;
 
-
-
     private static final int WIDTH_NUMERO_HORIZONTAL=60;
     private static  final int  HEIGHT_NUMERO_HORIZONTAL=30;
 
@@ -37,101 +35,18 @@ public class CartaButton extends JButton {
 
     ImageIcon imageIcon;
 
-
     public CartaButton(String path, TipoCarta tipo)  {
         this.imageIcon= new ImageIcon(path);
         switch (tipo) {
-            case CARNAVAL -> {
-                imageIcon.setImage(imageIcon.getImage().getScaledInstance(WIDTH_CARNAVAL, HEIGHT_CARNAVAL, Image.SCALE_SMOOTH));
-                setIcon(imageIcon);
-                this.setSize(WIDTH_CARNAVAL, HEIGHT_CARNAVAL);
-                setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-                setBorder(BorderFactory.createLineBorder(new Color(201, 217, 5), 5));
-                setBorderPainted(false);
-            }
-            case MANO -> {
-                imageIcon.setImage(imageIcon.getImage().getScaledInstance(WIDTH_MANO, HEIGHT_MANO, Image.SCALE_SMOOTH));
-                setIcon(imageIcon);
-                this.setSize(WIDTH_MANO, HEIGHT_MANO);
-                setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
-                setBorder(BorderFactory.createLineBorder(new Color(201, 217, 5), 5));
-                setBorderPainted(false);
-            }
-            case DORSO_VERTICAL -> {
-                imageIcon.setImage(imageIcon.getImage().getScaledInstance(WIDTH_DORSO_VERTICAL, HEIGHT_DORSO_VERTICAL, Image.SCALE_SMOOTH));
-                setIcon(imageIcon);
-                this.setSize(WIDTH_DORSO_VERTICAL, HEIGHT_DORSO_VERTICAL);
-            }
-            case NUM_AREA_VERTICAL -> {
-
-                // Cargar la imagen completa desde el archivo
-                BufferedImage originalImage = null;
-                try {
-                    originalImage = ImageIO.read(new File(path));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                // Recortar la imagen a la región deseada
-                BufferedImage croppedImage = originalImage.getSubimage(0, 1, 200, 56);
-
-                // Escalar la imagen recortada al tamaño del botón (opcional)
-                Image scaledImage = croppedImage.getScaledInstance(WIDTH_NUMERO_VERTICAL, HEIGHT_NUMERO_VERTICAL, Image.SCALE_SMOOTH);
-                this.setIcon(new ImageIcon(scaledImage));
-                setBorder(BorderFactory.createEmptyBorder(-1, 0, -1, 0));
-            }
-
-            case ULTIMA_AREA_VERTICAL-> {
-                imageIcon.setImage(imageIcon.getImage().getScaledInstance(WIDTH_ULTIMA_NUMERO_VERTICAL, HEIGHT_ULTIMA_NUMERO_VERTICAL, Image.SCALE_SMOOTH));
-                setBorder(BorderFactory.createEmptyBorder(-1, 0, 0, 0));
-                setIcon(imageIcon);
-                this.setSize(WIDTH_ULTIMA_NUMERO_VERTICAL, HEIGHT_ULTIMA_NUMERO_VERTICAL);
-            }
-            case NUM_AREA_HORIZONTAL_IZQ, NUM_AREA_HORIZONTAL_DER-> { // tengo que divir entre izquierda y derecha agrego un || y despues pregunto si es izquierda o derecha para pasarle el angulo de rotacion
-
-                int angulo=0;
-                if(tipo.equals(TipoCarta.NUM_AREA_HORIZONTAL_IZQ)){
-                    angulo=90;
-                }
-                else if (tipo.equals( TipoCarta.NUM_AREA_HORIZONTAL_DER)){
-                    angulo= -90;
-                }
-
-                // Cargar la imagen completa desde el archivo
-                BufferedImage originalImage = null;
-                try {
-                    originalImage = ImageIO.read(new File(path));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                // Recortar la imagen a la región deseada
-                BufferedImage croppedImage = originalImage.getSubimage(0, 0, 200, 56);
-
-                // Escalar la imagen recortada al tamaño del botón (opcional)
-                Image scaledImage = croppedImage.getScaledInstance(WIDTH_NUMERO_HORIZONTAL, HEIGHT_NUMERO_HORIZONTAL, Image.SCALE_SMOOTH);
-                ImageIcon imagenCortada= new ImageIcon(scaledImage);
-
-                Image image =rotarImagen(imagenCortada,angulo);
-                setIcon(new ImageIcon(image));
-                setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-            }
-            case ULTIMA_AREA_HORIZONTAL_DER , ULTIMA_AREA_HORIZONTAL_IZQ ->{
-                int angulo;
-                if (tipo.equals(TipoCarta.ULTIMA_AREA_HORIZONTAL_DER)){
-                    angulo=-90;
-                }
-                else {
-                    angulo=90;
-                }
-                imageIcon.setImage(imageIcon.getImage().getScaledInstance(WIDTH_ULTIMA_NUMERO_HORIZONTAL, HEIGHT_ULTIMA_NUMERO_HORIZONTAL, Image.SCALE_SMOOTH));
-                setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-                Image image=rotarImagen(imageIcon,angulo);
-                setIcon(new ImageIcon(image));
-                this.setSize(WIDTH_ULTIMA_NUMERO_HORIZONTAL, HEIGHT_ULTIMA_NUMERO_HORIZONTAL);
-
-            }
-
+            case CARNAVAL -> configurarBoton( WIDTH_CARNAVAL, HEIGHT_CARNAVAL, 0, 0, 0, 0 );
+            case MANO -> configurarBoton( WIDTH_MANO, HEIGHT_MANO, 3, 3, 3, 3);
+            case DORSO_VERTICAL -> configurarBoton( WIDTH_DORSO_VERTICAL, HEIGHT_DORSO_VERTICAL, 0, 0, 0, 0);
+            case NUM_AREA_VERTICAL -> recortarImagen( path);
+            case ULTIMA_AREA_VERTICAL -> configurarBoton( WIDTH_ULTIMA_NUMERO_VERTICAL, HEIGHT_ULTIMA_NUMERO_VERTICAL, -1, 0, 0, 0);
+            case NUM_AREA_HORIZONTAL_IZQ-> recortarConRotacion(path, 90);
+            case NUM_AREA_HORIZONTAL_DER -> recortarConRotacion(path, -90);
+            case ULTIMA_AREA_HORIZONTAL_DER-> configurarConRotacion(90);
+            case ULTIMA_AREA_HORIZONTAL_IZQ -> configurarConRotacion(-90);
         }
 
         this.setDisabledIcon(imageIcon);
@@ -139,6 +54,47 @@ public class CartaButton extends JButton {
         this.setContentAreaFilled(false);
     }
 
+    private void configurarBoton(int width, int height, int top, int left, int bottom, int right) {
+        imageIcon.setImage(imageIcon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+        setIcon(imageIcon);
+        this.setSize(width, height);
+        setBorder(BorderFactory.createEmptyBorder(top, left, bottom, right));
+        setBorder(BorderFactory.createLineBorder(new Color(201, 217, 5), 5));
+    }
+
+    private void recortarImagen(String path) {
+        try {
+            BufferedImage originalImage = ImageIO.read(new File(path));
+            BufferedImage croppedImage = originalImage.getSubimage(0, 1, 200, 56);
+            Image scaledImage = croppedImage.getScaledInstance(CartaButton.WIDTH_NUMERO_VERTICAL, CartaButton.HEIGHT_NUMERO_VERTICAL, Image.SCALE_SMOOTH);
+            setIcon(new ImageIcon(scaledImage));
+            setBorder(BorderFactory.createEmptyBorder(-1, 0, -1, 0));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void recortarConRotacion(String path, int angulo) {
+        try {
+            BufferedImage originalImage = ImageIO.read(new File(path));
+            BufferedImage croppedImage = originalImage.getSubimage(0, 0, 200, 56);
+            Image scaledImage = croppedImage.getScaledInstance(CartaButton.WIDTH_NUMERO_HORIZONTAL, CartaButton.HEIGHT_NUMERO_HORIZONTAL, Image.SCALE_SMOOTH);
+            ImageIcon imagenCortada = new ImageIcon(scaledImage);
+            Image image = rotarImagen(imagenCortada, angulo);
+            setIcon(new ImageIcon(image));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+    }
+
+    private void configurarConRotacion(int angulo) {
+        imageIcon.setImage(imageIcon.getImage().getScaledInstance(CartaButton.WIDTH_ULTIMA_NUMERO_HORIZONTAL, CartaButton.HEIGHT_ULTIMA_NUMERO_HORIZONTAL, Image.SCALE_SMOOTH));
+        Image image = rotarImagen(imageIcon, angulo);
+        setIcon(new ImageIcon(image));
+        this.setSize(CartaButton.WIDTH_ULTIMA_NUMERO_HORIZONTAL, CartaButton.HEIGHT_ULTIMA_NUMERO_HORIZONTAL);
+        setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+    }
 
     private Image rotarImagen(ImageIcon icono, int angulo) {
         int w = icono.getIconWidth();
@@ -170,3 +126,6 @@ public class CartaButton extends JButton {
         return bufferedImage;
     }
 }
+
+
+
