@@ -16,7 +16,7 @@ public class UltimaRonda extends Ronda implements Serializable {
     }
 
     @Override
-    public void finRonda() throws JuegoException {
+    public void finTurno() throws JuegoException {
         if (tiroCarta) {
             if (esFinDeRonda()) {
                 this.juego.setRondaDescarte(true);

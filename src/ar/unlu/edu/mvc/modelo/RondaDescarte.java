@@ -22,11 +22,11 @@ public class RondaDescarte extends Ronda implements Serializable {
         this.jugadorTurno.quitarCarta(cartaElegida);
         juego.notificar(Evento.CARTA_DESCARTADA);
         this.tiroCarta=true;
-        this.finRonda();
+        this.finTurno();
     }
 
     @Override
-    public void finRonda() throws JuegoException {
+    public void finTurno() throws JuegoException {
         if (tiroCarta) {
             if (esFinDeRonda()) {
                 this.juego.finJuego();
