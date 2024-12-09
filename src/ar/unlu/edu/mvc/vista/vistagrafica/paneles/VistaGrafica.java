@@ -129,7 +129,7 @@ public class VistaGrafica extends  JFrame implements IVista {
 
         setJMenuBar(menuBar);
         setTitle("PARADE");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
         setExtendedState(Frame.MAXIMIZED_BOTH);
         setVisible(true);

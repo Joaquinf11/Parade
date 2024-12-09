@@ -18,8 +18,8 @@ public class VistaCargarPartida {
         aceptarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controlador.cargarPartida(ingresarNombrePartida.getText(),ingresarNombreJugador.getText());
                 vistaGrafica.setNombreJugador(ingresarNombreJugador.getText());
+                controlador.cargarPartida(ingresarNombrePartida.getText(),ingresarNombreJugador.getText());
             }
         });
     }
@@ -28,7 +28,5 @@ public class VistaCargarPartida {
         return this.panelPrincipal;
     }
 
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-    }
+
 }
