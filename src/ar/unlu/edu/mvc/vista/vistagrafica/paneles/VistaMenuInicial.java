@@ -50,7 +50,7 @@ public class VistaMenuInicial {
     }
 
     private void mostrarVistaCargarPartida() {
-        VistaCargarPartida vistaCargarPartida= new VistaCargarPartida(controlador);
+        VistaCargarPartida vistaCargarPartida= new VistaCargarPartida(controlador,this.vistaGrafica);
         vistaGrafica.setContentPane(vistaCargarPartida.getPanel());
         vistaCargarPartida.getPanel().updateUI();
     }

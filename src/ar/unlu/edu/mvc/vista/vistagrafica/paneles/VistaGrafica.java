@@ -209,7 +209,6 @@ public class VistaGrafica extends  JFrame implements IVista {
     public void iniciarJuego()  {
         vistaJuego.iniciarVentanaJuego();
         mostrarVentanaJuego();
-
     }
 
     @Override

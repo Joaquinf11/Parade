@@ -173,13 +173,12 @@ public class VistaJuego {
 
         setOponentes();
 
-
-    actualizarCartasCarnaval();
-    actualizarCartasEnMano();
-    actualizarAreaDeJuego();
-    for (String jugador: oponentes){
-        actualizarAreaOponente(jugador);
-    }
+        actualizarCartasCarnaval();
+        actualizarCartasEnMano();
+        actualizarAreaDeJuego();
+        for (String jugador: oponentes){
+            actualizarAreaOponente(jugador);
+        }
 
     }
 
