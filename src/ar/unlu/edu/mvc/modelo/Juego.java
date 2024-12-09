@@ -20,6 +20,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     private boolean ultimaRonda;
     private  Ronda ronda;
     private boolean rondaDescarte;
+    private Evento ultimoEvento;
 
     public Juego (){
         this.jugadores= new LinkedList<>();
@@ -34,9 +35,8 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         return this.mazo.getCantidadCartas();
     }
 
-    @Override
-    public IJuego cargarPartida(String text) throws IOException, ClassNotFoundException {
-        RepositorioJuego repo= new RepositorioJuego(text);
+    public IJuego cargarPartida(String nombrePartida) throws IOException, ClassNotFoundException {
+        RepositorioJuego repo= new RepositorioJuego(nombrePartida);
         return repo.recuperar();
     }
 
@@ -53,6 +53,11 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
             resultado= jugador.getNombre();
         }
         return resultado;
+    }
+
+    @Override
+    public void notificarUltimoEvento() throws RemoteException {
+        notificar(this.ultimoEvento);
     }
 
 
@@ -88,7 +93,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
      @Override
     public void agregarJugador (String nombre) throws JuegoException ,RemoteException{
         if (nombre.isEmpty()){
-            throw new JuegoException("El nombre ingresado es invalido", TipoException.JUGADOR_INVALIDO_EXCEPTION);
+            throw new JuegoException("El nombre ingresado es invalido", TipoException.JUGADOR_INVALIDO);
         }
         else if(buscarJugador(nombre) == null || !nombre.equals(this.jugadorTurno.getNombre())) {
             Jugador jugador = new Jugador(nombre);
@@ -96,7 +101,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
             this.notificar(Evento.JUGADOR_AGREGADO);
         }
         else {
-            throw new JuegoException("El jugador ya se encuentra agregado",TipoException.JUGADOR_INVALIDO_EXCEPTION);
+            throw new JuegoException("El jugador ya se encuentra agregado",TipoException.JUGADOR_YA_AGREGADO);
         }
     }
 
@@ -303,6 +308,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     public void notificar(Evento evento) {
         try {
             notificarObservadores(evento);
+            this.ultimoEvento= evento;
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
