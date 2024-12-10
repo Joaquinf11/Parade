@@ -22,13 +22,12 @@ public class VistaConsola extends JFrame implements IVista {
     private JTextArea areaSalida;
 
     private JPanel panelEntradas;
-    private JTextField entradaMenuField;
-    private final JTextField tirarCartaField;
-    private  JTextField elegirCartasField;
-    private  JTextField entradaIngresarJugadorField;
+    private JTextField entradaField;
 
-    private int cartaTirada;
-    private int[] cartasElegidas;
+    private ActionListener actionMenuInicial;
+    private ActionListener actionIngresarJugador;
+    private ActionListener actionElegirCartas;
+    private ActionListener actionTirarCarta;
 
 
     private final  List<String> comandos;
@@ -57,43 +56,29 @@ public class VistaConsola extends JFrame implements IVista {
         setContentPane(panelPrincipal);
         setVisible(true);
 
-        tirarCartaField= new JTextField();
-        tirarCartaField.setBackground(Color.BLACK);
-        tirarCartaField.setFont(new Font("Consola",Font.PLAIN,14));
-        tirarCartaField.setForeground(Color.WHITE);
-
-        elegirCartasField=new JTextField();
-        elegirCartasField.setBackground(Color.BLACK);
-        elegirCartasField.setFont(new Font("Consola",Font.PLAIN,14));
-        elegirCartasField.setForeground(Color.WHITE);
-        elegirCartasField.setOpaque(false);
-
-        entradaIngresarJugadorField=new JTextField();
-        entradaIngresarJugadorField.setBackground(Color.BLACK);
-        entradaIngresarJugadorField.setFont(new Font("Consola",Font.PLAIN,14));
-        entradaIngresarJugadorField.setForeground(Color.WHITE);
-        entradaIngresarJugadorField.setOpaque(false);
 
 
-        entradaMenuField.addActionListener(new ActionListener() {
+        this.actionMenuInicial=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                switch (entradaMenuField.getText()){
+                switch (entradaField.getText()){
                     case "0" ->{controlador.removeJugador(jugador); dispose();}
-                    case "1" -> { mostrarMensaje("Ingrese el nombre del Jugador "); setIngresarJugadorField();}
+                    case "1" -> { mostrarMensaje("Ingrese el nombre del Jugador ");
+                                  sacarTodosLosAction();
+                                  entradaField.addActionListener(actionIngresarJugador);}
                     case "2" -> {controlador.empezarPartida();}
-                    default -> { procesarComandos(entradaMenuField.getText());}
+                    default -> { procesarComandos(entradaField.getText());}
 
                 }
-                entradaMenuField.setText("");
+                entradaField.setText("");
             }
-        });
+        };
 
-        entradaIngresarJugadorField.addActionListener(new ActionListener() {
+        this.actionIngresarJugador = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nombre= entradaIngresarJugadorField.getText();
-                entradaIngresarJugadorField.setText("");
+                String nombre= entradaField.getText();
+                entradaField.setText("");
                 if (comandos.contains(nombre)){
                     procesarComandos(nombre);
                 }
@@ -102,15 +87,15 @@ public class VistaConsola extends JFrame implements IVista {
                         jugador= nombre;
                         controlador.agregarJugador(nombre);
                         mostrarMensaje(menuInicial());
-                        setMenuField();
+                        setActionMenuInicial();
                 }
             }
-        });
+        };
 
-        tirarCartaField.addActionListener(new ActionListener() {
+       this.actionTirarCarta=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String entrada = tirarCartaField.getText();
+                String entrada = entradaField.getText();
                 if (comandos.contains(entrada)) {
                     procesarComandos(entrada);}
                 else if (entrada.equals("finalizar turno")) {
@@ -120,16 +105,16 @@ public class VistaConsola extends JFrame implements IVista {
                      mostrarMensaje(entrada);
                      convertirCartaElegidaAInteger(entrada);
                 }
-                 tirarCartaField.setText("");
+                 entradaField.setText("");
             }
-        });
+        };
 
 
-        elegirCartasField.addActionListener(new ActionListener() {
+        this.actionElegirCartas=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String entrada= elegirCartasField.getText();
-                elegirCartasField.setText("");
+                String entrada= entradaField.getText();
+                entradaField.setText("");
                 if (comandos.contains(entrada)) {
                     procesarComandos(entrada);
                 } else if (entrada.equals("finalizar turno")) {
@@ -139,7 +124,7 @@ public class VistaConsola extends JFrame implements IVista {
                     convertirCartasElegidasAInteger(entrada);
                 }
             }
-        });
+        };
     }
 
     private void convertirCartasElegidasAInteger(String entrada) {
@@ -175,7 +160,15 @@ public class VistaConsola extends JFrame implements IVista {
     public void jugadorAgregado(String nombre) {
         if (nombre.equals(this.jugador)) {
             mostrarMensaje("Jugador agregado con exito");
-            entradaIngresarJugadorField = null;
+            sacarTodosLosAction();
+            entradaField.addActionListener(this.actionMenuInicial);
+        }
+    }
+
+    private void sacarTodosLosAction(){
+        ActionListener[] listeners = entradaField.getActionListeners();
+        for (ActionListener listener : listeners) {
+            entradaField.removeActionListener(listener);
         }
     }
 
@@ -197,7 +190,7 @@ public class VistaConsola extends JFrame implements IVista {
 
     @Override
     public void comienzoRondaDescarte() {
-        elegirCartasField= null;
+        actionElegirCartas=null; //TODO CHEQUEAR
         mostrarMensaje("Comienza la RONDA DESCARTE");
 
     }
@@ -219,7 +212,7 @@ public class VistaConsola extends JFrame implements IVista {
 
     @Override
     public void mostrarMenuInicial() {
-        setMenuField();
+        setActionMenuInicial();
         areaSalida.append(menuInicial());
     }
 
@@ -232,31 +225,19 @@ public class VistaConsola extends JFrame implements IVista {
                 """;
     }
 
-    private void setMenuField() {
-        panelEntradas.removeAll();
-        panelEntradas.add(entradaMenuField,BorderLayout.SOUTH);
-        panelEntradas.updateUI();
+    private void setActionMenuInicial() {
+       sacarTodosLosAction();
+       entradaField.addActionListener(actionMenuInicial);
     }
 
-    public void setIngresarJugadorField(){
-        if (entradaIngresarJugadorField != null) {
-            panelEntradas.removeAll();
-            panelEntradas.add(entradaIngresarJugadorField, BorderLayout.SOUTH);
-            panelEntradas.updateUI();
-        }
+    public void setActionTirarCartaField() {
+        sacarTodosLosAction();
+        entradaField.addActionListener(actionTirarCarta);
     }
 
-    public void setTirarCartaField() {
-        panelEntradas.removeAll();
-        panelEntradas.add(tirarCartaField,BorderLayout.SOUTH);
-        panelEntradas.updateUI();
-    }
-    public void setElegirCartaField() {
-        if (elegirCartasField != null) {
-            panelEntradas.removeAll();
-            panelEntradas.add(elegirCartasField, BorderLayout.SOUTH);
-            panelEntradas.updateUI();
-        }
+    public void setActionElegirCarta() {
+        sacarTodosLosAction();
+        entradaField.addActionListener(actionElegirCartas);
     }
 
     public void setControlador(Controlador controlador) {
@@ -302,20 +283,21 @@ public class VistaConsola extends JFrame implements IVista {
     public void iniciarJuego() {
         this.oponentes= this.controlador.listarNombreJugadores();
         this.oponentes.remove(this.jugador);
-        setTirarCartaField();
+        setActionTirarCartaField();
+        desactivarEntrada();
         mostrarMesa();
     }
 
     @Override
     public void cambioDeTurno() {
-            setTirarCartaField();
+            setActionTirarCartaField();
             activarEntrada();
             mostrarMesa();
     }
 
     @Override
     public void cartaTirada() {
-        setElegirCartaField();
+        setActionElegirCarta();
         mostrarMensaje("Elegir cartas del Carnaval");
     }
 
@@ -380,7 +362,7 @@ public class VistaConsola extends JFrame implements IVista {
     public void mostrarArea(String jugador) {
         Collection<List<String>> cartasArea= this.controlador.listarCartasArea(jugador);
         if (!cartasArea.isEmpty()) {
-            String mensaje= "AREA DE JUEGO";
+            String mensaje= "AREA DE JUEGO ";
             if (!jugador.equals(this.jugador)) {
                 mensaje +=   jugador ;
             }
@@ -421,7 +403,6 @@ public class VistaConsola extends JFrame implements IVista {
                         "Se reparten 5 a cada jugador. Luego se ponen 6 cartas más en el centro de la mesa que representan el carnaval. El principio del carnaval comienza a la izquierda mientras que el final es a la derecha.\n" +
                         "SECUENCIA DEL JUEGO\n" +
                         "\n" +
-                        "Durante su turno cada jugador llevará a cabo las siguientes acciones en el orden descrito:\n"  +
                         "1. Escoger una carta de su mano y colocarla al final del carnaval;\n" +
                         "2. Si se da el caso, recoger cartas del carnaval y colocarlas en su area de juego;\n" +
                         "3. Robar una carta del mazo.\n" +

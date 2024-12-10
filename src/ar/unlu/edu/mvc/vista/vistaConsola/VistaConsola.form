@@ -40,7 +40,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="f333d" class="javax.swing.JTextField" binding="entradaMenuField">
+          <component id="f333d" class="javax.swing.JTextField" binding="entradaField">
             <constraints border-constraint="Center"/>
             <properties>
               <background color="-16777216"/>
