@@ -4,28 +4,27 @@ import ar.unlu.edu.mvc.exceptions.JuegoException;
 import ar.unlu.edu.mvc.exceptions.TipoException;
 
 import java.io.Serializable;
+import java.util.Queue;
 
 public class UltimaRonda extends Ronda implements Serializable {
-    private static int contador=0;
-    private final int cantidadJugadores;
+   private Jugador primerJugadorRonda;
 
-    public UltimaRonda(Jugador jugador, Carnaval carnaval,Mazo mazo,Juego juego,int cantidad){
-        super(jugador,carnaval,mazo,juego);
-        contador++;
-        this.cantidadJugadores= cantidad;
+    public UltimaRonda(Queue<Jugador> jugadores, Carnaval carnaval, Mazo mazo, Juego juego){
+        super(jugadores,carnaval,mazo,juego);
+        this.primerJugadorRonda=this.jugadores.peek();
     }
 
     @Override
     public void finTurno() throws JuegoException {
         if (tiroCarta) {
             if (esFinDeRonda()) {
-                this.juego.setRondaDescarte(true);
+                this.juego.setRondaDescarte();
             }
-            this.juego.finTurno();
+            this.cambiarTurno();
         }
         else{
             throw new JuegoException("Debes tirar una carta antes de finalizar tu turno", TipoException.CARTA_EXCEPTION);
-            }
+        }
 
     }
     @Override
