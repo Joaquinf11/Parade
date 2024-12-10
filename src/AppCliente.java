@@ -3,6 +3,7 @@ import ar.edu.unlu.rmimvc.Util;
 import ar.edu.unlu.rmimvc.cliente.Cliente;
 import ar.unlu.edu.mvc.controlador.Controlador;
 import ar.unlu.edu.mvc.interfaces.IVista;
+import ar.unlu.edu.mvc.vista.vistaConsola.VistaConsola;
 import ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaGrafica;
 
 import javax.swing.*;
@@ -46,7 +47,7 @@ public class AppCliente {
                 null,
                 8888
         );
-        IVista vista = new VistaGrafica();
+        IVista vista = new VistaConsola();
         Controlador controlador = new Controlador(vista);
         Cliente c = new Cliente(ip, Integer.parseInt(port), ipServidor, Integer.parseInt(portServidor));
 
