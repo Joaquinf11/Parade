@@ -7,20 +7,28 @@ import java.io.Serializable;
 import java.util.Queue;
 
 public class UltimaRonda extends Ronda implements Serializable {
-   private Jugador primerJugadorRonda;
+    private final Jugador primerJugadorRonda;
 
     public UltimaRonda(Queue<Jugador> jugadores, Carnaval carnaval, Mazo mazo, Juego juego){
         super(jugadores,carnaval,mazo,juego);
         this.primerJugadorRonda=this.jugadores.peek();
     }
 
+
     @Override
     public void finTurno() throws JuegoException {
-        if (tiroCarta) {
+        boolean faltanCartasCarnaval=this.carnaval.faltaAgarrarCartas(this.carnaval.getUltimaCarta(), indicesCartasElegidas);
+        if (tiroCarta && !faltanCartasCarnaval) {
             if (esFinDeRonda()) {
                 this.juego.setRondaDescarte();
             }
-            this.cambiarTurno();
+            else{
+                this.jugadores.add(this.jugadorTurno);
+                this.cambiarTurno();
+            }
+        }else if (faltanCartasCarnaval) {
+            throw new JuegoException("Debes elegir cartas del carnaval antes de finalizar turno",TipoException.CARTA_EXCEPTION);
+
         }
         else{
             throw new JuegoException("Debes tirar una carta antes de finalizar tu turno", TipoException.CARTA_EXCEPTION);
@@ -29,6 +37,6 @@ public class UltimaRonda extends Ronda implements Serializable {
     }
     @Override
     public boolean esFinDeRonda(){
-        return  contador == cantidadJugadores;
+        return  this.primerJugadorRonda.equals(this.jugadores.peek());
     }
 }

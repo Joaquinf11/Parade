@@ -16,17 +16,13 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     private List<Jugador> jugadores;
     private Carnaval carnaval;
     private Mazo mazo;
-    private boolean ultimaRonda;
     private  Ronda ronda;
-    private boolean rondaDescarte;
     private Evento ultimoEvento;
 
     public Juego (){
         this.jugadores= new LinkedList<>();
         this.carnaval= new Carnaval();
         this.mazo= new Mazo();
-        this.ultimaRonda=false;
-        this.rondaDescarte=false;
     }
 
     @Override
@@ -65,9 +61,9 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         this.ronda= new UltimaRonda(new LinkedList<>(this.jugadores),this.carnaval,this.mazo,this);
     }
 
-    public void setRondaDescarte(boolean b){
+    public void setRondaDescarte(){
         this.notificar(Evento.RONDA_DESCARTE);
-        this.rondaDescarte=b;
+        this.ronda= new RondaDescarte(new LinkedList<>(this.jugadores),this.carnaval,this.mazo,this);
     }
 
      private Jugador buscarJugador(String nombre){
@@ -126,19 +122,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
 
     @Override
     public void analizarCartasCarnaval (int[] cartasElegidas) throws JuegoException,RemoteException{
-            Carta cartaTirada= this.carnaval.getUltimaCarta();
-            if (!this.carnaval.puedeAgarrarCarnaval(cartaTirada)){
-                throw new JuegoException("La carta tirada: " + cartaTirada.toString() + " tiene mayor valor a la cantidad de cartas que hay en el carnaval",TipoException.CARTA_EXCEPTION);
-            }
-            else if (this.carnaval.agarroCartasSalvadasCarnaval(cartaTirada.getValor(),cartasElegidas)){
-                throw new JuegoException("Elegiste una carta salvada",TipoException.CARTA_EXCEPTION);
-            }
-            else if(this.carnaval.faltaAgarrarCartas(cartaTirada,cartasElegidas)){
-                throw new JuegoException("Podes seleccionar mas cartas del carnaval",TipoException.CARTA_EXCEPTION);
-            }
-            else {
-                this.ronda.agregarCartasAlAreaDeJuego(cartaTirada,cartasElegidas);
-            }
+           this.ronda.analizarCartasCarnaval(cartasElegidas);
     }
 
     @Override
@@ -255,7 +239,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     }
 
     @Override
-    public IJugador getJugadorTurno()throws RemoteException{
+    public IJugador getJugadorTurno() throws RemoteException{
         return this.ronda.getJugadorTurno();
     }
 
