@@ -18,7 +18,6 @@ public class Ronda implements Serializable {
     protected boolean tiroCarta;
     private int[] indicesCartasElegidas=null;
     private  Carta cartaTirada;
-    protected Jugador primerJugadorRonda;
 
 
     public Ronda(Queue<Jugador> jugadores, Carnaval carnaval,Mazo mazo,Juego juego){
@@ -27,7 +26,6 @@ public class Ronda implements Serializable {
         this.mazo= mazo;
         this.juego=juego;
         this.tiroCarta=false;
-        this.primerJugadorRonda= jugadores.peek();
         this.cambiarTurno();
     }
 
@@ -59,6 +57,7 @@ public class Ronda implements Serializable {
         }
         if (agrego){
             this.juego.notificar(Evento.CARTA_AGREGADA_AREA);
+            this.indicesCartasElegidas= cartasElegidas;
         }
         this.finTurno();
     }
@@ -69,9 +68,11 @@ public class Ronda implements Serializable {
             if (!this.mazo.tieneCartas()){
                 juego.notificar(Evento.MAZO_SIN_CARTAS);
             }
-            if (esFinDeRonda()) {
-                juego.setUltimaRonda(true);
+            if (esFinDeRonda()){
+                this.juego.setUltimaRonda();
             }
+            this.jugadores.add(this.jugadorTurno);
+            this.cambiarTurno();
         } else if (this.carnaval.faltaAgarrarCartas(this.carnaval.getUltimaCarta(),null)) {
             throw new JuegoException("Debes elegir cartas del carnaval antes de finalizar turno",TipoException.CARTA_EXCEPTION);
 
