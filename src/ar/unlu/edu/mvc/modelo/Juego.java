@@ -51,10 +51,6 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         return this.jugadores.getLast().getNombre();
     }
 
-    @Override
-    public void notificarUltimoEvento() throws RemoteException {
-        notificar(this.ultimoEvento);
-    }
 
 
     @Override
@@ -64,9 +60,9 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         removerObservador(o);
     }
 
-    public void setUltimaRonda(boolean b){
+    public void setUltimaRonda(){
         this.notificar(Evento.ULTIMA_RONDA);
-        this.ultimaRonda=b;
+        this.ronda= new UltimaRonda(new LinkedList<>(this.jugadores),this.carnaval,this.mazo,this);
     }
 
     public void setRondaDescarte(boolean b){
@@ -86,7 +82,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
      @Override
     public void agregarJugador (String nombre) throws JuegoException ,RemoteException{
         if (nombre.isEmpty()){
-            throw new JuegoException("El nombre ingresado es invalido", TipoException.JUGADOR_INVALIDO);
+            throw new JuegoException("El nombre ingresado es invalido", TipoException.JUGADOR_INVALIDO_EXCEPTION);
         }
         else if(buscarJugador(nombre) == null ) {
             Jugador jugador = new Jugador(nombre);
@@ -94,7 +90,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
             this.notificar(Evento.JUGADOR_AGREGADO);
         }
         else {
-            throw new JuegoException("El jugador ya se encuentra agregado",TipoException.JUGADOR_YA_AGREGADO);
+            throw new JuegoException("El jugador ya se encuentra agregado",TipoException.JUGADOR_INVALIDO_EXCEPTION);
         }
     }
 
