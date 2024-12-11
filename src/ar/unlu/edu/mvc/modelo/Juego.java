@@ -67,7 +67,6 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         this.jugadores.remove(jugador);
         removerObservador(o);
     }
-
     public void setJugadorTurno(Jugador jugador){
         this.jugadorTurno=jugador;
      }

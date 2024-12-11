@@ -29,23 +29,8 @@ public class VistaConsola extends JFrame implements IVista {
     private ActionListener actionElegirCartas;
     private ActionListener actionTirarCarta;
 
-
-    private final  List<String> comandos;
-
-
-
+    
     public VistaConsola(){
-        comandos= new ArrayList<>();
-        comandos.add("comandos");
-        comandos.add("carnaval");
-        comandos.add("area");
-        comandos.add("mano");
-        comandos.add("salir");
-        comandos.add("clear");
-        comandos.add("area oponentes");
-        comandos.add("como jugar");
-        comandos.add("mazo");
-        comandos.add("reglas");
 
 
 
