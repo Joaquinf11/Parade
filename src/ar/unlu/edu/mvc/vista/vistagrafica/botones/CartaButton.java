@@ -38,11 +38,11 @@ public class CartaButton extends JButton {
     public CartaButton(String path, TipoCarta tipo)  {
         this.imageIcon= new ImageIcon(path);
         switch (tipo) {
-            case CARNAVAL -> configurarBoton( WIDTH_CARNAVAL, HEIGHT_CARNAVAL, 0, 0, 0, 0 );
-            case MANO -> configurarBoton( WIDTH_MANO, HEIGHT_MANO, 3, 3, 3, 3);
-            case DORSO_VERTICAL -> configurarBoton( WIDTH_DORSO_VERTICAL, HEIGHT_DORSO_VERTICAL, 0, 0, 0, 0);
+            case CARNAVAL -> configurarBoton( tipo,WIDTH_CARNAVAL, HEIGHT_CARNAVAL, 0, 0, 0, 0 );
+            case MANO -> configurarBoton(tipo, WIDTH_MANO, HEIGHT_MANO, 3, 3, 3, 3);
+            case DORSO_VERTICAL -> configurarBoton(tipo, WIDTH_DORSO_VERTICAL, HEIGHT_DORSO_VERTICAL, 0, 0, 0, 0);
             case NUM_AREA_VERTICAL -> recortarImagen( path);
-            case ULTIMA_AREA_VERTICAL -> configurarBoton( WIDTH_ULTIMA_NUMERO_VERTICAL, HEIGHT_ULTIMA_NUMERO_VERTICAL, -1, 0, 0, 0);
+            case ULTIMA_AREA_VERTICAL -> configurarBoton(tipo, WIDTH_ULTIMA_NUMERO_VERTICAL, HEIGHT_ULTIMA_NUMERO_VERTICAL, -1, 0, 0, 0);
             case NUM_AREA_HORIZONTAL_IZQ-> recortarConRotacion(path, 90);
             case NUM_AREA_HORIZONTAL_DER -> recortarConRotacion(path, -90);
             case ULTIMA_AREA_HORIZONTAL_DER-> configurarConRotacion(90);
@@ -54,12 +54,14 @@ public class CartaButton extends JButton {
         this.setContentAreaFilled(false);
     }
 
-    private void configurarBoton(int width, int height, int top, int left, int bottom, int right) {
+    private void configurarBoton(TipoCarta tipo,int width, int height, int top, int left, int bottom, int right) {
         imageIcon.setImage(imageIcon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
         setIcon(imageIcon);
         this.setSize(width, height);
         setBorder(BorderFactory.createEmptyBorder(top, left, bottom, right));
-        setBorder(BorderFactory.createLineBorder(new Color(201, 217, 5), 5));
+        if (tipo.equals(TipoCarta.CARNAVAL) || tipo.equals(TipoCarta.MANO)) {
+            setBorder(BorderFactory.createLineBorder(new Color(201, 217, 5), 5));
+        }
     }
 
     private void recortarImagen(String path) {
