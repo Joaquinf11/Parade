@@ -59,11 +59,13 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     public void setUltimaRonda(){
         this.notificar(Evento.ULTIMA_RONDA);
         this.ronda= new UltimaRonda(new LinkedList<>(this.jugadores),this.carnaval,this.mazo,this);
+        this.ronda.cambiarTurno();
     }
 
     public void setRondaDescarte(){
         this.notificar(Evento.RONDA_DESCARTE);
         this.ronda= new RondaDescarte(new LinkedList<>(this.jugadores),this.carnaval,this.mazo,this);
+        this.ronda.cambiarTurno();
     }
 
      private Jugador buscarJugador(String nombre){
@@ -108,6 +110,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
             this.repartirCartas();
             this.notificar(Evento.JUEGO_COMENZADO);
             this.ronda= new Ronda(new LinkedList<>(this.jugadores),this.carnaval,this.mazo,this);
+            this.ronda.cambiarTurno();
         }
         else {
             throw new JuegoException("Fatan jugadores",TipoException.FALTAN_JUGADORES);

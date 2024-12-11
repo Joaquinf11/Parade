@@ -26,7 +26,6 @@ public class Ronda implements Serializable {
         this.mazo = mazo;
         this.juego = juego;
         this.tiroCarta = false;
-        this.cambiarTurno();
     }
 
     protected void cambiarTurno() {
@@ -82,6 +81,7 @@ public class Ronda implements Serializable {
                 this.juego.setUltimaRonda();
             }
             else {
+                this.juego.notificar(Evento.FIN_TURNO);
                 this.jugadores.add(this.jugadorTurno);
                 this.cambiarTurno();
             }

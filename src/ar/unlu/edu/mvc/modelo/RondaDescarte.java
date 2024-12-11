@@ -15,6 +15,7 @@ public class RondaDescarte extends Ronda implements Serializable {
     public RondaDescarte(Queue<Jugador> jugadores, Carnaval carnaval, Mazo mazo, Juego juego) {
         super(jugadores, carnaval, mazo, juego);
         this.primerJugadorRonda=jugadores.peek();
+        this.contador=0;
     }
 
     @Override
@@ -46,12 +47,13 @@ public class RondaDescarte extends Ronda implements Serializable {
     @Override
     public boolean esFinDeRonda(){
         boolean esPrimerJugador= this.primerJugadorRonda.equals(this.jugadores.peek());
-        if (esPrimerJugador && contador != 2){
+        if (contador == 2){
+
+            return true;
+        }
+        else if (esPrimerJugador){
             contador++;
             return false;
-        }
-        else if (esPrimerJugador && contador == 2){
-            return true;
         }
         else {
             return false;
