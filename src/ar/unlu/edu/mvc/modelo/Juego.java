@@ -13,27 +13,25 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 public class Juego extends ObservableRemoto implements Serializable, IJuego {
-    private Queue<Jugador> jugadores;
+    private List<Jugador> jugadores;
     private Carnaval carnaval;
     private Mazo mazo;
-    private Jugador jugadorTurno;
-    private boolean ultimaRonda;
     private  Ronda ronda;
-    private boolean rondaDescarte;
     private Evento ultimoEvento;
 
     public Juego (){
         this.jugadores= new LinkedList<>();
         this.carnaval= new Carnaval();
         this.mazo= new Mazo();
-        this.ultimaRonda=false;
-        this.rondaDescarte=false;
     }
 
     @Override
     public int getCantidadCartasMazo(){
         return this.mazo.getCantidadCartas();
     }
+
+
+    @Override
 
     public IJuego cargarPartida(String nombrePartida) throws IOException, ClassNotFoundException {
         RepositorioJuego repo= new RepositorioJuego(nombrePartida);
@@ -48,17 +46,14 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
 
     @Override
     public String getUltimoJugadorAgregado() throws RemoteException {
-        String resultado=null;
-        for (Jugador jugador: this.jugadores){
-            resultado= jugador.getNombre();
-        }
-        return resultado;
+        return this.jugadores.getLast().getNombre();
     }
 
     @Override
     public void notificarUltimoEvento() throws RemoteException {
         notificar(this.ultimoEvento);
     }
+
 
 
     @Override
@@ -68,17 +63,16 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         removerObservador(o);
     }
 
-    public void setJugadorTurno(Jugador jugador){
-        this.jugadorTurno=jugador;
-     }
-    public void setUltimaRonda(boolean b){
+    public void setUltimaRonda(){
         this.notificar(Evento.ULTIMA_RONDA);
-        this.ultimaRonda=b;
+        this.ronda= new UltimaRonda(new LinkedList<>(this.jugadores),this.carnaval,this.mazo,this);
+        this.ronda.cambiarTurno();
     }
 
-    public void setRondaDescarte(boolean b){
+    public void setRondaDescarte(){
         this.notificar(Evento.RONDA_DESCARTE);
-        this.rondaDescarte=b;
+        this.ronda= new RondaDescarte(new LinkedList<>(this.jugadores),this.carnaval,this.mazo,this);
+        this.ronda.cambiarTurno();
     }
 
      private Jugador buscarJugador(String nombre){
@@ -95,7 +89,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         if (nombre.isEmpty()){
             throw new JuegoException("El nombre ingresado es invalido", TipoException.JUGADOR_INVALIDO);
         }
-        else if(buscarJugador(nombre) == null || !nombre.equals(this.jugadorTurno.getNombre())) {
+        else if(buscarJugador(nombre) == null ) {
             Jugador jugador = new Jugador(nombre);
             this.jugadores.add(jugador);
             this.notificar(Evento.JUGADOR_AGREGADO);
@@ -122,28 +116,14 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         if(sePuedeComenzar()) {
             this.repartirCartas();
             this.notificar(Evento.JUEGO_COMENZADO);
-            this.cambiarTurno();
+            this.ronda= new Ronda(new LinkedList<>(this.jugadores),this.carnaval,this.mazo,this);
+            this.ronda.cambiarTurno();
         }
         else {
             throw new JuegoException("Fatan jugadores",TipoException.FALTAN_JUGADORES);
         }
     }
 
-    private void cambiarTurno(){
-        this.setJugadorTurno(this.jugadores.remove());
-        this.notificar(Evento.CAMBIO_TURNO);
-        if (this.ultimaRonda && !this.rondaDescarte){
-
-            this.ronda= new UltimaRonda(jugadorTurno,carnaval,null,this,this.jugadores.size() + 1);
-        }
-        else if(this.rondaDescarte){
-
-            this.ronda= new RondaDescarte(jugadorTurno,carnaval,null,this.jugadores.size() + 1,this);
-        }
-        else {
-            this.ronda= new Ronda(jugadorTurno,carnaval,mazo,this);
-        }
-    }
 
     @Override
     public void tirarCarta(int cartaElegida) throws JuegoException,RemoteException {
@@ -152,22 +132,16 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
 
     @Override
     public void analizarCartasCarnaval (int[] cartasElegidas) throws JuegoException,RemoteException{
-        this.ronda.analizarCartasCarnaval(cartasElegidas);
+           this.ronda.analizarCartasCarnaval(cartasElegidas);
     }
 
     @Override
     public void finalizarTurno()throws JuegoException, RemoteException{
-        this.ronda.finRonda();
+        this.ronda.finTurno();
     }
 
-    public void finTurno() {
-        this.notificar(Evento.FIN_TURNO);
-        this.jugadores.add(this.jugadorTurno);
-        this.cambiarTurno();
-    }
 
     public void finJuego(){
-        this.jugadores.add(this.jugadorTurno);
         agregarCartasEnManoAlArea();
         this.calcularPuntos();
         this.notificar(Evento.FIN_JUEGO);
@@ -192,7 +166,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     }
 
    private void evaluarAreaDeJuego(){
-        Jugador jugador_anterior= this.jugadores.peek();
+        Jugador jugador_anterior= this.jugadores.getFirst();
         List<Jugador> jugadoresConMasCartas= new ArrayList<>();
         for (Color color : Color.values()){
             jugadoresConMasCartas.clear();
@@ -223,7 +197,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     @Override
     public Jugador definirGanador()throws RemoteException{
         List<Jugador> jugadoresConMenosPuntos= new ArrayList<>();
-        Jugador jugador_anterior= this.jugadores.peek();
+        Jugador jugador_anterior= this.jugadores.getFirst();
         for (Jugador jugador : this.jugadores){
             if (jugador.getPuntos() > jugador_anterior.getPuntos()){
                 jugador_anterior = jugador;
@@ -257,9 +231,6 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     public Collection<List<String>> listarCartasArea(String nombreJugador)throws RemoteException {
         Collection<List<String>> resultado= new ArrayList<>();
         Jugador jugador= buscarJugador(nombreJugador);
-        if (jugador == null){
-            jugador= this.jugadorTurno;
-        }
         for (List<Carta> cartas : jugador.getCartasArea()) {
             List<String> listaNueva= new ArrayList<>();
             for (Carta carta : cartas) {
@@ -278,8 +249,8 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     }
 
     @Override
-    public IJugador getJugadorTurno()throws RemoteException{
-        return this.jugadorTurno;
+    public IJugador getJugadorTurno() throws RemoteException{
+        return this.ronda.getJugadorTurno();
     }
 
     @Override
@@ -294,9 +265,6 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     @Override
     public List<String> listarCartasEnMano(String nombre) throws RemoteException{
         Jugador jugador= this.buscarJugador(nombre);
-        if (jugador == null){
-            jugador= this.jugadorTurno;
-        }
         List<String> resultado= new ArrayList<>();
         for (Carta carta : jugador.getCartas()){
             resultado.add(carta.toString());
@@ -308,7 +276,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     public void notificar(Evento evento) {
         try {
             notificarObservadores(evento);
-            this.ultimoEvento= evento;
+            this.ultimoEvento=evento;
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }

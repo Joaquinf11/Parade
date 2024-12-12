@@ -5,16 +5,17 @@ import ar.unlu.edu.mvc.exceptions.JuegoException;
 import ar.unlu.edu.mvc.exceptions.TipoException;
 
 import java.io.Serializable;
+import java.util.Queue;
 
 public class RondaDescarte extends Ronda implements Serializable {
-    private static int contador=0;
-    private final int cantidadJugadores;
+    private final Jugador primerJugadorRonda;
+    private int contador;
 
 
-    public RondaDescarte(Jugador jugador, Carnaval carnaval, Mazo mazo,int cantidadJugadores, Juego juego) {
-        super(jugador, carnaval, mazo, juego);
-        contador++;
-        this.cantidadJugadores=cantidadJugadores;
+    public RondaDescarte(Queue<Jugador> jugadores, Carnaval carnaval, Mazo mazo, Juego juego) {
+        super(jugadores, carnaval, mazo, juego);
+        this.primerJugadorRonda=jugadores.peek();
+        this.contador=0;
     }
 
     @Override
@@ -22,17 +23,18 @@ public class RondaDescarte extends Ronda implements Serializable {
         this.jugadorTurno.quitarCarta(cartaElegida);
         juego.notificar(Evento.CARTA_DESCARTADA);
         this.tiroCarta=true;
-        this.finRonda();
+        this.finTurno();
     }
 
     @Override
-    public void finRonda() throws JuegoException {
+    public void finTurno() throws JuegoException {
         if (tiroCarta) {
             if (esFinDeRonda()) {
                 this.juego.finJuego();
             }
             else{
-                this.juego.finTurno();
+                this.jugadores.add(this.jugadorTurno);
+                this.cambiarTurno();
             }
         }
         else {
@@ -44,7 +46,18 @@ public class RondaDescarte extends Ronda implements Serializable {
 
     @Override
     public boolean esFinDeRonda(){
-        return  contador == (cantidadJugadores * 2);
+        boolean esPrimerJugador= this.primerJugadorRonda.equals(this.jugadores.peek());
+        if (contador == 2){
+
+            return true;
+        }
+        else if (esPrimerJugador){
+            contador++;
+            return false;
+        }
+        else {
+            return false;
+        }
     }
 
 }
