@@ -87,6 +87,7 @@ public class VistaJuego {
         this.cartasEnMano= new ArrayList<>();
         this.cartasElegidasCarnaval= new int[1];
         this.cartasElegidasCarnaval[0]= -1;
+        this.cartaElegidaMano=-1;
 
         tirarCartaButton.addActionListener(new ActionListener() {
             @Override
@@ -173,13 +174,12 @@ public class VistaJuego {
 
         setOponentes();
 
-
-    actualizarCartasCarnaval();
-    actualizarCartasEnMano();
-    actualizarAreaDeJuego();
-    for (String jugador: oponentes){
-        actualizarAreaOponente(jugador);
-    }
+        actualizarCartasCarnaval();
+        actualizarCartasEnMano();
+        actualizarAreaDeJuego();
+        for (String jugador: oponentes){
+            actualizarAreaOponente(jugador);
+        }
 
     }
 
@@ -198,9 +198,6 @@ public class VistaJuego {
         }
 
     }
-
-
-
 
     public void activarCartasMano() {
         tirarCartaButton.setEnabled(true);
@@ -291,8 +288,6 @@ public class VistaJuego {
         return false;
     }
 
-
-
     public void desactivarTodosLosBotones() {
         desactivarCartasCarnaval();
         desactivarCartasEnMano();
@@ -314,8 +309,18 @@ public class VistaJuego {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    cartaElegidaMano = (int) button.getClientProperty("indice");
-                    button.setBorderPainted(true);
+                    int indice=(int) button.getClientProperty("indice");
+                    if (cartaElegidaMano == -1){
+                        cartaElegidaMano=indice;
+                        button.setBorderPainted(true);
+                    } else if (indice == cartaElegidaMano) {
+                        cartaElegidaMano = -1;
+                        button.setBorderPainted(false);
+                    } else {
+                        cartasEnMano.get(cartaElegidaMano).setBorderPainted(false);
+                        cartaElegidaMano=indice;
+                        button.setBorderPainted(true);
+                    }
                 }
             });
             this.cartasEnMano.add(button);

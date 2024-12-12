@@ -121,7 +121,7 @@ public class Controlador implements IControladorRemoto {
         }
         catch (JuegoException e) {
             this.vista.mostrarMensaje(e.getMessage());
-            if (e.getTipo() == TipoException.JUGADOR_INVALIDO_EXCEPTION){
+            if (e.getTipo() == TipoException.JUGADOR_INVALIDO){
                 this.vista.mostrarMenuInicial();
             }
         }
@@ -260,17 +260,25 @@ public class Controlador implements IControladorRemoto {
         }
     }
 
-    public void cargarPartida(String text) {
+    public void cargarPartida(String nombrePartida,String nombreJugador) {
         try {
-            this.juego= this.juego.cargarPartida(text);
+                this.jugador=nombreJugador;
+                this.juego= this.juego.cargarPartida(nombrePartida);
                 this.juego.agregarObservador(this);
+                this.juego.agregarJugador(nombreJugador);
                 this.vista.partidaCargada();
+                this.juego.notificarUltimoEvento();
             } catch (RemoteException e) {
             throw new RuntimeException(e);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
+            } catch (JuegoException e) {
+                if (!e.getTipo().equals(TipoException.JUGADOR_YA_AGREGADO)) {
+                    this.vista.mostrarMensaje(e.getMessage());
+                }
+
             }
     }
 

@@ -3,22 +3,23 @@ package ar.unlu.edu.mvc.vista.vistagrafica.paneles;
 import ar.unlu.edu.mvc.controlador.Controlador;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VistaCargarPartida {
     private JPanel panelPrincipal;
-    private JPanel panelBotones;
     private JButton aceptarButton;
-    private JTextField ingresarNombre;
-    private JLabel label;
+    private JTextField ingresarNombrePartida;
+    private JLabel labelNombrePartida;
+    private JLabel labelNombreJugador;
+    private JTextField ingresarNombreJugador;
 
-    public VistaCargarPartida(Controlador controlador) {
+    public VistaCargarPartida(Controlador controlador,VistaGrafica vistaGrafica) {
         aceptarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controlador.cargarPartida(ingresarNombre.getText());
+                vistaGrafica.setNombreJugador(ingresarNombreJugador.getText());
+                controlador.cargarPartida(ingresarNombrePartida.getText(),ingresarNombreJugador.getText());
             }
         });
     }
@@ -26,4 +27,6 @@ public class VistaCargarPartida {
     public JPanel getPanel() {
         return this.panelPrincipal;
     }
+
+
 }

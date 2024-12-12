@@ -40,9 +40,11 @@ public interface IJuego  extends IObservableRemoto, Serializable {
 
     int getCantidadCartasMazo() throws RemoteException;
 
-    IJuego cargarPartida(String text) throws  IOException, ClassNotFoundException;
+    IJuego cargarPartida(String nombrePartida) throws  IOException, ClassNotFoundException;
 
     void guardarPartida(String nombrePartida) throws RemoteException, IOException;
 
     String getUltimoJugadorAgregado() throws  RemoteException;
+
+    void notificarUltimoEvento() throws RemoteException;
 }

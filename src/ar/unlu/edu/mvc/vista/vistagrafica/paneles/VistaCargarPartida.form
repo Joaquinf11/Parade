@@ -1,65 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaCargarPartida">
-  <grid id="27dc6" binding="panelPrincipal" layout-manager="BorderLayout" hgap="0" vgap="0">
+  <grid id="27dc6" binding="panelPrincipal" layout-manager="GridBagLayout">
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="20" width="667" height="400"/>
     </constraints>
     <properties>
       <background color="-3713341"/>
     </properties>
     <border type="none"/>
     <children>
-      <grid id="dcf52" binding="panelBotones" layout-manager="GridBagLayout">
-        <constraints border-constraint="Center"/>
+      <component id="8854e" class="javax.swing.JLabel" binding="labelNombrePartida">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
         <properties>
-          <opaque value="false"/>
+          <background color="-3713341"/>
+          <font name="Ravie" size="18"/>
+          <foreground color="-3548923"/>
+          <text value="Ingresar nombre de la partida"/>
         </properties>
-        <border type="none"/>
-        <children>
-          <component id="89e2e" class="javax.swing.JButton" binding="aceptarButton">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-              <gridbag top="10" left="100" bottom="20" right="100" weightx="0.0" weighty="0.0"/>
-            </constraints>
-            <properties>
-              <background color="-3548923"/>
-              <font name="Ravie" size="14"/>
-              <foreground color="-3713341"/>
-              <label value="Aceptar"/>
-              <margin top="0" left="0" bottom="0" right="0"/>
-              <maximumSize width="40" height="30"/>
-              <preferredSize width="60" height="30"/>
-              <text value="Aceptar"/>
-            </properties>
-          </component>
-          <component id="8854e" class="javax.swing.JLabel" binding="label">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-              <gridbag weightx="0.0" weighty="0.0"/>
-            </constraints>
-            <properties>
-              <background color="-3713341"/>
-              <font name="Ravie" size="18"/>
-              <foreground color="-3548923"/>
-              <text value="Ingresar nombre de la partida"/>
-            </properties>
-          </component>
-          <component id="aabf2" class="javax.swing.JTextField" binding="ingresarNombre">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-              <gridbag weightx="0.0" weighty="0.0"/>
-            </constraints>
-            <properties>
-              <background color="-3548923"/>
-              <font name="Ravie" size="18"/>
-              <foreground color="-3713341"/>
-              <horizontalAlignment value="0"/>
-            </properties>
-          </component>
-        </children>
-      </grid>
+      </component>
+      <component id="aabf2" class="javax.swing.JTextField" binding="ingresarNombrePartida">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <background color="-3548923"/>
+          <font name="Ravie" size="18"/>
+          <foreground color="-3713341"/>
+          <horizontalAlignment value="0"/>
+        </properties>
+      </component>
+      <component id="89e2e" class="javax.swing.JButton" binding="aceptarButton">
+        <constraints>
+          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag top="10" left="100" bottom="20" right="100" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <background color="-3548923"/>
+          <font name="Ravie" size="16"/>
+          <foreground color="-3713341"/>
+          <label value="Aceptar"/>
+          <margin top="0" left="0" bottom="0" right="0"/>
+          <maximumSize width="40" height="30"/>
+          <preferredSize width="60" height="30"/>
+          <text value="Aceptar"/>
+        </properties>
+      </component>
+      <component id="e6365" class="javax.swing.JLabel" binding="labelNombreJugador">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="10" left="0" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <enabled value="true"/>
+          <font name="Ravie" size="18"/>
+          <foreground color="-3548923"/>
+          <text value="Ingrese el nombre del Jugador"/>
+        </properties>
+      </component>
+      <component id="5417d" class="javax.swing.JTextField" binding="ingresarNombreJugador">
+        <constraints>
+          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <background color="-3548923"/>
+          <editable value="true"/>
+          <font name="Ravie" size="18"/>
+          <foreground color="-3713341"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>
