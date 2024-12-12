@@ -5,13 +5,13 @@ import java.util.*;
 
 public class AreaDeJuego implements Serializable {
 
-    private Map<Color,List<Carta>> cartas ;
-    private List<Carta> cartasBocaAbajo;
+    private final Map<Color,List<Carta>> cartas ;
+    private final Map<Color,Integer> cartasBocaAbajo;
 
 
     public AreaDeJuego(){
         this.cartas= new HashMap<>();
-        this.cartasBocaAbajo= new ArrayList<>();
+        this.cartasBocaAbajo= new HashMap<>();
     }
 
 
@@ -19,6 +19,16 @@ public class AreaDeJuego implements Serializable {
         Color color = carta.getColor();
         cartas.putIfAbsent(color, new ArrayList<>());  // Crea la lista si no existe
         cartas.get(color).add(carta);
+    }
+
+    private void agregarCartaBocaAbajo(Color color){
+        if (cartasBocaAbajo.containsKey(color)){
+            int cantidad= cartasBocaAbajo.get(color) + 1;
+            cartasBocaAbajo.replace(color,cantidad);
+        }
+        else {
+            cartasBocaAbajo.put(color,1);
+        }
     }
 
     public int getCantidadDeCartasPorColor(Color color){
@@ -43,20 +53,24 @@ public class AreaDeJuego implements Serializable {
     }
 
     public int getCantidadCartasBocaArriba(){
-        int totalCartas = 0;
+        int total = 0;
 
         for (Map.Entry<Color, List<Carta>> entry : this.cartas.entrySet()) {
             List<Carta> cartas = entry.getValue();
-            totalCartas -= cartas.size(); // Sumar la cantidad de cartas en cada lista
+            total += cartas.size(); // Sumar la cantidad de cartas en cada lista
         }
-        return totalCartas;
+        return total;
     }
 
     public int getCantidadCartasBocaAbajo(){
+        int total = 0;
 
-        return (this.cartasBocaAbajo.size()) *(-1);
+        for (Map.Entry<Color, Integer> entry : this.cartasBocaAbajo.entrySet()) {
+            int cantidad = entry.getValue();
+            total += cantidad;
+        }
+        return total;
     }
-
 
 
     public boolean tiene6colores(){
@@ -65,7 +79,7 @@ public class AreaDeJuego implements Serializable {
 
     public void ponerCartasBocaAbajo(Color color){
         if (this.cartas.containsKey(color)) {
-            this.cartasBocaAbajo.addAll(this.cartas.get(color));
+            this.agregarCartaBocaAbajo(color);
             this.cartas.remove(color);
         }
     }
@@ -85,7 +99,7 @@ public class AreaDeJuego implements Serializable {
     }
 
     public int calcularPuntos(){
-        return  this.getCantidadCartasBocaAbajo() + sumarValorDeCartas();
+        return  (getCantidadCartasBocaAbajo() * -1 ) + sumarValorDeCartas();
     }
 
 }

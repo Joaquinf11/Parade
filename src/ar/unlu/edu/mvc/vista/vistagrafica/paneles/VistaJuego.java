@@ -93,6 +93,7 @@ public class VistaJuego {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.jugarCarta(cartaElegidaMano);
+                cartaElegidaMano = -1;
             }
         });
         tirarCartaButton.setEnabled(false);
@@ -317,7 +318,9 @@ public class VistaJuego {
                         cartaElegidaMano = -1;
                         button.setBorderPainted(false);
                     } else {
-                        cartasEnMano.get(cartaElegidaMano).setBorderPainted(false);
+                        if (cartaElegidaMano != -1){
+                            cartasEnMano.get(cartaElegidaMano).setBorderPainted(false);
+                        }
                         cartaElegidaMano=indice;
                         button.setBorderPainted(true);
                     }

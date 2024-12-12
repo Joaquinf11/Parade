@@ -33,14 +33,6 @@ public class Carnaval implements Serializable {
         this.cartas.add(carta);
     }
 
-    public void agregarCarta(int indice,Carta carta){
-        if (indice > this.cartas.size()){
-            this.cartas.add(carta);
-        }
-        else {
-            this.cartas.add(indice, carta);
-        }
-    }
 
     public void sacarCarta(Carta carta){
         this.cartas.remove(carta);
