@@ -293,4 +293,14 @@ public class Controlador implements IControladorRemoto {
             throw  new RuntimeException(e);
         }
     }
+
+    public void nuevaPartida() {
+        try {
+            this.juego.nuevaPartida();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        } catch (JuegoException e) {
+            this.vista.mostrarMensaje(e.getMessage());
+        }
+    }
 }

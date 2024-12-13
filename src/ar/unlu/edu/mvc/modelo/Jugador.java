@@ -9,8 +9,8 @@ import java.util.List;
 
 public class Jugador implements IJugador, Serializable {
     private final String nombre;
-    private final List<Carta> cartasEnMano;
-    private final AreaDeJuego area;
+    private  List<Carta> cartasEnMano;
+    private  AreaDeJuego area;
     private int puntos;
 
     public Jugador(String nombre){
@@ -53,10 +53,7 @@ public class Jugador implements IJugador, Serializable {
             this.cartasEnMano.remove(indice);
 
     }
-    public void quitarCarta(Carta carta){
-        this.cartasEnMano.remove(carta);
 
-    }
 
     public Carta elegirCarta(int indice){
         return descartarCarta(indice);
@@ -85,5 +82,12 @@ public class Jugador implements IJugador, Serializable {
         List<Carta> cartas= new ArrayList<>(cartasEnMano);
         this.cartasEnMano.clear();
         return cartas;
+    }
+
+    public void resetNuevoJuego(){
+        this.puntos=0;
+        this.area= new AreaDeJuego();
+        this.cartasEnMano= new ArrayList<>();
+
     }
 }

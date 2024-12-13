@@ -107,6 +107,16 @@ public class VistaGrafica extends  JFrame implements IVista {
         });
         salir.add(guardarItem);
 
+        JMenuItem nuevaPartidaItem= new JMenuItem("Nueva Partida");
+        nuevaPartidaItem.setBackground(new Color(201,217,5));
+        nuevaPartidaItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.nuevaPartida();
+            }
+        });
+        salir.add(guardarItem);
+
         tabla= new JMenu("Tabla");
         tabla.setEnabled(false);
         JMenuItem tablaItem= new JMenuItem("Puntos");
