@@ -21,13 +21,13 @@ public class AreaDeJuego implements Serializable {
         cartas.get(color).add(carta);
     }
 
-    private void agregarCartaBocaAbajo(Color color){
+    private void agregarCartaBocaAbajo(Color color,int cantidad){
         if (cartasBocaAbajo.containsKey(color)){
-            int cantidad= cartasBocaAbajo.get(color) + 1;
-            cartasBocaAbajo.replace(color,cantidad);
+            int cantidadVieja= cartasBocaAbajo.get(color) ;
+            cartasBocaAbajo.replace(color,cantidad + cantidadVieja);
         }
         else {
-            cartasBocaAbajo.put(color,1);
+            cartasBocaAbajo.put(color,cantidad);
         }
     }
 
@@ -79,7 +79,8 @@ public class AreaDeJuego implements Serializable {
 
     public void ponerCartasBocaAbajo(Color color){
         if (this.cartas.containsKey(color)) {
-            this.agregarCartaBocaAbajo(color);
+            int cantidad= this.cartas.get(color).size();
+            this.agregarCartaBocaAbajo(color,cantidad);
             this.cartas.remove(color);
         }
     }
