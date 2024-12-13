@@ -93,6 +93,9 @@ public class VistaJuego {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.jugarCarta(cartaElegidaMano);
+                if (cartasEnMano.size() <= cartaElegidaMano) {
+                    cartasEnMano.get(cartaElegidaMano).setBorderPainted(false);
+                }
                 cartaElegidaMano = -1;
             }
         });
@@ -102,7 +105,6 @@ public class VistaJuego {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.analizarCartasCarnaval(cartasElegidasCarnaval);
-                cartasEnMano.get(cartaElegidaMano).setBorderPainted(false);
             }
         });
         analizarCartasButton.setEnabled(false);
@@ -111,7 +113,6 @@ public class VistaJuego {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.finalizarTurno();
-                cartasEnMano.get(cartaElegidaMano).setBorderPainted(false);
             }
         });
     }
@@ -318,9 +319,7 @@ public class VistaJuego {
                         cartaElegidaMano = -1;
                         button.setBorderPainted(false);
                     } else {
-                        if (cartaElegidaMano != -1){
-                            cartasEnMano.get(cartaElegidaMano).setBorderPainted(false);
-                        }
+                        cartasEnMano.get(cartaElegidaMano).setBorderPainted(false);
                         cartaElegidaMano=indice;
                         button.setBorderPainted(true);
                     }
@@ -393,7 +392,7 @@ public class VistaJuego {
     }
 
     private void clearPaneles(JPanel[] paneles) {
-        for (int i = 0; i < paneles.length - 1; i++) { // Excluye el último panel (área principal).
+        for (int i = 0; i < paneles.length - 1; i++) {
             paneles[i].removeAll();
         }
     }
@@ -401,7 +400,7 @@ public class VistaJuego {
     private List<String> getColores(Collection<List<String>> cartas) {
         List<String> colores = new ArrayList<>();
         for (List<String> cartasPorColor : cartas) {
-            String color = cartasPorColor.get(0).split(",")[0]; // Obtener el color de la primera carta.
+            String color = cartasPorColor.get(0).split(",")[0];
             colores.add(color);
         }
         return colores;
