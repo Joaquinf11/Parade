@@ -35,7 +35,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
 
     public IJuego cargarPartida(String nombrePartida) throws IOException, ClassNotFoundException {
         RepositorioJuego repo= new RepositorioJuego(nombrePartida);
-        return (IJuego)repo.recuperar();
+        return repo.recuperar();
     }
 
     @Override

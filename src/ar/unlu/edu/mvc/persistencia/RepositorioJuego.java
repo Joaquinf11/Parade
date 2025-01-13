@@ -12,18 +12,18 @@ public class RepositorioJuego {
         this.nombreArchivo=nombreArchivo;
     }
 
-    public void persistir(Object o)throws IOException{
+    public void persistir(IJuego juego)throws IOException{
         FileOutputStream out = new FileOutputStream(this.nombreArchivo);
         ObjectOutputStream outputStream= new ObjectOutputStream(out);
-        outputStream.writeObject(o);
+        outputStream.writeObject(juego);
         outputStream.close();
     }
 
-    public Object recuperar() throws  IOException,ClassNotFoundException{
+    public IJuego recuperar() throws  IOException,ClassNotFoundException{
         try {
             FileInputStream in = new FileInputStream(this.nombreArchivo);
             ObjectInputStream inputStream= new ObjectInputStream(in);
-            return (Object) inputStream.readObject();
+            return (IJuego) inputStream.readObject();
         } catch (EOFException ex){
             return null;
         }catch (FileNotFoundException ex){
