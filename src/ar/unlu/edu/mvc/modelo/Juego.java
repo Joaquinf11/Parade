@@ -18,11 +18,13 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     private Mazo mazo;
     private  Ronda ronda;
     private Evento ultimoEvento;
+    private TablaTop tablaTop;
 
     public Juego (){
         this.jugadores= new LinkedList<>();
         this.carnaval= new Carnaval();
         this.mazo= new Mazo();
+        this.tablaTop= new TablaTop();
     }
 
     @Override
@@ -32,7 +34,6 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
 
 
     @Override
-
     public IJuego cargarPartida(String nombrePartida) throws IOException, ClassNotFoundException {
         RepositorioJuego repo= new RepositorioJuego(nombrePartida);
         return (IJuego)repo.recuperar();
@@ -229,7 +230,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
                 }
             }
         }
-
+        tablaTop.agregarJugador(jugador_anterior);
         return jugador_anterior;
         // TODO falta considerar el caso en que sea un empate TOTAL
     }
@@ -295,6 +296,9 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         }
     }
 
+    public List<Jugador> getJugadores() {
+        return this.jugadores;
+    }
 }
 
 

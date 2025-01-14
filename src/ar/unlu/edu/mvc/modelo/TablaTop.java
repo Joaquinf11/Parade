@@ -4,20 +4,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TablaTop implements Serializable {
-    private List<Jugador> jugadores;
+public class TablaTop implements  Serializable {
+    private List<Jugador> jugadoresTabla;
 
-
-    public TablaTop (){
-        this.jugadores= new ArrayList<>();
+    public TablaTop () {
+        this.jugadoresTabla= new ArrayList<>();
     }
 
 
-    public void actualizarTabla(){
-        List<Jugador> jugadoresJuego=this.juego.getJugadores();
-        if (jugadores.isEmpty()){
+    public void agregarJugador(Jugador jugador){
+        
 
-        }
     }
 
 }
