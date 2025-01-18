@@ -158,6 +158,13 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     public void finJuego(){
         agregarCartasEnManoAlArea();
         this.calcularPuntos();
+        RepositorioJuego serializador= new RepositorioJuego("TablaTop");
+        //TODO CHEQUEAR SI EL TRYCATCH VA ACA
+        try {
+            serializador.persistir(this.tablaTop);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         this.notificar(Evento.FIN_JUEGO);
     }
 
@@ -230,6 +237,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
                 }
             }
         }
+        jugador_anterior.sumarVictoria();
         tablaTop.agregarJugador(jugador_anterior);
         return jugador_anterior;
         // TODO falta considerar el caso en que sea un empate TOTAL
