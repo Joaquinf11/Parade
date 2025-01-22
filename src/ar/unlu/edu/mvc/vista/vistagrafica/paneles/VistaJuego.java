@@ -497,4 +497,41 @@ public class VistaJuego {
             }
         }
     }
+
+    public void darVueltaCartasDelArea() {
+       List<String> cartas = this.controlador.listarCartasAreaDadasVuelta(vista.getNombreJugador());
+       for (String str : cartas){
+           String color= str.split(",")[0];
+           int cant = Integer.parseInt(str.split(",")[1]);
+           JPanel jpanel = getPanelColor(color);
+           int cantidad = jpanel.getComponentCount();
+           jpanel.removeAll();
+           TipoCarta tipo;
+           for (int i = 0; i < cantidad; i++) {
+               if (i == cantidad - 1){
+                   tipo= TipoCarta.ULTIMA_AREA_VUELTA_VERTICAL;
+               }
+               else {
+                   tipo= TipoCarta.NUM_AREA_VUELTA_VERTICAL;
+               }
+               CartaButton cartaButton= new CartaButton("imagenes/Carta,dorso.jpg",tipo);
+               jpanel.add(cartaButton);
+           }
+           jpanel.updateUI();
+       }
+
+    }
+    
+
+    public JPanel getPanelColor(String color){
+        switch (color){
+            case "AMARILLO" -> { return panelAmarillo1;}
+            case "ROJO" -> { return panelRojo1;}
+            case "VIOLETA" -> { return panelVioleta1;}
+            case "AZUL" -> { return panelAzul1;}
+            case "NEGRO" -> { return panelNegro1;}
+            case "VERDE" -> {return  panelVerde1;}
+        }
+        return null;
+    }
 }
