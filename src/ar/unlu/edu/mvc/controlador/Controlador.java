@@ -303,4 +303,12 @@ public class Controlador implements IControladorRemoto {
             this.vista.mostrarMensaje(e.getMessage());
         }
     }
+
+    public List<String> listarCartasAreaDadasVuelta(String nombreJugador) {
+        try {
+             return this.juego.listarCartasAreaDadasVuelta(nombreJugador);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

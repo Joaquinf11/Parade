@@ -352,6 +352,7 @@ public class VistaGrafica extends  JFrame implements IVista {
 
     @Override
     public void finDelJuego(String nombreGanadaor) {
+        this.vistaJuego.darVueltaCartasDelArea();
         mostrarPuntos(nombreGanadaor);
     }
 
