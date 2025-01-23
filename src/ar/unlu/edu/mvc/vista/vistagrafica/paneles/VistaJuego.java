@@ -92,10 +92,10 @@ public class VistaJuego {
         tirarCartaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controlador.jugarCarta(cartaElegidaMano);
                 if (cartasEnMano.size() <= cartaElegidaMano) {
                     cartasEnMano.get(cartaElegidaMano).setBorderPainted(false);
                 }
+                controlador.jugarCarta(cartaElegidaMano);
                 cartaElegidaMano = -1;
             }
         });
@@ -521,7 +521,7 @@ public class VistaJuego {
        }
 
     }
-    
+
 
     public JPanel getPanelColor(String color){
         switch (color){
