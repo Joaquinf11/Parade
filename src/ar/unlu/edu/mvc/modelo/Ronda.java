@@ -74,6 +74,7 @@ public class Ronda implements Serializable {
         boolean faltanCartasCarnaval=this.carnaval.faltaAgarrarCartas(this.cartaTirada, indicesCartasElegidas);
         if (tiroCarta && !faltanCartasCarnaval) {
             this.jugadorTurno.agarrarCarta(this.mazo.sacarCarta());
+            this.juego.notificar(Evento.FIN_TURNO);
             if (!this.mazo.tieneCartas()){
                 juego.notificar(Evento.MAZO_SIN_CARTAS);
             }
@@ -85,7 +86,6 @@ public class Ronda implements Serializable {
                 this.indicesCartasElegidas=null;
                 this.agrego=false;
                 this.jugadores.add(this.jugadorTurno);
-                this.juego.notificar(Evento.FIN_TURNO);
                 this.cambiarTurno();
             }
         } else if (faltanCartasCarnaval) {
