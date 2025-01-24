@@ -56,12 +56,7 @@ public class Controlador implements IControladorRemoto {
                 this.vista.mostrarCarnaval();
                 break;
             case CARTA_AGREGADA_AREA:
-                if (isTurno()){
-                    this.vista.mostrarAreaDeJuego();
-                }
-                else {
-                    this.vista.mostrarAreaDeJuegoOponente(getNombreJugadorTurno());
-                }
+                this.vista.mostrarAreaDeJuego(this.getNombreJugadorTurno());
                 this.vista.mostrarCarnaval();
                 break;
             case MAZO_SIN_CARTAS:

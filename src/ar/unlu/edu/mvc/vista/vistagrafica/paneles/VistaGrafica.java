@@ -245,16 +245,13 @@ public class VistaGrafica extends  JFrame implements IVista {
     }
 
     @Override
-    public void mostrarAreaDeJuego() {
+    public void mostrarAreaDeJuego(String nombre) {
         this.vistaJuego.desactivarCartasCarnaval();
         this.vistaJuego.desactivaBotonAnalizarCartas();
-        this.vistaJuego.actualizarAreaDeJuego();
+        this.vistaJuego.actualizarAreaDeJuego(nombre);
     }
 
-    @Override
-    public void mostrarAreaDeJuegoOponente(String nombreJugadorTurno) {
-        this.vistaJuego.actualizarAreaOponente(nombreJugadorTurno);
-    }
+
 
     @Override
     public void actualizarCantidadCartasMazo() {
@@ -352,7 +349,7 @@ public class VistaGrafica extends  JFrame implements IVista {
 
     @Override
     public void finDelJuego(String nombreGanadaor) {
-        this.vistaJuego.darVueltaCartasDelArea();
+        this.vistaJuego.darVueltaCartasDelAreaDeTodos();
         mostrarPuntos(nombreGanadaor);
     }
 

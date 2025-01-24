@@ -332,14 +332,11 @@ public class VistaConsola extends JFrame implements IVista {
     }
 
     @Override
-    public void mostrarAreaDeJuego() {
-        mostrarArea(this.jugador);
+    public void mostrarAreaDeJuego(String nombre) {
+        mostrarArea(nombre);
     }
 
-    @Override
-    public void mostrarAreaDeJuegoOponente(String nombreJugadorTurno) {
-        mostrarArea(nombreJugadorTurno);
-    }
+
 
     @Override
     public void actualizarCantidadCartasMazo() {
