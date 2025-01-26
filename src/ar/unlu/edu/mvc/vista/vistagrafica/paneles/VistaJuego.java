@@ -331,7 +331,7 @@ public class VistaJuego {
         panelCartasMano1.updateUI();
     }
 
-    private void actualizarAreaDeJuego(String nombre) {
+    public void actualizarAreaDeJuego(String nombre) {
         Collection<List<String>> cartas=this.controlador.listarCartasArea(nombre);
         JPanel[] paneles = getPanelesJugador(nombre);
         if (cartas != null) {
