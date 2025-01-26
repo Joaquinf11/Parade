@@ -27,9 +27,12 @@ public class VistaGrafica extends  JFrame implements IVista {
     private final JPanel panelReglas;
     private final JTextArea reglasText;
     private final JPanel panelPuntuacion;
-    private JTextArea tablaJugadores;
+    private JTextArea tablaPuntosJugadores;
 
     private final JMenu tabla;
+    private final JMenuItem puntosItem;
+
+    private final JButton volverButton;
 
     public VistaGrafica(){
         panelPuntuacion= new JPanel();
@@ -58,7 +61,7 @@ public class VistaGrafica extends  JFrame implements IVista {
         menuBar.setBackground(new Color(201,217,5));
         menuBar.setSize(100,30);
 
-        JButton volverButton=new JButton("Volver");
+        volverButton=new JButton("Volver");
         volverButton.setBackground(new Color(201,217,5));
         volverButton.setForeground(new Color(199,86,195));
         volverButton.setFont(new Font("Ravie",Font.PLAIN,16));
@@ -118,19 +121,24 @@ public class VistaGrafica extends  JFrame implements IVista {
         salir.add(guardarItem);
 
         tabla= new JMenu("Tabla");
-        tabla.setEnabled(false);
-        JMenuItem tablaItem= new JMenuItem("Puntos");
-        tablaItem.setBackground(new Color(201,217,5));
-        tablaItem.addActionListener(new ActionListener() {
+        puntosItem= new JMenuItem("Puntos");
+        puntosItem.setBackground(new Color(201,217,5));
+        puntosItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mostrarTabla();
+                mostrarTablaPuntos();
             }
         });
-        tabla.add(tablaItem);
+        puntosItem.setEnabled(false);
+        tabla.add(puntosItem);
 
-
-
+        tablaPuntosJugadores = new JTextArea();
+        tablaPuntosJugadores.setFont(new Font("Ravie",Font.PLAIN,20));
+        tablaPuntosJugadores.setForeground(new Color(201,217,5));
+        tablaPuntosJugadores.setBackground(new Color(199,86,195));
+        tablaPuntosJugadores.setEditable(false);
+        panelPuntuacion.add(tablaPuntosJugadores);
+        panelPuntuacion.add(volverButton);
 
         menuBar.add(ayuda);
         menuBar.add(tabla);
@@ -146,7 +154,7 @@ public class VistaGrafica extends  JFrame implements IVista {
 
     }
 
-    private void mostrarTabla() {
+    private void mostrarTablaPuntos() {
         setContentPane(panelPuntuacion);
         panelPuntuacion.updateUI();
     }
@@ -289,44 +297,17 @@ public class VistaGrafica extends  JFrame implements IVista {
             this.ultimoPanel= "Menu Inicial";
             this.vistaMenuInicial.setAgregarJugador(false);
         }
-
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     @Override
     public void mostrarPuntos(String nombreGanadaor) {
-        tabla.setEnabled(true);
-        tablaJugadores= new JTextArea();
-        tablaJugadores.setFont(new Font("Ravie",Font.PLAIN,20));
-        tablaJugadores.setForeground(new Color(201,217,5));
-        tablaJugadores.setBackground(new Color(199,86,195));
-
         List<IJugador> jugadores= this.controlador.listarJugadores();
         String resultado="";
         for (IJugador jugador : jugadores){
             resultado += jugador.getNombre() + " tiene " + jugador.getPuntos() + "\n";
         }
         resultado+= "\n\n EL GANADOR ES " + nombreGanadaor;
-        tablaJugadores.setText(resultado);
-        tablaJugadores.setEditable(false);
-
-        JButton volverButton= new JButton();
-        volverButton.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-        volverButton.setBackground(new Color(201,217,5));
-        volverButton.setForeground(new Color(199,86,195));
-        volverButton.setFont(new Font("Ravie",Font.PLAIN,16));
-        volverButton.setSize(200,100);
-        volverButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mostrarUltimoPanel();
-            }
-        });
-
-
-        panelPuntuacion.add(tablaJugadores);
-        setContentPane(panelPuntuacion);
-        panelPuntuacion.updateUI();
+        this.vistaJuego.mostrarPuntos(resultado);
     }
 
     @Override
