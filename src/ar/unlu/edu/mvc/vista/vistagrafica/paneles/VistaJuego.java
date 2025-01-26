@@ -511,4 +511,17 @@ public class VistaJuego {
         }
     }
 
+    public void mostrarPuntos(String resultado) {
+        JTextArea puntos = new JTextArea(resultado);
+        puntos.setFont(new Font("Ravie",Font.PLAIN,20));
+        puntos.setForeground(new Color(201,217,5));
+        puntos.setBackground(new Color(199,86,195));
+        puntos.setEditable(false);
+        puntos.setAlignmentX(Component.CENTER_ALIGNMENT);
+        puntos.setAlignmentY(Component.CENTER_ALIGNMENT);
+        JPanel panelPuntos= new JPanel(new GridBagLayout());
+        panelPuntos.add(puntos);
+        panelCentro.add(panelPuntos);
+        panelCentro.setVisible(true);
+    }
 }
