@@ -1,14 +1,12 @@
 package ar.unlu.edu.mvc.persistencia;
 
-import ar.unlu.edu.mvc.interfaces.IJuego;
-
 import java.io.*;
 
-public class RepositorioJuego {
+public class Serializador {
 
     private final String nombreArchivo;
 
-    public RepositorioJuego(String nombreArchivo){
+    public Serializador(String nombreArchivo){
         this.nombreArchivo=nombreArchivo;
     }
 
@@ -24,9 +22,7 @@ public class RepositorioJuego {
             FileInputStream in = new FileInputStream(this.nombreArchivo);
             ObjectInputStream inputStream= new ObjectInputStream(in);
             return (Object) inputStream.readObject();
-        } catch (EOFException ex){
-            return null;
-        }catch (FileNotFoundException ex){
+        } catch (EOFException | FileNotFoundException ex){
             return null;
         }
     }

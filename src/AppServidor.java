@@ -1,14 +1,10 @@
 import ar.edu.unlu.rmimvc.RMIMVCException;
 import ar.edu.unlu.rmimvc.Util;
-import ar.edu.unlu.rmimvc.observer.IObservableRemoto;
-import ar.edu.unlu.rmimvc.observer.IObservadorRemoto;
 import ar.edu.unlu.rmimvc.servidor.Servidor;
 import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.modelo.Juego;
-import ar.unlu.edu.mvc.persistencia.RepositorioJuego;
 
 import javax.swing.*;
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
