@@ -90,4 +90,8 @@ public class Jugador implements IJugador, Serializable {
         this.cartasEnMano= new ArrayList<>();
 
     }
+
+    public List<String> listarCartasDadasVuelta(){
+        return this.area.listarCartasDadasVuelta();
+    }
 }

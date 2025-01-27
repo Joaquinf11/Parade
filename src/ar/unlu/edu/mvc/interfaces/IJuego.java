@@ -6,7 +6,6 @@ import ar.unlu.edu.mvc.exceptions.JuegoException;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Collection;
@@ -49,4 +48,6 @@ public interface IJuego  extends IObservableRemoto, Serializable {
     void notificarUltimoEvento() throws RemoteException;
 
     void nuevaPartida() throws RemoteException, JuegoException;
+
+    List<String> listarCartasAreaDadasVuelta(String nombreJugador) throws  RemoteException;
 }

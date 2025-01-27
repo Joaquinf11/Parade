@@ -56,12 +56,7 @@ public class Controlador implements IControladorRemoto {
                 this.vista.mostrarCarnaval();
                 break;
             case CARTA_AGREGADA_AREA:
-                if (isTurno()){
-                    this.vista.mostrarAreaDeJuego();
-                }
-                else {
-                    this.vista.mostrarAreaDeJuegoOponente(getNombreJugadorTurno());
-                }
+                this.vista.mostrarAreaDeJuego(this.getNombreJugadorTurno());
                 this.vista.mostrarCarnaval();
                 break;
             case MAZO_SIN_CARTAS:
@@ -301,6 +296,14 @@ public class Controlador implements IControladorRemoto {
             throw new RuntimeException(e);
         } catch (JuegoException e) {
             this.vista.mostrarMensaje(e.getMessage());
+        }
+    }
+
+    public List<String> listarCartasAreaDadasVuelta(String nombreJugador) {
+        try {
+             return this.juego.listarCartasAreaDadasVuelta(nombreJugador);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
         }
     }
 }

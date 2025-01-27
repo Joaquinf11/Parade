@@ -332,14 +332,11 @@ public class VistaConsola extends JFrame implements IVista {
     }
 
     @Override
-    public void mostrarAreaDeJuego() {
-        mostrarArea(this.jugador);
+    public void mostrarAreaDeJuego(String nombre) {
+        mostrarArea(nombre);
     }
 
-    @Override
-    public void mostrarAreaDeJuegoOponente(String nombreJugadorTurno) {
-        mostrarArea(nombreJugadorTurno);
-    }
+
 
     @Override
     public void actualizarCantidadCartasMazo() {
@@ -398,42 +395,44 @@ public class VistaConsola extends JFrame implements IVista {
     }
 
     public void mostrarReglas(){
-        mostrarMensaje("OBJETIVO DEL JUEGO\n" +
-                        "Los jugadores deberán jugar sus cartas de la mano mientras intentan no quedarse cartas del carnaval, pues estas representan puntos negativos.\n" +
-                        "Se reparten 5 a cada jugador. Luego se ponen 6 cartas más en el centro de la mesa que representan el carnaval. El principio del carnaval comienza a la izquierda mientras que el final es a la derecha.\n" +
-                        "SECUENCIA DEL JUEGO\n" +
-                        "\n" +
-                        "1. Escoger una carta de su mano y colocarla al final del carnaval;\n" +
-                        "2. Si se da el caso, recoger cartas del carnaval y colocarlas en su area de juego;\n" +
-                        "3. Robar una carta del mazo.\n" +
-                        " Después, el turno pasa al siguiente jugador que realizará las mismas acciones.\n" +
-                         "\n" +
-                        "ACCIONES DEL JUEGO\n" +
-                    "1.  La carta tirada no se cuenta a la hora de contar el número de cartas en la siguiente acción.\n" +
-                    "2. Dependiendo de la carta jugada, algunas cartas serán retiradas del carnaval.\n" +
-                    "\t -Si el número de cartas del carnaval es menor o igual al valor numérico de la carta jugada, no se retirará ninguna carta del carnaval.\n" +
-                    "\t -Si el número de cartas del carnaval es mayor que el valor de la carta jugada, entonces algunas cartas pueden abandonarlo.\n" +
-                "Para determinar que cartas tienen que ser retiradas, deberán contarse las cartas desde el final del carnaval y hacia el principio, sin tener en cuenta la carta recién jugada.\n" +
-                "Toda carta a partir de esa posición (hasta donde hemos contado) será susceptible de ser retirada.\n" +
-                "Para saber que cartas de las susceptibles de ser retiradas, lo serán efectivamente, se siguen las siguientes reglas:\n" +
-                "\t • Todas las cartas con el mismo color que la carta jugada;\n" +
-                "\t • Todas las cartas de valor igual o inferior al de la carta jugada (véase ejemplo más adelante).\n" +
-                "Las cartas retiradas se disponen en el area de juego del jugador.\n" +
-               "3. El jugador roba una carta del mazo, volviendo a tener 5 cartas en mano.\n" +
-                "\n" +
-                "ULTIMA RONDA\n" +
-                "La última ronda empieza cuando un jugador tiene en su area de juego cartas de los 6 colores presentes en el juego o bien cuando se roba la última carta del mazo.\n" +
-                "Sin embargo, en esta última ronda, los jugadores no robarán carta del mazo (quedándose así con 4 cartas en la mano).\n" +
-                "Tras esta última ronda, comienza la ronda de descarte.\n" +
-                "\n" +
-                "RONDA DESCARTE\n" +
-                "Cada jugador escoge 2 cartas de su mano y las descarta. Las 2 cartas restantes, se colocan en su area de juego \n" +
-                "\n" +
-                "PUNTUACION\n" +
-                "Las cartas que aún formen parte del carnaval serán descartadas.\n" +
-                "1. Determinar quien tiene la mayoría de cada color. El jugador o jugadores con la mayoría de cartas de un color, girarán esas cartas y cada una las contará solo como 1 punto.\n" +
-                "2. Después, cada jugador sumará los valores del resto de cartas que tengan boca arriba. Sumar este total con el de las cartas sumadas en el punto anterior.\n" +
-                "3. El ganador sera quien tenga menos puntos negativos acumulados.\n" +
-                "4. En caso de empate ganara quien tenga menos cartas en su area de juego (las que estan dadas vuelta tambien se cuentan).\n");
+        mostrarMensaje("""
+                OBJETIVO DEL JUEGO
+                Los jugadores deberán jugar sus cartas de la mano mientras intentan no quedarse cartas del carnaval, pues estas representan puntos negativos.
+                Se reparten 5 a cada jugador. Luego se ponen 6 cartas más en el centro de la mesa que representan el carnaval. El principio del carnaval comienza a la izquierda mientras que el final es a la derecha.
+                SECUENCIA DEL JUEGO
+                
+                1. Escoger una carta de su mano y colocarla al final del carnaval;
+                2. Si se da el caso, recoger cartas del carnaval y colocarlas en su area de juego;
+                3. Robar una carta del mazo.
+                 Después, el turno pasa al siguiente jugador que realizará las mismas acciones.
+                
+                ACCIONES DEL JUEGO
+                1.  La carta tirada no se cuenta a la hora de contar el número de cartas en la siguiente acción.
+                2. Dependiendo de la carta jugada, algunas cartas serán retiradas del carnaval.
+                \t -Si el número de cartas del carnaval es menor o igual al valor numérico de la carta jugada, no se retirará ninguna carta del carnaval.
+                \t -Si el número de cartas del carnaval es mayor que el valor de la carta jugada, entonces algunas cartas pueden abandonarlo.
+                Para determinar que cartas tienen que ser retiradas, deberán contarse las cartas desde el final del carnaval y hacia el principio, sin tener en cuenta la carta recién jugada.
+                Toda carta a partir de esa posición (hasta donde hemos contado) será susceptible de ser retirada.
+                Para saber que cartas de las susceptibles de ser retiradas, lo serán efectivamente, se siguen las siguientes reglas:
+                \t • Todas las cartas con el mismo color que la carta jugada;
+                \t • Todas las cartas de valor igual o inferior al de la carta jugada (véase ejemplo más adelante).
+                Las cartas retiradas se disponen en el area de juego del jugador.
+                3. El jugador roba una carta del mazo, volviendo a tener 5 cartas en mano.
+                
+                ULTIMA RONDA
+                La última ronda empieza cuando un jugador tiene en su area de juego cartas de los 6 colores presentes en el juego o bien cuando se roba la última carta del mazo.
+                Sin embargo, en esta última ronda, los jugadores no robarán carta del mazo (quedándose así con 4 cartas en la mano).
+                Tras esta última ronda, comienza la ronda de descarte.
+                
+                RONDA DESCARTE
+                Cada jugador escoge 2 cartas de su mano y las descarta. Las 2 cartas restantes, se colocan en su area de juego\s
+                
+                PUNTUACION
+                Las cartas que aún formen parte del carnaval serán descartadas.
+                1. Determinar quien tiene la mayoría de cada color. El jugador o jugadores con la mayoría de cartas de un color, girarán esas cartas y cada una las contará solo como 1 punto.
+                2. Después, cada jugador sumará los valores del resto de cartas que tengan boca arriba. Sumar este total con el de las cartas sumadas en el punto anterior.
+                3. El ganador sera quien tenga menos puntos negativos acumulados.
+                4. En caso de empate ganara quien tenga menos cartas en su area de juego (las que estan dadas vuelta tambien se cuentan).
+                """);
     }
 }

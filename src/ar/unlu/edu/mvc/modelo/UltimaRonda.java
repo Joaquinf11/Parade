@@ -19,6 +19,7 @@ public class UltimaRonda extends Ronda implements Serializable {
     public void finTurno() throws JuegoException {
         boolean faltanCartasCarnaval=this.carnaval.faltaAgarrarCartas(this.carnaval.getUltimaCarta(), indicesCartasElegidas);
         if (tiroCarta && !faltanCartasCarnaval) {
+            this.juego.notificar(Evento.FIN_TURNO);
             if (esFinDeRonda()) {
                 this.jugadores.add(this.jugadorTurno);
                 this.juego.setRondaDescarte(this.jugadores);
@@ -26,7 +27,6 @@ public class UltimaRonda extends Ronda implements Serializable {
             else{
                 this.indicesCartasElegidas=null;
                 this.agrego=false;
-                this.juego.notificar(Evento.FIN_TURNO);
                 this.jugadores.add(this.jugadorTurno);
                 this.cambiarTurno();
             }

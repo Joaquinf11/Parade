@@ -41,10 +41,13 @@ public class CartaButton extends JButton {
             case CARNAVAL -> configurarBoton( tipo,WIDTH_CARNAVAL, HEIGHT_CARNAVAL, 0, 0, 0, 0 );
             case MANO -> configurarBoton(tipo, WIDTH_MANO, HEIGHT_MANO, 3, 3, 3, 3);
             case DORSO_VERTICAL -> configurarBoton(tipo, WIDTH_DORSO_VERTICAL, HEIGHT_DORSO_VERTICAL, 0, 0, 0, 0);
-            case NUM_AREA_VERTICAL -> recortarImagen( path);
-            case ULTIMA_AREA_VERTICAL -> configurarBoton(tipo, WIDTH_ULTIMA_NUMERO_VERTICAL, HEIGHT_ULTIMA_NUMERO_VERTICAL, -1, 0, 0, 0);
-            case NUM_AREA_HORIZONTAL_IZQ-> recortarConRotacion(path, 90);
-            case NUM_AREA_HORIZONTAL_DER -> recortarConRotacion(path, -90);
+            case NUM_AREA_VERTICAL  -> recortarImagen( path,200,56);
+            case NUM_AREA_VUELTA_VERTICAL -> recortarImagen(path,670,195);
+            case ULTIMA_AREA_VERTICAL,ULTIMA_AREA_VUELTA_VERTICAL -> configurarBoton(tipo, WIDTH_ULTIMA_NUMERO_VERTICAL, HEIGHT_ULTIMA_NUMERO_VERTICAL, -1, 0, 0, 0);
+            case NUM_AREA_HORIZONTAL_IZQ-> recortarConRotacion(path, 90,200,56);
+            case NUM_AREA_HORIZONTAL_DER -> recortarConRotacion(path, -90,200,56);
+            case NUM_AREA_VUELTA_HORIZONTAL_IZQ-> recortarConRotacion(path, 90,675,195);
+            case NUM_AREA_VUELTA_HORIZONTAL_DER -> recortarConRotacion(path, -90,675,195);
             case ULTIMA_AREA_HORIZONTAL_DER-> configurarConRotacion(90);
             case ULTIMA_AREA_HORIZONTAL_IZQ -> configurarConRotacion(-90);
         }
@@ -64,10 +67,10 @@ public class CartaButton extends JButton {
         }
     }
 
-    private void recortarImagen(String path) {
+    private void recortarImagen(String path,int width,int height) {
         try {
             BufferedImage originalImage = ImageIO.read(new File(path));
-            BufferedImage croppedImage = originalImage.getSubimage(0, 1, 200, 56);
+            BufferedImage croppedImage = originalImage.getSubimage(0, 1, width, height);
             Image scaledImage = croppedImage.getScaledInstance(CartaButton.WIDTH_NUMERO_VERTICAL, CartaButton.HEIGHT_NUMERO_VERTICAL, Image.SCALE_SMOOTH);
             setIcon(new ImageIcon(scaledImage));
             setBorder(BorderFactory.createEmptyBorder(-1, 0, -1, 0));
@@ -76,10 +79,10 @@ public class CartaButton extends JButton {
         }
     }
 
-    private void recortarConRotacion(String path, int angulo) {
+    private void recortarConRotacion(String path, int angulo,int widthRecorte,int heightRecorte) {
         try {
             BufferedImage originalImage = ImageIO.read(new File(path));
-            BufferedImage croppedImage = originalImage.getSubimage(0, 0, 200, 56);
+            BufferedImage croppedImage = originalImage.getSubimage(0, 0, widthRecorte, heightRecorte);
             Image scaledImage = croppedImage.getScaledInstance(CartaButton.WIDTH_NUMERO_HORIZONTAL, CartaButton.HEIGHT_NUMERO_HORIZONTAL, Image.SCALE_SMOOTH);
             ImageIcon imagenCortada = new ImageIcon(scaledImage);
             Image image = rotarImagen(imagenCortada, angulo);

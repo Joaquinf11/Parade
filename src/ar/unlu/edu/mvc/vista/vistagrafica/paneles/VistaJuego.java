@@ -92,10 +92,10 @@ public class VistaJuego {
         tirarCartaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controlador.jugarCarta(cartaElegidaMano);
                 if (cartasEnMano.size() <= cartaElegidaMano) {
                     cartasEnMano.get(cartaElegidaMano).setBorderPainted(false);
                 }
+                controlador.jugarCarta(cartaElegidaMano);
                 cartaElegidaMano = -1;
             }
         });
@@ -178,9 +178,9 @@ public class VistaJuego {
 
         actualizarCartasCarnaval();
         actualizarCartasEnMano();
-        actualizarAreaDeJuego();
+        actualizarAreaDeJuego(this.vista.getNombreJugador());
         for (String jugador: oponentes){
-            actualizarAreaOponente(jugador);
+            actualizarAreaDeJuego(jugador);
         }
 
     }
@@ -330,25 +330,20 @@ public class VistaJuego {
         }
         panelCartasMano1.updateUI();
     }
-    public void actualizarAreaDeJuego() {
-        Collection<List<String>> cartas = this.controlador.listarCartasArea(vista.getNombreJugador());
+
+    public void actualizarAreaDeJuego(String nombre) {
+        Collection<List<String>> cartas=this.controlador.listarCartasArea(nombre);
+        JPanel[] paneles = getPanelesJugador(nombre);
         if (cartas != null) {
-            JPanel[] paneles = {panelAmarillo1, panelVerde1, panelRojo1, panelAzul1, panelNegro1, panelVioleta1, panelArea1};
             clearPaneles(paneles);
-
             List<String> colores = getColores(cartas);
-
             int indiceColor = 0;
             for (List<String> cartasPorColor : cartas) {
                 for (int i = 0; i < cartasPorColor.size(); i++) {
-                   TipoCarta tipo;
-                    if (i != cartasPorColor.size() - 1) {
-                        tipo = TipoCarta.NUM_AREA_VERTICAL;
-                    } else {
-                        tipo = TipoCarta.ULTIMA_AREA_VERTICAL;
-                    }
+                    boolean esUltima = i == cartasPorColor.size() - 1;
+                    TipoCarta tipo = getTipoConOrientacion(esUltima,nombre);
                     CartaButton button = new CartaButton("imagenes/cartas/" + cartasPorColor.get(i) + ".png", tipo);
-                    agregarCartaAPanelColor(paneles, colores.get(indiceColor), button);
+                    getPanelFromColor(paneles, colores.get(indiceColor)).add(button);
                 }
                 indiceColor++;
             }
@@ -356,36 +351,15 @@ public class VistaJuego {
         }
     }
 
-    public void actualizarAreaOponente(String oponente) {
-        Collection<List<String>> cartas = this.controlador.listarCartasArea(oponente);
-        if (cartas != null) {
-            JPanel[] paneles = getPanelesOponente(oponente);
-            if (paneles == null) return;
-
-            clearPaneles(paneles);
-
-            List<String> colores = getColores(cartas);
-
-            int indiceColor = 0;
-            for (List<String> cartasPorColor : cartas) {
-                for (int i = 0; i < cartasPorColor.size(); i++) {
-                    boolean esUltima= i == cartasPorColor.size() - 1;
-                    TipoCarta tipo = getTipoConOrientacion(esUltima,oponente);
-                    CartaButton button = new CartaButton("imagenes/cartas/" + cartasPorColor.get(i) + ".png", tipo);
-                    agregarCartaAPanelColor(paneles, colores.get(indiceColor), button);
-                }
-                indiceColor++;
-            }
-            updateUIPaneles(paneles);
+    private JPanel[] getPanelesJugador(String nombre) {
+        if (nombre.equals(this.vista.getNombreJugador())){
+            return new JPanel[] {panelAmarillo1, panelVerde1, panelRojo1, panelAzul1, panelNegro1, panelVioleta1, panelArea1};
         }
-    }
-
-    private JPanel[] getPanelesOponente(String oponente) {
-        if (oponente.equals(nombre2Label.getText())) {
+        else if (nombre.equals(nombre2Label.getText())) {
             return new JPanel[]{panelAmarillo2, panelVerde2, panelRojo2, panelAzul2, panelNegro2, panelVioleta2, panelArea2};
-        } else if (oponente.equals(nombre3Label.getText())) {
+        } else if (nombre.equals(nombre3Label.getText())) {
             return new JPanel[]{panelAmarillo3, panelVerde3, panelRojo3, panelAzul3, panelNegro3, panelVioleta3, panelArea3};
-        } else if (oponente.equals(nombre4Label.getText())) {
+        } else if (nombre.equals(nombre4Label.getText())) {
             return new JPanel[]{panelAmarillo4, panelVerde4, panelRojo4, panelAzul4, panelNegro4, panelVioleta4, panelArea4};
         }
         return null;
@@ -406,9 +380,9 @@ public class VistaJuego {
         return colores;
     }
 
-    private TipoCarta getTipoConOrientacion(boolean esUltima,String oponente) {
+    private TipoCarta getTipoConOrientacion(boolean esUltima,String nombre) {
 
-        if (oponente.equals(nombre2Label.getText())) {
+        if (nombre.equals(this.vista.getNombreJugador()) || nombre.equals(nombre2Label.getText())) {
             if (esUltima){
                 return TipoCarta.ULTIMA_AREA_VERTICAL;
             }
@@ -416,7 +390,7 @@ public class VistaJuego {
                 return TipoCarta.NUM_AREA_VERTICAL;
             }
         }
-        if (oponente.equals(nombre3Label.getText())){
+        if (nombre.equals(nombre3Label.getText())){
             if (esUltima){
                 return TipoCarta.ULTIMA_AREA_HORIZONTAL_DER;
             }
@@ -424,7 +398,7 @@ public class VistaJuego {
                 return TipoCarta.NUM_AREA_HORIZONTAL_DER;
             }
         }
-        if (oponente.equals(nombre4Label.getText())) {
+        if (nombre.equals(nombre4Label.getText())) {
             if (esUltima){
                 return TipoCarta.ULTIMA_AREA_HORIZONTAL_IZQ;
             }
@@ -435,22 +409,61 @@ public class VistaJuego {
         return null;
     }
 
-    private void agregarCartaAPanelColor(JPanel[] paneles, String color, CartaButton button) {
-        switch (color) {
-            case "VERDE" -> paneles[1].add(button);
-            case "ROJO" -> paneles[2].add(button);
-            case "AMARILLO" -> paneles[0].add(button);
-            case "AZUL" -> paneles[3].add(button);
-            case "NEGRO" -> paneles[4].add(button);
-            case "VIOLETA" -> paneles[5].add(button);
-        }
-    }
-
     private void updateUIPaneles(JPanel[] paneles) {
         JPanel panelPrincipal = paneles[paneles.length - 1];
         panelPrincipal.setVisible(true);
         panelPrincipal.updateUI();
     }
+
+    public void darVueltaCartasDelAreaDeTodos(){
+        darVueltaCartasDelArea(this.vista.getNombreJugador());
+        for(String oponente : oponentes){
+            darVueltaCartasDelArea(oponente);
+        }
+    }
+
+    public void darVueltaCartasDelArea(String nombre) {
+       List<String> cartas = this.controlador.listarCartasAreaDadasVuelta(nombre);
+       JPanel[] paneles= getPanelesJugador(nombre);
+       for (String str : cartas){
+           String color= str.split(",")[0];
+           JPanel jpanel = getPanelFromColor(paneles,color);
+           int cantidad = jpanel.getComponentCount();
+           jpanel.removeAll();
+           for (int i = 0; i < cantidad; i++) {
+               boolean esUltima= i == cantidad - 1;
+               TipoCarta tipo= getTipoVueltaConOrientacion(esUltima,nombre);
+               CartaButton cartaButton= new CartaButton("imagenes/Carta,dorso.jpg",tipo);
+               jpanel.add(cartaButton);
+           }
+           jpanel.updateUI();
+       }
+
+    }
+
+    private TipoCarta getTipoVueltaConOrientacion(boolean esUltima, String nombre) {
+        if (nombre.equals(this.vista.getNombreJugador()) || nombre.equals(nombre2Label.getText())) {
+            return esUltima ? TipoCarta.ULTIMA_AREA_VUELTA_VERTICAL : TipoCarta.NUM_AREA_VUELTA_VERTICAL;
+        } else if (nombre.equals(nombre3Label.getText())) {
+            return esUltima ? TipoCarta.ULTIMA_AREA_VUELTA_HORIZONTAL_DER : TipoCarta.NUM_AREA_VUELTA_HORIZONTAL_DER;
+        } else if (nombre.equals(nombre4Label.getText())) {
+            return esUltima ? TipoCarta.ULTIMA_AREA_VUELTA_HORIZONTAL_IZQ : TipoCarta.NUM_AREA_VUELTA_HORIZONTAL_IZQ;
+        }
+        return null;
+    }
+
+    private JPanel getPanelFromColor(JPanel[] paneles, String color) {
+        return switch (color) {
+            case "AMARILLO" -> paneles[0];
+            case "VERDE" -> paneles[1];
+            case "ROJO" -> paneles[2];
+            case "AZUL" -> paneles[3];
+            case "NEGRO" -> paneles[4];
+            case "VIOLETA" -> paneles[5];
+            default -> null;
+        };
+    }
+
 
     public void desactivaBotonAnalizarCartas() {
         analizarCartasButton.setEnabled(false);
@@ -496,5 +509,19 @@ public class VistaJuego {
                 nombre4Label = new LabelVertical(nombre);
             }
         }
+    }
+
+    public void mostrarPuntos(String resultado) {
+        JTextArea puntos = new JTextArea(resultado);
+        puntos.setFont(new Font("Ravie",Font.PLAIN,20));
+        puntos.setForeground(new Color(201,217,5));
+        puntos.setBackground(new Color(199,86,195));
+        puntos.setEditable(false);
+        puntos.setAlignmentX(Component.CENTER_ALIGNMENT);
+        puntos.setAlignmentY(Component.CENTER_ALIGNMENT);
+        JPanel panelPuntos= new JPanel(new GridBagLayout());
+        panelPuntos.add(puntos);
+        panelCentro.add(panelPuntos);
+        panelCentro.setVisible(true);
     }
 }
