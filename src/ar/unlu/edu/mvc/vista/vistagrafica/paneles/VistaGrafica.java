@@ -26,18 +26,17 @@ public class VistaGrafica extends  JFrame implements IVista {
     private final JMenuBar menuBar;
     private final JPanel panelReglas;
     private final JTextArea reglasText;
-    private final JPanel panelPuntuacion;
-    private JTextArea tablaPuntosJugadores;
+    private final JPanel panelTop;
+
 
     private final JMenu tabla;
-    private final JMenuItem puntosItem;
 
     private final JButton volverButton;
 
     public VistaGrafica(){
-        panelPuntuacion= new JPanel();
-        panelPuntuacion.setBackground(new Color(199,86,195));
-        panelPuntuacion.setLayout(new GridBagLayout());
+        panelTop = new JPanel();
+        panelTop.setBackground(new Color(199,86,195));
+        panelTop.setLayout(new GridBagLayout());
 
         panelReglas= new JPanel();
         panelReglas.setBackground(new Color(199,86,195));
@@ -98,6 +97,7 @@ public class VistaGrafica extends  JFrame implements IVista {
             }
         });
         salir.add(salirItem);
+
         JMenuItem guardarItem= new JMenuItem("Guardar partida");
         guardarItem.setBackground(new Color(201,217,5));
         guardarItem.addActionListener(new ActionListener() {
@@ -121,24 +121,13 @@ public class VistaGrafica extends  JFrame implements IVista {
         salir.add(guardarItem);
 
         tabla= new JMenu("Tabla");
-        puntosItem= new JMenuItem("Puntos");
-        puntosItem.setBackground(new Color(201,217,5));
-        puntosItem.addActionListener(new ActionListener() {
+        tabla.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mostrarTablaPuntos();
+                mostrarTablaRanking();
             }
         });
-        puntosItem.setEnabled(false);
-        tabla.add(puntosItem);
 
-        tablaPuntosJugadores = new JTextArea();
-        tablaPuntosJugadores.setFont(new Font("Ravie",Font.PLAIN,20));
-        tablaPuntosJugadores.setForeground(new Color(201,217,5));
-        tablaPuntosJugadores.setBackground(new Color(199,86,195));
-        tablaPuntosJugadores.setEditable(false);
-        panelPuntuacion.add(tablaPuntosJugadores);
-        panelPuntuacion.add(volverButton);
 
         menuBar.add(ayuda);
         menuBar.add(tabla);
@@ -154,11 +143,9 @@ public class VistaGrafica extends  JFrame implements IVista {
 
     }
 
-    private void mostrarTablaPuntos() {
-        setContentPane(panelPuntuacion);
-        panelPuntuacion.updateUI();
-    }
+    private void mostrarTablaRanking() {
 
+    }
 
     public void mostrarMenuInicial(){
         setContentPane(this.panelPrincipalMenuInicial);

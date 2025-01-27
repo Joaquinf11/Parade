@@ -76,6 +76,11 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         this.empezarJuego();
     }
 
+    @Override
+    public List<String> listarCartasAreaDadasVuelta(String nombreJugador) throws RemoteException {
+        return buscarJugador(nombreJugador).listarCartasDadasVuelta();
+    }
+
 
     @Override
     public void sacarJugador(String nombre, IObservadorRemoto o) throws RemoteException {
