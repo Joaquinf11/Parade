@@ -5,7 +5,7 @@ import ar.unlu.edu.mvc.exceptions.JuegoException;
 import ar.unlu.edu.mvc.exceptions.TipoException;
 import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.interfaces.IJugador;
-import ar.unlu.edu.mvc.persistencia.RepositorioJuego;
+import ar.unlu.edu.mvc.persistencia.Serializador;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -18,11 +18,23 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     private Mazo mazo;
     private  Ronda ronda;
     private Evento ultimoEvento;
+    private TablaTop tablaTop;
 
     public Juego (){
         this.jugadores= new LinkedList<>();
         this.carnaval= new Carnaval();
         this.mazo= new Mazo();
+        Serializador serializador= new Serializador("TablaTop");
+        try {
+            this.tablaTop= (TablaTop) serializador.recuperar();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        if (this.tablaTop== null)
+        {
+            this.tablaTop= new TablaTop();
+        }
+
     }
 
     @Override
@@ -32,15 +44,14 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
 
 
     @Override
-
     public IJuego cargarPartida(String nombrePartida) throws IOException, ClassNotFoundException {
-        RepositorioJuego repo= new RepositorioJuego(nombrePartida);
-        return repo.recuperar();
+        Serializador repo= new Serializador(nombrePartida);
+        return (IJuego)repo.recuperar();
     }
 
     @Override
     public void guardarPartida(String nombrePartida) throws IOException {
-        RepositorioJuego repo= new RepositorioJuego(nombrePartida);
+        Serializador repo= new Serializador(nombrePartida);
         repo.persistir(this);
     }
 
@@ -64,7 +75,6 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         this.ronda=null;
         this.empezarJuego();
     }
-
 
 
     @Override
@@ -158,6 +168,12 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     public void finJuego(){
         agregarCartasEnManoAlArea();
         this.calcularPuntos();
+        Serializador serializador= new Serializador("TablaTop");
+        try {
+            serializador.persistir(this.tablaTop);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.notificar(Evento.FIN_JUEGO);
     }
 
@@ -230,7 +246,8 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
                 }
             }
         }
-
+        jugador_anterior.sumarVictoria();
+        tablaTop.agregarJugador(jugador_anterior);
         return jugador_anterior;
         // TODO falta considerar el caso en que sea un empate TOTAL
     }
@@ -277,12 +294,6 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     }
 
     @Override
-    public List<String> listarCartasAreaDadasVuelta(String nombreJugador) throws RemoteException {
-        Jugador jugador= buscarJugador(nombreJugador);
-        return jugador.listarCartasDadasVuelta();
-    }
-
-    @Override
     public List<String> listarCartasEnMano(String nombre) throws RemoteException{
         Jugador jugador= this.buscarJugador(nombre);
         List<String> resultado= new ArrayList<>();
@@ -298,10 +309,13 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
             notificarObservadores(evento);
             this.ultimoEvento=evento;
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
+    public List<Jugador> getJugadores() {
+        return this.jugadores;
+    }
 }
 
 

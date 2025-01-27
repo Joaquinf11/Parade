@@ -12,12 +12,14 @@ public class Jugador implements IJugador, Serializable {
     private  List<Carta> cartasEnMano;
     private  AreaDeJuego area;
     private int puntos;
+    private int victorias;
 
     public Jugador(String nombre){
         this.nombre=nombre;
         this.cartasEnMano= new ArrayList<>();
         this.area= new AreaDeJuego();
         this.puntos=0;
+        this.victorias=0;
     }
 
     @Override
@@ -89,6 +91,22 @@ public class Jugador implements IJugador, Serializable {
         this.area= new AreaDeJuego();
         this.cartasEnMano= new ArrayList<>();
 
+    }
+
+    public void sumarVictoria(){
+        this.victorias++;
+    }
+
+    public int getVictorias(){
+        return this.victorias;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Jugador jugador = (Jugador) o;
+        return nombre.equals(jugador.nombre);
     }
 
     public List<String> listarCartasDadasVuelta(){

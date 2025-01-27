@@ -4,29 +4,27 @@ import ar.unlu.edu.mvc.interfaces.IJuego;
 
 import java.io.*;
 
-public class RepositorioJuego {
+public class Serializador {
 
     private final String nombreArchivo;
 
-    public RepositorioJuego(String nombreArchivo){
+    public Serializador(String nombreArchivo){
         this.nombreArchivo=nombreArchivo;
     }
 
-    public void persistir(IJuego juego)throws IOException{
+    public void persistir(Object o)throws IOException{
         FileOutputStream out = new FileOutputStream(this.nombreArchivo);
         ObjectOutputStream outputStream= new ObjectOutputStream(out);
-        outputStream.writeObject(juego);
+        outputStream.writeObject(o);
         outputStream.close();
     }
 
-    public IJuego recuperar() throws  IOException,ClassNotFoundException{
+    public Object recuperar() throws  IOException,ClassNotFoundException{
         try {
             FileInputStream in = new FileInputStream(this.nombreArchivo);
             ObjectInputStream inputStream= new ObjectInputStream(in);
-            return (IJuego) inputStream.readObject();
-        } catch (EOFException ex){
-            return null;
-        }catch (FileNotFoundException ex){
+            return (Object) inputStream.readObject();
+        } catch (EOFException | FileNotFoundException ex){
             return null;
         }
     }
