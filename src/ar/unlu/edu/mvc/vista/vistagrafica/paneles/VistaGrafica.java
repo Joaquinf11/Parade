@@ -38,7 +38,7 @@ public class VistaGrafica extends  JFrame implements IVista {
     public VistaGrafica(){
         panelTop = new JPanel();
         panelTop.setBackground(new Color(199,86,195));
-        panelTop.setLayout(new GridBagLayout());
+        panelTop.setLayout(new BoxLayout(panelTop,BoxLayout.Y_AXIS));
 
         panelReglas= new JPanel();
         panelReglas.setBackground(new Color(199,86,195));
@@ -161,6 +161,7 @@ public class VistaGrafica extends  JFrame implements IVista {
                 return false;
             }
         };
+        panelTop.removeAll();
         JTable tabla = new JTable(modelo);
 
         tabla.getColumnModel().getColumn(0).setPreferredWidth(300);
@@ -187,6 +188,7 @@ public class VistaGrafica extends  JFrame implements IVista {
 
         JPanel panelTabla = new JPanel();
         panelTabla.setLayout(new BorderLayout());
+        panelTabla.setOpaque(false);
         panelTabla.add(tabla.getTableHeader(), BorderLayout.NORTH);
         panelTabla.add(tabla, BorderLayout.CENTER);
         panelTabla.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -368,6 +370,7 @@ public class VistaGrafica extends  JFrame implements IVista {
 
     @Override
     public void finDelJuego(String nombreGanadaor) {
+        //esto no funciona porque estoy actualizando las cartas, por lo tanto saco los colores y despues no se dan vuelta chequear
         this.vistaJuego.finDelJuego();
         mostrarPuntos(nombreGanadaor);
     }
