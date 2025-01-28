@@ -28,7 +28,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         try {
             this.tablaTop= (TablaTop) serializador.recuperar();
         } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+           this.tablaTop= new TablaTop();
         }
         if (this.tablaTop== null)
         {
@@ -79,6 +79,12 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     @Override
     public List<String> listarCartasAreaDadasVuelta(String nombreJugador) throws RemoteException {
         return buscarJugador(nombreJugador).listarCartasDadasVuelta();
+    }
+
+    @Override
+    public List<IJugador> getJugadoresTabla() throws RemoteException {
+        List<IJugador> resultado= new ArrayList<>(this.tablaTop.getJugadores());
+        return resultado;
     }
 
 
