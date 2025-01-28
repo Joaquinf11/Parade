@@ -5,6 +5,8 @@ import ar.unlu.edu.mvc.interfaces.IVista;
 import ar.unlu.edu.mvc.interfaces.IJugador;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
@@ -120,19 +122,19 @@ public class VistaGrafica extends  JFrame implements IVista {
         });
         salir.add(guardarItem);
 
-        tabla= new JMenu("Tabla");
-        tabla.addActionListener(new ActionListener() {
+        tabla= new JMenu("Ranking");
+        JMenuItem ranking = new JMenuItem("Ver tabla");
+        ranking.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mostrarTablaRanking();
             }
         });
-
+        tabla.add(ranking);
 
         menuBar.add(ayuda);
         menuBar.add(tabla);
         menuBar.add(salir);
-
 
         setJMenuBar(menuBar);
         setTitle("PARADE");
@@ -144,6 +146,55 @@ public class VistaGrafica extends  JFrame implements IVista {
     }
 
     private void mostrarTablaRanking() {
+        String[] columnas = {"Jugador", "Victorias"};
+        List<IJugador> jugadoresTabla = this.controlador.getJugadoresTabla();
+        Object[][] datos= new Object[jugadoresTabla.size()][2];
+        for (int i = 0; i < jugadoresTabla.size(); i++) {
+            datos[i][0] = jugadoresTabla.get(i).getNombre();
+            datos[i][1] = jugadoresTabla.get(i).getVictorias();
+        }
+
+
+        DefaultTableModel modelo = new DefaultTableModel(datos, columnas) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        JTable tabla = new JTable(modelo);
+
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(300);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(200);
+
+        tabla.setBackground(new Color(199, 86, 195));
+        tabla.setGridColor(new Color(201, 217, 5));
+        tabla.setFont(new Font("Ravie", Font.PLAIN, 26));
+        tabla.setForeground(new Color(201, 217, 5));
+        tabla.setRowHeight(50);
+
+        // Centrar el contenido de las celdas
+        DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
+        centrado.setHorizontalAlignment(SwingConstants.CENTER);
+        tabla.setDefaultRenderer(Object.class, centrado);
+
+        tabla.getTableHeader().setFont(new Font("Ravie", Font.BOLD, 30));
+        tabla.getTableHeader().setReorderingAllowed(false);
+        tabla.getTableHeader().setBackground(new Color(201, 217, 5));
+        tabla.getTableHeader().setForeground(new Color(199, 86, 195));
+
+        tabla.setRowSelectionAllowed(false);
+        tabla.setColumnSelectionAllowed(false);
+
+        JPanel panelTabla = new JPanel();
+        panelTabla.setLayout(new BorderLayout());
+        panelTabla.add(tabla.getTableHeader(), BorderLayout.NORTH);
+        panelTabla.add(tabla, BorderLayout.CENTER);
+        panelTabla.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        panelTop.add(panelTabla);
+        panelTop.add(volverButton);
+        setContentPane(panelTop);
+        panelTop.updateUI();
 
     }
 
