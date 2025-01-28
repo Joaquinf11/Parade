@@ -524,4 +524,12 @@ public class VistaJuego {
         panelCentro.add(panelPuntos);
         panelCentro.setVisible(true);
     }
+
+    public void finDelJuego() {
+        actualizarAreaDeJuego(this.vista.getNombreJugador());
+        for ( String oponente : oponentes){
+            actualizarAreaDeJuego(oponente);
+        }
+        darVueltaCartasDelAreaDeTodos();
+    }
 }

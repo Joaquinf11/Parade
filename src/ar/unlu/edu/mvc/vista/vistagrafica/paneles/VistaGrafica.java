@@ -368,7 +368,7 @@ public class VistaGrafica extends  JFrame implements IVista {
 
     @Override
     public void finDelJuego(String nombreGanadaor) {
-        this.vistaJuego.darVueltaCartasDelAreaDeTodos();
+        this.vistaJuego.finDelJuego();
         mostrarPuntos(nombreGanadaor);
     }
 
@@ -392,11 +392,9 @@ public class VistaGrafica extends  JFrame implements IVista {
         panelMensaje.add(label);
     }
 
-
     public void removeJugador() {
         this.controlador.removeJugador(this.jugador);
     }
-
 
     private void mostrarReglas() {
         reglasText.setText("""
