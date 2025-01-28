@@ -28,7 +28,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         try {
             this.tablaTop= (TablaTop) serializador.recuperar();
         } catch (IOException | ClassNotFoundException e) {
-           this.tablaTop= new TablaTop();
+           e.printStackTrace();
         }
         if (this.tablaTop== null)
         {
