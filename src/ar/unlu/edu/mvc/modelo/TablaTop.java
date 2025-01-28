@@ -1,11 +1,16 @@
 package ar.unlu.edu.mvc.modelo;
 
+import ar.unlu.edu.mvc.interfaces.IJugador;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class TablaTop implements  Serializable {
+    @Serial
+    private static final long serialVersionUID = 2550714119849289153L;
     private final List<Jugador> jugadoresTabla;
 
     public TablaTop () {
@@ -32,4 +37,7 @@ public class TablaTop implements  Serializable {
         return  this.jugadoresTabla.getLast();
     }
 
+    public List<Jugador> getJugadores() {
+        return this.jugadoresTabla;
+    }
 }
