@@ -9,4 +9,6 @@ public interface IJugador extends Serializable {
 
 
     int getPuntos();
+
+    int getVictorias();
 }

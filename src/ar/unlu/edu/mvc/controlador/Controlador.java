@@ -306,4 +306,12 @@ public class Controlador implements IControladorRemoto {
             throw new RuntimeException(e);
         }
     }
+
+    public List<IJugador> getJugadoresTabla() {
+        try {
+            return this.juego.getJugadoresTabla();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
