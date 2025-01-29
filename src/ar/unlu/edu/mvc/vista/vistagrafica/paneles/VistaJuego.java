@@ -428,7 +428,7 @@ public class VistaJuego {
        for (String str : cartas){
            String color= str.split(",")[0];
            JPanel jpanel = getPanelFromColor(paneles,color);
-           int cantidad = jpanel.getComponentCount();
+           int cantidad = Integer.parseInt(str.split(",")[1]);
            jpanel.removeAll();
            for (int i = 0; i < cantidad; i++) {
                boolean esUltima= i == cantidad - 1;
