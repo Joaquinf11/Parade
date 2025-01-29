@@ -7,6 +7,7 @@ import ar.unlu.edu.mvc.interfaces.IJuego;
 import ar.unlu.edu.mvc.interfaces.IJugador;
 import ar.unlu.edu.mvc.persistencia.Serializador;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -24,15 +25,19 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         this.jugadores= new LinkedList<>();
         this.carnaval= new Carnaval();
         this.mazo= new Mazo();
-        Serializador serializador= new Serializador("TablaTop");
+        Serializador serializador = new Serializador("TablaTop");
         try {
-            this.tablaTop= (TablaTop) serializador.recuperar();
+            File archivo = new File("TablaTop");
+            if (archivo.exists()) {  
+                this.tablaTop = (TablaTop) serializador.recuperar();
+                System.out.println("TablaTop recuperada con " + this.tablaTop.getJugadores().size() + " jugadores.");
+            } else {
+                System.out.println("Archivo TablaTop no existe. Creando nueva TablaTop.");
+                this.tablaTop = new TablaTop();
+            }
         } catch (IOException | ClassNotFoundException e) {
-           e.printStackTrace();
-        }
-        if (this.tablaTop== null)
-        {
-            this.tablaTop= new TablaTop();
+            System.err.println("Error al recuperar TablaTop: " + e.getMessage());
+            e.printStackTrace();
         }
 
     }
@@ -182,6 +187,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         Serializador serializador= new Serializador("TablaTop");
         try {
             serializador.persistir(this.tablaTop);
+            System.out.println("Tabla guardada con " + this.tablaTop.getJugadores().size() + " jugadores" );
         } catch (IOException e) {
             e.printStackTrace();
         }
