@@ -75,9 +75,7 @@ public class Controlador implements IControladorRemoto {
                 this.vista.comienzoRondaDescarte();
                 break;
             case CARTA_DESCARTADA:
-                if (isTurno()) {
-                    this.vista.actualizarCartasEnMano();
-                }
+                this.vista.actualizarCartasEnMano();
                 break;
             case FIN_JUEGO:
                 this.vista.finDelJuego(this.getNombreGanadaor());
