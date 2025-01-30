@@ -28,15 +28,12 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         Serializador serializador = new Serializador("TablaTop");
         try {
             File archivo = new File("TablaTop");
-            if (archivo.exists()) {  
+            if (archivo.exists()) {
                 this.tablaTop = (TablaTop) serializador.recuperar();
-                System.out.println("TablaTop recuperada con " + this.tablaTop.getJugadores().size() + " jugadores.");
             } else {
-                System.out.println("Archivo TablaTop no existe. Creando nueva TablaTop.");
                 this.tablaTop = new TablaTop();
             }
         } catch (IOException | ClassNotFoundException e) {
-            System.err.println("Error al recuperar TablaTop: " + e.getMessage());
             e.printStackTrace();
         }
 
@@ -184,13 +181,6 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     public void finJuego(){
         agregarCartasEnManoAlArea();
         this.calcularPuntos();
-        Serializador serializador= new Serializador("TablaTop");
-        try {
-            serializador.persistir(this.tablaTop);
-            System.out.println("Tabla guardada con " + this.tablaTop.getJugadores().size() + " jugadores" );
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         this.notificar(Evento.FIN_JUEGO);
     }
 
@@ -265,6 +255,12 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         }
         jugador_anterior.sumarVictoria();
         tablaTop.agregarJugador(jugador_anterior);
+        Serializador serializador= new Serializador("TablaTop");
+        try {
+            serializador.persistir(this.tablaTop);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return jugador_anterior;
         // TODO falta considerar el caso en que sea un empate TOTAL
     }
