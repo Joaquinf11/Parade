@@ -218,8 +218,8 @@ public class VistaConsola extends JFrame implements IVista {
 
     public String menuInicial(){
         return """
-                MENU INCIAL
-                0-Salir\s
+                BIENVENIDO A PARADE
+                0-Salir
                 1-Agregar Jugador
                 2-Comenzar Partida
                 """;
@@ -258,17 +258,18 @@ public class VistaConsola extends JFrame implements IVista {
             case "mazo" ->{ mostrarMensaje("Cantidad de cartas del mazo: " + this.controlador.getCantidadCartasMazo());}
             case "reglas"->{ mostrarReglas();}
             case "tabla"-> { mostrarPuntos(this.controlador.getNombreGanador());}
-            case "comandos"-> { mostrarMensaje("salir:cierra la consola\n" +
-                                                " clear: limpia la pantalla de la consola\n" +
-                                                "reglas: muestra las reglas del juego\n" +
-                                                "como jugar: explica como seleccionar las cartas\n" +
-                                                "mano: muestra las cartas en mano\n" +
-                                                "canarval: muestra las cartas del carnaval\n" +
-                                                "area: muestra las cartas del area de juego\n" +
-                                                "area oponentes: muestra el area de todos los oponentes\n" +
-                                                "finalizar turno: en caso de que no puedas agarrar cartas del carnaval ingresa este comando\n" +
-                                                "mazo: muestra la cantidad de cartas que quedan en el mazo\n" +
-                                                "tabla: muestra las puntuaciones de todos los jugadores" );}
+            case "comandos"-> { mostrarMensaje("""
+                                                salir: cierra la consola
+                                                clear: limpia la pantalla de la consola
+                                                reglas: muestra las reglas del juego
+                                                como jugar: explica como seleccionar las cartas
+                                                mano: muestra las cartas en mano
+                                                canarval: muestra las cartas del carnaval
+                                                area: muestra las cartas del area de juego
+                                                area oponentes: muestra el area de todos los oponentes
+                                                finalizar turno: en caso de que no puedas agarrar cartas del carnaval ingresa este comando
+                                                mazo: muestra la cantidad de cartas que quedan en el mazo
+                                                tabla: muestra las puntuaciones de todos los jugadores""");}
             default -> { mostrarMensaje("El comando es invalido, ingrese comandos para ver los comandos dispobiles");}
         }
     }
@@ -310,11 +311,13 @@ public class VistaConsola extends JFrame implements IVista {
     }
 
     public void mostrarComoJugar(){
-        mostrarMensaje("BIENVENIDO A PARADE \n" +
-                        "Para seleccionar cartas de la Mano ingrese un numero del 1 al 5\n" +
-                        "Para seleccionar cartas del Carnaval ingrese los numeros necesarios separados por un espacio. Ejemplo: 1 2 3 4\n" +
-                        "Para terminar tu turno ingresa finalizar turno\n" +
-                        "Ingresa comandos para ver los comandos disponibles\n"
+        mostrarMensaje("""
+                        COMO JUGAR\s
+                        1) Para seleccionar cartas de la Mano ingrese un numero del 1 al 5
+                        2) Para seleccionar cartas del Carnaval ingrese los numeros necesarios separados por un espacio. Ejemplo: 1 2 3 4
+                        3) Para terminar tu turno ingresa finalizar turno
+                        Ingresa "comandos" para ver los comandos disponibles
+                """
         );
     }
 
