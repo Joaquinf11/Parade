@@ -1,7 +1,5 @@
 package ar.unlu.edu.mvc.modelo;
 
-import ar.unlu.edu.mvc.interfaces.IJugador;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
