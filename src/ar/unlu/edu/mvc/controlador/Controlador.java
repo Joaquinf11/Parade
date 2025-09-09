@@ -5,9 +5,9 @@ import ar.edu.unlu.rmimvc.observer.IObservableRemoto;
 import ar.unlu.edu.mvc.exceptions.JuegoException;
 
 import ar.unlu.edu.mvc.exceptions.TipoException;
-import ar.unlu.edu.mvc.interfaces.IJuego;
-import ar.unlu.edu.mvc.interfaces.IJugador;
-import ar.unlu.edu.mvc.interfaces.IVista;
+import ar.unlu.edu.mvc.modelo.IJuego;
+import ar.unlu.edu.mvc.modelo.IJugador;
+import ar.unlu.edu.mvc.vista.IVista;
 
 
 import ar.unlu.edu.mvc.modelo.Evento;
@@ -77,6 +77,8 @@ public class Controlador implements IControladorRemoto {
             case CARTA_DESCARTADA:
                 this.vista.actualizarCartasEnMano();
                 break;
+            case JUGADOR_AGREGADO_TABLA:
+                this.vista.actualizarTablaTop();
             case FIN_JUEGO:
                 this.vista.finDelJuego(this.getNombreGanadaor());
                 break;
