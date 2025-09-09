@@ -1,4 +1,4 @@
-package ar.unlu.edu.mvc.interfaces;
+package ar.unlu.edu.mvc.modelo;
 
 import java.io.Serializable;
 

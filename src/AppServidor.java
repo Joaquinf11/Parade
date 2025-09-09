@@ -1,7 +1,7 @@
 import ar.edu.unlu.rmimvc.RMIMVCException;
 import ar.edu.unlu.rmimvc.Util;
 import ar.edu.unlu.rmimvc.servidor.Servidor;
-import ar.unlu.edu.mvc.interfaces.IJuego;
+import ar.unlu.edu.mvc.modelo.IJuego;
 import ar.unlu.edu.mvc.modelo.Juego;
 
 import javax.swing.*;

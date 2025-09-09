@@ -1,8 +1,8 @@
 package ar.unlu.edu.mvc.vista.vistagrafica.paneles;
 
 import ar.unlu.edu.mvc.controlador.Controlador;
-import ar.unlu.edu.mvc.interfaces.IVista;
-import ar.unlu.edu.mvc.interfaces.IJugador;
+import ar.unlu.edu.mvc.vista.IVista;
+import ar.unlu.edu.mvc.modelo.IJugador;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

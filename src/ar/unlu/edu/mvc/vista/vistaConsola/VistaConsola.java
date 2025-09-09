@@ -1,8 +1,8 @@
 package ar.unlu.edu.mvc.vista.vistaConsola;
 
 import ar.unlu.edu.mvc.controlador.Controlador;
-import ar.unlu.edu.mvc.interfaces.IJugador;
-import ar.unlu.edu.mvc.interfaces.IVista;
+import ar.unlu.edu.mvc.modelo.IJugador;
+import ar.unlu.edu.mvc.vista.IVista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

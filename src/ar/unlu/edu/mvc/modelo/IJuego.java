@@ -1,4 +1,4 @@
-package ar.unlu.edu.mvc.interfaces;
+package ar.unlu.edu.mvc.modelo;
 
 import ar.edu.unlu.rmimvc.observer.IObservableRemoto;
 import ar.edu.unlu.rmimvc.observer.IObservadorRemoto;

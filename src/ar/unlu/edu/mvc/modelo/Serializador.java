@@ -1,6 +1,4 @@
-package ar.unlu.edu.mvc.persistencia;
-
-import ar.unlu.edu.mvc.interfaces.IJuego;
+package ar.unlu.edu.mvc.modelo;
 
 import java.io.*;
 

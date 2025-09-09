@@ -2,7 +2,6 @@ package ar.unlu.edu.mvc.modelo;
 
 import ar.unlu.edu.mvc.exceptions.JuegoException;
 import ar.unlu.edu.mvc.exceptions.TipoException;
-import ar.unlu.edu.mvc.interfaces.IJugador;
 
 import java.io.Serializable;
 import java.util.List;
