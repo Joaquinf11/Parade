@@ -3,6 +3,9 @@ import ar.edu.unlu.rmimvc.observer.IObservadorRemoto;
 import ar.edu.unlu.rmimvc.observer.ObservableRemoto;
 import ar.unlu.edu.mvc.exceptions.JuegoException;
 import ar.unlu.edu.mvc.exceptions.TipoException;
+import ar.unlu.edu.mvc.modelo.IJuego;
+import ar.unlu.edu.mvc.modelo.IJugador;
+import ar.unlu.edu.mvc.modelo.Serializador;
 
 import java.io.File;
 import java.io.IOException;
@@ -252,7 +255,6 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         }
         jugador_anterior.sumarVictoria();
         tablaTop.agregarJugador(jugador_anterior);
-        notificar(Evento.JUGADOR_AGREGADO_TABLA);
         Serializador serializador= new Serializador("TablaTop");
         try {
             serializador.persistir(this.tablaTop);

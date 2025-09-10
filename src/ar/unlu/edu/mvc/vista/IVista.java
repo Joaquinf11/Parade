@@ -43,5 +43,4 @@ public interface IVista {
 
     void mostrarMenuInicial();
 
-    void actualizarTablaTop(); //TODO AGREGAR A LAS VISTAS CONSOLA Y GROFICA ESTE METODO
 }

@@ -77,8 +77,6 @@ public class Controlador implements IControladorRemoto {
             case CARTA_DESCARTADA:
                 this.vista.actualizarCartasEnMano();
                 break;
-            case JUGADOR_AGREGADO_TABLA:
-                this.vista.actualizarTablaTop();
             case FIN_JUEGO:
                 this.vista.finDelJuego(this.getNombreGanadaor());
                 break;
