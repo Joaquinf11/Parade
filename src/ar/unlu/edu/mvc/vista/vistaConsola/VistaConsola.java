@@ -64,7 +64,7 @@ public class VistaConsola extends JFrame implements IVista {
             public void actionPerformed(ActionEvent e) {
                 String nombre= entradaField.getText();
                 entradaField.setText("");
-                if (comandos.contains(nombre)){
+                if (Comando.esComandoValido(nombre)){
                     procesarComandos(nombre);
                 }
                 else{
@@ -81,12 +81,9 @@ public class VistaConsola extends JFrame implements IVista {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String entrada = entradaField.getText();
-                if (comandos.contains(entrada)) {
+                if (Comando.esComandoValido(entrada)) {
                     procesarComandos(entrada);}
-                else if (entrada.equals("finalizar turno")) {
-                    procesarComandos(entrada);
-                }
-                 else {
+                else {
                      mostrarMensaje(entrada);
                      convertirCartaElegidaAInteger(entrada);
                 }
@@ -100,9 +97,7 @@ public class VistaConsola extends JFrame implements IVista {
             public void actionPerformed(ActionEvent e) {
                 String entrada= entradaField.getText();
                 entradaField.setText("");
-                if (comandos.contains(entrada)) {
-                    procesarComandos(entrada);
-                } else if (entrada.equals("finalizar turno")) {
+                if (Comando.esComandoValido(entrada)) {
                     procesarComandos(entrada);
                 } else {
                     mostrarMensaje(entrada);
@@ -159,7 +154,6 @@ public class VistaConsola extends JFrame implements IVista {
 
     @Override
     public void mostrarPuntos(String nombreGanadaor) {
-        comandos.add("tabla");
         List<IJugador> jugadores = this.controlador.listarJugadores();
 
         for (IJugador jugador : jugadores){
@@ -231,19 +225,20 @@ public class VistaConsola extends JFrame implements IVista {
 
     public void procesarComandos(String comando){
         areaSalida.append(comando + "\n");
-        switch (comando){
-            case "salir"-> {this.controlador.removeJugador(this.jugador); dispose();}
-            case "clear" -> {areaSalida.setText(" ");}
-            case "mano" -> {mostrarCartasEnMano();}
-            case "carnaval"-> {mostrarCarnaval();}
-            case "area" -> { mostrarArea(this.jugador);}
-            case "area oponentes"->{mostrarAreaOponentes();}
-            case "como jugar"->{ mostrarComoJugar();}
-            case "finalizar turno"-> { this.controlador.finalizarTurno();}
-            case "mazo" ->{ mostrarMensaje("Cantidad de cartas del mazo: " + this.controlador.getCantidadCartasMazo());}
-            case "reglas"->{ mostrarReglas();}
-            case "tabla"-> { mostrarPuntos(this.controlador.getNombreGanador());}
-            case "comandos"-> { mostrarMensaje("salir:cierra la consola\n" +
+        Comando c = Comando.fromString(comando);
+        switch (c){
+            case SALIR -> {this.controlador.removeJugador(this.jugador); dispose();}
+            case CLEAR -> {areaSalida.setText(" ");}
+            case MANO -> {mostrarCartasEnMano();}
+            case CARNAVAL -> {mostrarCarnaval();}
+            case AREA -> { mostrarArea(this.jugador);}
+            case AREA_OPONENTES->{mostrarAreaOponentes();}
+            case COMO_JUGAR->{ mostrarComoJugar();}
+            case FINALIZAR_TURNO -> { this.controlador.finalizarTurno();}
+            case MAZO ->{ mostrarMensaje("Cantidad de cartas del mazo: " + this.controlador.getCantidadCartasMazo());}
+            case REGLAS ->{ mostrarReglas();}
+            case TABLA -> { mostrarPuntos(this.controlador.getNombreGanador());}
+            case COMANDOS-> { mostrarMensaje("salir:cierra la consola\n" +
                                                 " clear: limpia la pantalla de la consola\n" +
                                                 "reglas: muestra las reglas del juego\n" +
                                                 "como jugar: explica como seleccionar las cartas\n" +
