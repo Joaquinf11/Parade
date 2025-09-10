@@ -24,7 +24,7 @@ public class VistaGrafica extends  JFrame implements IVista {
     private JPanel panelPrincipalJuego;
 
     private String jugador;
-    private String ultimoPanel;
+    private TipoPanel ultimoTipoPanel;
     private final JMenuBar menuBar;
     private final JPanel panelReglas;
     private final JTextArea reglasText;
@@ -203,7 +203,7 @@ public class VistaGrafica extends  JFrame implements IVista {
     public void mostrarMenuInicial(){
         setContentPane(this.panelPrincipalMenuInicial);
         panelPrincipalMenuInicial.updateUI();
-        this.ultimoPanel="Menu Inicial";
+        this.ultimoTipoPanel = TipoPanel.MENU_INICIAL;
     }
 
 
@@ -211,13 +211,13 @@ public class VistaGrafica extends  JFrame implements IVista {
     public void mostrarIngresarJugador(){
         setContentPane(this.panelPrincipalIngresarJugador);
         panelPrincipalIngresarJugador.updateUI();
-        this.ultimoPanel="Ingresar Jugador";
+        this.ultimoTipoPanel =TipoPanel.INGRESAR_JUGADOR;
     }
 
     public void mostrarVentanaJuego(){
         setContentPane(this.panelPrincipalIngresarJugador);
         panelPrincipalIngresarJugador.updateUI();
-        this.ultimoPanel="Panel Juego";
+        this.ultimoTipoPanel =TipoPanel.JUEGO;
     }
 
     public void mostrarPanelMensaje(){
@@ -244,10 +244,10 @@ public class VistaGrafica extends  JFrame implements IVista {
     }
 
     public void mostrarUltimoPanel(){
-        switch (ultimoPanel){
-            case "Menu Inicial"-> { setContentPane(this.panelPrincipalMenuInicial); panelPrincipalMenuInicial.updateUI();}
-            case "Ingresar Jugador"-> { setContentPane(this.panelPrincipalIngresarJugador);panelPrincipalIngresarJugador.updateUI();}
-            case "Panel Juego"-> { setContentPane(this.panelPrincipalJuego); panelPrincipalJuego.updateUI();}
+        switch (ultimoTipoPanel){
+            case  MENU_INICIAL -> { setContentPane(this.panelPrincipalMenuInicial); panelPrincipalMenuInicial.updateUI();}
+            case INGRESAR_JUGADOR -> { setContentPane(this.panelPrincipalIngresarJugador);panelPrincipalIngresarJugador.updateUI();}
+            case JUEGO -> { setContentPane(this.panelPrincipalJuego); panelPrincipalJuego.updateUI();}
         }
     }
 
@@ -334,7 +334,7 @@ public class VistaGrafica extends  JFrame implements IVista {
     public void jugadorAgregado(String nombre) {
         if (nombre.equals(this.jugador)){
             mostrarMensaje("Jugador agregado con exito");
-            this.ultimoPanel= "Menu Inicial";
+            this.ultimoTipoPanel = TipoPanel.MENU_INICIAL;
             this.vistaMenuInicial.setAgregarJugador(false);
         }
     }
