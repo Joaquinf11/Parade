@@ -15,7 +15,8 @@ public enum Comando {
     //TODO chequear si sirve para algo TAREA: agregar EnumComando
     public static Comando fromString(String input) {
         try {
-            return Comando.valueOf(input.toUpperCase());
+            String normalizado = input.trim().toUpperCase().replace(" ", "_");
+            return Comando.valueOf(normalizado);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Comando no válido: " + input);
         }
@@ -23,8 +24,9 @@ public enum Comando {
     }
 
     public static boolean esComandoValido(String input) {
+        String normalizado = input.trim().toUpperCase().replace(" ", "_");
         for (Comando c : Comando.values()) {
-            if (c.name().equalsIgnoreCase(input)) {
+            if (c.name().equalsIgnoreCase(normalizado)) {
                 return true;
             }
         }
