@@ -97,7 +97,9 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         removerObservador(o);
     }
 
+
     public void setUltimaRonda(Queue<Jugador> jugadores){
+
         this.notificar(Evento.ULTIMA_RONDA);
         this.ronda= new UltimaRonda(jugadores,this.carnaval,this.mazo,this);
         this.ronda.cambiarTurno();
