@@ -80,15 +80,18 @@ public class VistaGrafica extends  JFrame implements IVista {
         panelReglas.add(panelVolver, BorderLayout.SOUTH);
 
         JMenu ayuda= new JMenu("Ayuda");
+
         JMenuItem reglasItem= new JMenuItem("Reglas");
         reglasItem.setBackground(new Color(201,217,5));
         reglasItem.addActionListener(e -> {mostrarReglas();});
+
         JMenuItem comoJugarItem= new JMenuItem("Como jugar");
         comoJugarItem.setBackground(new Color(201,217,5));
         ayuda.add(reglasItem);
         ayuda.add(comoJugarItem);
 
         JMenu salir= new JMenu("Salir");
+
         JMenuItem salirItem= new JMenuItem("Salir");
         salirItem.setBackground(new Color(201,217,5));
         salirItem.addActionListener(new ActionListener() {
@@ -111,6 +114,16 @@ public class VistaGrafica extends  JFrame implements IVista {
             }
         });
         salir.add(guardarItem);
+
+        JMenuItem comenzarNuevaPartidaItem= new JMenuItem("Comenzar Nueva Partida");
+        guardarItem.setBackground(new Color(201,217,5));
+        guardarItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.comenzarPartidaNueva();
+            }
+        });
+        salir.add(comenzarNuevaPartidaItem);
 
         JMenuItem nuevaPartidaItem= new JMenuItem("Nueva Partida");
         nuevaPartidaItem.setBackground(new Color(201,217,5));

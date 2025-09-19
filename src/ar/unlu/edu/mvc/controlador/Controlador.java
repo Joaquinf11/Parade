@@ -312,4 +312,12 @@ public class Controlador implements IControladorRemoto {
             throw new RuntimeException(e);
         }
     }
+
+    public void comenzarPartidaNueva() {
+        try {
+            return this.juego.comenzarNuevaPartida();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

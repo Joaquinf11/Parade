@@ -52,4 +52,6 @@ public interface IJuego  extends IObservableRemoto, Serializable {
     List<String> listarCartasAreaDadasVuelta(String nombreJugador) throws  RemoteException;
 
     List<IJugador> getJugadoresTabla() throws RemoteException;
+
+    void comenzarNuevaPartida();
 }
