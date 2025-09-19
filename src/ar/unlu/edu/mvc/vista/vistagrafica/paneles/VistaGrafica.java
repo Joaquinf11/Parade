@@ -1,10 +1,12 @@
 package ar.unlu.edu.mvc.vista.vistagrafica.paneles;
 
 import ar.unlu.edu.mvc.controlador.Controlador;
-import ar.unlu.edu.mvc.interfaces.IVista;
-import ar.unlu.edu.mvc.interfaces.IJugador;
+import ar.unlu.edu.mvc.vista.IVista;
+import ar.unlu.edu.mvc.modelo.IJugador;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
@@ -22,19 +24,21 @@ public class VistaGrafica extends  JFrame implements IVista {
     private JPanel panelPrincipalJuego;
 
     private String jugador;
-    private String ultimoPanel;
-    private JMenuBar menuBar;
-    private JPanel panelReglas;
-    private JTextArea reglasText;
-    private JPanel panelPuntuacion;
-    private JTextArea tablaJugadores;
+    private TipoPanel ultimoTipoPanel;
+    private final JMenuBar menuBar;
+    private final JPanel panelReglas;
+    private final JTextArea reglasText;
+    private final JPanel panelTop;
 
-    private JMenu tabla;
+
+    private final JMenu tabla;
+
+    private final JButton volverButton;
 
     public VistaGrafica(){
-        panelPuntuacion= new JPanel();
-        panelPuntuacion.setBackground(new Color(199,86,195));
-        panelPuntuacion.setLayout(new GridBagLayout());
+        panelTop = new JPanel();
+        panelTop.setBackground(new Color(199,86,195));
+        panelTop.setLayout(new BoxLayout(panelTop,BoxLayout.Y_AXIS));
 
         panelReglas= new JPanel();
         panelReglas.setBackground(new Color(199,86,195));
@@ -58,7 +62,7 @@ public class VistaGrafica extends  JFrame implements IVista {
         menuBar.setBackground(new Color(201,217,5));
         menuBar.setSize(100,30);
 
-        JButton volverButton=new JButton("Volver");
+        volverButton=new JButton("Volver");
         volverButton.setBackground(new Color(201,217,5));
         volverButton.setForeground(new Color(199,86,195));
         volverButton.setFont(new Font("Ravie",Font.PLAIN,16));
@@ -95,6 +99,7 @@ public class VistaGrafica extends  JFrame implements IVista {
             }
         });
         salir.add(salirItem);
+
         JMenuItem guardarItem= new JMenuItem("Guardar partida");
         guardarItem.setBackground(new Color(201,217,5));
         guardarItem.addActionListener(new ActionListener() {
@@ -107,25 +112,29 @@ public class VistaGrafica extends  JFrame implements IVista {
         });
         salir.add(guardarItem);
 
-        tabla= new JMenu("Tabla");
-        tabla.setEnabled(false);
-        JMenuItem tablaItem= new JMenuItem("Puntos");
-        tablaItem.setBackground(new Color(201,217,5));
-        tablaItem.addActionListener(new ActionListener() {
+        JMenuItem nuevaPartidaItem= new JMenuItem("Nueva Partida");
+        nuevaPartidaItem.setBackground(new Color(201,217,5));
+        nuevaPartidaItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mostrarTabla();
+                controlador.nuevaPartida();
             }
         });
-        tabla.add(tablaItem);
+        salir.add(guardarItem);
 
-
-
+        tabla= new JMenu("Ranking");
+        JMenuItem ranking = new JMenuItem("Ver tabla");
+        ranking.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarTablaRanking();
+            }
+        });
+        tabla.add(ranking);
 
         menuBar.add(ayuda);
         menuBar.add(tabla);
         menuBar.add(salir);
-
 
         setJMenuBar(menuBar);
         setTitle("PARADE");
@@ -136,16 +145,65 @@ public class VistaGrafica extends  JFrame implements IVista {
 
     }
 
-    private void mostrarTabla() {
-        setContentPane(panelPuntuacion);
-        panelPuntuacion.updateUI();
-    }
+    private void mostrarTablaRanking() {
+        String[] columnas = {"Jugador", "Victorias"};
+        List<IJugador> jugadoresTabla = this.controlador.getJugadoresTabla();
+        Object[][] datos= new Object[jugadoresTabla.size()][2];
+        for (int i = 0; i < jugadoresTabla.size(); i++) {
+            datos[i][0] = jugadoresTabla.get(i).getNombre();
+            datos[i][1] = jugadoresTabla.get(i).getVictorias();
+        }
 
+
+        DefaultTableModel modelo = new DefaultTableModel(datos, columnas) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        panelTop.removeAll();
+        JTable tabla = new JTable(modelo);
+
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(300);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(200);
+
+        tabla.setBackground(new Color(199, 86, 195));
+        tabla.setGridColor(new Color(201, 217, 5));
+        tabla.setFont(new Font("Ravie", Font.PLAIN, 26));
+        tabla.setForeground(new Color(201, 217, 5));
+        tabla.setRowHeight(50);
+
+        // Centrar el contenido de las celdas
+        DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
+        centrado.setHorizontalAlignment(SwingConstants.CENTER);
+        tabla.setDefaultRenderer(Object.class, centrado);
+
+        tabla.getTableHeader().setFont(new Font("Ravie", Font.BOLD, 30));
+        tabla.getTableHeader().setReorderingAllowed(false);
+        tabla.getTableHeader().setBackground(new Color(201, 217, 5));
+        tabla.getTableHeader().setForeground(new Color(199, 86, 195));
+
+        tabla.setRowSelectionAllowed(false);
+        tabla.setColumnSelectionAllowed(false);
+
+        JPanel panelTabla = new JPanel();
+        panelTabla.setLayout(new BorderLayout());
+        panelTabla.setOpaque(false);
+        panelTabla.add(tabla.getTableHeader(), BorderLayout.NORTH);
+        panelTabla.add(tabla, BorderLayout.CENTER);
+        panelTabla.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        panelTop.add(panelTabla);
+        panelTop.add(volverButton);
+        setContentPane(panelTop);
+        panelTop.updateUI();
+
+    }
 
     public void mostrarMenuInicial(){
         setContentPane(this.panelPrincipalMenuInicial);
         panelPrincipalMenuInicial.updateUI();
-        this.ultimoPanel="Menu Inicial";
+        this.ultimoTipoPanel = TipoPanel.MENU_INICIAL;
     }
 
 
@@ -153,13 +211,13 @@ public class VistaGrafica extends  JFrame implements IVista {
     public void mostrarIngresarJugador(){
         setContentPane(this.panelPrincipalIngresarJugador);
         panelPrincipalIngresarJugador.updateUI();
-        this.ultimoPanel="Ingresar Jugador";
+        this.ultimoTipoPanel =TipoPanel.INGRESAR_JUGADOR;
     }
 
     public void mostrarVentanaJuego(){
         setContentPane(this.panelPrincipalIngresarJugador);
         panelPrincipalIngresarJugador.updateUI();
-        this.ultimoPanel="Panel Juego";
+        this.ultimoTipoPanel =TipoPanel.JUEGO;
     }
 
     public void mostrarPanelMensaje(){
@@ -186,10 +244,10 @@ public class VistaGrafica extends  JFrame implements IVista {
     }
 
     public void mostrarUltimoPanel(){
-        switch (ultimoPanel){
-            case "Menu Inicial"-> { setContentPane(this.panelPrincipalMenuInicial); panelPrincipalMenuInicial.updateUI();}
-            case "Ingresar Jugador"-> { setContentPane(this.panelPrincipalIngresarJugador);panelPrincipalIngresarJugador.updateUI();}
-            case "Panel Juego"-> { setContentPane(this.panelPrincipalJuego); panelPrincipalJuego.updateUI();}
+        switch (ultimoTipoPanel){
+            case  MENU_INICIAL -> { setContentPane(this.panelPrincipalMenuInicial); panelPrincipalMenuInicial.updateUI();}
+            case INGRESAR_JUGADOR -> { setContentPane(this.panelPrincipalIngresarJugador);panelPrincipalIngresarJugador.updateUI();}
+            case JUEGO -> { setContentPane(this.panelPrincipalJuego); panelPrincipalJuego.updateUI();}
         }
     }
 
@@ -235,16 +293,13 @@ public class VistaGrafica extends  JFrame implements IVista {
     }
 
     @Override
-    public void mostrarAreaDeJuego() {
+    public void mostrarAreaDeJuego(String nombre) {
         this.vistaJuego.desactivarCartasCarnaval();
         this.vistaJuego.desactivaBotonAnalizarCartas();
-        this.vistaJuego.actualizarAreaDeJuego();
+        this.vistaJuego.actualizarAreaDeJuego(nombre);
     }
 
-    @Override
-    public void mostrarAreaDeJuegoOponente(String nombreJugadorTurno) {
-        this.vistaJuego.actualizarAreaOponente(nombreJugadorTurno);
-    }
+
 
     @Override
     public void actualizarCantidadCartasMazo() {
@@ -279,46 +334,20 @@ public class VistaGrafica extends  JFrame implements IVista {
     public void jugadorAgregado(String nombre) {
         if (nombre.equals(this.jugador)){
             mostrarMensaje("Jugador agregado con exito");
-            this.ultimoPanel= "Menu Inicial";
+            this.ultimoTipoPanel = TipoPanel.MENU_INICIAL;
             this.vistaMenuInicial.setAgregarJugador(false);
         }
-
     }
 
     @Override
     public void mostrarPuntos(String nombreGanadaor) {
-        tabla.setEnabled(true);
-        tablaJugadores= new JTextArea();
-        tablaJugadores.setFont(new Font("Ravie",Font.PLAIN,20));
-        tablaJugadores.setForeground(new Color(201,217,5));
-        tablaJugadores.setBackground(new Color(199,86,195));
-
         List<IJugador> jugadores= this.controlador.listarJugadores();
         String resultado="";
         for (IJugador jugador : jugadores){
             resultado += jugador.getNombre() + " tiene " + jugador.getPuntos() + "\n";
         }
         resultado+= "\n\n EL GANADOR ES " + nombreGanadaor;
-        tablaJugadores.setText(resultado);
-        tablaJugadores.setEditable(false);
-
-        JButton volverButton= new JButton();
-        volverButton.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-        volverButton.setBackground(new Color(201,217,5));
-        volverButton.setForeground(new Color(199,86,195));
-        volverButton.setFont(new Font("Ravie",Font.PLAIN,16));
-        volverButton.setSize(200,100);
-        volverButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mostrarUltimoPanel();
-            }
-        });
-
-
-        panelPuntuacion.add(tablaJugadores);
-        setContentPane(panelPuntuacion);
-        panelPuntuacion.updateUI();
+        this.vistaJuego.mostrarPuntos(resultado);
     }
 
     @Override
@@ -341,6 +370,8 @@ public class VistaGrafica extends  JFrame implements IVista {
 
     @Override
     public void finDelJuego(String nombreGanadaor) {
+        //esto no funciona porque estoy actualizando las cartas, por lo tanto saco los colores y despues no se dan vuelta chequear
+        this.vistaJuego.finDelJuego();
         mostrarPuntos(nombreGanadaor);
     }
 
@@ -364,52 +395,51 @@ public class VistaGrafica extends  JFrame implements IVista {
         panelMensaje.add(label);
     }
 
-
     public void removeJugador() {
         this.controlador.removeJugador(this.jugador);
     }
 
-
     private void mostrarReglas() {
-        reglasText.setText("OBJETIVO DEL JUEGO\n" +
-                "Los jugadores deberán jugar sus cartas de la mano mientras intentan no quedarse cartas del carnaval, pues estas representan puntos negativos.\n" +
-                "Se reparten 5 a cada jugador. Luego se ponen 6 cartas más en el centro de la mesa que representan el carnaval." +
-                "El principio del carnaval comienza a la izquierda mientras que el final es a la derecha.\n" +
-                "\n" +
-                "SECUENCIA DEL JUEGO\n" +
-                "Durante su turno cada jugador llevará a cabo las siguientes acciones en el orden descrito:\n" +
-                "1. Escoger una carta de su mano y colocarla al final del carnaval;\n" +
-                "2. Si se da el caso, recoger cartas del carnaval y colocarlas en su area de juego;\n" +
-                "3. Robar una carta del mazo.\n" +
-                "Después, el turno pasa al siguiente jugador que realizará las mismas acciones.\n" +
-                "\n" +
-                "ACCIONES DEL JUEGO\n" +
-                "1.  La carta tirada no se cuenta a la hora de contar el número de cartas en la siguiente acción.\n" +
-                "2. Dependiendo de la carta jugada, algunas cartas serán retiradas del carnaval.\n" +
-                "\t -Si el número de cartas del carnaval es menor o igual al valor numérico de la carta jugada, no se retirará ninguna carta del carnaval.\n" +
-                "\t -Si el número de cartas del carnaval es mayor que el valor de la carta jugada, entonces algunas cartas pueden abandonarlo.\n" +
-                "Para determinar que cartas tienen que ser retiradas, deberán contarse las cartas desde el final del carnaval y hacia el principio, sin tener en cuenta la carta recién jugada. \n" +
-                "Toda carta a partir de esa posición (hasta donde hemos contado) será susceptible de ser retirada.\n" +
-                "Para saber que cartas de las susceptibles de ser retiradas, lo serán efectivamente, se siguen las siguientes reglas:\n" +
-                "\t • Todas las cartas con el mismo color que la carta jugada;\n" +
-                "\t • Todas las cartas de valor igual o inferior al de la carta jugada (véase ejemplo más adelante).\n" +
-                "Las cartas retiradas se disponen en el area de juego del jugador.\n" +
-                "3. El jugador roba una carta del mazo, volviendo a tener 5 cartas en mano.\n" +
-                "\n" +
-                "ULTIMA RONDA\n" +
-                "La última ronda empieza cuando un jugador tiene en su area de juego cartas de los 6 colores presentes en el juego o bien cuando se roba la última carta del mazo.\n" +
-                "Sin embargo, en esta última ronda, los jugadores no robarán carta del mazo (quedándose así con 4 cartas en la mano).\n" +
-                "Tras esta última ronda, comienza la ronda de descarte.\n" +
-                "\n" +
-                "RONDA DESCARTE\n" +
-                "Cada jugador escoge 2 cartas de su mano y las descarta. Las 2 cartas restantes, se colocan en su area de juego \n" +
-                "\n" +
-                "PUNTUACION\n" +
-                "Las cartas que aún formen parte del carnaval serán descartadas.\n" +
-                "1. Determinar quien tiene la mayoría de cada color. El jugador o jugadores con la mayoría de cartas de un color, girarán esas cartas y cada una las contará solo como 1 punto.\n" +
-                "2. Después, cada jugador sumará los valores del resto de cartas que tengan boca arriba. Sumar este total con el de las cartas sumadas en el punto anterior.\n" +
-                "3. El ganador sera quien tenga menos puntos negativos acumulados.\n" +
-                "4. En caso de empate ganara quien tenga menos cartas en su area de juego (las que estan dadas vuelta tambien se cuentan).");
+        reglasText.setText("""
+                OBJETIVO DEL JUEGO
+                Los jugadores deberán jugar sus cartas de la mano mientras intentan no quedarse cartas del carnaval, pues estas representan puntos negativos.
+                Se reparten 5 a cada jugador. Luego se ponen 6 cartas más en el centro de la mesa que representan el carnaval.\
+                El principio del carnaval comienza a la izquierda mientras que el final es a la derecha.
+                
+                SECUENCIA DEL JUEGO
+                Durante su turno cada jugador llevará a cabo las siguientes acciones en el orden descrito:
+                1. Escoger una carta de su mano y colocarla al final del carnaval;
+                2. Si se da el caso, recoger cartas del carnaval y colocarlas en su area de juego;
+                3. Robar una carta del mazo.
+                Después, el turno pasa al siguiente jugador que realizará las mismas acciones.
+                
+                ACCIONES DEL JUEGO
+                1.  La carta tirada no se cuenta a la hora de contar el número de cartas en la siguiente acción.
+                2. Dependiendo de la carta jugada, algunas cartas serán retiradas del carnaval.
+                \t -Si el número de cartas del carnaval es menor o igual al valor numérico de la carta jugada, no se retirará ninguna carta del carnaval.
+                \t -Si el número de cartas del carnaval es mayor que el valor de la carta jugada, entonces algunas cartas pueden abandonarlo.
+                Para determinar que cartas tienen que ser retiradas, deberán contarse las cartas desde el final del carnaval y hacia el principio, sin tener en cuenta la carta recién jugada.\s
+                Toda carta a partir de esa posición (hasta donde hemos contado) será susceptible de ser retirada.
+                Para saber que cartas de las susceptibles de ser retiradas, lo serán efectivamente, se siguen las siguientes reglas:
+                \t • Todas las cartas con el mismo color que la carta jugada;
+                \t • Todas las cartas de valor igual o inferior al de la carta jugada (véase ejemplo más adelante).
+                Las cartas retiradas se disponen en el area de juego del jugador.
+                3. El jugador roba una carta del mazo, volviendo a tener 5 cartas en mano.
+                
+                ULTIMA RONDA
+                La última ronda empieza cuando un jugador tiene en su area de juego cartas de los 6 colores presentes en el juego o bien cuando se roba la última carta del mazo.
+                Sin embargo, en esta última ronda, los jugadores no robarán carta del mazo (quedándose así con 4 cartas en la mano).
+                Tras esta última ronda, comienza la ronda de descarte.
+                
+                RONDA DESCARTE
+                Cada jugador escoge 2 cartas de su mano y las descarta. Las 2 cartas restantes, se colocan en su area de juego\s
+                
+                PUNTUACION
+                Las cartas que aún formen parte del carnaval serán descartadas.
+                1. Determinar quien tiene la mayoría de cada color. El jugador o jugadores con la mayoría de cartas de un color, girarán esas cartas y cada una las contará solo como 1 punto.
+                2. Después, cada jugador sumará los valores del resto de cartas que tengan boca arriba. Sumar este total con el de las cartas sumadas en el punto anterior.
+                3. El ganador sera quien tenga menos puntos negativos acumulados.
+                4. En caso de empate ganara quien tenga menos cartas en su area de juego (las que estan dadas vuelta tambien se cuentan).""");
         setContentPane(panelReglas);
         panelReglas.updateUI();
     }

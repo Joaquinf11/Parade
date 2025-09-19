@@ -4,32 +4,43 @@ import ar.unlu.edu.mvc.exceptions.JuegoException;
 import ar.unlu.edu.mvc.exceptions.TipoException;
 
 import java.io.Serializable;
+import java.util.Queue;
 
 public class UltimaRonda extends Ronda implements Serializable {
-    private static int contador=0;
-    private final int cantidadJugadores;
+    private final Jugador primerJugadorRonda;
 
-    public UltimaRonda(Jugador jugador, Carnaval carnaval,Mazo mazo,Juego juego,int cantidad){
-        super(jugador,carnaval,mazo,juego);
-        contador++;
-        this.cantidadJugadores= cantidad;
+    public UltimaRonda(Queue<Jugador> jugadores, Carnaval carnaval, Mazo mazo, Juego juego){
+        super(jugadores,carnaval,mazo,juego);
+        this.primerJugadorRonda=this.jugadores.peek();
     }
 
+
     @Override
-    public void finRonda() throws JuegoException {
-        if (tiroCarta) {
+    public void finTurno() throws JuegoException {
+        boolean faltanCartasCarnaval=this.carnaval.faltaAgarrarCartas(this.carnaval.getUltimaCarta(), indicesCartasElegidas);
+        if (tiroCarta && !faltanCartasCarnaval) {
+            this.juego.notificar(Evento.FIN_TURNO);
             if (esFinDeRonda()) {
-                this.juego.setRondaDescarte(true);
+                this.jugadores.add(this.jugadorTurno);
+                this.juego.setRondaDescarte(this.jugadores);
             }
-            this.juego.finTurno();
+            else{
+                this.indicesCartasElegidas=null;
+                this.agrego=false;
+                this.jugadores.add(this.jugadorTurno);
+                this.cambiarTurno();
+            }
+        }else if (faltanCartasCarnaval) {
+            throw new JuegoException("Debes elegir cartas del carnaval antes de finalizar turno",TipoException.CARTA_EXCEPTION);
+
         }
         else{
             throw new JuegoException("Debes tirar una carta antes de finalizar tu turno", TipoException.CARTA_EXCEPTION);
-            }
+        }
 
     }
     @Override
     public boolean esFinDeRonda(){
-        return  contador == cantidadJugadores;
+        return  this.primerJugadorRonda.equals(this.jugadores.peek());
     }
 }

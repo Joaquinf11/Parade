@@ -15,8 +15,8 @@ public class VistaMenuInicial {
     private JButton agregarJugButton;
     private JButton cargarPartidaButton;
 
-    private VistaGrafica vistaGrafica;
-    private Controlador controlador;
+    private final VistaGrafica vistaGrafica;
+    private final Controlador controlador;
 
     public VistaMenuInicial(Controlador controlador, VistaGrafica vistaGrafica){
         this.controlador = controlador;

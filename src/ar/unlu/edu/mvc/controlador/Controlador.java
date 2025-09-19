@@ -5,9 +5,9 @@ import ar.edu.unlu.rmimvc.observer.IObservableRemoto;
 import ar.unlu.edu.mvc.exceptions.JuegoException;
 
 import ar.unlu.edu.mvc.exceptions.TipoException;
-import ar.unlu.edu.mvc.interfaces.IJuego;
-import ar.unlu.edu.mvc.interfaces.IJugador;
-import ar.unlu.edu.mvc.interfaces.IVista;
+import ar.unlu.edu.mvc.modelo.IJuego;
+import ar.unlu.edu.mvc.modelo.IJugador;
+import ar.unlu.edu.mvc.vista.IVista;
 
 
 import ar.unlu.edu.mvc.modelo.Evento;
@@ -56,12 +56,7 @@ public class Controlador implements IControladorRemoto {
                 this.vista.mostrarCarnaval();
                 break;
             case CARTA_AGREGADA_AREA:
-                if (isTurno()){
-                    this.vista.mostrarAreaDeJuego();
-                }
-                else {
-                    this.vista.mostrarAreaDeJuegoOponente(getNombreJugadorTurno());
-                }
+                this.vista.mostrarAreaDeJuego(this.getNombreJugadorTurno());
                 this.vista.mostrarCarnaval();
                 break;
             case MAZO_SIN_CARTAS:
@@ -80,9 +75,7 @@ public class Controlador implements IControladorRemoto {
                 this.vista.comienzoRondaDescarte();
                 break;
             case CARTA_DESCARTADA:
-                if (isTurno()) {
-                    this.vista.actualizarCartasEnMano();
-                }
+                this.vista.actualizarCartasEnMano();
                 break;
             case FIN_JUEGO:
                 this.vista.finDelJuego(this.getNombreGanadaor());
@@ -291,6 +284,32 @@ public class Controlador implements IControladorRemoto {
         }
         catch (IOException e){
             throw  new RuntimeException(e);
+        }
+    }
+
+    public void nuevaPartida() {
+        try {
+            this.juego.nuevaPartida();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        } catch (JuegoException e) {
+            this.vista.mostrarMensaje(e.getMessage());
+        }
+    }
+
+    public List<String> listarCartasAreaDadasVuelta(String nombreJugador) {
+        try {
+             return this.juego.listarCartasAreaDadasVuelta(nombreJugador);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<IJugador> getJugadoresTabla() {
+        try {
+            return this.juego.getJugadoresTabla();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
         }
     }
 }

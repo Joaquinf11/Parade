@@ -1,14 +1,13 @@
-package ar.unlu.edu.mvc.interfaces;
+package ar.unlu.edu.mvc.vista;
 
 import ar.unlu.edu.mvc.controlador.Controlador;
 
 public interface IVista {
     void setControlador(Controlador controlador);
+
     void mostrarMensaje(String mensaje);
 
     void iniciarJuego();
-
-
 
     void cambioDeTurno();
 
@@ -18,9 +17,9 @@ public interface IVista {
 
     void cartaAgregadaCarnaval();
 
-    void mostrarAreaDeJuego();
+    void mostrarAreaDeJuego(String nombre);
 
-    void mostrarAreaDeJuegoOponente(String nombreJugadorTurno);
+
 
     void actualizarCantidadCartasMazo();
 
@@ -43,4 +42,5 @@ public interface IVista {
     void partidaCargada();
 
     void mostrarMenuInicial();
+
 }

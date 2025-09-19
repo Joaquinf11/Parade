@@ -1,7 +1,5 @@
 package ar.unlu.edu.mvc.modelo;
 
-import ar.unlu.edu.mvc.interfaces.IJugador;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,15 +7,17 @@ import java.util.List;
 
 public class Jugador implements IJugador, Serializable {
     private final String nombre;
-    private final List<Carta> cartasEnMano;
-    private final AreaDeJuego area;
+    private  List<Carta> cartasEnMano;
+    private  AreaDeJuego area;
     private int puntos;
+    private int victorias;
 
     public Jugador(String nombre){
         this.nombre=nombre;
         this.cartasEnMano= new ArrayList<>();
         this.area= new AreaDeJuego();
         this.puntos=0;
+        this.victorias=0;
     }
 
     @Override
@@ -53,10 +53,7 @@ public class Jugador implements IJugador, Serializable {
             this.cartasEnMano.remove(indice);
 
     }
-    public void quitarCarta(Carta carta){
-        this.cartasEnMano.remove(carta);
 
-    }
 
     public Carta elegirCarta(int indice){
         return descartarCarta(indice);
@@ -85,5 +82,32 @@ public class Jugador implements IJugador, Serializable {
         List<Carta> cartas= new ArrayList<>(cartasEnMano);
         this.cartasEnMano.clear();
         return cartas;
+    }
+
+    public void resetNuevoJuego(){
+        this.puntos=0;
+        this.area= new AreaDeJuego();
+        this.cartasEnMano= new ArrayList<>();
+
+    }
+
+    public void sumarVictoria(){
+        this.victorias++;
+    }
+
+    public int getVictorias(){
+        return this.victorias;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Jugador jugador = (Jugador) o;
+        return nombre.equals(jugador.nombre);
+    }
+
+    public List<String> listarCartasDadasVuelta(){
+        return this.area.listarCartasDadasVuelta();
     }
 }

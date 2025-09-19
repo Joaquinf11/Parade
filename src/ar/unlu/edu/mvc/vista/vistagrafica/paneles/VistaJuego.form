@@ -117,7 +117,7 @@
                   <foreground color="-3713341"/>
                   <opaque value="true"/>
                   <selected value="false"/>
-                  <text value="Analizar cartas"/>
+                  <text value="Agarrar cartas"/>
                   <verifyInputWhenFocusTarget value="true"/>
                 </properties>
               </component>
