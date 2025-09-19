@@ -12,14 +12,10 @@ public enum Comando {
     COMO_JUGAR,
     REGLAS, FINALIZAR_TURNO, TABLA;
 
-    //TODO chequear si sirve para algo TAREA: agregar EnumComando
+
     public static Comando fromString(String input) {
-        try {
             String normalizado = input.trim().toUpperCase().replace(" ", "_");
             return Comando.valueOf(normalizado);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Comando no válido: " + input);
-        }
 
     }
 
