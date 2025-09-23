@@ -251,7 +251,7 @@ public class VistaConsola extends JFrame implements IVista {
                                                 finalizar turno: en caso de que no puedas agarrar cartas del carnaval ingresa este comando
                                                 mazo: muestra la cantidad de cartas que quedan en el mazo
                                                 tabla: muestra las puntuaciones de todos los jugadores""");}
-            default -> { mostrarMensaje("El comando es invalido, ingrese comandos para ver los comandos dispobiles");}
+            case COMANDO_INVALIDO -> { mostrarMensaje("El comando es invalido, ingrese comandos para ver los comandos dispobiles");}
         }
     }
 
