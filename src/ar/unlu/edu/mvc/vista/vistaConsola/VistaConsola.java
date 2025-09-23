@@ -6,7 +6,6 @@ import ar.unlu.edu.mvc.vista.IVista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.swing.*;
@@ -24,10 +23,10 @@ public class VistaConsola extends JFrame implements IVista {
     private JPanel panelEntradas;
     private JTextField entradaField;
 
-    private ActionListener actionMenuInicial;
-    private ActionListener actionIngresarJugador;
+    private final  ActionListener actionMenuInicial;
+    private final ActionListener actionIngresarJugador;
     private ActionListener actionElegirCartas;
-    private ActionListener actionTirarCarta;
+    private final ActionListener actionTirarCarta;
 
     
     public VistaConsola(){
@@ -51,8 +50,8 @@ public class VistaConsola extends JFrame implements IVista {
                     case "1" -> { mostrarMensaje("Ingrese el nombre del Jugador ");
                                   sacarTodosLosAction();
                                   entradaField.addActionListener(actionIngresarJugador);}
-                    case "2" -> {controlador.empezarPartida();}
-                    default -> { procesarComandos(entradaField.getText());}
+                    case "2" -> controlador.empezarPartida();
+                    default ->  procesarComandos(entradaField.getText());
 
                 }
                 entradaField.setText("");
@@ -229,17 +228,17 @@ public class VistaConsola extends JFrame implements IVista {
         Comando c = Comando.fromString(comando);
         switch (c){
             case SALIR -> {this.controlador.removeJugador(this.jugador); dispose();}
-            case CLEAR -> {areaSalida.setText(" ");}
-            case MANO -> {mostrarCartasEnMano();}
-            case CARNAVAL -> {mostrarCarnaval();}
-            case AREA -> { mostrarArea(this.jugador);}
-            case AREA_OPONENTES->{mostrarAreaOponentes();}
-            case COMO_JUGAR->{ mostrarComoJugar();}
-            case FINALIZAR_TURNO -> { this.controlador.finalizarTurno();}
-            case MAZO ->{ mostrarMensaje("Cantidad de cartas del mazo: " + this.controlador.getCantidadCartasMazo());}
-            case REGLAS ->{ mostrarReglas();}
-            case TABLA -> { mostrarPuntos(this.controlador.getNombreGanador());}
-            case COMANDOS-> { mostrarMensaje("""
+            case CLEAR -> areaSalida.setText(" ");
+            case MANO -> mostrarCartasEnMano();
+            case CARNAVAL -> mostrarCarnaval();
+            case AREA ->  mostrarArea(this.jugador);
+            case AREA_OPONENTES->mostrarAreaOponentes();
+            case COMO_JUGAR->mostrarComoJugar();
+            case FINALIZAR_TURNO ->  this.controlador.finalizarTurno();
+            case MAZO -> mostrarMensaje("Cantidad de cartas del mazo: " + this.controlador.getCantidadCartasMazo());
+            case REGLAS -> mostrarReglas();
+            case TABLA ->  mostrarPuntos(this.controlador.getNombreGanador());
+            case COMANDOS->  mostrarMensaje("""
                                                 salir: cierra la consola
                                                 clear: limpia la pantalla de la consola
                                                 reglas: muestra las reglas del juego
@@ -250,8 +249,8 @@ public class VistaConsola extends JFrame implements IVista {
                                                 area oponentes: muestra el area de todos los oponentes
                                                 finalizar turno: en caso de que no puedas agarrar cartas del carnaval ingresa este comando
                                                 mazo: muestra la cantidad de cartas que quedan en el mazo
-                                                tabla: muestra las puntuaciones de todos los jugadores""");}
-            case COMANDO_INVALIDO -> { mostrarMensaje("El comando es invalido, ingrese comandos para ver los comandos dispobiles");}
+                                                tabla: muestra las puntuaciones de todos los jugadores""");
+            case COMANDO_INVALIDO ->  mostrarMensaje("El comando es invalido, ingrese comandos para ver los comandos dispobiles");
         }
     }
 
