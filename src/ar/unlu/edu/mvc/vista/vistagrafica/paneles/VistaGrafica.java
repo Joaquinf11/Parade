@@ -32,6 +32,7 @@ public class VistaGrafica extends  JFrame implements IVista {
 
 
     private final JMenu tabla;
+    private final JMenuItem nuevaPartidaItem;
 
     private final JButton volverButton;
 
@@ -112,7 +113,7 @@ public class VistaGrafica extends  JFrame implements IVista {
         });
         salir.add(guardarItem);
 
-        JMenuItem nuevaPartidaItem= new JMenuItem("Nueva Partida");
+        nuevaPartidaItem= new JMenuItem("Nueva Partida");
         nuevaPartidaItem.setBackground(new Color(201,217,5));
         nuevaPartidaItem.addActionListener(new ActionListener() {
             @Override
@@ -120,7 +121,8 @@ public class VistaGrafica extends  JFrame implements IVista {
                 controlador.nuevaPartida();
             }
         });
-        salir.add(guardarItem);
+        nuevaPartidaItem.setEnabled(false);
+        salir.add(nuevaPartidaItem);
 
         tabla= new JMenu("Ranking");
         JMenuItem ranking = new JMenuItem("Ver tabla");
@@ -370,7 +372,7 @@ public class VistaGrafica extends  JFrame implements IVista {
 
     @Override
     public void finDelJuego(String nombreGanadaor) {
-        //esto no funciona porque estoy actualizando las cartas, por lo tanto saco los colores y despues no se dan vuelta chequear
+        nuevaPartidaItem.setEnabled(true);
         this.vistaJuego.finDelJuego();
         mostrarPuntos(nombreGanadaor);
     }
