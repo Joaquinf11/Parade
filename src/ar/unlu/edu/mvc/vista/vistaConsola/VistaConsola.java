@@ -30,17 +30,12 @@ public class VistaConsola extends JFrame implements IVista {
 
     
     public VistaConsola(){
-
-
-
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("PARADE");
         setExtendedState(Frame.MAXIMIZED_BOTH);
         areaSalida.setEditable(false);
         setContentPane(panelPrincipal);
         setVisible(true);
-
-
 
         this.actionMenuInicial=new ActionListener() {
             @Override
@@ -63,7 +58,7 @@ public class VistaConsola extends JFrame implements IVista {
             public void actionPerformed(ActionEvent e) {
                 String nombre= entradaField.getText();
                 entradaField.setText("");
-                if (Comando.esComandoValido(nombre)){
+                if (esComandoValido(nombre)){
                     procesarComandos(nombre);
                 }
                 else{
@@ -80,7 +75,7 @@ public class VistaConsola extends JFrame implements IVista {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String entrada = entradaField.getText();
-                if (Comando.esComandoValido(entrada)) {
+                if (esComandoValido(entrada)) {
                     procesarComandos(entrada);}
                 else {
                      mostrarMensaje(entrada);
@@ -96,7 +91,7 @@ public class VistaConsola extends JFrame implements IVista {
             public void actionPerformed(ActionEvent e) {
                 String entrada= entradaField.getText();
                 entradaField.setText("");
-                if (Comando.esComandoValido(entrada)) {
+                if (esComandoValido(entrada)) {
                     procesarComandos(entrada);
                 } else {
                     mostrarMensaje(entrada);
@@ -181,6 +176,7 @@ public class VistaConsola extends JFrame implements IVista {
     @Override
     public void finDelJuego(String nombreGanadaor) {
         mostrarPuntos(nombreGanadaor);
+        mostrarMensaje(" Para iniciar una nueva partida ingrese el comando: nueva partida ");
     }
 
     @Override
@@ -225,7 +221,7 @@ public class VistaConsola extends JFrame implements IVista {
     public void procesarComandos(String comando){
         areaSalida.append(comando + "\n");
 
-        Comando c = Comando.fromString(comando);
+        Comando c = fromString(comando);
         switch (c){
             case SALIR -> {this.controlador.removeJugador(this.jugador); dispose();}
             case CLEAR -> areaSalida.setText(" ");
@@ -238,6 +234,7 @@ public class VistaConsola extends JFrame implements IVista {
             case MAZO -> mostrarMensaje("Cantidad de cartas del mazo: " + this.controlador.getCantidadCartasMazo());
             case REGLAS -> mostrarReglas();
             case TABLA ->  mostrarPuntos(this.controlador.getNombreGanador());
+            case NUEVA_PARTIDA -> this.controlador.nuevaPartida();
             case COMANDOS->  mostrarMensaje("""
                                                 salir: cierra la consola
                                                 clear: limpia la pantalla de la consola
@@ -367,6 +364,26 @@ public class VistaConsola extends JFrame implements IVista {
         }
         resultado+= "\n";
         return resultado;
+    }
+
+   private Comando fromString(String input) {
+        if(esComandoValido(input)){
+            String normalizado = input.trim().toUpperCase().replace(" ", "_");
+            return Comando.valueOf(normalizado);
+        }
+        else{
+            return Comando.COMANDO_INVALIDO;
+        }
+    }
+
+     private boolean esComandoValido(String input) {
+        String normalizado = input.trim().toUpperCase().replace(" ", "_");
+        for (Comando c : Comando.values()) {
+            if (c.name().equalsIgnoreCase(normalizado)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void activarEntrada() {
