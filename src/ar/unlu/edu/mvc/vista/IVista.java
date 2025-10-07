@@ -15,11 +15,7 @@ public interface IVista {
 
     void mostrarCarnaval();
 
-    void cartaAgregadaCarnaval();
-
     void mostrarAreaDeJuego(String nombre);
-
-
 
     void actualizarCantidadCartasMazo();
 

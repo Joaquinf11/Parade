@@ -17,7 +17,6 @@ public class VistaGrafica extends  JFrame implements IVista {
 
     private  JPanel panelMensaje;
     private VistaMenuInicial vistaMenuInicial;
-    private VistaIngresarJugador vistaIngresarJugador;
     private VistaJuego vistaJuego;
     private JPanel panelPrincipalMenuInicial;
     private JPanel panelPrincipalIngresarJugador;
@@ -25,13 +24,11 @@ public class VistaGrafica extends  JFrame implements IVista {
 
     private String jugador;
     private TipoPanel ultimoTipoPanel;
-    private final JMenuBar menuBar;
     private final JPanel panelReglas;
     private final JTextArea reglasText;
     private final JPanel panelTop;
 
 
-    private final JMenu tabla;
     private final JMenuItem nuevaPartidaItem;
 
     private final JButton volverButton;
@@ -58,8 +55,7 @@ public class VistaGrafica extends  JFrame implements IVista {
         panelReglas.add(scrollReglas,BorderLayout.CENTER);
 
 
-
-        menuBar= new JMenuBar();
+        JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(new Color(201,217,5));
         menuBar.setSize(100,30);
 
@@ -124,7 +120,7 @@ public class VistaGrafica extends  JFrame implements IVista {
         nuevaPartidaItem.setEnabled(false);
         salir.add(nuevaPartidaItem);
 
-        tabla= new JMenu("Ranking");
+        JMenu tabla = new JMenu("Ranking");
         JMenuItem ranking = new JMenuItem("Ver tabla");
         ranking.addActionListener(new ActionListener() {
             @Override
@@ -319,7 +315,7 @@ public class VistaGrafica extends  JFrame implements IVista {
     @Override
     public void iniciar() {
         this.vistaMenuInicial = new VistaMenuInicial(this.controlador,this);
-        this.vistaIngresarJugador = new VistaIngresarJugador(this.controlador,this);
+        VistaIngresarJugador vistaIngresarJugador = new VistaIngresarJugador(this.controlador, this);
         this.vistaJuego =new VistaJuego(this.controlador,this);
 
         this.panelPrincipalMenuInicial= vistaMenuInicial.getPanel();

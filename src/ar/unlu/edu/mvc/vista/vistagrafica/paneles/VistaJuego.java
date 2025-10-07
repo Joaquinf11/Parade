@@ -71,9 +71,8 @@ public class VistaJuego {
     private JLabel mazoLabel;
     private JLabel estadoLabel;
     private LabelVertical nombre4Label;
-    private CartaButton mazoButton;
-    private List<CartaButton> cartasCarnaval;
-    private List<CartaButton> cartasEnMano;
+    private final List<CartaButton> cartasCarnaval;
+    private  final List<CartaButton> cartasEnMano;
     private int [] cartasElegidasCarnaval;
     private int cartaElegidaMano;
 
@@ -122,7 +121,7 @@ public class VistaJuego {
     }
 
     public void iniciarVentanaJuego()  {
-        mazoButton = new CartaButton("imagenes/Carta,dorso.jpg", TipoCarta.DORSO_VERTICAL);
+        CartaButton mazoButton = new CartaButton("imagenes/Carta,dorso.jpg", TipoCarta.DORSO_VERTICAL);
         panelMazo.add(mazoButton,BorderLayout.CENTER);
         setCantCartasMazo(this.controlador.getCantidadCartasMazo());
 

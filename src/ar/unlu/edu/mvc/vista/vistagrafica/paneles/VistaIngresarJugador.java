@@ -12,12 +12,7 @@ public class VistaIngresarJugador {
     private JPanel panelCentro;
     private JButton aceptarButton;
 
-    private Controlador controlador;
-    private VistaGrafica vistaGrafica;
-
     public VistaIngresarJugador(Controlador controlador, VistaGrafica vistaGrafica){
-        this.controlador = controlador;
-        this.vistaGrafica=vistaGrafica;
 
         aceptarButton.addActionListener(new ActionListener() {
             @Override
