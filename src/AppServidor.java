@@ -32,9 +32,7 @@ public class AppServidor {
         Servidor servidor = new Servidor(ip, Integer.parseInt(port));
         try {
             servidor.iniciar(juego);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (RMIMVCException e) {
+        } catch (RemoteException | RMIMVCException e) {
             e.printStackTrace();
         }
     }

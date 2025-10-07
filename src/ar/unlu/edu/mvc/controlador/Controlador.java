@@ -257,11 +257,7 @@ public class Controlador implements IControladorRemoto {
                 this.juego.agregarJugador(nombreJugador);
                 this.vista.partidaCargada();
                 this.juego.notificarUltimoEvento();
-            } catch (RemoteException e) {
-            throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (ClassNotFoundException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             } catch (JuegoException e) {
                 if (!e.getTipo().equals(TipoException.JUGADOR_YA_AGREGADO)) {
@@ -275,10 +271,7 @@ public class Controlador implements IControladorRemoto {
     {
         try {
             this.juego.guardarPartida(nombrePartida);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
-        catch (IOException e){
+        } catch (IOException e){
             throw  new RuntimeException(e);
         }
     }
