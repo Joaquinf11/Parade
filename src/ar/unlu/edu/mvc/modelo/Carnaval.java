@@ -55,8 +55,8 @@ public class Carnaval implements Serializable {
 
     public boolean agarroCartasSalvadasCarnaval(int valorCarta, int[] cartasElegidas){
         List<Carta> salvadas = this.salvarCartas(valorCarta);
-        for (int i = 0; i < cartasElegidas.length; i++) {
-            if (salvadas.contains(this.cartas.get(cartasElegidas[i]))){
+        for (int cartasElegida : cartasElegidas) {
+            if (salvadas.contains(this.cartas.get(cartasElegida))) {
                 return true;
             }
         }

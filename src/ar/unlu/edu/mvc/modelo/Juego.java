@@ -266,7 +266,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         // TODO falta considerar el caso en que sea un empate TOTAL
     }
 
-    
+
     public boolean sePuedeComenzar()throws RemoteException{
         return this.jugadores.size() > 1;
     }
@@ -288,9 +288,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
 
     @Override
     public List<IJugador> listarJugadores()throws RemoteException{
-        List<IJugador> jugadores = new ArrayList<>();
-        jugadores.addAll(this.jugadores);
-        return jugadores;
+        return new ArrayList<>(this.jugadores);
     }
 
     @Override

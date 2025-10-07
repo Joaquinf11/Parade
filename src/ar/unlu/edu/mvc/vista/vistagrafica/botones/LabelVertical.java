@@ -10,6 +10,7 @@ public class LabelVertical extends JLabel {
         setForeground(new Color(201,217,5));
     }
 
+
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
