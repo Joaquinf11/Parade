@@ -3,8 +3,8 @@ package ar.unlu.edu.mvc.modelo;
 import java.io.Serializable;
 
 public class Carta implements Serializable {
-    private int valor;
-    private Color color;
+    private final int valor;
+    private final Color color;
 
     public Carta(int valor, Color color) {
         this.valor = valor;
@@ -24,7 +24,10 @@ public class Carta implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()){
+            return false;
+        }
         Carta carta = (Carta) o;
         return this.getColor().equals(carta.getColor()) && this.getValor() == carta.getValor();
     }

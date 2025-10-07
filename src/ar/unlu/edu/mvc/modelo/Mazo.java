@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Stack;
 
 public class Mazo implements Serializable {
-    private Stack<Carta> cartas;
+    private final Stack<Carta> cartas;
 
     public Mazo (){
         this.cartas= new Stack<>();

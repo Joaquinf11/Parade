@@ -15,8 +15,5 @@ public enum Evento implements Serializable {
     RONDA_DESCARTE,
     CARTA_DESCARTADA,
     JUGADOR_AGREGADO_TABLA,
-    FIN_JUEGO,
-    ;
-
-
+    FIN_JUEGO
 }

@@ -31,8 +31,6 @@ public interface IJuego  extends IObservableRemoto, Serializable {
 
     void finalizarTurno()throws JuegoException, RemoteException;
 
-    boolean sePuedeComenzar() throws RemoteException;
-
     Collection<List<String>> listarCartasArea(String nombreJugador) throws RemoteException;
 
     IJugador definirGanador() throws RemoteException;
@@ -41,7 +39,7 @@ public interface IJuego  extends IObservableRemoto, Serializable {
 
     IJuego cargarPartida(String nombrePartida) throws  IOException, ClassNotFoundException;
 
-    void guardarPartida(String nombrePartida) throws RemoteException, IOException;
+    void guardarPartida(String nombrePartida) throws  IOException;
 
     String getUltimoJugadorAgregado() throws  RemoteException;
 

@@ -14,7 +14,7 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 public class Juego extends ObservableRemoto implements Serializable, IJuego {
-    private List<Jugador> jugadores;
+    private final List<Jugador> jugadores;
     private Carnaval carnaval;
     private Mazo mazo;
     private  Ronda ronda;
@@ -85,8 +85,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
 
     @Override
     public List<IJugador> getJugadoresTabla() throws RemoteException {
-        List<IJugador> resultado= new ArrayList<>(this.tablaTop.getJugadores());
-        return resultado;
+        return new ArrayList<>(this.tablaTop.getJugadores());
     }
 
 
@@ -267,7 +266,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         // TODO falta considerar el caso en que sea un empate TOTAL
     }
 
-    @Override
+    
     public boolean sePuedeComenzar()throws RemoteException{
         return this.jugadores.size() > 1;
     }

@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public class Carnaval implements Serializable {
-    private List<Carta> cartas;
+    private final List<Carta> cartas;
 
     public Carnaval (){
         this.cartas= new ArrayList<>();
@@ -36,12 +36,6 @@ public class Carnaval implements Serializable {
 
     public void sacarCarta(Carta carta){
         this.cartas.remove(carta);
-    }
-
-    public void eliminarCartas( List<Carta>cartas){
-        for (Carta carta : cartas){
-            this.cartas.remove(carta);
-        }
     }
 
     public List<Carta> salvarCartas(int valor) {
