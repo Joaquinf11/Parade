@@ -241,10 +241,6 @@ public class Controlador implements IControladorRemoto {
         }
     }
 
-    public IJuego getJuego() {
-        return this.juego;
-    }
-
     public String getNombreGanador() {
         try {
             return this.juego.definirGanador().getNombre();
