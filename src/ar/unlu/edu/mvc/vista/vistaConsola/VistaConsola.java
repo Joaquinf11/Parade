@@ -381,10 +381,12 @@ public class VistaConsola extends JFrame implements IVista {
 
     public void activarEntrada() {
         panelEntradas.setEnabled(true);
+        entradaField.setEnabled(true);
     }
 
     public void desactivarEntrada() {
         panelEntradas.setEnabled(false);
+        entradaField.setEnabled(false);
     }
 
     public void mostrarReglas(){
