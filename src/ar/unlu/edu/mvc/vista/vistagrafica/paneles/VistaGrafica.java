@@ -115,6 +115,8 @@ public class VistaGrafica extends  JFrame implements IVista {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.nuevaPartida();
+                vistaJuego.resetPartida();
+
             }
         });
         nuevaPartidaItem.setEnabled(false);

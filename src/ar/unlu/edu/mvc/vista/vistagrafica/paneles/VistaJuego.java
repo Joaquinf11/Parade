@@ -14,8 +14,8 @@ import java.util.Collection;
 import java.util.List;
 
 public class VistaJuego {
-    Controlador controlador;
-    VistaGrafica vista;
+    private final Controlador controlador;
+    private final VistaGrafica vista;
 
     protected JPanel panelVentanaJuego;
     private JPanel panelJugador1;
@@ -518,7 +518,7 @@ public class VistaJuego {
         puntos.setEditable(false);
         puntos.setAlignmentX(Component.CENTER_ALIGNMENT);
         puntos.setAlignmentY(Component.CENTER_ALIGNMENT);
-        JPanel panelPuntos= new JPanel(new GridBagLayout());
+        JPanel panelPuntos = new JPanel(new GridBagLayout());
         panelPuntos.add(puntos);
         panelCentro.add(panelPuntos);
         panelCentro.setVisible(true);
@@ -530,5 +530,12 @@ public class VistaJuego {
             actualizarAreaDeJuego(oponente);
         }
         darVueltaCartasDelAreaDeTodos();
+    }
+
+    public void resetPartida() {
+       panelCentro.removeAll();
+       panelMazo.removeAll();
+       estadoLabel.setVisible(false);
+       panelVentanaJuego.updateUI();
     }
 }
