@@ -80,7 +80,9 @@ public class Controlador implements IControladorRemoto {
             case FIN_JUEGO:
                 this.vista.finDelJuego(this.getNombreGanadaor());
                 break;
-
+            case ABANDONO_JUGADOR:
+                this.vista.abandonoJugador();
+                break;
         }
     }
 

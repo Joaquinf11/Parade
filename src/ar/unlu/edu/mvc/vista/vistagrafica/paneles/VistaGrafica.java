@@ -206,7 +206,14 @@ public class VistaGrafica extends  JFrame implements IVista {
         this.ultimoTipoPanel = TipoPanel.MENU_INICIAL;
     }
 
-
+    @Override
+    public void abandonoJugador() {
+        this.ultimoTipoPanel=TipoPanel.MENSAJE;
+        this.mostrarMensaje(""" 
+                               Un jugador abandono la partida.
+                               Debe comenzar una nueva partida desde el Menu
+                               """);
+    }
 
     public void mostrarIngresarJugador(){
         setContentPane(this.panelPrincipalIngresarJugador);
@@ -248,6 +255,7 @@ public class VistaGrafica extends  JFrame implements IVista {
             case  MENU_INICIAL -> { setContentPane(this.panelPrincipalMenuInicial); panelPrincipalMenuInicial.updateUI();}
             case INGRESAR_JUGADOR -> { setContentPane(this.panelPrincipalIngresarJugador);panelPrincipalIngresarJugador.updateUI();}
             case JUEGO -> { setContentPane(this.panelPrincipalJuego); panelPrincipalJuego.updateUI();}
+            case MENSAJE -> { }
         }
     }
 

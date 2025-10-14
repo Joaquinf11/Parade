@@ -190,6 +190,13 @@ public class VistaConsola extends JFrame implements IVista {
         areaSalida.append(menuInicial());
     }
 
+    @Override
+    public void abandonoJugador() {
+        this.mostrarMensaje(""" 
+                Un jugador abandono la partida.
+                Debe comenzar una nueva partida, ingrese comando: nueva partida """);
+    }
+
     public String menuInicial(){
         return """
                 BIENVENIDO A PARADE

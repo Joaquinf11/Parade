@@ -3,9 +3,6 @@ import ar.edu.unlu.rmimvc.observer.IObservadorRemoto;
 import ar.edu.unlu.rmimvc.observer.ObservableRemoto;
 import ar.unlu.edu.mvc.exceptions.JuegoException;
 import ar.unlu.edu.mvc.exceptions.TipoException;
-import ar.unlu.edu.mvc.modelo.IJuego;
-import ar.unlu.edu.mvc.modelo.IJugador;
-import ar.unlu.edu.mvc.modelo.Serializador;
 
 import java.io.File;
 import java.io.IOException;
@@ -94,6 +91,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
         Jugador jugador = buscarJugador(nombre);
         this.jugadores.remove(jugador);
         removerObservador(o);
+        this.notificar(Evento.ABANDONO_JUGADOR);
     }
 
 
