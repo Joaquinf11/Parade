@@ -240,7 +240,7 @@ public class VistaConsola extends JFrame implements IVista {
             case FINALIZAR_TURNO ->  this.controlador.finalizarTurno();
             case MAZO -> mostrarMensaje("Cantidad de cartas del mazo: " + this.controlador.getCantidadCartasMazo());
             case REGLAS -> mostrarReglas();
-            case TABLA ->  mostrarPuntos(this.controlador.getNombreGanador());
+            case TABLA ->  mostrarTabla(this.controlador.getJugadoresTabla());
             case NUEVA_PARTIDA -> this.controlador.nuevaPartida();
             case COMANDOS->  mostrarMensaje("""
                                                 salir: cierra la consola
@@ -255,6 +255,20 @@ public class VistaConsola extends JFrame implements IVista {
                                                 mazo: muestra la cantidad de cartas que quedan en el mazo
                                                 tabla: muestra las puntuaciones de todos los jugadores""");
             case COMANDO_INVALIDO ->  mostrarMensaje("El comando es invalido, ingrese comandos para ver los comandos dispobiles");
+        }
+    }
+
+    private void mostrarTabla(List<IJugador> jugadoresTabla) {
+        if(jugadoresTabla.isEmpty()){
+            mostrarMensaje("No hay jugadores en la Tabla");
+        }
+        else {
+            mostrarMensaje("  TABLA TOP");
+            int posicion=1;
+            for (IJugador jugador : jugadoresTabla) {
+                mostrarMensaje( posicion + "°   " + jugador.getNombre() + "  Victorias: " + jugador.getVictorias() );
+                posicion++;
+            }
         }
     }
 
