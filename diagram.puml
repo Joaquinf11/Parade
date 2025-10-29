@@ -1,0 +1,576 @@
+@startuml
+hide empty members
+set namespaceSeparator .
+skinparam packageStyle rectangle
+
+class "AppServidor" as AppServidor {
+  + main(String[] args) : void {static}
+}
+class "PlantUMLGenerator" as PlantUMLGenerator {
+  - String type
+  - String name
+  - String visibility
+  - boolean isStatic
+  - boolean isAbstract
+  - String returnType
+  - String name
+  - String params
+  + main(String[] args) : void {static}
+  - listJavaFiles(Path root) : List<Path> {static}
+  - parseTypeDeclaration(Path javaFile, Map<String, ClassInfo> nameToClass) : void {static}
+  - parseFields(Path javaFile, Map<String, ClassInfo> nameToClass) : void {static}
+  - parseMethods(Path javaFile, Map<String, ClassInfo> nameToClass) : void {static}
+  - findMatchingBrace(String s, int openIdx) : int {static}
+  - stripMethodBodies(String body) : String {static}
+  - removeNestedTypes(String body) : String {static}
+  - keepMethodSignaturesOnly(String body) : String {static}
+}
+class "AppCliente" as AppCliente {
+  + main(String[] args) : void {static}
+}
+
+package "ar.unlu.edu.mvc.modelo" {
+class "ar.unlu.edu.mvc.modelo.Carta" as Carta {
+  - int valor
+  - Color color
+  + Carta(int valor, Color color)
+  + getValor() : int
+  + getColor() : Color
+  + equalsColor(Carta carta) : boolean
+  + equals(Object o) : boolean
+  + toString() : String
+}
+class "ar.unlu.edu.mvc.modelo.Serializador" as Serializador {
+  - String nombreArchivo
+  + Serializador(String nombreArchivo)
+  + persistir(Object o) : void
+  + recuperar() : Object
+}
+class "ar.unlu.edu.mvc.modelo.RondaDescarte" as RondaDescarte {
+  - Jugador primerJugadorRonda
+  - int contador
+  + RondaDescarte(Queue<Jugador> jugadores, Carnaval carnaval, Mazo mazo,Juego juego)
+  + tirarCarta(int cartaElegida) : void
+  + finTurno() : void
+  + esFinDeRonda() : boolean
+}
+class "ar.unlu.edu.mvc.modelo.AreaDeJuego" as AreaDeJuego {
+  - Map<Color, List<Carta>> cartas
+  - Map<Color, Integer> cartasBocaAbajo
+  + AreaDeJuego()
+  + agregarCarta(Carta carta) : void
+  - agregarCartaBocaAbajo(Color color, int cantidad) : void
+  + getCantidadDeCartasPorColor(Color color) : int
+  + getTodasLasCartas() : Collection<List<Carta>>
+  + getCantidadDeCartasTotales() : int
+  + getCantidadCartasBocaArriba() : int
+  + getCantidadCartasBocaAbajo() : int
+  + tiene6colores() : boolean
+  + ponerCartasBocaAbajo(Color color) : void
+  + sumarValorDeCartas() : int
+  + calcularPuntos() : int
+  + listarCartasDadasVuelta() : List<String>
+}
+class "ar.unlu.edu.mvc.modelo.Ronda" as Ronda {
+  - Carnaval carnaval
+  - Mazo mazo
+  - Jugador jugadorTurno
+  - Queue<Jugador> jugadores
+  - Juego juego
+  - boolean tiroCarta
+  - int[] indicesCartasElegidas
+  - Carta cartaTirada
+  - boolean agrego
+  + Ronda(Queue<Jugador> jugadores, Carnaval carnaval, Mazo mazo, Juego juego)
+  # cambiarTurno() : void
+  + tirarCarta(int cartaElegida) : void
+  + analizarCartasCarnaval(int[] cartasElegidas) : void
+  + finTurno() : void
+  + esFinDeRonda() : boolean
+  + getJugadorTurno() : IJugador
+}
+class "ar.unlu.edu.mvc.modelo.Mazo" as Mazo {
+  - Stack<Carta> cartas
+  + Mazo()
+  + sacarCarta() : Carta
+  + getCartas() : Stack<Carta>
+  + tieneCartas() : boolean
+  + getCantidadCartas() : int
+}
+interface "ar.unlu.edu.mvc.modelo.IJugador" as IJugador {
+  ~ getNombre() : String
+  ~ getPuntos() : int
+  ~ getVictorias() : int
+}
+class "ar.unlu.edu.mvc.modelo.TablaTop" as TablaTop {
+  - long serialVersionUID
+  - List<Jugador> jugadoresTabla
+  + TablaTop()
+  + agregarJugador(Jugador jugador) : void
+  + getJugadorConMenosVictorias() : Jugador
+  + getJugadores() : List<Jugador>
+}
+class "ar.unlu.edu.mvc.modelo.Carnaval" as Carnaval {
+  - List<Carta> cartas
+  + Carnaval()
+  + getCartas() : List<Carta>
+  + getUltimaCarta() : Carta
+  + getCartas(int[] indices) : List<Carta>
+  + agregarCarta(Carta carta) : void
+  + sacarCarta(Carta carta) : void
+  + salvarCartas(int valor) : List<Carta>
+  + puedeAgarrarCarnaval(Carta carta) : boolean
+  + agarroCartasSalvadasCarnaval(int valorCarta, int[] cartasElegidas) : boolean
+  + faltaAgarrarCartas(Carta carta, int[] cartasElegidas) : boolean
+}
+class "ar.unlu.edu.mvc.modelo.Jugador" as Jugador {
+  - String nombre
+  - List<Carta> cartasEnMano
+  - AreaDeJuego area
+  - int puntos
+  - int victorias
+  + Jugador(String nombre)
+  + getNombre() : String
+  + getCantidadCartasEnArea() : int
+  + getArea() : AreaDeJuego
+  + getPuntos() : int
+  + agarrarCarta(Carta carta) : void
+  + descartarCarta(int indice) : Carta
+  + quitarCarta(int indice) : void
+  + elegirCarta(int indice) : Carta
+  + agregarCartaAlAreaDeJuego(Carta carta) : void
+  + sumarPuntos() : void
+  + getCartas() : List<Carta>
+  + getCartasArea() : Collection<List<Carta>>
+  + sacarCartasEnMano() : List<Carta>
+  + resetNuevoJuego() : void
+  + sumarVictoria() : void
+  + getVictorias() : int
+  + equals(Object o) : boolean
+  + listarCartasDadasVuelta() : List<String>
+}
+enum "ar.unlu.edu.mvc.modelo.Color" as Color {
+}
+enum "ar.unlu.edu.mvc.modelo.Evento" as Evento {
+}
+class "ar.unlu.edu.mvc.modelo.Juego" as Juego {
+  - List<Jugador> jugadores
+  - Carnaval carnaval
+  - Mazo mazo
+  - Ronda ronda
+  - Evento ultimoEvento
+  - TablaTop tablaTop
+  + Juego()
+  + getCantidadCartasMazo() : int
+  + cargarPartida(String nombrePartida) : IJuego
+  + guardarPartida(String nombrePartida) : void
+  + getUltimoJugadorAgregado() : String
+  + notificarUltimoEvento() : void
+  + nuevaPartida() : void
+  + listarCartasAreaDadasVuelta(String nombreJugador) : List<String>
+  + getJugadoresTabla() : List<IJugador>
+  + sacarJugador(String nombre, IObservadorRemoto o) : void
+  + setUltimaRonda(Queue<Jugador> jugadores) : void
+  + setRondaDescarte(Queue<Jugador>jugadores) : void
+  - buscarJugador(String nombre) : Jugador
+  + agregarJugador(String nombre) : void
+  - repartirCartas() : void
+  + empezarJuego() : void
+  + tirarCarta(int cartaElegida) : void
+  + analizarCartasCarnaval(int[] cartasElegidas) : void
+  + finalizarTurno() : void
+  + finJuego() : void
+  - agregarCartasEnManoAlArea() : void
+  - calcularPuntos() : void
+  - evaluarAreaDeJuego() : void
+  + definirGanador() : Jugador
+  + sePuedeComenzar() : boolean
+  + listarCartasArea(String nombreJugador) : Collection<List<String>>
+  + listarJugadores() : List<IJugador>
+  + getJugadorTurno() : IJugador
+  + listarCartasCarnaval() : List<String>
+  + listarCartasEnMano(String nombre) : List<String>
+  + notificar(Evento evento) : void
+  + getJugadores() : List<Jugador>
+}
+class "ar.unlu.edu.mvc.modelo.UltimaRonda" as UltimaRonda {
+  - Jugador primerJugadorRonda
+  + UltimaRonda(Queue<Jugador> jugadores, Carnaval carnaval, Mazo mazo, Juego juego)
+  + finTurno() : void
+  + esFinDeRonda() : boolean
+}
+}
+
+package "ar.unlu.edu.mvc.controlador" {
+class "ar.unlu.edu.mvc.controlador.Controlador" as Controlador {
+  - IVista vista
+  - String jugador
+  - IJuego juego
+  + Controlador(IVista vista)
+  + setModeloRemoto(T t) : <T extends IObservableRemoto> void
+  + actualizar(IObservableRemoto iObservableRemoto, Object o) : void
+  - getUltimoJugadorAgregado() : String
+  - getNombreGanadaor() : String
+  + iniciar() : void
+  + agregarJugador(String nombre) : void
+  + isTurno() : boolean
+  + empezarPartida() : void
+  + listarCartasCarnaval() : List<String>
+  + listarJugadores() : List<IJugador>
+  + listarNombreJugadores() : List<String>
+  + listarCartasEnMano() : List<String>
+  + getNombreJugadorTurno() : String
+  + jugarCarta(int cartaMano) : void
+  + analizarCartasCarnaval(int [] elegidas) : void
+  + listarCartasArea(String nombreJugador) : Collection<List<String>>
+  + finalizarTurno() : void
+  + getCantidadCartasMazo() : int
+  + removeJugador(String jugador) : void
+  + getNombreGanador() : String
+  + cargarPartida(String nombrePartida,String nombreJugador) : void
+  + nuevaPartida() : void
+  + listarCartasAreaDadasVuelta(String nombreJugador) : List<String>
+  + getJugadoresTabla() : List<IJugador>
+}
+}
+
+package "ar.unlu.edu.mvc.exceptions" {
+enum "ar.unlu.edu.mvc.exceptions.TipoException" as TipoException {
+}
+class "ar.unlu.edu.mvc.exceptions.JuegoException" as JuegoException {
+  - TipoException tipo
+  + JuegoException(String message , TipoException tipo)
+  + getTipo() : TipoException
+}
+}
+
+package "ar.unlu.edu.mvc.vista.vistagrafica.botones" {
+enum "ar.unlu.edu.mvc.vista.vistagrafica.botones.TipoCarta" as TipoCarta {
+}
+class "ar.unlu.edu.mvc.vista.vistagrafica.botones.LabelVertical" as LabelVertical {
+  + LabelVertical(String text)
+  # paintComponent(Graphics g) : void
+  + getPreferredSize() : Dimension
+}
+class "ar.unlu.edu.mvc.vista.vistagrafica.botones.CartaButton" as CartaButton {
+  - int WIDTH_CARNAVAL
+  - int HEIGHT_CARNAVAL
+  - int WIDTH_MANO
+  - int HEIGHT_MANO
+  - int WIDTH_DORSO_VERTICAL
+  - int HEIGHT_DORSO_VERTICAL
+  - int WIDTH_NUMERO_HORIZONTAL
+  - int HEIGHT_NUMERO_HORIZONTAL
+  - int WIDTH_NUMERO_VERTICAL
+  - int HEIGHT_NUMERO_VERTICAL
+  - int WIDTH_ULTIMA_NUMERO_VERTICAL
+  - int HEIGHT_ULTIMA_NUMERO_VERTICAL
+  - int WIDTH_ULTIMA_NUMERO_HORIZONTAL
+  - int HEIGHT_ULTIMA_NUMERO_HORIZONTAL
+  - ImageIcon imageIcon
+  + CartaButton(String path, TipoCarta tipo)
+  - configurarBoton(TipoCarta tipo,int width, int height, int top, int left, int bottom, int right) : void
+  - recortarImagen(String path,int width,int height) : void
+  - recortarConRotacion(String path, int angulo,int widthRecorte,int heightRecorte) : void
+  - configurarConRotacion(int angulo) : void
+  - rotarImagen(ImageIcon icono, int angulo) : Image
+  - toBufferedImage(Image img) : BufferedImage
+}
+}
+
+package "ar.unlu.edu.mvc.vista.vistagrafica.paneles" {
+class "ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaJuego" as VistaJuego {
+  - Controlador controlador
+  - VistaGrafica vista
+  - JPanel panelVentanaJuego
+  - JPanel panelJugador1
+  - JPanel panelJugador2
+  - JPanel panelJugador3
+  - JPanel panelJugador4
+  - JPanel panelCarnaval
+  - JPanel panelCartasMano1
+  - JPanel panelArea1
+  - JPanel panelArea2
+  - JPanel panelArea3
+  - JPanel panelArea4
+  - JPanel panelCentro
+  - JPanel panelBotones
+  - JButton tirarCartaButton
+  - JButton analizarCartasButton
+  - JButton finalizarTurnoButton
+  - JPanel panelAmarillo4
+  - JPanel panelVerde4
+  - JPanel panelAzul4
+  - JPanel panelRojo4
+  - JPanel panelVioleta4
+  - JPanel panelNegro4
+  - JPanel panelAmarillo2
+  - JPanel panelVerde2
+  - JPanel panelAzul2
+  - JPanel panelRojo2
+  - JPanel panelVioleta2
+  - JPanel panelNegro2
+  - JPanel panelNombre2
+  - JLabel nombre2Label
+  - JPanel panelCartasNombre3
+  - JPanel panelNombre3
+  - LabelVertical nombre3Label
+  - JPanel panelCartasNombre4
+  - JPanel panelNombre4
+  - JPanel panelAmarillo1
+  - JPanel panelVerde1
+  - JPanel panelAzul1
+  - JPanel panelRojo1
+  - JPanel panelVioleta1
+  - JPanel panelNegro1
+  - JPanel panelAmarillo3
+  - JPanel panelVerde3
+  - JPanel panelAzul3
+  - JPanel panelRojo3
+  - JPanel panelVioleta3
+  - JPanel panelNegro3
+  - JPanel panelMazo
+  - JLabel cantCartasMazo
+  - JLabel mazoLabel
+  - JLabel estadoLabel
+  - LabelVertical nombre4Label
+  - List<CartaButton> cartasCarnaval
+  - List<CartaButton> cartasEnMano
+  - int [] cartasElegidasCarnaval
+  - int cartaElegidaMano
+  - List<String> oponentes
+  + VistaJuego(Controlador controlador, VistaGrafica grafica)
+  + getPanel() : JPanel
+  + iniciarVentanaJuego() : void
+  + desactivarCartasEnMano() : void
+  + desactivarCartasCarnaval() : void
+  + activarCartasMano() : void
+  + activarCartasCarnaval() : void
+  + actualizarCartasCarnaval() : void
+  - agregarCartaAlArray(int nuevaCarta) : void
+  - sacarCartaDelArray(int nuevaCarta) : void
+  - arrayTieneLaCarta(int nuevaCarta) : boolean
+  + desactivarTodosLosBotones() : void
+  + actualizarCartasEnMano() : void
+  + actualizarAreaDeJuego(String nombre) : void
+  - getPanelesJugador(String nombre) : JPanel[]
+  - clearPaneles(JPanel[] paneles) : void
+  - getColores(Collection<List<String>> cartas) : List<String>
+  - getTipoConOrientacion(boolean esUltima,String nombre) : TipoCarta
+  - updateUIPaneles(JPanel[] paneles) : void
+  + darVueltaCartasDelAreaDeTodos() : void
+  + darVueltaCartasDelArea(String nombre) : void
+  - getTipoVueltaConOrientacion(boolean esUltima, String nombre) : TipoCarta
+  - getPanelFromColor(JPanel[] paneles, String color) : JPanel
+  + desactivaBotonAnalizarCartas() : void
+  + setCantCartasMazo(int cantidad) : void
+  + setFinalizarButton(boolean b) : void
+  + removePanelCarnaval() : void
+  + clearCartasElegidas() : void
+  + setEstado(String estado) : void
+  + setOponentes() : void
+  + mostrarPuntos(String resultado) : void
+  + finDelJuego() : void
+  + resetPartida() : void
+}
+class "ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaCargarPartida" as VistaCargarPartida {
+  - JPanel panelPrincipal
+  - JButton aceptarButton
+  - JTextField ingresarNombrePartida
+  - JLabel labelNombrePartida
+  - JLabel labelNombreJugador
+  - JTextField ingresarNombreJugador
+  + VistaCargarPartida(Controlador controlador,VistaGrafica vistaGrafica)
+  + getPanel() : JPanel
+}
+class "ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaGrafica" as VistaGrafica {
+  - Controlador controlador
+  - JPanel panelMensaje
+  - VistaMenuInicial vistaMenuInicial
+  - VistaJuego vistaJuego
+  - JPanel panelPrincipalMenuInicial
+  - JPanel panelPrincipalIngresarJugador
+  - JPanel panelPrincipalJuego
+  - String jugador
+  - TipoPanel ultimoTipoPanel
+  - JPanel panelReglas
+  - JTextArea reglasText
+  - JPanel panelTop
+  - JMenuItem nuevaPartidaItem
+  - JButton volverButton
+  + VistaGrafica()
+  - mostrarTablaRanking() : void
+  + mostrarMenuInicial() : void
+  + abandonoJugador() : void
+  + mostrarIngresarJugador() : void
+  + mostrarVentanaJuego() : void
+  + mostrarPanelMensaje() : void
+  + mostrarUltimoPanel() : void
+  + setNombreJugador(String nombre) : void
+  + getNombreJugador() : String
+  + setControlador(Controlador controlador) : void
+  + iniciarJuego() : void
+  + cambioDeTurno() : void
+  + cartaTirada() : void
+  + mostrarCarnaval() : void
+  + mostrarAreaDeJuego(String nombre) : void
+  + actualizarCantidadCartasMazo() : void
+  + finDeTurno() : void
+  + iniciar() : void
+  + jugadorAgregado(String nombre) : void
+  + mostrarPuntos(String nombreGanadaor) : void
+  + actualizarCartasEnMano() : void
+  + comienzoRondaDescarte() : void
+  + comienzoUltimaRonda() : void
+  + finDelJuego(String nombreGanadaor) : void
+  + partidaCargada() : void
+  + mostrarMensaje(String mensaje) : void
+  + setMensaje(String mensaje) : void
+  + removeJugador() : void
+  - mostrarReglas() : void
+}
+class "ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaIngresarJugador" as VistaIngresarJugador {
+  - JPanel panelIngresarJugador
+  - JLabel lTitulo
+  - JTextField nombre
+  - JPanel panelCentro
+  - JButton aceptarButton
+  + VistaIngresarJugador(Controlador controlador, VistaGrafica vistaGrafica)
+  + getPanel() : JPanel
+}
+class "ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaMenuInicial" as VistaMenuInicial {
+  - JPanel panelPrincipal
+  - JLabel lTitulo
+  - JPanel panelCentro
+  - JButton salirButton
+  - JButton empezarButton
+  - JButton agregarJugButton
+  - JButton cargarPartidaButton
+  - VistaGrafica vistaGrafica
+  - Controlador controlador
+  + VistaMenuInicial(Controlador controlador, VistaGrafica vistaGrafica)
+  - mostrarVistaCargarPartida() : void
+  + getPanel() : JPanel
+  + setAgregarJugador(boolean b) : void
+}
+enum "ar.unlu.edu.mvc.vista.vistagrafica.paneles.TipoPanel" as TipoPanel {
+}
+}
+
+package "ar.unlu.edu.mvc.vista.vistaConsola" {
+class "ar.unlu.edu.mvc.vista.vistaConsola.VistaConsola" as VistaConsola {
+  - Controlador controlador
+  - String jugador
+  - List<String> oponentes
+  - JPanel panelPrincipal
+  - JScrollPane panelSalida
+  - JTextArea areaSalida
+  - JPanel panelEntradas
+  - JTextField entradaField
+  - ActionListener actionMenuInicial
+  - ActionListener actionIngresarJugador
+  - ActionListener actionElegirCartas
+  - ActionListener actionTirarCarta
+  + VistaConsola()
+  - convertirCartasElegidasAInteger(String entrada) : void
+  - convertirCartaElegidaAInteger(String entrada) : void
+  + iniciar() : void
+  + jugadorAgregado(String nombre) : void
+  - sacarTodosLosAction() : void
+  + mostrarPuntos(String nombreGanadaor) : void
+  + actualizarCartasEnMano() : void
+  + comienzoRondaDescarte() : void
+  + comienzoUltimaRonda() : void
+  + finDelJuego(String nombreGanadaor) : void
+  + partidaCargada() : void
+  + mostrarMenuInicial() : void
+  + abandonoJugador() : void
+  + menuInicial() : String
+  - setActionMenuInicial() : void
+  + setActionTirarCartaField() : void
+  + setActionElegirCarta() : void
+  + setControlador(Controlador controlador) : void
+  + procesarComandos(String comando) : void
+  - mostrarTabla(List<IJugador> jugadoresTabla) : void
+  + mostrarMensaje(String mensaje) : void
+  + iniciarJuego() : void
+  + cambioDeTurno() : void
+  + cartaTirada() : void
+  + mostrarMesa() : void
+  + mostrarComoJugar() : void
+  + mostrarCarnaval() : void
+  + mostrarAreaDeJuego(String nombre) : void
+  + actualizarCantidadCartasMazo() : void
+  + finDeTurno() : void
+  + mostrarCartasEnMano() : void
+  + mostrarArea(String jugador) : void
+  + mostrarAreaOponentes() : void
+  + cartasToString(List<String> cartas) : String
+  - fromString(String input) : Comando
+  - esComandoValido(String input) : boolean
+  + activarEntrada() : void
+  + desactivarEntrada() : void
+  + mostrarReglas() : void
+}
+enum "ar.unlu.edu.mvc.vista.vistaConsola.Comando" as Comando {
+}
+}
+
+package "ar.unlu.edu.mvc.vista" {
+interface "ar.unlu.edu.mvc.vista.IVista" as IVista {
+  ~ setControlador(Controlador controlador) : void
+  ~ mostrarMensaje(String mensaje) : void
+  ~ iniciarJuego() : void
+  ~ cambioDeTurno() : void
+  ~ cartaTirada() : void
+  ~ mostrarCarnaval() : void
+  ~ mostrarAreaDeJuego(String nombre) : void
+  ~ actualizarCantidadCartasMazo() : void
+  ~ finDeTurno() : void
+  ~ iniciar() : void
+  ~ jugadorAgregado(String jugador) : void
+  ~ mostrarPuntos(String nombreGanadaor) : void
+  ~ actualizarCartasEnMano() : void
+  ~ comienzoRondaDescarte() : void
+  ~ comienzoUltimaRonda() : void
+  ~ finDelJuego(String nombreGanadaor) : void
+  ~ partidaCargada() : void
+  ~ mostrarMenuInicial() : void
+  ~ abandonoJugador() : void
+}
+}
+
+RondaDescarte --|> Ronda
+VistaConsola ..|> IVista
+Jugador ..|> IJugador
+VistaGrafica ..|> IVista
+UltimaRonda --|> Ronda
+Carta --> Color : color
+VistaJuego --> Controlador : controlador
+VistaJuego --> VistaGrafica : vista
+VistaJuego --> LabelVertical : nombre3Label
+VistaJuego --> LabelVertical : nombre4Label
+RondaDescarte --> Jugador : primerJugadorRonda
+Ronda --> Carnaval : carnaval
+Ronda --> Mazo : mazo
+Ronda --> Jugador : jugadorTurno
+Ronda --> Juego : juego
+Ronda --> Carta : cartaTirada
+Controlador --> IVista : vista
+VistaConsola --> Controlador : controlador
+Jugador --> AreaDeJuego : area
+VistaGrafica --> Controlador : controlador
+VistaGrafica --> VistaMenuInicial : vistaMenuInicial
+VistaGrafica --> VistaJuego : vistaJuego
+VistaGrafica --> TipoPanel : ultimoTipoPanel
+VistaMenuInicial --> VistaGrafica : vistaGrafica
+VistaMenuInicial --> Controlador : controlador
+Juego --> Carnaval : carnaval
+Juego --> Mazo : mazo
+Juego --> Ronda : ronda
+Juego --> Evento : ultimoEvento
+Juego --> TablaTop : tablaTop
+UltimaRonda --> Jugador : primerJugadorRonda
+JuegoException --> TipoException : tipo
+
+@enduml
