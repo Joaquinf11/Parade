@@ -3,34 +3,9 @@ hide empty members
 set namespaceSeparator .
 skinparam packageStyle rectangle
 
-class "AppServidor" as AppServidor {
-  + main(String[] args) : void {static}
-}
-class "PlantUMLGenerator" as PlantUMLGenerator {
-  - String type
-  - String name
-  - String visibility
-  - boolean isStatic
-  - boolean isAbstract
-  - String returnType
-  - String name
-  - String params
-  + main(String[] args) : void {static}
-  - listJavaFiles(Path root) : List<Path> {static}
-  - parseTypeDeclaration(Path javaFile, Map<String, ClassInfo> nameToClass) : void {static}
-  - parseFields(Path javaFile, Map<String, ClassInfo> nameToClass) : void {static}
-  - parseMethods(Path javaFile, Map<String, ClassInfo> nameToClass) : void {static}
-  - findMatchingBrace(String s, int openIdx) : int {static}
-  - stripMethodBodies(String body) : String {static}
-  - removeNestedTypes(String body) : String {static}
-  - keepMethodSignaturesOnly(String body) : String {static}
-}
-class "AppCliente" as AppCliente {
-  + main(String[] args) : void {static}
-}
 
-package "ar.unlu.edu.mvc.modelo" {
-class "ar.unlu.edu.mvc.modelo.Carta" as Carta {
+package "modelo" {
+class "Carta" as Carta {
   - int valor
   - Color color
   + Carta(int valor, Color color)
@@ -40,13 +15,13 @@ class "ar.unlu.edu.mvc.modelo.Carta" as Carta {
   + equals(Object o) : boolean
   + toString() : String
 }
-class "ar.unlu.edu.mvc.modelo.Serializador" as Serializador {
+class "Serializador" as Serializador {
   - String nombreArchivo
   + Serializador(String nombreArchivo)
   + persistir(Object o) : void
   + recuperar() : Object
 }
-class "ar.unlu.edu.mvc.modelo.RondaDescarte" as RondaDescarte {
+class "RondaDescarte" as RondaDescarte {
   - Jugador primerJugadorRonda
   - int contador
   + RondaDescarte(Queue<Jugador> jugadores, Carnaval carnaval, Mazo mazo,Juego juego)
@@ -54,7 +29,7 @@ class "ar.unlu.edu.mvc.modelo.RondaDescarte" as RondaDescarte {
   + finTurno() : void
   + esFinDeRonda() : boolean
 }
-class "ar.unlu.edu.mvc.modelo.AreaDeJuego" as AreaDeJuego {
+class "AreaDeJuego" as AreaDeJuego {
   - Map<Color, List<Carta>> cartas
   - Map<Color, Integer> cartasBocaAbajo
   + AreaDeJuego()
@@ -71,7 +46,7 @@ class "ar.unlu.edu.mvc.modelo.AreaDeJuego" as AreaDeJuego {
   + calcularPuntos() : int
   + listarCartasDadasVuelta() : List<String>
 }
-class "ar.unlu.edu.mvc.modelo.Ronda" as Ronda {
+class "Ronda" as Ronda {
   - Carnaval carnaval
   - Mazo mazo
   - Jugador jugadorTurno
@@ -89,7 +64,7 @@ class "ar.unlu.edu.mvc.modelo.Ronda" as Ronda {
   + esFinDeRonda() : boolean
   + getJugadorTurno() : IJugador
 }
-class "ar.unlu.edu.mvc.modelo.Mazo" as Mazo {
+class "Mazo" as Mazo {
   - Stack<Carta> cartas
   + Mazo()
   + sacarCarta() : Carta
@@ -97,12 +72,12 @@ class "ar.unlu.edu.mvc.modelo.Mazo" as Mazo {
   + tieneCartas() : boolean
   + getCantidadCartas() : int
 }
-interface "ar.unlu.edu.mvc.modelo.IJugador" as IJugador {
+interface "IJugador" as IJugador {
   ~ getNombre() : String
   ~ getPuntos() : int
   ~ getVictorias() : int
 }
-class "ar.unlu.edu.mvc.modelo.TablaTop" as TablaTop {
+class "TablaTop" as TablaTop {
   - long serialVersionUID
   - List<Jugador> jugadoresTabla
   + TablaTop()
@@ -110,7 +85,7 @@ class "ar.unlu.edu.mvc.modelo.TablaTop" as TablaTop {
   + getJugadorConMenosVictorias() : Jugador
   + getJugadores() : List<Jugador>
 }
-class "ar.unlu.edu.mvc.modelo.Carnaval" as Carnaval {
+class "Carnaval" as Carnaval {
   - List<Carta> cartas
   + Carnaval()
   + getCartas() : List<Carta>
@@ -123,7 +98,7 @@ class "ar.unlu.edu.mvc.modelo.Carnaval" as Carnaval {
   + agarroCartasSalvadasCarnaval(int valorCarta, int[] cartasElegidas) : boolean
   + faltaAgarrarCartas(Carta carta, int[] cartasElegidas) : boolean
 }
-class "ar.unlu.edu.mvc.modelo.Jugador" as Jugador {
+class "Jugador" as Jugador {
   - String nombre
   - List<Carta> cartasEnMano
   - AreaDeJuego area
@@ -149,11 +124,11 @@ class "ar.unlu.edu.mvc.modelo.Jugador" as Jugador {
   + equals(Object o) : boolean
   + listarCartasDadasVuelta() : List<String>
 }
-enum "ar.unlu.edu.mvc.modelo.Color" as Color {
+enum "Color" as Color {
 }
-enum "ar.unlu.edu.mvc.modelo.Evento" as Evento {
+enum "Evento" as Evento {
 }
-class "ar.unlu.edu.mvc.modelo.Juego" as Juego {
+class "Juego" as Juego {
   - List<Jugador> jugadores
   - Carnaval carnaval
   - Mazo mazo
@@ -193,7 +168,7 @@ class "ar.unlu.edu.mvc.modelo.Juego" as Juego {
   + notificar(Evento evento) : void
   + getJugadores() : List<Jugador>
 }
-class "ar.unlu.edu.mvc.modelo.UltimaRonda" as UltimaRonda {
+class "UltimaRonda" as UltimaRonda {
   - Jugador primerJugadorRonda
   + UltimaRonda(Queue<Jugador> jugadores, Carnaval carnaval, Mazo mazo, Juego juego)
   + finTurno() : void
@@ -201,8 +176,8 @@ class "ar.unlu.edu.mvc.modelo.UltimaRonda" as UltimaRonda {
 }
 }
 
-package "ar.unlu.edu.mvc.controlador" {
-class "ar.unlu.edu.mvc.controlador.Controlador" as Controlador {
+package "controlador" {
+class "Controlador" as Controlador {
   - IVista vista
   - String jugador
   - IJuego juego
@@ -234,8 +209,8 @@ class "ar.unlu.edu.mvc.controlador.Controlador" as Controlador {
 }
 }
 
-package "ar.unlu.edu.mvc.exceptions" {
-enum "ar.unlu.edu.mvc.exceptions.TipoException" as TipoException {
+package "exceptions" {
+enum "TipoException" as TipoException {
 }
 class "ar.unlu.edu.mvc.exceptions.JuegoException" as JuegoException {
   - TipoException tipo
@@ -244,15 +219,15 @@ class "ar.unlu.edu.mvc.exceptions.JuegoException" as JuegoException {
 }
 }
 
-package "ar.unlu.edu.mvc.vista.vistagrafica.botones" {
-enum "ar.unlu.edu.mvc.vista.vistagrafica.botones.TipoCarta" as TipoCarta {
+package "botones" {
+enum "TipoCarta" as TipoCarta {
 }
-class "ar.unlu.edu.mvc.vista.vistagrafica.botones.LabelVertical" as LabelVertical {
+class "LabelVertical" as LabelVertical {
   + LabelVertical(String text)
   # paintComponent(Graphics g) : void
   + getPreferredSize() : Dimension
 }
-class "ar.unlu.edu.mvc.vista.vistagrafica.botones.CartaButton" as CartaButton {
+class "CartaButton" as CartaButton {
   - int WIDTH_CARNAVAL
   - int HEIGHT_CARNAVAL
   - int WIDTH_MANO
@@ -278,8 +253,8 @@ class "ar.unlu.edu.mvc.vista.vistagrafica.botones.CartaButton" as CartaButton {
 }
 }
 
-package "ar.unlu.edu.mvc.vista.vistagrafica.paneles" {
-class "ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaJuego" as VistaJuego {
+package "paneles" {
+class "VistaJuego" as VistaJuego {
   - Controlador controlador
   - VistaGrafica vista
   - JPanel panelVentanaJuego
@@ -373,7 +348,7 @@ class "ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaJuego" as VistaJuego {
   + finDelJuego() : void
   + resetPartida() : void
 }
-class "ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaCargarPartida" as VistaCargarPartida {
+class "VistaCargarPartida" as VistaCargarPartida {
   - JPanel panelPrincipal
   - JButton aceptarButton
   - JTextField ingresarNombrePartida
@@ -383,7 +358,7 @@ class "ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaCargarPartida" as VistaCa
   + VistaCargarPartida(Controlador controlador,VistaGrafica vistaGrafica)
   + getPanel() : JPanel
 }
-class "ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaGrafica" as VistaGrafica {
+class "VistaGrafica" as VistaGrafica {
   - Controlador controlador
   - JPanel panelMensaje
   - VistaMenuInicial vistaMenuInicial
@@ -429,7 +404,7 @@ class "ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaGrafica" as VistaGrafica 
   + removeJugador() : void
   - mostrarReglas() : void
 }
-class "ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaIngresarJugador" as VistaIngresarJugador {
+class "VistaIngresarJugador" as VistaIngresarJugador {
   - JPanel panelIngresarJugador
   - JLabel lTitulo
   - JTextField nombre
@@ -438,7 +413,7 @@ class "ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaIngresarJugador" as Vista
   + VistaIngresarJugador(Controlador controlador, VistaGrafica vistaGrafica)
   + getPanel() : JPanel
 }
-class "ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaMenuInicial" as VistaMenuInicial {
+class "VistaMenuInicial" as VistaMenuInicial {
   - JPanel panelPrincipal
   - JLabel lTitulo
   - JPanel panelCentro
@@ -453,19 +428,17 @@ class "ar.unlu.edu.mvc.vista.vistagrafica.paneles.VistaMenuInicial" as VistaMenu
   + getPanel() : JPanel
   + setAgregarJugador(boolean b) : void
 }
-enum "ar.unlu.edu.mvc.vista.vistagrafica.paneles.TipoPanel" as TipoPanel {
+enum "TipoPanel" as TipoPanel {
 }
 }
 
-package "ar.unlu.edu.mvc.vista.vistaConsola" {
-class "ar.unlu.edu.mvc.vista.vistaConsola.VistaConsola" as VistaConsola {
+package "vistaConsola" {
+class "VistaConsola" as VistaConsola {
   - Controlador controlador
   - String jugador
   - List<String> oponentes
-  - JPanel panelPrincipal
-  - JScrollPane panelSalida
-  - JTextArea areaSalida
-  - JPanel panelEntradas
+  - JPanel  - JScrollPane panelSalida
+  - JTextArel panelEntradas
   - JTextField entradaField
   - ActionListener actionMenuInicial
   - ActionListener actionIngresarJugador
@@ -512,12 +485,12 @@ class "ar.unlu.edu.mvc.vista.vistaConsola.VistaConsola" as VistaConsola {
   + desactivarEntrada() : void
   + mostrarReglas() : void
 }
-enum "ar.unlu.edu.mvc.vista.vistaConsola.Comando" as Comando {
+enum "Comando" as Comando {
 }
 }
 
-package "ar.unlu.edu.mvc.vista" {
-interface "ar.unlu.edu.mvc.vista.IVista" as IVista {
+package "vista" {
+interface "IVista" as IVista {
   ~ setControlador(Controlador controlador) : void
   ~ mostrarMensaje(String mensaje) : void
   ~ iniciarJuego() : void
