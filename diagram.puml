@@ -3,131 +3,42 @@ hide empty members
 set namespaceSeparator .
 skinparam packageStyle rectangle
 
+together {
+package "controlador" {
+class "Controlador" as Controlador {
+  - IVista vista
+  - String jugador
+  - IJuego juego
+  + Controlador(IVista vista)
+  + setModeloRemoto(T t) : <T extends IObservableRemoto> void
+  + actualizar(IObservableRemoto iObservableRemoto, Object o) : void
+  - getUltimoJugadorAgregado() : String
+  - getNombreGanadaor() : String
+  + iniciar() : void
+  + agregarJugador(String nombre) : void
+  + isTurno() : boolean
+  + empezarPartida() : void
+  + listarCartasCarnaval() : List<String>
+  + listarJugadores() : List<IJugador>
+  + listarNombreJugadores() : List<String>
+  + listarCartasEnMano() : List<String>
+  + getNombreJugadorTurno() : String
+  + jugarCarta(int cartaMano) : void
+  + analizarCartasCarnaval(int [] elegidas) : void
+  + listarCartasArea(String nombreJugador) : Collection<List<String>>
+  + finalizarTurno() : void
+  + getCantidadCartasMazo() : int
+  + removeJugador(String jugador) : void
+  + getNombreGanador() : String
+  + cargarPartida(String nombrePartida,String nombreJugador) : void
+  + nuevaPartida() : void
+  + listarCartasAreaDadasVuelta(String nombreJugador) : List<String>
+  + getJugadoresTabla() : List<IJugador>
+}
+}
+
 
 package "modelo" {
-class "Carta" as Carta {
-  - int valor
-  - Color color
-  + Carta(int valor, Color color)
-  + getValor() : int
-  + getColor() : Color
-  + equalsColor(Carta carta) : boolean
-  + equals(Object o) : boolean
-  + toString() : String
-}
-class "Serializador" as Serializador {
-  - String nombreArchivo
-  + Serializador(String nombreArchivo)
-  + persistir(Object o) : void
-  + recuperar() : Object
-}
-class "RondaDescarte" as RondaDescarte {
-  - Jugador primerJugadorRonda
-  - int contador
-  + RondaDescarte(Queue<Jugador> jugadores, Carnaval carnaval, Mazo mazo,Juego juego)
-  + tirarCarta(int cartaElegida) : void
-  + finTurno() : void
-  + esFinDeRonda() : boolean
-}
-class "AreaDeJuego" as AreaDeJuego {
-  - Map<Color, List<Carta>> cartas
-  - Map<Color, Integer> cartasBocaAbajo
-  + AreaDeJuego()
-  + agregarCarta(Carta carta) : void
-  - agregarCartaBocaAbajo(Color color, int cantidad) : void
-  + getCantidadDeCartasPorColor(Color color) : int
-  + getTodasLasCartas() : Collection<List<Carta>>
-  + getCantidadDeCartasTotales() : int
-  + getCantidadCartasBocaArriba() : int
-  + getCantidadCartasBocaAbajo() : int
-  + tiene6colores() : boolean
-  + ponerCartasBocaAbajo(Color color) : void
-  + sumarValorDeCartas() : int
-  + calcularPuntos() : int
-  + listarCartasDadasVuelta() : List<String>
-}
-class "Ronda" as Ronda {
-  - Carnaval carnaval
-  - Mazo mazo
-  - Jugador jugadorTurno
-  - Queue<Jugador> jugadores
-  - Juego juego
-  - boolean tiroCarta
-  - int[] indicesCartasElegidas
-  - Carta cartaTirada
-  - boolean agrego
-  + Ronda(Queue<Jugador> jugadores, Carnaval carnaval, Mazo mazo, Juego juego)
-  # cambiarTurno() : void
-  + tirarCarta(int cartaElegida) : void
-  + analizarCartasCarnaval(int[] cartasElegidas) : void
-  + finTurno() : void
-  + esFinDeRonda() : boolean
-  + getJugadorTurno() : IJugador
-}
-class "Mazo" as Mazo {
-  - Stack<Carta> cartas
-  + Mazo()
-  + sacarCarta() : Carta
-  + getCartas() : Stack<Carta>
-  + tieneCartas() : boolean
-  + getCantidadCartas() : int
-}
-interface "IJugador" as IJugador {
-  ~ getNombre() : String
-  ~ getPuntos() : int
-  ~ getVictorias() : int
-}
-class "TablaTop" as TablaTop {
-  - long serialVersionUID
-  - List<Jugador> jugadoresTabla
-  + TablaTop()
-  + agregarJugador(Jugador jugador) : void
-  + getJugadorConMenosVictorias() : Jugador
-  + getJugadores() : List<Jugador>
-}
-class "Carnaval" as Carnaval {
-  - List<Carta> cartas
-  + Carnaval()
-  + getCartas() : List<Carta>
-  + getUltimaCarta() : Carta
-  + getCartas(int[] indices) : List<Carta>
-  + agregarCarta(Carta carta) : void
-  + sacarCarta(Carta carta) : void
-  + salvarCartas(int valor) : List<Carta>
-  + puedeAgarrarCarnaval(Carta carta) : boolean
-  + agarroCartasSalvadasCarnaval(int valorCarta, int[] cartasElegidas) : boolean
-  + faltaAgarrarCartas(Carta carta, int[] cartasElegidas) : boolean
-}
-class "Jugador" as Jugador {
-  - String nombre
-  - List<Carta> cartasEnMano
-  - AreaDeJuego area
-  - int puntos
-  - int victorias
-  + Jugador(String nombre)
-  + getNombre() : String
-  + getCantidadCartasEnArea() : int
-  + getArea() : AreaDeJuego
-  + getPuntos() : int
-  + agarrarCarta(Carta carta) : void
-  + descartarCarta(int indice) : Carta
-  + quitarCarta(int indice) : void
-  + elegirCarta(int indice) : Carta
-  + agregarCartaAlAreaDeJuego(Carta carta) : void
-  + sumarPuntos() : void
-  + getCartas() : List<Carta>
-  + getCartasArea() : Collection<List<Carta>>
-  + sacarCartasEnMano() : List<Carta>
-  + resetNuevoJuego() : void
-  + sumarVictoria() : void
-  + getVictorias() : int
-  + equals(Object o) : boolean
-  + listarCartasDadasVuelta() : List<String>
-}
-enum "Color" as Color {
-}
-enum "Evento" as Evento {
-}
 class "Juego" as Juego {
   - List<Jugador> jugadores
   - Carnaval carnaval
@@ -168,57 +79,172 @@ class "Juego" as Juego {
   + notificar(Evento evento) : void
   + getJugadores() : List<Jugador>
 }
+
+class "Carta" as Carta {
+  - int valor
+  - Color color
+  + Carta(int valor, Color color)
+  + getValor() : int
+  + getColor() : Color
+  + equalsColor(Carta carta) : boolean
+  + equals(Object o) : boolean
+  + toString() : String
+}
+
+class "AreaDeJuego" as AreaDeJuego {
+  - Map<Color, List<Carta>> cartas
+  - Map<Color, Integer> cartasBocaAbajo
+  + AreaDeJuego()
+  + agregarCarta(Carta carta) : void
+  - agregarCartaBocaAbajo(Color color, int cantidad) : void
+  + getCantidadDeCartasPorColor(Color color) : int
+  + getTodasLasCartas() : Collection<List<Carta>>
+  + getCantidadDeCartasTotales() : int
+  + getCantidadCartasBocaArriba() : int
+  + getCantidadCartasBocaAbajo() : int
+  + tiene6colores() : boolean
+  + ponerCartasBocaAbajo(Color color) : void
+  + sumarValorDeCartas() : int
+  + calcularPuntos() : int
+  + listarCartasDadasVuelta() : List<String>
+}
+class "Ronda" as Ronda {
+  - Carnaval carnaval
+  - Mazo mazo
+  - Jugador jugadorTurno
+  - Queue<Jugador> jugadores
+  - Juego juego
+  - boolean tiroCarta
+  - int[] indicesCartasElegidas
+  - Carta cartaTirada
+  - boolean agrego
+  + Ronda(Queue<Jugador> jugadores, Carnaval carnaval, Mazo mazo, Juego juego)
+  # cambiarTurno() : void
+  + tirarCarta(int cartaElegida) : void
+  + analizarCartasCarnaval(int[] cartasElegidas) : void
+  + finTurno() : void
+  + esFinDeRonda() : boolean
+  + getJugadorTurno() : IJugador
+}
+
+class "RondaDescarte" as RondaDescarte {
+  - Jugador primerJugadorRonda
+  - int contador
+  + RondaDescarte(Queue<Jugador> jugadores, Carnaval carnaval, Mazo mazo,Juego juego)
+  + tirarCarta(int cartaElegida) : void
+  + finTurno() : void
+  + esFinDeRonda() : boolean
+}
+
 class "UltimaRonda" as UltimaRonda {
   - Jugador primerJugadorRonda
   + UltimaRonda(Queue<Jugador> jugadores, Carnaval carnaval, Mazo mazo, Juego juego)
   + finTurno() : void
   + esFinDeRonda() : boolean
 }
+
+class "Mazo" as Mazo {
+  - Stack<Carta> cartas
+  + Mazo()
+  + sacarCarta() : Carta
+  + getCartas() : Stack<Carta>
+  + tieneCartas() : boolean
+  + getCantidadCartas() : int
+}
+interface "IJugador" as IJugador {
+  ~ getNombre() : String
+  ~ getPuntos() : int
+  ~ getVictorias() : int
+}
+class "TablaTop" as TablaTop {
+  - long serialVersionUID
+  - List<Jugador> jugadoresTabla
+  + TablaTop()
+  + agregarJugador(Jugador jugador) : void
+  + getJugadorConMenosVictorias() : Jugador
+  + getJugadores() : List<Jugador>
+}
+class "Carnaval" as Carnaval {
+  - List<Carta> cartas
+  + Carnaval()
+  + getCartas() : List<Carta>
+  + getUltimaCarta() : Carta
+  + getCartas(int[] indices) : List<Carta>
+  + agregarCarta(Carta carta) : void
+  + sacarCarta(Carta carta) : void
+  + salvarCartas(int valor) : List<Carta>
+  + puedeAgarrarCarnaval(Carta carta) : boolean
+  + agarroCartasSalvadasCarnaval(int valorCarta, int[] cartasElegidas) : boolean
+  + faltaAgarrarCartas(Carta carta, int[] cartasElegidas) : boolean
 }
 
-package "controlador" {
-class "Controlador" as Controlador {
-  - IVista vista
-  - String jugador
-  - IJuego juego
-  + Controlador(IVista vista)
-  + setModeloRemoto(T t) : <T extends IObservableRemoto> void
-  + actualizar(IObservableRemoto iObservableRemoto, Object o) : void
-  - getUltimoJugadorAgregado() : String
-  - getNombreGanadaor() : String
-  + iniciar() : void
-  + agregarJugador(String nombre) : void
-  + isTurno() : boolean
-  + empezarPartida() : void
-  + listarCartasCarnaval() : List<String>
-  + listarJugadores() : List<IJugador>
-  + listarNombreJugadores() : List<String>
-  + listarCartasEnMano() : List<String>
-  + getNombreJugadorTurno() : String
-  + jugarCarta(int cartaMano) : void
-  + analizarCartasCarnaval(int [] elegidas) : void
-  + listarCartasArea(String nombreJugador) : Collection<List<String>>
-  + finalizarTurno() : void
-  + getCantidadCartasMazo() : int
-  + removeJugador(String jugador) : void
-  + getNombreGanador() : String
-  + cargarPartida(String nombrePartida,String nombreJugador) : void
-  + nuevaPartida() : void
-  + listarCartasAreaDadasVuelta(String nombreJugador) : List<String>
-  + getJugadoresTabla() : List<IJugador>
+class "Jugador" as Jugador {
+  - String nombre
+  - List<Carta> cartasEnMano
+  - AreaDeJuego area
+  - int puntos
+  - int victorias
+  + Jugador(String nombre)
+  + getNombre() : String
+  + getCantidadCartasEnArea() : int
+  + getArea() : AreaDeJuego
+  + getPuntos() : int
+  + agarrarCarta(Carta carta) : void
+  + descartarCarta(int indice) : Carta
+  + quitarCarta(int indice) : void
+  + elegirCarta(int indice) : Carta
+  + agregarCartaAlAreaDeJuego(Carta carta) : void
+  + sumarPuntos() : void
+  + getCartas() : List<Carta>
+  + getCartasArea() : Collection<List<Carta>>
+  + sacarCartasEnMano() : List<Carta>
+  + resetNuevoJuego() : void
+  + sumarVictoria() : void
+  + getVictorias() : int
+  + equals(Object o) : boolean
+  + listarCartasDadasVuelta() : List<String>
 }
+enum "Color" as Color {
+}
+enum "Evento" as Evento {
+}
+interface "IJuego" as IJuego {
+     ~ getJugadorTurno() :IJugador
+     ~ sacarJugador(String jugador, IObservadorRemoto o): void
+     ~ agregarJugador(String nombre) : void
+     ~  listarJugadores() : List<IJugador>
+     ~  empezarJuego() : void
+     ~  tirarCarta(int indice) : void
+     ~  analizarCartasCarnaval(int[] indices) : void
+    ~   listarCartasCarnaval(): List<String>
+     ~  listarCartasEnMano(String nombre): List<String>
+      ~ finalizarTurno() : void
+     ~  listarCartasArea(String nombreJugador) : Collection<List<String>>
+     ~  definirGanador() : IJugador
+      ~ getCantidadCartasMazo() : int
+      ~ cargarPartida(String nombrePartida) : IJuego
+      ~ guardarPartida(String nombrePartida) : void
+      ~ getUltimoJugadorAgregado() :String
+      ~ notificarUltimoEvento() : void
+     ~  nuevaPartida() : void
+     ~  listarCartasAreaDadasVuelta(String nombreJugador) : List<String>
+      ~  getJugadoresTabla() : List<IJugador>
 }
 
-package "exceptions" {
-enum "TipoException" as TipoException {
-}
-class "ar.unlu.edu.mvc.exceptions.JuegoException" as JuegoException {
-  - TipoException tipo
-  + JuegoException(String message , TipoException tipo)
-  + getTipo() : TipoException
-}
+class "Serializador" as Serializador {
+  - String nombreArchivo
+  + Serializador(String nombreArchivo)
+  + persistir(Object o) : void
+  + recuperar() : Object
 }
 
+
+}
+
+
+
+
+package "vista" {
 package "botones" {
 enum "TipoCarta" as TipoCarta {
 }
@@ -489,7 +515,7 @@ enum "Comando" as Comando {
 }
 }
 
-package "vista" {
+
 interface "IVista" as IVista {
   ~ setControlador(Controlador controlador) : void
   ~ mostrarMensaje(String mensaje) : void
@@ -512,8 +538,11 @@ interface "IVista" as IVista {
   ~ abandonoJugador() : void
 }
 }
+}
+
 
 RondaDescarte --|> Ronda
+Juego ..|> IJuego
 VistaConsola ..|> IVista
 Jugador ..|> IJugador
 VistaGrafica ..|> IVista
@@ -530,6 +559,7 @@ Ronda --> Jugador : jugadorTurno
 Ronda --> Juego : juego
 Ronda --> Carta : cartaTirada
 Controlador --> IVista : vista
+Controlador --> IJuego : juego
 VistaConsola --> Controlador : controlador
 Jugador --> AreaDeJuego : area
 VistaGrafica --> Controlador : controlador
@@ -544,6 +574,24 @@ Juego --> Ronda : ronda
 Juego --> Evento : ultimoEvento
 Juego --> TablaTop : tablaTop
 UltimaRonda --> Jugador : primerJugadorRonda
-JuegoException --> TipoException : tipo
+Controlador -[hidden]-> IVista
+Controlador -[hidden]-> IVista
+Controlador -[hidden]-> IJuego
+Controlador -[hidden]-> IJuego
+Controlador -[hidden]-> IJuego
+Controlador -[hidden]-> Vista
+Controlador -[hidden]-> VistaConsola
+Controlador -[hidden]-> IJuego
+Controlador -[hidden]-> IJuego
+Controlador -[hidden]-> IJuego
+Controlador -[hidden]-> IVista
+Controlador -[hidden]-> IVista
+Controlador -[hidden]-> IJuego
+Controlador -[hidden]-> Mazo
+Controlador -[hidden]-> Carnaval
+Serializador -[hidden]-> Carnaval
+Serializador -[hidden]-> Color
+Serializador -[hidden]-> Color
+
 
 @enduml

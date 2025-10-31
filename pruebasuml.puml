@@ -1,0 +1,21 @@
+@startuml
+skinparam packageStyle rectangle
+
+package "Datos" as D {
+  class Repositorio
+}
+
+package "Negocio" as N {
+  class Servicio
+}
+
+package "Presentación" as P {
+  class Controlador
+}
+
+' Relación invisible con más separación
+D -[hidden]-> N
+N -[hidden]-> P
+
+
+@enduml
