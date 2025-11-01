@@ -565,6 +565,9 @@ Jugador --> AreaDeJuego : area
 VistaGrafica --> Controlador : controlador
 VistaGrafica --> VistaMenuInicial : vistaMenuInicial
 VistaGrafica --> VistaJuego : vistaJuego
+VistaGrafica --> VistaJuego : vistaJuego
+VistaGrafica -[hidden]-> VistaCargarPartida
+VistaGrafica -[hidden]-> "VistaIngresarJugador"
 VistaGrafica --> TipoPanel : ultimoTipoPanel
 VistaMenuInicial --> VistaGrafica : vistaGrafica
 VistaMenuInicial --> Controlador : controlador
