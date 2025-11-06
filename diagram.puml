@@ -548,34 +548,34 @@ Jugador ..|> IJugador
 VistaGrafica ..|> IVista
 UltimaRonda --|> Ronda
 Carta --> Color : color
-VistaJuego --> Controlador : controlador
-VistaJuego --> VistaGrafica : vista
-VistaJuego --> LabelVertical : nombre3Label
-VistaJuego --> LabelVertical : nombre4Label
+VistaJuego --> "vistaJuego" Controlador
+
+VistaJuego --> LabelVertical
 RondaDescarte --> Jugador : primerJugadorRonda
 Ronda --> Carnaval : carnaval
 Ronda --> Mazo : mazo
 Ronda --> Jugador : jugadorTurno
-Ronda --> Juego : juego
+Ronda <--> Juego
 Ronda --> Carta : cartaTirada
-Controlador --> IVista : vista
+Controlador --> "Ivista" IVista : Ivista
 Controlador --> IJuego : juego
 VistaConsola --> Controlador : controlador
 Jugador --> AreaDeJuego : area
-VistaGrafica --> Controlador : controlador
-VistaGrafica --> VistaMenuInicial : vistaMenuInicial
+VistaGrafica --> "vistaGrafica" Controlador
+VistaGrafica <--> VistaMenuInicial : vistaMenuInicial
 VistaGrafica <--> VistaJuego : vistaJuego
 VistaGrafica <.. VistaCargarPartida
 VistaGrafica <.. VistaIngresarJugador
 VistaGrafica --> TipoPanel : ultimoTipoPanel
-VistaMenuInicial --> VistaGrafica : vistaGrafica
-VistaMenuInicial --> Controlador : controlador
+VistaMenuInicial --> "vistaMenuInicial" Controlador
 Juego --> Carnaval : carnaval
 Juego --> Mazo : mazo
-Juego --> Ronda : ronda
 Juego --> Evento : ultimoEvento
 Juego --> TablaTop : tablaTop
 UltimaRonda --> Jugador : primerJugadorRonda
+Mazo --> Carta
+
+
 Controlador -[hidden]-> IVista
 Controlador -[hidden]-> IVista
 Controlador -[hidden]-> IJuego
@@ -585,7 +585,7 @@ Controlador -[hidden]-> Vista
 Controlador -[hidden]-> VistaConsola
 Controlador -[hidden]-> IJuego
 Controlador -[hidden]-> IJuego
-Controlador -[hidden]-> IJuego
+Controlador -[hidden]-> RondaDescarte
 Controlador -[hidden]-> IVista
 Controlador -[hidden]-> IVista
 Controlador -[hidden]-> IJuego

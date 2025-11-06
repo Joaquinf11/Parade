@@ -17,5 +17,5 @@ package "Presentación" as P {
 D -[hidden]-> N
 N -[hidden]-> P
 
-
+A "1" o-- "many" B : relación
 @enduml
