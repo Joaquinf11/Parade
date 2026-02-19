@@ -256,15 +256,10 @@ public class Controlador implements IControladorRemoto {
                 this.jugador=nombreJugador;
                 this.juego= this.juego.cargarPartida(nombrePartida);
                 this.juego.agregarObservador(this);
+                this.juego.agregarJugador(nombreJugador);
                 this.vista.partidaCargada();
                 this.juego.notificarUltimoEvento();
             } catch (IOException | ClassNotFoundException e) {
-                this.juego.notificarHastaUltimoEvento();
-            } catch (RemoteException e) {
-            throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             } catch (JuegoException e) {
                 if (!e.getTipo().equals(TipoException.JUGADOR_YA_AGREGADO)) {
