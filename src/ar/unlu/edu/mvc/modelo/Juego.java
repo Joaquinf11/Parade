@@ -60,8 +60,12 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     }
 
     @Override
-    public void notificarUltimoEvento() throws RemoteException {
-        notificar(this.ultimoEvento);
+    public void notificarHastaUltimoEvento() throws RemoteException {
+        int cantidadEventos = this.ultimoEvento.ordinal();
+        Evento[] eventos = Evento.values();
+        for (int i = 0; i <= cantidadEventos; i++) {
+            notificar(eventos[i]);
+        }
     }
 
     @Override
@@ -261,7 +265,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
             e.printStackTrace();
         }
         return jugador_anterior;
-        // TODO falta considerar el caso en que sea un empate TOTAL
+
     }
 
 

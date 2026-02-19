@@ -222,8 +222,8 @@ public class VistaGrafica extends  JFrame implements IVista {
     }
 
     public void mostrarVentanaJuego(){
-        setContentPane(this.panelPrincipalIngresarJugador);
-        panelPrincipalIngresarJugador.updateUI();
+        setContentPane(this.panelPrincipalJuego);
+        panelPrincipalJuego.updateUI();
         this.ultimoTipoPanel =TipoPanel.JUEGO;
     }
 
