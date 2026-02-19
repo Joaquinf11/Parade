@@ -83,6 +83,9 @@ public class Controlador implements IControladorRemoto {
             case ABANDONO_JUGADOR:
                 this.vista.abandonoJugador();
                 break;
+            case JUGADOR_AGREGADO_TABLA:
+                this.vista.actualizarTabla();
+                break;
         }
     }
 

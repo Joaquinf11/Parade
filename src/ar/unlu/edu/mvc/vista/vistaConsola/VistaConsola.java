@@ -197,6 +197,11 @@ public class VistaConsola extends JFrame implements IVista {
                 Debe comenzar una nueva partida, ingrese comando: nueva partida """);
     }
 
+    @Override
+    public void actualizarTabla() {
+
+    }
+
     public String menuInicial(){
         return """
                 BIENVENIDO A PARADE
