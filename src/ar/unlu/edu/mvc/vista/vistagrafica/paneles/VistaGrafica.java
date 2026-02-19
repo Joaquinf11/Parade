@@ -23,13 +23,14 @@ public class VistaGrafica extends  JFrame implements IVista {
     private JPanel panelPrincipalJuego;
 
     private String jugador;
-    private TipoPanel ultimoTipoPanel;
+    private String ultimoPanel;
+    private final JMenuBar menuBar;
     private final JPanel panelReglas;
     private final JTextArea reglasText;
     private final JPanel panelTop;
 
 
-    private final JMenuItem nuevaPartidaItem;
+    private final JMenu tabla;
 
     private final JButton volverButton;
 
@@ -109,20 +110,17 @@ public class VistaGrafica extends  JFrame implements IVista {
         });
         salir.add(guardarItem);
 
-        nuevaPartidaItem= new JMenuItem("Nueva Partida");
+        JMenuItem nuevaPartidaItem= new JMenuItem("Nueva Partida");
         nuevaPartidaItem.setBackground(new Color(201,217,5));
         nuevaPartidaItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.nuevaPartida();
-                vistaJuego.resetPartida();
-
             }
         });
-        nuevaPartidaItem.setEnabled(false);
-        salir.add(nuevaPartidaItem);
+        salir.add(guardarItem);
 
-        JMenu tabla = new JMenu("Ranking");
+        tabla= new JMenu("Ranking");
         JMenuItem ranking = new JMenuItem("Ver tabla");
         ranking.addActionListener(new ActionListener() {
             @Override
@@ -203,28 +201,21 @@ public class VistaGrafica extends  JFrame implements IVista {
     public void mostrarMenuInicial(){
         setContentPane(this.panelPrincipalMenuInicial);
         panelPrincipalMenuInicial.updateUI();
-        this.ultimoTipoPanel = TipoPanel.MENU_INICIAL;
+        this.ultimoPanel="Menu Inicial";
     }
 
-    @Override
-    public void abandonoJugador() {
-        this.ultimoTipoPanel=TipoPanel.MENSAJE;
-        this.mostrarMensaje(""" 
-                               Un jugador abandono la partida.
-                               Debe comenzar una nueva partida desde el Menu
-                               """);
-    }
+
 
     public void mostrarIngresarJugador(){
         setContentPane(this.panelPrincipalIngresarJugador);
         panelPrincipalIngresarJugador.updateUI();
-        this.ultimoTipoPanel =TipoPanel.INGRESAR_JUGADOR;
+        this.ultimoPanel="Ingresar Jugador";
     }
 
     public void mostrarVentanaJuego(){
         setContentPane(this.panelPrincipalIngresarJugador);
         panelPrincipalIngresarJugador.updateUI();
-        this.ultimoTipoPanel =TipoPanel.JUEGO;
+        this.ultimoPanel="Panel Juego";
     }
 
     public void mostrarPanelMensaje(){
@@ -295,7 +286,10 @@ public class VistaGrafica extends  JFrame implements IVista {
         this.vistaJuego.actualizarCartasCarnaval();
     }
 
-
+    @Override
+    public void cartaAgregadaCarnaval() {
+        this.vistaJuego.actualizarCartasCarnaval();
+    }
 
     @Override
     public void mostrarAreaDeJuego(String nombre) {
@@ -339,7 +333,7 @@ public class VistaGrafica extends  JFrame implements IVista {
     public void jugadorAgregado(String nombre) {
         if (nombre.equals(this.jugador)){
             mostrarMensaje("Jugador agregado con exito");
-            this.ultimoTipoPanel = TipoPanel.MENU_INICIAL;
+            this.ultimoPanel= "Menu Inicial";
             this.vistaMenuInicial.setAgregarJugador(false);
         }
     }
