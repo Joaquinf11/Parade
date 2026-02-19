@@ -45,7 +45,7 @@ public interface IJuego  extends IObservableRemoto, Serializable {
 
     String getUltimoJugadorAgregado() throws  RemoteException;
 
-    void notificarUltimoEvento() throws RemoteException;
+    void notificarHastaUltimoEvento() throws RemoteException;
 
     void nuevaPartida() throws RemoteException, JuegoException;
 
