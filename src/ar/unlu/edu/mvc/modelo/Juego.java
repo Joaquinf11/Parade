@@ -60,12 +60,8 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     }
 
     @Override
-    public void notificarHastaUltimoEvento() throws RemoteException {
-        int cantidadEventos= this.ultimoEvento.ordinal();
-        Evento [] eventos = Evento.values();
-        for (int i = 0; i <= cantidadEventos; i++) {
-            notificar(eventos[i]);
-        }
+    public void notificarUltimoEvento() throws RemoteException {
+        notificar(this.ultimoEvento);
     }
 
     @Override

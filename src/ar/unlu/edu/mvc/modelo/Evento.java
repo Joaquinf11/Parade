@@ -3,8 +3,8 @@ package ar.unlu.edu.mvc.modelo;
 import java.io.Serializable;
 
 public enum Evento implements Serializable {
-    JUGADOR_AGREGADO,
     JUEGO_COMENZADO,
+    JUGADOR_AGREGADO,
     CAMBIO_TURNO,
     CARTA_TIRADA,
     CARTA_AGREGADA_CARNAVAL,
