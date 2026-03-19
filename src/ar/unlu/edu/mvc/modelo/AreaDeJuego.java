@@ -8,16 +8,14 @@ public class AreaDeJuego implements Serializable {
     private final Map<Color, List<Carta>> cartas;
     private final Map<Color, Integer> cartasBocaAbajo;
 
-
     public AreaDeJuego() {
         this.cartas = new HashMap<>();
         this.cartasBocaAbajo = new HashMap<>();
     }
 
-
     public void agregarCarta(Carta carta) {
         Color color = carta.getColor();
-        cartas.putIfAbsent(color, new ArrayList<>());  // Crea la lista si no existe
+        cartas.putIfAbsent(color, new ArrayList<>()); // Crea la lista si no existe
         cartas.get(color).add(carta);
     }
 
@@ -70,7 +68,6 @@ public class AreaDeJuego implements Serializable {
         return total;
     }
 
-
     public boolean tiene6colores() {
         return this.cartas.size() == 6;
     }
@@ -86,26 +83,27 @@ public class AreaDeJuego implements Serializable {
     public int sumarValorDeCartas() {
         int total = 0;
 
-        // Primer for-each: recorre el HashMap que contiene las cartas agrupadas por color
+        // Primer for-each: recorre el HashMap que contiene las cartas agrupadas por
+        // color
         for (Map.Entry<Color, List<Carta>> entry : this.cartas.entrySet()) {
             // Segundo for-each: recorre la lista de cartas de un color específico
             for (Carta carta : entry.getValue()) {
-                total -= carta.getValor();  // Suma el valor de cada carta al total
+                total -= carta.getValor(); // Suma el valor de cada carta al total
             }
         }
 
-        return total;  // Devuelve la suma de todas las cartas
+        return total; // Devuelve la suma de todas las cartas
     }
 
     public int calcularPuntos() {
         return (getCantidadCartasBocaAbajo() * -1) + sumarValorDeCartas();
     }
 
-    public List<String> listarCartasDadasVuelta(){
-        List<String> resultado= new ArrayList<>();
+    public List<String> listarCartasDadasVuelta() {
+        List<String> resultado = new ArrayList<>();
         for (Map.Entry<Color, Integer> entry : this.cartasBocaAbajo.entrySet()) {
-            Color color= entry.getKey();
-            int cantidad= entry.getValue();
+            Color color = entry.getKey();
+            int cantidad = entry.getValue();
             resultado.add(color.toString() + "," + cantidad);
         }
         return resultado;

@@ -15,7 +15,7 @@ public class Ronda implements Serializable {
     protected Queue<Jugador> jugadores;
     protected Juego juego;
     protected boolean tiroCarta;
-    protected int[] indicesCartasElegidas = null;
+    protected List<Integer> indicesCartasElegidas = null;
     private Carta cartaTirada;
     protected boolean agrego;
 
@@ -43,7 +43,7 @@ public class Ronda implements Serializable {
         this.cartaTirada = carta;
     }
 
-    public void analizarCartasCarnaval(int[] cartasElegidas) throws JuegoException {
+    public void analizarCartasCarnaval(List<Integer> cartasElegidas) throws JuegoException {
         if (!this.carnaval.puedeAgarrarCarnaval(this.cartaTirada)) {
             throw new JuegoException("La carta tirada: " + this.cartaTirada.toString() + " tiene mayor valor a la cantidad de cartas que hay en el carnaval", TipoException.CARTA_EXCEPTION);
         } else if (this.carnaval.agarroCartasSalvadasCarnaval(this.cartaTirada.getValor(), cartasElegidas)) {

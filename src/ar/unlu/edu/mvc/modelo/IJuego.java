@@ -23,7 +23,7 @@ public interface IJuego  extends IObservableRemoto, Serializable {
 
     void tirarCarta(int indice) throws JuegoException, RemoteException;
 
-    void analizarCartasCarnaval(int[] indices) throws JuegoException, RemoteException;
+    void analizarCartasCarnaval(List<Integer> indices) throws JuegoException, RemoteException;
 
     List<String> listarCartasCarnaval()throws RemoteException;
 

@@ -1,7 +1,5 @@
 package ar.unlu.edu.mvc.modelo;
 
-
-
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Stack;
@@ -9,19 +7,18 @@ import java.util.Stack;
 public class Mazo implements Serializable {
     private final Stack<Carta> cartas;
 
-    public Mazo (){
-        this.cartas= new Stack<>();
-        for (Color color : Color.values()){
-            for (int i = 0; i <= 10 ; i++ ){
-                Carta carta= new Carta(i,color);
+    public Mazo() {
+        this.cartas = new Stack<>();
+        for (Color color : Color.values()) {
+            for (int i = 0; i <= 10; i++) {
+                Carta carta = new Carta(i, color);
                 this.cartas.push(carta);
             }
         }
         Collections.shuffle(this.cartas);
     }
 
-
-    public Carta sacarCarta(){
+    public Carta sacarCarta() {
         if (!this.cartas.isEmpty()) {
             return this.cartas.pop();
         }
@@ -33,7 +30,7 @@ public class Mazo implements Serializable {
         return this.cartas;
     }
 
-    public boolean tieneCartas(){
+    public boolean tieneCartas() {
         return !this.cartas.isEmpty();
     }
 

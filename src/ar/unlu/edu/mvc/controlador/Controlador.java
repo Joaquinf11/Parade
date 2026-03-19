@@ -196,7 +196,7 @@ public class Controlador implements IControladorRemoto {
         }
     }
 
-    public void analizarCartasCarnaval(int [] elegidas){
+    public void analizarCartasCarnaval(List<Integer> elegidas){
         try {
             this.juego.analizarCartasCarnaval(elegidas);
         } catch (RemoteException e) {

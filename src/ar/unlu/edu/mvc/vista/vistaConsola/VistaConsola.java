@@ -6,6 +6,7 @@ import ar.unlu.edu.mvc.vista.IVista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.swing.*;
@@ -104,9 +105,9 @@ public class VistaConsola extends JFrame implements IVista {
     private void convertirCartasElegidasAInteger(String entrada) {
         try{
             String[] partes = entrada.split(" ");
-            int[] cartasElegidas = new int[partes.length];
-            for (int i = 0; i < partes.length; i++) {
-                cartasElegidas[i] = Integer.parseInt(partes[i]) - 1;
+            List<Integer> cartasElegidas = new ArrayList<>();
+            for (String parte : partes) {
+                cartasElegidas.add(Integer.parseInt(parte) - 1);
             }
             controlador.analizarCartasCarnaval(cartasElegidas);
         }
