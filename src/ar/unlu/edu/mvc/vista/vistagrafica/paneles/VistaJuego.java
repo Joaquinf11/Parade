@@ -73,7 +73,7 @@ public class VistaJuego {
     private LabelVertical nombre4Label;
     private final List<CartaButton> cartasCarnaval;
     private  final List<CartaButton> cartasEnMano;
-    private int [] cartasElegidasCarnaval;
+    private List<Integer> cartasElegidasCarnaval;
     private int cartaElegidaMano;
 
     private List<String> oponentes;
@@ -84,8 +84,7 @@ public class VistaJuego {
         this.vista= grafica;
         this.cartasCarnaval= new ArrayList<>();
         this.cartasEnMano= new ArrayList<>();
-        this.cartasElegidasCarnaval= new int[1];
-        this.cartasElegidasCarnaval[0]= -1;
+        this.cartasElegidasCarnaval= new ArrayList<>();
         this.cartaElegidaMano=-1;
 
         tirarCartaButton.addActionListener(new ActionListener() {
@@ -221,7 +220,22 @@ public class VistaJuego {
     public void actualizarCartasCarnaval() {
         cartasCarnaval.clear();
         panelCarnaval.removeAll();
+
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setOpaque(false);
+
         List<String> cartasCarnavalS= this.controlador.listarCartasCarnaval();
+        
+        int cartaAncho = 100;
+        int cartaAlto = 150;
+        int anchoDisponible = panelCarnaval.getWidth();
+        int distanciaEntreCartas = cartaAncho;
+        if (!cartasCarnavalS.isEmpty()) {
+            int espacioNecesario = cartasCarnavalS.size() * cartaAncho;
+            if (espacioNecesario > anchoDisponible) {
+                distanciaEntreCartas = (anchoDisponible - cartaAncho) / Math.max(1, (cartasCarnavalS.size() - 1));
+            }
+        }
 
         for(int i = 0;  i < cartasCarnavalS.size(); i++) {
             CartaButton button = new CartaButton("imagenes/cartas/" + cartasCarnavalS.get(i) + ".png", TipoCarta.CARNAVAL);
@@ -229,64 +243,39 @@ public class VistaJuego {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (cartasElegidasCarnaval[0] == - 1) {
-                        cartasElegidasCarnaval[0] = (int) button.getClientProperty("indice");
+                    int indiceCartaElegida = (int) button.getClientProperty("indice");
+                    if (cartasElegidasCarnaval.isEmpty()) {
+                        cartasElegidasCarnaval.add(indiceCartaElegida);
                         button.setBorderPainted(true);
                     } else {
-                        int nuevaCarta= (int) button.getClientProperty("indice");
-                        if (arrayTieneLaCarta(nuevaCarta)){
-                            sacarCartaDelArray(nuevaCarta);
+                        if (cartasElegidasCarnaval.contains(indiceCartaElegida)){
+                            cartasElegidasCarnaval.remove(indiceCartaElegida);
                             button.setBorderPainted(false);
                         }
                         else {
-                            agregarCartaAlArray(nuevaCarta);
+                            cartasElegidasCarnaval.add(indiceCartaElegida);
                             button.setBorderPainted(true);
                         }
                     }
                 }
             });
 
+            button.setBounds(i * distanciaEntreCartas, 0, cartaAncho, cartaAlto);
             this.cartasCarnaval.add(button);
-            this.panelCarnaval.add(button);
+            layeredPane.add(button, Integer.valueOf(i));
         }
+
+        int totalWidth = (cartasCarnavalS.size() - 1) * distanciaEntreCartas + cartaAncho;
+        layeredPane.setPreferredSize(new Dimension(totalWidth, cartaAlto));
+
+        panelCarnaval.setLayout(new BorderLayout());
+        JPanel panelCentral = new JPanel(new GridBagLayout());
+        panelCentral.setOpaque(false);
+        panelCentral.add(layeredPane);
+
+        panelCarnaval.add(panelCentral, BorderLayout.CENTER);
         panelCarnaval.updateUI();
         panelVentanaJuego.updateUI();
-    }
-
-    private void agregarCartaAlArray(int nuevaCarta) {
-        int[] auxiliar = new int[cartasElegidasCarnaval.length + 1];
-        for (int j = 0; j < cartasElegidasCarnaval.length; j++) {
-            auxiliar[j] = cartasElegidasCarnaval[j];
-        }
-        auxiliar[auxiliar.length - 1] = nuevaCarta;
-        cartasElegidasCarnaval = auxiliar;
-    }
-
-    private void sacarCartaDelArray(int nuevaCarta) {
-        if (cartasElegidasCarnaval.length == 1){
-            cartasElegidasCarnaval= new int[1];
-            cartasElegidasCarnaval[0]=-1;
-        }
-        else {
-            int[] auxiliar = new int[cartasElegidasCarnaval.length - 1];
-            int i = 0;
-            for (int carta : this.cartasElegidasCarnaval) {
-                if (carta != nuevaCarta) {
-                    auxiliar[i] = carta;
-                    i++;
-                }
-            }
-            this.cartasElegidasCarnaval = auxiliar;
-        }
-    }
-
-    private boolean arrayTieneLaCarta(int nuevaCarta) {
-        for (int carta: this.cartasElegidasCarnaval){
-            if (carta == nuevaCarta){
-                return true;
-            }
-        }
-        return false;
     }
 
     public void desactivarTodosLosBotones() {
@@ -482,8 +471,7 @@ public class VistaJuego {
     }
 
     public void clearCartasElegidas() {
-        cartasElegidasCarnaval= new int[1];
-        cartasElegidasCarnaval[0]=-1;
+        cartasElegidasCarnaval.clear();
     }
 
     public void setEstado(String estado) {

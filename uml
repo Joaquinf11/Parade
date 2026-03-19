@@ -1,0 +1,466 @@
+classDiagram
+direction BT
+class AppCliente {
+  + AppCliente()
+  + main(String[]) void
+}
+class AppServidor {
+  + AppServidor()
+  + main(String[]) void
+}
+class AreaDeJuego {
+  + AreaDeJuego()
+  + tiene6colores() boolean
+  - agregarCartaBocaAbajo(Color, int) void
+  + agregarCarta(Carta) void
+  + ponerCartasBocaAbajo(Color) void
+  + listarCartasDadasVuelta() List~String~
+  + sumarValorDeCartas() int
+  + getCantidadDeCartasPorColor(Color) int
+  + calcularPuntos() int
+   int cantidadCartasBocaArriba
+   int cantidadCartasBocaAbajo
+   Collection~List~Carta~~ todasLasCartas
+   int cantidadDeCartasTotales
+}
+class Carnaval {
+  + Carnaval()
+  - List~Carta~ cartas
+  + faltaAgarrarCartas(Carta, int[]) boolean
+  + sacarCarta(Carta) void
+  + agregarCarta(Carta) void
+  + agarroCartasSalvadasCarnaval(int, int[]) boolean
+  + salvarCartas(int) List~Carta~
+  + puedeAgarrarCarnaval(Carta) boolean
+  + getCartas(int[]) List~Carta~
+   Carta ultimaCarta
+   List~Carta~ cartas
+}
+class Carta {
+  + Carta(int, Color)
+  - int valor
+  - Color color
+  + toString() String
+  + equalsColor(Carta) boolean
+  + equals(Object) boolean
+   Color color
+   int valor
+}
+class CartaButton {
+  + CartaButton(String, TipoCarta)
+  - configurarBoton(TipoCarta, int, int, int, int, int, int) void
+  - configurarConRotacion(int) void
+  - recortarImagen(String, int, int) void
+  - toBufferedImage(Image) BufferedImage
+  - rotarImagen(ImageIcon, int) Image
+  - recortarConRotacion(String, int, int, int) void
+}
+class Color {
+<<enumeration>>
+  + Color()
+  + valueOf(String) Color
+  + values() Color[]
+}
+class Comando {
+<<enumeration>>
+  + Comando()
+  + values() Comando[]
+  + valueOf(String) Comando
+}
+class Controlador {
+  + Controlador(IVista)
+  + removeJugador(String) void
+  + actualizar(IObservableRemoto, Object) void
+  + finalizarTurno() void
+  + listarCartasEnMano() List~String~
+  + guardarPartida(String) void
+  + agregarJugador(String) void
+  + empezarPartida() void
+  + nuevaPartida() void
+  + listarJugadores() List~IJugador~
+  + listarCartasArea(String) Collection~List~String~~
+  + listarCartasAreaDadasVuelta(String) List~String~
+  + iniciar() void
+  + listarNombreJugadores() List~String~
+  + listarCartasCarnaval() List~String~
+  + jugarCarta(int) void
+  + cargarPartida(String, String) void
+  + analizarCartasCarnaval(int[]) void
+   String nombreJugadorTurno
+   int cantidadCartasMazo
+   T modeloRemoto
+   boolean turno
+   String nombreGanador
+   String ultimoJugadorAgregado
+   String nombreGanadaor
+   List~IJugador~ jugadoresTabla
+}
+class Evento {
+<<enumeration>>
+  + Evento()
+  + values() Evento[]
+  + valueOf(String) Evento
+}
+class IJuego {
+<<Interface>>
+  + empezarJuego() void
+  + guardarPartida(String) void
+  + nuevaPartida() void
+  + listarCartasAreaDadasVuelta(String) List~String~
+  + cargarPartida(String) IJuego
+  + notificarHastaUltimoEvento() void
+  + listarJugadores() List~IJugador~
+  + agregarJugador(String) void
+  + sacarJugador(String, IObservadorRemoto) void
+  + listarCartasCarnaval() List~String~
+  + definirGanador() IJugador
+  + listarCartasArea(String) Collection~List~String~~
+  + listarCartasEnMano(String) List~String~
+  + tirarCarta(int) void
+  + analizarCartasCarnaval(int[]) void
+  + finalizarTurno() void
+   int cantidadCartasMazo
+   IJugador jugadorTurno
+   String ultimoJugadorAgregado
+   List~IJugador~ jugadoresTabla
+}
+class IJugador {
+<<Interface>>
+   int puntos
+   int victorias
+   String nombre
+}
+class IVista {
+<<Interface>>
+  + mostrarAreaDeJuego(String) void
+  + mostrarMensaje(String) void
+  + mostrarCarnaval() void
+  + abandonoJugador() void
+  + cambioDeTurno() void
+  + actualizarCantidadCartasMazo() void
+  + iniciar() void
+  + iniciarJuego() void
+  + comienzoUltimaRonda() void
+  + finDeTurno() void
+  + jugadorAgregado(String) void
+  + mostrarPuntos(String) void
+  + actualizarCartasEnMano() void
+  + comienzoRondaDescarte() void
+  + mostrarMenuInicial() void
+  + partidaCargada() void
+  + actualizarTabla() void
+  + cartaTirada() void
+  + finDelJuego(String) void
+   Controlador controlador
+}
+class Juego {
+  + Juego()
+  - List~Jugador~ jugadores
+  - evaluarAreaDeJuego() void
+  + sePuedeComenzar() boolean
+  + agregarJugador(String) void
+  + cargarPartida(String) IJuego
+  + listarCartasEnMano(String) List~String~
+  + notificar(Evento) void
+  + listarCartasCarnaval() List~String~
+  + nuevaPartida() void
+  + listarCartasAreaDadasVuelta(String) List~String~
+  - calcularPuntos() void
+  + definirGanador() Jugador
+  + sacarJugador(String, IObservadorRemoto) void
+  + finalizarTurno() void
+  + finJuego() void
+  + analizarCartasCarnaval(int[]) void
+  + empezarJuego() void
+  - agregarCartasEnManoAlArea() void
+  + listarCartasArea(String) Collection~List~String~~
+  + tirarCarta(int) void
+  - repartirCartas() void
+  + guardarPartida(String) void
+  - buscarJugador(String) Jugador?
+  + notificarHastaUltimoEvento() void
+  + listarJugadores() List~IJugador~
+   List~Jugador~ jugadores
+   int cantidadCartasMazo
+   IJugador jugadorTurno
+   Queue~Jugador~ ultimaRonda
+   Queue~Jugador~ rondaDescarte
+   String ultimoJugadorAgregado
+   List~IJugador~ jugadoresTabla
+}
+
+class Jugador {
+  + Jugador(String)
+  - String nombre
+  - AreaDeJuego area
+  - int victorias
+  - int puntos
+  + equals(Object) boolean
+  + agarrarCarta(Carta) void
+  + quitarCarta(int) void
+  + agregarCartaAlAreaDeJuego(Carta) void
+  + elegirCarta(int) Carta
+  + sumarVictoria() void
+  + listarCartasDadasVuelta() List~String~
+  + resetNuevoJuego() void
+  + descartarCarta(int) Carta
+  + sumarPuntos() void
+  + sacarCartasEnMano() List~Carta~
+   List~Carta~ cartas
+   int victorias
+   String nombre
+   AreaDeJuego area
+   int cantidadCartasEnArea
+   int puntos
+   Collection~List~Carta~~ cartasArea
+}
+class LabelVertical {
+  + LabelVertical(String)
+  # paintComponent(Graphics) void
+   Dimension preferredSize
+}
+class Mazo {
+  + Mazo()
+  - Stack~Carta~ cartas
+  + sacarCarta() Carta
+  + tieneCartas() boolean
+   Stack~Carta~ cartas
+   int cantidadCartas
+}
+class Ronda {
+  + Ronda(Queue~Jugador~, Carnaval, Mazo, Juego)
+  # Jugador jugadorTurno
+  # cambiarTurno() void
+  + tirarCarta(int) void
+  + analizarCartasCarnaval(int[]) void
+  + finTurno() void
+  + esFinDeRonda() boolean
+   IJugador jugadorTurno
+}
+class RondaDescarte {
+  + RondaDescarte(Queue~Jugador~, Carnaval, Mazo, Juego)
+  + tirarCarta(int) void
+  + finTurno() void
+  + esFinDeRonda() boolean
+}
+class Serializador {
+  + Serializador(String)
+  + recuperar() Object
+  + persistir(Object) void
+}
+class TablaTop {
+  + TablaTop()
+  + agregarJugador(Jugador) void
+   List~Jugador~ jugadores
+   Jugador jugadorConMenosVictorias
+}
+class TipoCarta {
+<<enumeration>>
+  + TipoCarta()
+  + values() TipoCarta[]
+  + valueOf(String) TipoCarta
+}
+
+class TipoPanel {
+<<enumeration>>
+  + TipoPanel()
+  + values() TipoPanel[]
+  + valueOf(String) TipoPanel
+}
+class UltimaRonda {
+  + UltimaRonda(Queue~Jugador~, Carnaval, Mazo, Juego)
+  + esFinDeRonda() boolean
+  + finTurno() void
+}
+class VistaCargarPartida {
+  + VistaCargarPartida(Controlador, VistaGrafica)
+   JPanel panel
+}
+class VistaConsola {
+  + VistaConsola()
+  - Controlador controlador
+  - esComandoValido(String) boolean
+  + jugadorAgregado(String) void
+  + mostrarReglas() void
+  + mostrarCartasEnMano() void
+  + mostrarPuntos(String) void
+  + finDelJuego(String) void
+  + mostrarAreaOponentes() void
+  + activarEntrada() void
+  - convertirCartasElegidasAInteger(String) void
+  + cambioDeTurno() void
+  + actualizarCantidadCartasMazo() void
+  + iniciar() void
+  + finDeTurno() void
+  - setActionMenuInicial() void
+  + mostrarComoJugar() void
+  + comienzoUltimaRonda() void
+  + mostrarMenuInicial() void
+  + mostrarMensaje(String) void
+  + cartaTirada() void
+  + setActionTirarCartaField() void
+  - sacarTodosLosAction() void
+  - convertirCartaElegidaAInteger(String) void
+  + procesarComandos(String) void
+  + iniciarJuego() void
+  + menuInicial() String
+  + mostrarArea(String) void
+  + comienzoRondaDescarte() void
+  - fromString(String) Comando
+  + partidaCargada() void
+  + mostrarMesa() void
+  + actualizarCartasEnMano() void
+  + abandonoJugador() void
+  + actualizarTabla() void
+  + mostrarAreaDeJuego(String) void
+  + cartasToString(List~String~) String
+  + desactivarEntrada() void
+  - mostrarTabla(List~IJugador~) void
+  + setActionElegirCarta() void
+  + mostrarCarnaval() void
+   Controlador controlador
+}
+class VistaGrafica {
+  + VistaGrafica()
+  ~ Controlador controlador
+  + mostrarUltimoPanel() void
+  + mostrarMensaje(String) void
+  + mostrarCarnaval() void
+  - mostrarTablaRanking() void
+  + finDeTurno() void
+  + mostrarMenuInicial() void
+  + actualizarTabla() void
+  + iniciarJuego() void
+  + mostrarVentanaJuego() void
+  + mostrarAreaDeJuego(String) void
+  + cartaTirada() void
+  + iniciar() void
+  + actualizarCantidadCartasMazo() void
+  + removeJugador() void
+  + cambioDeTurno() void
+  + actualizarCartasEnMano() void
+  + comienzoUltimaRonda() void
+  + jugadorAgregado(String) void
+  + mostrarPuntos(String) void
+  + partidaCargada() void
+  + mostrarPanelMensaje() void
+  + mostrarIngresarJugador() void
+  + finDelJuego(String) void
+  - mostrarReglas() void
+  + abandonoJugador() void
+  + comienzoRondaDescarte() void
+   String nombreJugador
+   String mensaje
+   Controlador controlador
+}
+class VistaIngresarJugador {
+  + VistaIngresarJugador(Controlador, VistaGrafica)
+   JPanel panel
+}
+class VistaJuego {
+  + VistaJuego(Controlador, VistaGrafica)
+  - JLabel cantCartasMazo
+  + desactivarCartasCarnaval() void
+  + darVueltaCartasDelArea(String) void
+  - getTipoConOrientacion(boolean, String) TipoCarta?
+  - getPanelFromColor(JPanel[], String) JPanel?
+  + desactivarTodosLosBotones() void
+  + darVueltaCartasDelAreaDeTodos() void
+  + activarCartasMano() void
+  - agregarCartaAlArray(int) void
+  - clearPaneles(JPanel[]) void
+  - getColores(Collection~List~String~~) List~String~
+  + resetPartida() void
+  + clearCartasElegidas() void
+  + mostrarPuntos(String) void
+  + actualizarAreaDeJuego(String) void
+  + actualizarCartasCarnaval() void
+  + removePanelCarnaval() void
+  + iniciarVentanaJuego() void
+  + actualizarCartasEnMano() void
+  + finDelJuego() void
+  - arrayTieneLaCarta(int) boolean
+  + desactivaBotonAnalizarCartas() void
+  - sacarCartaDelArray(int) void
+  - getPanelesJugador(String) JPanel[]?
+  + setOponentes() void
+  + activarCartasCarnaval() void
+  + desactivarCartasEnMano() void
+  - updateUIPaneles(JPanel[]) void
+  - getTipoVueltaConOrientacion(boolean, String) TipoCarta?
+   boolean finalizarButton
+   JPanel panel
+   int cantCartasMazo
+   String estado
+}
+class VistaMenuInicial {
+  + VistaMenuInicial(Controlador, VistaGrafica)
+  - mostrarVistaCargarPartida() void
+   JPanel panel
+   boolean agregarJugador
+}
+
+AppCliente  ..>  Controlador : «create»
+AppCliente  ..>  VistaConsola : «create»
+AppCliente  ..>  VistaGrafica : «create»
+AppServidor  ..>  Juego : «create»
+
+AreaDeJuego "1" *--> "cartas *" Carta
+
+Carnaval "1" *--> "cartas *" Carta
+
+
+Carta "1" *--> "color 1" Color
+
+Controlador "1" *--> "juego 1" IJuego
+Controlador "1" *--> "vista 1" IVista
+
+
+Juego "1" *--> "carnaval 1" Carnaval
+Juego "1" *--> "ultimoEvento 1" Evento
+Juego  ..>  IJuego
+Juego "1" *--> "jugadores *" Jugador
+Juego "1" *--> "mazo 1" Mazo
+Juego "1" *--> "ronda 1" Ronda
+Juego "1" *--> "tablaTop 1" TablaTop
+
+Jugador "1" *--> "area 1" AreaDeJuego
+Jugador "1" *--> "cartasEnMano *" Carta
+Jugador  ..>  IJugador
+
+Mazo  ..>  Carta : «create»
+
+Ronda "1" *--> "carnaval 1" Carnaval
+Ronda "1" *--> "cartaTirada 1" Carta
+Ronda "1" *--> "juego 1" Juego
+Ronda "1" *--> "jugadores *" Jugador
+Ronda "1" *--> "mazo 1" Mazo
+
+RondaDescarte "1" *--> "primerJugadorRonda 1" Jugador
+RondaDescarte  -->  Ronda
+
+TablaTop "1" *--> "jugadoresTabla *" Jugador
+
+UltimaRonda "1" *--> "primerJugadorRonda 1" Jugador
+UltimaRonda  -->  Ronda
+
+VistaConsola "1" *--> "controlador 1" Controlador
+VistaConsola  ..>  IVista
+
+VistaGrafica "1" *--> "controlador 1" Controlador
+VistaGrafica  ..>  IVista
+VistaGrafica "1" *--> "ultimoTipoPanel 1" TipoPanel
+VistaGrafica  ..>  VistaIngresarJugador : «create»
+VistaGrafica  <-->   VistaJuego
+VistaGrafica  <-->  VistaMenuInicial
+
+VistaJuego  ..>  CartaButton : «create»
+VistaJuego "1" *--> "cartasCarnaval *" CartaButton
+VistaJuego "1" *--> "controlador 1" Controlador
+VistaJuego "1" *--> "nombre3Label 1" LabelVertical
+VistaJuego  ..>  LabelVertical : «create»
+
+
+VistaMenuInicial "1" *--> "controlador 1" Controlador
+VistaMenuInicial  ..>  VistaCargarPartida : «create»
+
