@@ -48,7 +48,9 @@ public class CartaButton extends JButton {
 
         this.setDisabledIcon(imageIcon);
         this.setBorderPainted(false);
+        this.setFocusPainted(false);
         this.setContentAreaFilled(false);
+        this.setOpaque(false);
     }
 
     private void configurarBoton(TipoCarta tipo,int width, int height, int top, int left, int bottom, int right) {

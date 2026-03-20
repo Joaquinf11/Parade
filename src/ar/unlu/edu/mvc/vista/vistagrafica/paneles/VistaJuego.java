@@ -225,10 +225,13 @@ public class VistaJuego {
         layeredPane.setOpaque(false);
 
         List<String> cartasCarnavalS= this.controlador.listarCartasCarnaval();
-        
-        int cartaAncho = 100;
-        int cartaAlto = 150;
-        int anchoDisponible = panelCarnaval.getWidth();
+
+        int cartaAncho = 95;
+        int cartaAlto = 125;
+        int anchoDisponible =panelCarnaval.getWidth();
+        if (anchoDisponible==0 ){
+            anchoDisponible = 800;
+        }
         int distanciaEntreCartas = cartaAncho;
         if (!cartasCarnavalS.isEmpty()) {
             int espacioNecesario = cartasCarnavalS.size() * cartaAncho;
@@ -244,22 +247,18 @@ public class VistaJuego {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     int indiceCartaElegida = (int) button.getClientProperty("indice");
-                    if (cartasElegidasCarnaval.isEmpty()) {
+                    if (cartasElegidasCarnaval.contains(indiceCartaElegida)){
+                        cartasElegidasCarnaval.remove(Integer.valueOf(indiceCartaElegida));
+                        button.setLocation(button.getX(),0);
+                        button.setBorderPainted(false);
+                    }
+                    else {
                         cartasElegidasCarnaval.add(indiceCartaElegida);
+                        button.setLocation(button.getX(),-10);
                         button.setBorderPainted(true);
-                    } else {
-                        if (cartasElegidasCarnaval.contains(indiceCartaElegida)){
-                            cartasElegidasCarnaval.remove(indiceCartaElegida);
-                            button.setBorderPainted(false);
-                        }
-                        else {
-                            cartasElegidasCarnaval.add(indiceCartaElegida);
-                            button.setBorderPainted(true);
-                        }
                     }
                 }
             });
-
             button.setBounds(i * distanciaEntreCartas, 0, cartaAncho, cartaAlto);
             this.cartasCarnaval.add(button);
             layeredPane.add(button, Integer.valueOf(i));
