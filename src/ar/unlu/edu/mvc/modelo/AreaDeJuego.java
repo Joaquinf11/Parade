@@ -53,7 +53,7 @@ public class AreaDeJuego implements Serializable {
 
         for (Map.Entry<Color, List<Carta>> entry : this.cartas.entrySet()) {
             List<Carta> cartas = entry.getValue();
-            total += cartas.size(); // Sumar la cantidad de cartas en cada lista
+            total += cartas.size();
         }
         return total;
     }
@@ -82,17 +82,12 @@ public class AreaDeJuego implements Serializable {
 
     public int sumarValorDeCartas() {
         int total = 0;
-
-        // Primer for-each: recorre el HashMap que contiene las cartas agrupadas por
-        // color
         for (Map.Entry<Color, List<Carta>> entry : this.cartas.entrySet()) {
-            // Segundo for-each: recorre la lista de cartas de un color específico
             for (Carta carta : entry.getValue()) {
-                total -= carta.getValor(); // Suma el valor de cada carta al total
+                total -= carta.getValor();
             }
         }
-
-        return total; // Devuelve la suma de todas las cartas
+        return total;
     }
 
     public int calcularPuntos() {

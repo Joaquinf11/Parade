@@ -215,11 +215,6 @@ public class VistaGrafica extends  JFrame implements IVista {
                                """);
     }
 
-    @Override
-    public void actualizarTabla() {
-        this.mostrarTablaRanking();
-    }
-
     public void mostrarIngresarJugador(){
         setContentPane(this.panelPrincipalIngresarJugador);
         panelPrincipalIngresarJugador.updateUI();

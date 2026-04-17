@@ -311,7 +311,6 @@ class VistaConsola {
   + mostrarMesa() void
   + actualizarCartasEnMano() void
   + abandonoJugador() void
-  + actualizarTabla() void
   + mostrarAreaDeJuego(String) void
   + cartasToString(List~String~) String
   + desactivarEntrada() void

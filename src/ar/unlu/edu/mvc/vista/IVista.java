@@ -40,6 +40,4 @@ public interface IVista {
     void mostrarMenuInicial();
 
     void abandonoJugador();
-
-    void actualizarTabla();
 }

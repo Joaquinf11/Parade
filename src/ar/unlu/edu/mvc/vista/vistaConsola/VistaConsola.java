@@ -164,7 +164,7 @@ public class VistaConsola extends JFrame implements IVista {
 
     @Override
     public void comienzoRondaDescarte() {
-        actionElegirCartas=null; //TODO CHEQUEAR
+        actionElegirCartas=null;
         mostrarMensaje("Comienza la RONDA DESCARTE");
 
     }
@@ -198,10 +198,6 @@ public class VistaConsola extends JFrame implements IVista {
                 Debe comenzar una nueva partida, ingrese comando: nueva partida """);
     }
 
-    @Override
-    public void actualizarTabla() {
-
-    }
 
     public String menuInicial(){
         return """

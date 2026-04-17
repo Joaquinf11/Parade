@@ -23,7 +23,6 @@ public class Mazo implements Serializable {
             return this.cartas.pop();
         }
         return null;
-        // Exception para pila vacia?
     }
 
     public Stack<Carta> getCartas() {
