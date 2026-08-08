@@ -66,7 +66,7 @@ public class Jugador implements IJugador, Serializable {
     }
 
     public List<Carta> getCartas() {
-        return this.cartasEnMano;
+        return List.copyOf(this.cartasEnMano);
     }
 
     public Collection<List<Carta>> getCartasArea() {
@@ -106,5 +106,9 @@ public class Jugador implements IJugador, Serializable {
 
     public List<String> listarCartasDadasVuelta() {
         return this.area.listarCartasDadasVuelta();
+    }
+
+    public void ponerCartasBocaAbajo(Color color) {
+        this.area.ponerCartasBocaAbajo(color);
     }
 }

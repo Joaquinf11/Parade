@@ -90,11 +90,13 @@ public class VistaJuego {
         tirarCartaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (cartasEnMano.size() <= cartaElegidaMano) {
-                    cartasEnMano.get(cartaElegidaMano).setBorderPainted(false);
+                if(cartaElegidaMano != -1 ){
+                    if (cartasEnMano.size() <= cartaElegidaMano) {
+                        cartasEnMano.get(cartaElegidaMano).setBorderPainted(false);
+                    }
+                    controlador.jugarCarta(cartaElegidaMano);
+                    cartaElegidaMano = -1;
                 }
-                controlador.jugarCarta(cartaElegidaMano);
-                cartaElegidaMano = -1;
             }
         });
         tirarCartaButton.setEnabled(false);

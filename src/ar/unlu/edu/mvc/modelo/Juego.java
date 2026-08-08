@@ -222,7 +222,7 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
                 }
             }
             for (Jugador jugador : jugadoresConMasCartas) {
-                jugador.getArea().ponerCartasBocaAbajo(color);
+                jugador.ponerCartasBocaAbajo(color);
             }
 
         }

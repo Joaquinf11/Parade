@@ -41,7 +41,7 @@ public class AreaDeJuego implements Serializable {
     }
 
     public Collection<List<Carta>> getTodasLasCartas() {
-        return this.cartas.values();
+        return new ArrayList<>(this.cartas.values());
     }
 
     public int getCantidadDeCartasTotales() {

@@ -26,7 +26,9 @@ public class Mazo implements Serializable {
     }
 
     public Stack<Carta> getCartas() {
-        return this.cartas;
+        Stack<Carta> copia = new Stack<Carta>();
+        copia.addAll(this.cartas);
+        return copia;
     }
 
     public boolean tieneCartas() {

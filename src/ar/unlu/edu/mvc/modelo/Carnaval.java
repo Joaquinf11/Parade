@@ -12,7 +12,7 @@ public class Carnaval implements Serializable {
     }
 
     public List<Carta> getCartas() {
-        return this.cartas;
+        return List.copyOf(this.cartas);
     }
 
     public Carta getUltimaCarta() {
