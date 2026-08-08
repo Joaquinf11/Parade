@@ -90,7 +90,7 @@ public class Controlador implements IControladorRemoto {
         try {
             return this.juego.getUltimoJugadorAgregado();
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -98,7 +98,7 @@ public class Controlador implements IControladorRemoto {
         try {
             return this.juego.definirGanador().getNombre();
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -112,7 +112,7 @@ public class Controlador implements IControladorRemoto {
             this.jugador = nombre;
             this.juego.agregarJugador(nombre);
         }catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         catch (JuegoException e) {
             this.vista.mostrarMensaje(e.getMessage());
@@ -126,7 +126,7 @@ public class Controlador implements IControladorRemoto {
         try {
             return this.juego.getJugadorTurno().getNombre().equals(this.jugador);
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -134,7 +134,7 @@ public class Controlador implements IControladorRemoto {
         try {
             this.juego.empezarJuego();
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         catch (JuegoException e) {
             this.vista.mostrarMensaje(e.getMessage());
@@ -145,14 +145,14 @@ public class Controlador implements IControladorRemoto {
         try {
             return  this.juego.listarCartasCarnaval();
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
     public List<IJugador> listarJugadores() {
         try {
             return this.juego.listarJugadores();
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
     public List<String> listarNombreJugadores() {
@@ -168,7 +168,7 @@ public class Controlador implements IControladorRemoto {
         try {
             return  this.juego.listarCartasEnMano(this.jugador);
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -178,7 +178,7 @@ public class Controlador implements IControladorRemoto {
         try {
             return this.juego.getJugadorTurno().getNombre();
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -186,7 +186,8 @@ public class Controlador implements IControladorRemoto {
         try {
             this.juego.tirarCarta(cartaMano);
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+
         }
         catch (JuegoException e) {
             this.vista.mostrarMensaje(e.getMessage());
@@ -197,7 +198,7 @@ public class Controlador implements IControladorRemoto {
         try {
             this.juego.analizarCartasCarnaval(elegidas);
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         catch (JuegoException e) {
             this.vista.mostrarMensaje(e.getMessage());
@@ -209,7 +210,7 @@ public class Controlador implements IControladorRemoto {
         try {
             return this.juego.listarCartasArea(nombreJugador);
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -218,7 +219,7 @@ public class Controlador implements IControladorRemoto {
             this.juego.finalizarTurno();
         }
         catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         catch (JuegoException e) {
             this.vista.mostrarMensaje(e.getMessage());
@@ -230,7 +231,7 @@ public class Controlador implements IControladorRemoto {
         try {
             return this.juego.getCantidadCartasMazo();
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -239,7 +240,7 @@ public class Controlador implements IControladorRemoto {
         try {
             this.juego.sacarJugador(jugador,this);
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -247,7 +248,7 @@ public class Controlador implements IControladorRemoto {
         try {
             return this.juego.definirGanador().getNombre();
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -259,7 +260,7 @@ public class Controlador implements IControladorRemoto {
                 this.vista.partidaCargada();
                 this.juego.notificarHastaUltimoEvento();
             } catch (IOException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
 
     }
@@ -269,7 +270,7 @@ public class Controlador implements IControladorRemoto {
         try {
             this.juego.guardarPartida(nombrePartida);
         } catch (IOException e){
-            throw  new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -277,7 +278,7 @@ public class Controlador implements IControladorRemoto {
         try {
             this.juego.nuevaPartida();
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         } catch (JuegoException e) {
             this.vista.mostrarMensaje(e.getMessage());
         }
@@ -287,7 +288,7 @@ public class Controlador implements IControladorRemoto {
         try {
              return this.juego.listarCartasAreaDadasVuelta(nombreJugador);
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -295,7 +296,7 @@ public class Controlador implements IControladorRemoto {
         try {
             return this.juego.getJugadoresTabla();
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 }
