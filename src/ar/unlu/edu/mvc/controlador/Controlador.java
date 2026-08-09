@@ -78,7 +78,7 @@ public class Controlador implements IControladorRemoto {
                 this.vista.actualizarCartasEnMano();
                 break;
             case FIN_JUEGO:
-                this.vista.finDelJuego(this.getNombreGanadaor());
+                this.vista.finDelJuego(this.getNombreGanador());
                 break;
             case ABANDONO_JUGADOR:
                 this.vista.abandonoJugador();
@@ -92,19 +92,22 @@ public class Controlador implements IControladorRemoto {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    private String getNombreGanadaor() {
+    private String getNombreGanador() {
         try {
             return this.juego.definirGanador().getNombre();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public void iniciar() {
         this.vista.iniciar();
     }
+
 
 
     public void agregarJugador(String nombre) {
@@ -128,6 +131,7 @@ public class Controlador implements IControladorRemoto {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     public void empezarPartida(){
@@ -147,6 +151,7 @@ public class Controlador implements IControladorRemoto {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+        return null;
     }
     public List<IJugador> listarJugadores() {
         try {
@@ -154,6 +159,7 @@ public class Controlador implements IControladorRemoto {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+        return null;
     }
     public List<String> listarNombreJugadores() {
         List<String> resultado= new ArrayList<>();
@@ -170,6 +176,7 @@ public class Controlador implements IControladorRemoto {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
 
@@ -180,6 +187,7 @@ public class Controlador implements IControladorRemoto {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public void jugarCarta(int cartaMano ){
@@ -212,6 +220,7 @@ public class Controlador implements IControladorRemoto {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public void finalizarTurno() {
@@ -233,6 +242,7 @@ public class Controlador implements IControladorRemoto {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+        return 0;
     }
 
 
@@ -244,13 +254,6 @@ public class Controlador implements IControladorRemoto {
         }
     }
 
-    public String getNombreGanador() {
-        try {
-            return this.juego.definirGanador().getNombre();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void cargarPartida(String nombrePartida,String nombreJugador) {
         try {
@@ -290,6 +293,7 @@ public class Controlador implements IControladorRemoto {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public List<IJugador> getJugadoresTabla() {
@@ -298,5 +302,6 @@ public class Controlador implements IControladorRemoto {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }
