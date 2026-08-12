@@ -17,12 +17,11 @@ public class Serializador {
         outputStream.close();
     }
 
-    public Object recuperar() throws  IOException,ClassNotFoundException{
-        try {
-            FileInputStream in = new FileInputStream(this.nombreArchivo);
-            ObjectInputStream inputStream= new ObjectInputStream(in);
-            return (Object) inputStream.readObject();
-        } catch (EOFException | FileNotFoundException ex){
+    public Object recuperar() throws IOException, ClassNotFoundException {
+        try (FileInputStream in = new FileInputStream(this.nombreArchivo);
+             ObjectInputStream inputStream = new ObjectInputStream(in)) {
+            return inputStream.readObject();
+        } catch (EOFException | FileNotFoundException ex) {
             return null;
         }
     }
