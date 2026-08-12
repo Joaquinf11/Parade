@@ -345,13 +345,13 @@ public class VistaGrafica extends  JFrame implements IVista {
     }
 
     @Override
-    public void mostrarPuntos(String nombreGanadaor) {
+    public void mostrarPuntos(String nombreGanador) {
         List<IJugador> jugadores= this.controlador.listarJugadores();
         String resultado="";
         for (IJugador jugador : jugadores){
             resultado += jugador.getNombre() + " tiene " + jugador.getPuntos() + "\n";
         }
-        resultado+= "\n\n EL GANADOR ES " + nombreGanadaor;
+        resultado+= "\n\n EL GANADOR ES " + nombreGanador;
         this.vistaJuego.mostrarPuntos(resultado);
     }
 
@@ -374,10 +374,10 @@ public class VistaGrafica extends  JFrame implements IVista {
     }
 
     @Override
-    public void finDelJuego(String nombreGanadaor) {
+    public void finDelJuego(String nombreGanador) {
         nuevaPartidaItem.setEnabled(true);
         this.vistaJuego.finDelJuego();
-        mostrarPuntos(nombreGanadaor);
+        mostrarPuntos(nombreGanador);
     }
 
     @Override

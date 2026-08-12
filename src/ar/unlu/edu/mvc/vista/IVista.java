@@ -25,7 +25,7 @@ public interface IVista {
 
     void jugadorAgregado(String jugador);
 
-    void mostrarPuntos(String nombreGanadaor);
+    void mostrarPuntos(String nombreGanador);
 
     void actualizarCartasEnMano();
 
@@ -33,7 +33,7 @@ public interface IVista {
 
     void comienzoUltimaRonda();
 
-    void finDelJuego(String nombreGanadaor);
+    void finDelJuego(String nombreGanador);
 
     void partidaCargada();
 

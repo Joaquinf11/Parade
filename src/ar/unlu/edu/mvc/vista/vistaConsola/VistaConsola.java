@@ -148,13 +148,13 @@ public class VistaConsola extends JFrame implements IVista {
     }
 
     @Override
-    public void mostrarPuntos(String nombreGanadaor) {
+    public void mostrarPuntos(String nombreGanador) {
         List<IJugador> jugadores = this.controlador.listarJugadores();
 
         for (IJugador jugador : jugadores){
             mostrarMensaje(jugador.getNombre() + " tiene " + jugador.getPuntos() + " puntos") ;
         }
-        mostrarMensaje("El ganador es " + nombreGanadaor);
+        mostrarMensaje("El ganador es " + nombreGanador);
     }
 
     @Override
@@ -175,8 +175,8 @@ public class VistaConsola extends JFrame implements IVista {
     }
 
     @Override
-    public void finDelJuego(String nombreGanadaor) {
-        mostrarPuntos(nombreGanadaor);
+    public void finDelJuego(String nombreGanador) {
+        mostrarPuntos(nombreGanador);
         mostrarMensaje(" Para iniciar una nueva partida ingrese el comando: nueva partida ");
     }
 
