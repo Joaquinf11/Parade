@@ -198,33 +198,31 @@ public class Juego extends ObservableRemoto implements Serializable, IJuego {
     }
 
     private void evaluarAreaDeJuego() {
-        Jugador jugador_anterior = this.jugadores.getFirst();
-        List<Jugador> jugadoresConMasCartas = new ArrayList<>();
-        for (Color color : Color.values()) {
-            jugadoresConMasCartas.clear();
+        Jugador lider = this.jugadores.getFirst();
+        List<Jugador> lideres = new ArrayList<>();
+        for (Color color : Color.values()){
             for (Jugador jugador : this.jugadores) {
-                if (jugador.getArea().getCantidadDeCartasPorColor(color) != 0 && !jugador_anterior.equals(jugador)) {
-                    if (jugador.getArea().getCantidadDeCartasPorColor(color) > jugador_anterior.getArea()
-                            .getCantidadDeCartasPorColor(color)) {
-                        jugador_anterior = jugador;
-                        jugadoresConMasCartas.clear();
-                        jugadoresConMasCartas.add(jugador);
-                    } else if (jugador.getArea().getCantidadDeCartasPorColor(color) == jugador_anterior.getArea()
-                            .getCantidadDeCartasPorColor(color)) {
-                        if (!jugadoresConMasCartas.contains(jugador_anterior)) {
-                            jugadoresConMasCartas.add(jugador_anterior);
+                int cartasJugador = jugador.getArea().getCantidadDeCartasPorColor(color);
+                int cartasLider = lider.getArea().getCantidadDeCartasPorColor(color);
+                if (cartasJugador != 0 && !lider.equals(jugador)) {
+                    if (cartasJugador > cartasLider) {
+                        lider = jugador;
+                        lideres.clear();
+                        lideres.add(jugador);
+                    } else if (cartasJugador == cartasLider) {
+                        if (!lideres.contains(lider)) {
+                            lideres.add(lider);
                         }
-                        jugadoresConMasCartas.add(jugador);
+                        lideres.add(jugador);
                     }
-                } else if (jugador_anterior.getArea().getCantidadDeCartasPorColor(color) != 0
-                        && jugadoresConMasCartas.isEmpty()) {
-                    jugadoresConMasCartas.add(jugador_anterior);
+                } else if (cartasLider != 0 && lideres.isEmpty()) {
+                    lideres.add(lider);
                 }
             }
-            for (Jugador jugador : jugadoresConMasCartas) {
+
+            for (Jugador jugador : lideres) {
                 jugador.ponerCartasBocaAbajo(color);
             }
-
         }
     }
 
