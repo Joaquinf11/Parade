@@ -20,6 +20,12 @@ public class TablaTop implements  Serializable {
         if(jugadoresTabla.size() < 5 && !jugadoresTabla.contains(jugador)){
             jugadoresTabla.add(jugador);
         }
+        else if (jugadoresTabla.contains(jugador)) {
+            Jugador existente = jugadoresTabla.get(jugadoresTabla.indexOf(jugador));
+            if (existente != jugador) {
+                existente.sumarVictoria();
+            }
+        }
         else{
             Jugador jugadorConMenosVictorias = getJugadorConMenosVictorias();
             if (jugador.getVictorias() > jugadorConMenosVictorias.getVictorias()){
