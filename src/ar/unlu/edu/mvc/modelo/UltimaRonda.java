@@ -26,7 +26,6 @@ public class UltimaRonda extends Ronda implements Serializable {
             }
             else{
                 this.indicesCartasElegidas=null;
-                this.agrego=false;
                 this.jugadores.add(this.jugadorTurno);
                 this.cambiarTurno();
             }

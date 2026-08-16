@@ -17,7 +17,6 @@ public class Ronda implements Serializable {
     protected boolean tiroCarta;
     protected List<Integer> indicesCartasElegidas = null;
     private Carta cartaTirada;
-    protected boolean agrego;
 
 
     public Ronda(Queue<Jugador> jugadores, Carnaval carnaval, Mazo mazo, Juego juego) {
@@ -26,7 +25,6 @@ public class Ronda implements Serializable {
         this.mazo = mazo;
         this.juego = juego;
         this.tiroCarta = false;
-        this.agrego=false;
     }
 
     protected void cambiarTurno() {
@@ -53,20 +51,25 @@ public class Ronda implements Serializable {
         } else {
             List<Carta> cartasCarnaval = this.carnaval.getCartas(cartasElegidas);
             for (Carta cartaCarnaval : cartasCarnaval) {
-                if (this.cartaTirada.equalsColor(cartaCarnaval) || cartaCarnaval.getValor() <= this.cartaTirada.getValor()) {
-                    jugadorTurno.agregarCartaAlAreaDeJuego(cartaCarnaval);
-                    this.carnaval.sacarCarta(cartaCarnaval);
-                    agrego = true;
-                } else {
+                if (!this.cartaTirada.equalsColor(cartaCarnaval) && cartaCarnaval.getValor() > this.cartaTirada.getValor()) {
                     throw new JuegoException("La carta elegida: " + cartaCarnaval.toString() + " no se puede agarrar", TipoException.CARTA_EXCEPTION);
                 }
             }
-            if (agrego) {
-                this.juego.notificar(Evento.CARTA_AGREGADA_AREA);
-                this.indicesCartasElegidas = cartasElegidas;
-            }
-            this.finTurno();
         }
+        asginarCartasCarnaval(cartasElegidas);
+    }
+
+    private void asginarCartasCarnaval( List<Integer> cartasElegidas) throws JuegoException {
+        List<Carta> cartasCarnaval = this.carnaval.getCartas(cartasElegidas);
+        for (Carta cartaCarnaval : cartasCarnaval) {
+            if (this.cartaTirada.equalsColor(cartaCarnaval) || cartaCarnaval.getValor() <= this.cartaTirada.getValor()) {
+                jugadorTurno.agregarCartaAlAreaDeJuego(cartaCarnaval);
+                this.carnaval.sacarCarta(cartaCarnaval);
+            }
+        }
+        this.juego.notificar(Evento.CARTA_AGREGADA_AREA);
+        this.indicesCartasElegidas = cartasElegidas;
+        this.finTurno();
     }
 
     public void finTurno() throws JuegoException {
@@ -83,7 +86,6 @@ public class Ronda implements Serializable {
             }
             else {
                 this.indicesCartasElegidas=null;
-                this.agrego=false;
                 this.jugadores.add(this.jugadorTurno);
                 this.cambiarTurno();
             }
